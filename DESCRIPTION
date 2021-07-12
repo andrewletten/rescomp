@@ -1,15 +1,14 @@
 Package: crsim
-Title: What the Package Does (One Line, Title Case)
+Title: Simulate Resource Competition
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Andrew",
+           family = "Letten",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "a.letten@uq.edu.au",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Description: This packages simulates canonical models of resource competition.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
