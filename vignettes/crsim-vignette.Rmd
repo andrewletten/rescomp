@@ -1,0 +1,55 @@
+---
+title: "crsim, how to..."
+author: "Andrew D. Letten"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{crsim, how to...}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(crsim)
+library(deSolve)
+```
+
+```{r}
+pars <- make_par_list(
+  spnum = 2, 
+  resnum = 2,
+  linear = FALSE,
+  mumatrix = matrix(c(0.7, 0.1, 
+                      0.2, 0.6), 
+                    nrow = 2,
+                    byrow = TRUE),
+  kmatrix = matrix(c(1, 0.1, 
+                     0.1, 1), 
+                   nrow = 2,
+                   byrow = TRUE),
+  logisr = c(1,1),
+  logisK = c(0.6, 0.6),
+  mort = 0.1
+  )
+
+plot_funcresp(pars, maxx = 0.6)
+```
+
+```{r}
+testrun.df <- ode(func = def_cr_ode,
+               y = initiate_state(),
+               parms = pars,
+               times = round(seq(0.1,1000,by=0.1),1),
+               essential = FALSE,
+               chemo = FALSE,
+               method = "lsoda")
+
+plot_crsim(testrun.df, pars) 
+```
+

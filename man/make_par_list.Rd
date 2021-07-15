@@ -12,7 +12,11 @@ make_par_list(
   qmatrix,
   linear = TRUE,
   essential = FALSE,
-  mort = 0.03
+  mort = 0.03,
+  chemospeed = 10,
+  chemoconc = 1,
+  logisK,
+  logisr
 )
 }
 \arguments{
@@ -31,6 +35,14 @@ make_par_list(
 \item{essential}{if FALSE resources are substitutable}
 
 \item{mort}{density independent mortality rate}
+
+\item{chemospeed}{chemostat dilution rate}
+
+\item{chemoconc}{chemostat supply concentration}
+
+\item{logisK}{resource carrying capcity (if chemo = FALSE)}
+
+\item{logisr}{resource intinsic rate of increase (if chemo = FALSE)}
 }
 \value{
 

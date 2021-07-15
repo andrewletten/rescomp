@@ -4,14 +4,14 @@
 \alias{initiate_state}
 \title{Providing starting values for state variables}
 \usage{
-initiate_state(constart = 10, restart = 1, pars)
+initiate_state(constart = 10, restart = 1, vars = pars)
 }
 \arguments{
 \item{constart}{Starting abundance for consumers}
 
 \item{restart}{Starting concentration for resources}
 
-\item{pars}{Model parameters from make_par_list()}
+\item{vars}{Model parameters from make_par_list()}
 }
 \value{
 
@@ -20,5 +20,5 @@ initiate_state(constart = 10, restart = 1, pars)
 Providing starting values for state variables
 }
 \examples{
-initiate_state(pars = make_par_list())
+initiate_state(vars = make_par_list())
 }
