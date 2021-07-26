@@ -12,7 +12,7 @@ frame_and_name(odeobject, pars)
 \item{pars}{Model parameters from make_par_list()}
 }
 \value{
-
+data frame
 }
 \description{
 Convert ode object to dataframe and name columns

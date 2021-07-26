@@ -5,7 +5,7 @@
 #'
 #' @import ggplot2
 #'
-#' @return
+#' @return ggplot object
 #' @export
 #'
 plot_funcresp <- function(pars, maxx){
@@ -14,8 +14,8 @@ plot_funcresp <- function(pars, maxx){
 
   df <- df_funcresp(pars, maxx)
 
-  ggplot2::ggplot(df, aes(y = growth, x = resource.levels)) +
-    geom_line(aes(col = sp), size = 1, alpha=0.8) +
+  ggplot2::ggplot(df, aes(y = .data$growth, x = .data$resource.levels)) +
+    geom_line(aes(col = .data$sp), size = 1, alpha=0.8) +
     theme(legend.position="none") +
     xlab("Resource concentration") +
     ylab("Per capita growth rate") +
@@ -23,7 +23,7 @@ plot_funcresp <- function(pars, maxx){
     theme(axis.text = element_text(size = 8),
           axis.title= element_text(size = 10)) +
     coord_cartesian(expand = FALSE) +
-    facet_wrap(~resource) +
+    facet_wrap(~resource, nrow = 1) +
     scale_colour_manual(values=cbbPalette)
 }
 

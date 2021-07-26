@@ -1,7 +1,7 @@
 ---
 title: "crsim, how to..."
 author: "Andrew D. Letten"
-output: rmarkdown::html_vignette
+output: rmarkdown::html_document
 vignette: >
   %\VignetteIndexEntry{crsim, how to...}
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(crsim)
 library(deSolve)
+
 ```
 
 ```{r}
@@ -25,31 +26,77 @@ pars <- make_par_list(
   spnum = 2, 
   resnum = 2,
   linear = FALSE,
-  mumatrix = matrix(c(0.7, 0.1, 
+  mumatrix = matrix(c(0.7, 0.17, 
                       0.2, 0.6), 
-                    nrow = 2,
+                    nrow = 2, 
+                    ncol = 2,
                     byrow = TRUE),
-  kmatrix = matrix(c(1, 0.1, 
+  kmatrix = matrix(c(1, 0.075, 
                      0.1, 1), 
-                   nrow = 2,
+                   nrow = 2, 
+                   ncol = 2, 
                    byrow = TRUE),
-  logisr = c(1,1),
-  logisK = c(0.6, 0.6),
+  essential = FALSE, 
+  chemo = TRUE,
+  resspeed = 1,
+  resconc = 0.6,
+  respulse = 0,
   mort = 0.1
-  )
+)
+```
 
+```{r}
 plot_funcresp(pars, maxx = 0.6)
 ```
 
 ```{r}
-testrun.df <- ode(func = def_cr_ode,
-               y = initiate_state(),
-               parms = pars,
-               times = round(seq(0.1,1000,by=0.1),1),
-               essential = FALSE,
-               chemo = FALSE,
-               method = "lsoda")
+happenings <- time_vals(total = 1000)
+
+testrun.df <- ode(
+  func = def_cr_ode,
+  y = initiate_state(vars=pars),
+  parms = pars,
+  times = happenings$totaltime,
+  method = "lsoda"
+  )
 
 plot_crsim(testrun.df, pars) 
 ```
 
+Now with a single pulsing resource...
+
+```{r}
+pars <- make_par_list(
+  spnum = 2, 
+  resnum = 1,
+  linear = FALSE,
+  mumatrix = matrix(c(0.7, 0.15), 
+                    nrow = 2, 
+                    ncol = 1,
+                    byrow = TRUE),
+  kmatrix = matrix(c(1, 0.02), 
+                   nrow = 2, 
+                   ncol = 1, 
+                   byrow = TRUE),
+  essential = FALSE, 
+  chemo = TRUE,
+  resspeed = 0,
+  resconc = 0.6,
+  respulse = 0.75,
+  mort = 0.1
+)
+```
+```{r}
+happenings <- time_vals(total = 1000, pulse = 10)
+
+testrun.df <- ode(
+  func = def_cr_ode,
+  y = initiate_state(vars=pars),
+  parms = pars,
+  times = happenings$totaltime,
+  method = "lsoda",
+  events = list(func = eventfun_respulse, time = happenings$pulseseq)
+  )
+
+plot_crsim(testrun.df, pars) 
+```

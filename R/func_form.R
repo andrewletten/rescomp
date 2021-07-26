@@ -6,7 +6,7 @@
 #' @param phi 0 if linear, 1 otherwise
 #' @param type3 1 if type 3, 1/2 otherwise
 #'
-#' @return
+#' @return vector
 #' @export
 #'
 func_form <- function(R, mu, Ks, phi, type3) {

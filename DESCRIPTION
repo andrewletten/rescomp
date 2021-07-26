@@ -16,7 +16,8 @@ RoxygenNote: 7.1.1
 Imports: 
     ggplot2,
     tidyr,
-    deSolve
+    deSolve,
+    rlang
 Suggests: 
     rmarkdown,
     knitr

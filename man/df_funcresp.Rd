@@ -12,7 +12,7 @@ df_funcresp(pars, maxx)
 \item{maxx}{maximum resource value to get percapita growth rates for (for plotting)}
 }
 \value{
-
+data frame
 }
 \description{
 Generate ggplot friendly dataframe for plotting functional responses

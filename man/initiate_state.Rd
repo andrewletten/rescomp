@@ -4,7 +4,7 @@
 \alias{initiate_state}
 \title{Providing starting values for state variables}
 \usage{
-initiate_state(constart = 10, restart = 1, vars = pars)
+initiate_state(constart = 10, restart = vars$resconc, vars)
 }
 \arguments{
 \item{constart}{Starting abundance for consumers}
@@ -14,7 +14,7 @@ initiate_state(constart = 10, restart = 1, vars = pars)
 \item{vars}{Model parameters from make_par_list()}
 }
 \value{
-
+vector
 }
 \description{
 Providing starting values for state variables

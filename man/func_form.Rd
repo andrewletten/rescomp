@@ -18,7 +18,7 @@ func_form(R, mu, Ks, phi, type3)
 \item{type3}{1 if type 3, 1/2 otherwise}
 }
 \value{
-
+vector
 }
 \description{
 Generate type 1,2 or 3 functional response

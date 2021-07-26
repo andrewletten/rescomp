@@ -12,11 +12,11 @@ make_par_list(
   qmatrix,
   linear = TRUE,
   essential = FALSE,
+  chemo = FALSE,
   mort = 0.03,
-  chemospeed = 10,
-  chemoconc = 1,
-  logisK,
-  logisr
+  resspeed = 1,
+  resconc = 1,
+  respulse = 0
 )
 }
 \arguments{
@@ -34,18 +34,18 @@ make_par_list(
 
 \item{essential}{if FALSE resources are substitutable}
 
+\item{chemo}{if FALSE resources grow logistically}
+
 \item{mort}{density independent mortality rate}
 
-\item{chemospeed}{chemostat dilution rate}
+\item{resspeed}{resource intinsic rate of increase (if chemo = FALSE), otherwise chemostat dilution rate. Set to zero for pulsing only.}
 
-\item{chemoconc}{chemostat supply concentration}
+\item{resconc}{resource carrying capcity (if chemo = FALSE), otherwise chemostat supply concentration}
 
-\item{logisK}{resource carrying capcity (if chemo = FALSE)}
-
-\item{logisr}{resource intinsic rate of increase (if chemo = FALSE)}
+\item{respulse}{resource pulse size. Requires events argument in call to \code{ode}.}
 }
 \value{
-
+list
 }
 \description{
 Generate list of parameters for consumer-resource model

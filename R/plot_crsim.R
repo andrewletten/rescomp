@@ -3,13 +3,13 @@
 #' @param odeobj odeobject
 #' @param pars parameters from make_par_list()
 #'
-#' @return
+#' @return ggplot object
 #' @export
 #'
-#' @examples
+# #' @examples
 plot_crsim <- function(odeobj, pars){
   plot.df <-  frame_and_name(odeobj, pars)
-  comp.gg <- tidyr::gather(plot.df, state.var, count, -time)
+  comp.gg <- tidyr::pivot_longer(plot.df, cols = !c(.data$time), names_to = "state.var", values_to = "count")
   comp.gg$state.var.type <- "Consumers"
   comp.gg$state.var.type[grep("R", comp.gg$state.var)] <- "Resources"
 
@@ -19,13 +19,13 @@ plot_crsim <- function(odeobj, pars){
 
     comp.gg,
     aes(
-      y = count,
-      x= time)) +
+      y = .data$count,
+      x = .data$time)) +
 
     geom_line(
       aes(
-        group = state.var,
-        col = state.var),
+        group = .data$state.var,
+        col = .data$state.var),
       size = 1,
       alpha=0.9) +
 

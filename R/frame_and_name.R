@@ -3,7 +3,7 @@
 #' @param odeobject ode object from
 #' @param pars Model parameters from make_par_list()
 #'
-#' @return
+#' @return data frame
 #' @export
 #'
 # #' @examples

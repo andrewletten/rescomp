@@ -12,7 +12,7 @@ plot_funcresp(pars, maxx)
 \item{maxx}{maximum resource value to get percapita growth rates for (for plotting)}
 }
 \value{
-
+ggplot object
 }
 \description{
 Plot functional responses

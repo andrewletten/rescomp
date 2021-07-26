@@ -12,7 +12,7 @@ plot_crsim(odeobj, pars)
 \item{pars}{parameters from make_par_list()}
 }
 \value{
-
+ggplot object
 }
 \description{
 Plot consumer and resource dynamics from deSolve output
