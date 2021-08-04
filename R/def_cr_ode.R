@@ -25,7 +25,7 @@ def_cr_ode <- function(Time, State, Pars) {
         mu_list_live[[i]] <- mu_live_eachres
       }
       mu <- matrix(unlist(mu_list_live),
-                   nrow = nrow(mu_list[[1]]),
+                   nrow = nrow(mu[[1]]),
                    byrow = TRUE)
     } else{
       mu <- mu[[1]]

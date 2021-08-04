@@ -15,22 +15,22 @@ plot_crsim <- function(odeobj, pars){
 
   cbbPalette = c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
-  ggplot2::ggplot(
-
-    comp.gg,
+  ggplot2::ggplot(comp.gg,
     aes(
       y = .data$count,
-      x = .data$time)) +
+      x = .data$time)
+    ) +
 
     geom_line(
       aes(
         group = .data$state.var,
-        col = .data$state.var),
+        col = .data$state.var
+        ),
       size = 1,
       alpha=0.9) +
 
-    scale_y_log10() +
-    #  theme(legend.position="none") +
+    # scale_y_log10() +
+    # theme(legend.position="none") +
 
     ylab("Population size") +
 

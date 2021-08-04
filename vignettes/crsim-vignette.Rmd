@@ -1,7 +1,9 @@
 ---
 title: "crsim: vignette"
 author: "Andrew D. Letten"
-output: rmarkdown::html_document
+output: 
+#  rmarkdown::html_document: default
+  rmarkdown::pdf_document: default
 vignette: >
   %\VignetteIndexEntry{crsim, how to...}
   %\VignetteEngine{knitr::rmarkdown}
@@ -17,13 +19,68 @@ knitr::opts_chunk$set(
 
 `crsim` is an R package for defining ode models of consumer-resource interactions for use alongside `deSolve`. It also provides a number of additional functions for visualising functional responses and output dynamics from `deSolve`.
 
+The main user function in `crsim` is `make_par_list()`, which facilitates the definition and parameterisation of a desired model. Features/options include: 
+
+- Number of consumers/resources
+- Consumer functional response (type I or type II)
+- Resource dynamic (chemostat, logistic and/or pulsed)
+- Resource type (substitutable or essential)
+- Time dependent parameters 
+
+Examples demonstrated in this vignette include:
+
+- One type 2 consumer and one logistically growing resource
+- One type 1 consumer and one continuously supplied resource (i.e. chemostat) 
+- Two type 2 consumers and one logistically growing resource
+- Two type 2 consumers and two substitutable resources in a chemostat
+- Two type 2 consumers and one externally pulsed resource
+- Two type 2 consumers with time dependent parameters and one continuously supplied resource
+
+
+### Single type 1 consumer and single logistically growing resource
+
+
 ```{r setup}
 library(crsim)
 library(deSolve)
-
 ```
 
-The main user function in `crsim` is `make_par_list()`. This is where you define the structure and parameterisation of the model.
+```{r}
+pars <- make_par_list(
+  spnum = 1, 
+  resnum = 1,
+  linear = FALSE,
+  mumatrix = list(matrix(0.1)),
+  resspeed = 3,
+  resconc = 0.2
+)
+```
+
+Visualise funcitonal responses with `plot_funcresp`. Faceted by resources and time dependent parameterisations (when relevant).
+
+```{r, fig.width = 4, fig.height = 3}
+plot_funcresp(pars, maxx = 0.2)
+```
+
+The function `time_vals` is used for setting total simulation time (and is used to set the resource pulse interval when used in conjunction with an event function [see below]). The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources.
+
+```{r}
+happenings <- time_vals(total = 500)
+
+m1 <- ode(
+  func = def_cr_ode,
+  y = initiate_state(vars=pars),
+  parms = pars,
+  times = happenings$totaltime,
+  method = "lsoda"
+  )
+```
+
+`plot_cr_sim` plots the output dynamics.
+
+```{r, fig.width = 8, fig.height = 4}
+plot_crsim(m1, pars) 
+```
 
 ```{r}
 pars <- make_par_list(
@@ -52,7 +109,7 @@ pars <- make_par_list(
 )
 ```
 
-```{r}
+```{r, fig.width = 8, fig.height = 4}
 plot_funcresp(pars, maxx = 0.6)
 ```
 
@@ -66,7 +123,9 @@ testrun.df <- ode(
   times = happenings$totaltime,
   method = "lsoda"
   )
+```
 
+```{r, fig.width = 8, fig.height = 4}
 plot_crsim(testrun.df, pars) 
 ```
 
@@ -96,6 +155,7 @@ pars <- make_par_list(
   timeswitch_length = 1000
 )
 ```
+
 ```{r}
 happenings <- time_vals(total = 1000, pulse = 10)
 
@@ -107,6 +167,8 @@ testrun.df <- ode(
   method = "lsoda",
   events = list(func = eventfun_respulse, time = happenings$pulseseq)
   )
+```
 
+```{r, fig.width = 8, fig.height = 4}
 plot_crsim(testrun.df, pars) 
 ```
