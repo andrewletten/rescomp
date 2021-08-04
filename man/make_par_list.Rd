@@ -16,7 +16,10 @@ make_par_list(
   mort = 0.03,
   resspeed = 1,
   resconc = 1,
-  respulse = 0
+  respulse = 0,
+  timepars = FALSE,
+  timeswitch = 96,
+  timeswitch_length = 1000
 )
 }
 \arguments{
@@ -38,11 +41,17 @@ make_par_list(
 
 \item{mort}{density independent mortality rate}
 
-\item{resspeed}{resource intinsic rate of increase (if chemo = FALSE), otherwise chemostat dilution rate. Set to zero for pulsing only.}
+\item{resspeed}{resource intrinsic rate of increase (if chemo = FALSE), otherwise chemostat dilution rate. Set to zero for pulsing only.}
 
-\item{resconc}{resource carrying capcity (if chemo = FALSE), otherwise chemostat supply concentration}
+\item{resconc}{resource carrying capacity (if chemo = FALSE), otherwise chemostat supply concentration}
 
 \item{respulse}{resource pulse size. Requires events argument in call to \code{ode}.}
+
+\item{timepars}{Logical. If time dependent parameters required.}
+
+\item{timeswitch}{Integer. Frequency of parameter switching.}
+
+\item{timeswitch_length}{Integer. Total time for parameter switching. Should be equivalent to total simulation time.}
 }
 \value{
 list

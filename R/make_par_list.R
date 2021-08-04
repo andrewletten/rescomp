@@ -9,12 +9,17 @@
 #' @param chemo if FALSE resources grow logistically
 #' @param essential if FALSE resources are substitutable
 #' @param mort density independent mortality rate
-#' @param resspeed resource intinsic rate of increase (if chemo = FALSE), otherwise chemostat dilution rate. Set to zero for pulsing only.
-#' @param resconc resource carrying capcity (if chemo = FALSE), otherwise chemostat supply concentration
+#' @param resspeed resource intrinsic rate of increase (if chemo = FALSE), otherwise chemostat dilution rate. Set to zero for pulsing only.
+#' @param resconc resource carrying capacity (if chemo = FALSE), otherwise chemostat supply concentration
 #' @param respulse resource pulse size. Requires events argument in call to `ode`.
+#' @param timepars Logical. If time dependent parameters required.
+#' @param timeswitch Integer. Frequency of parameter switching.
+#' @param timeswitch_length Integer. Total time for parameter switching. Should be equivalent to total simulation time.
 #'
 #' @return list
 #' @export
+#'
+#' @importFrom stats approxfun
 #'
 #' @examples
 #' make_par_list()
@@ -29,16 +34,34 @@ make_par_list <-  function(spnum = 2,
                            mort = 0.03,
                            resspeed = 1,
                            resconc = 1,
-                           respulse = 0){
+                           respulse = 0,
+                           timepars = FALSE,
+                           timeswitch = 96,
+                           timeswitch_length = 1000){
   pars  <-  list()
 
   if (missing(mumatrix)){
-    pars$mu <-  matrix(rep(0.1, times = spnum*resnum), nrow = spnum, byrow = TRUE)
+    pars$mu <-  list(matrix(rep(0.1, times = spnum*resnum), nrow = spnum, byrow = TRUE))
   } else{
     pars$mu <- mumatrix
   }
-  if (nrow(pars$mu) != spnum) stop(paste0("mumatrix should have ", spnum, " rows for ", spnum, " consumers."))
-  if (ncol(pars$mu) != resnum) stop(paste0("mumatrix should have ", resnum, " columns for ", resnum, " resources."))
+  if (timepars == TRUE){
+    forcetime <- seq(0, timeswitch_length, timeswitch)
+    mu_funs_byres <-  list()
+    mu_funs_bycons <-  list()
+
+    # Create a list of functions
+    for (i in 1:nrow(pars$mu[[1]])) {
+      for (j in 1:ncol(pars$mu[[1]])) {
+        force_mu <- rep(c(pars$mu[[1]][i,j], pars$mu[[2]][i,j]), length.out = length(forcetime))
+        mu_funs_byres[[j]] <- approxfun(forcetime, force_mu, method = "constant", rule = 2)
+      }
+      mu_funs_bycons[[i]] <- mu_funs_byres
+    }
+    pars$mu_approx_fun = mu_funs_bycons
+  }
+  if (nrow(pars$mu[[1]]) != spnum) stop(paste0("mumatrix(s) should have ", spnum, " rows for ", spnum, " consumers."))
+  if (ncol(pars$mu[[1]]) != resnum) stop(paste0("mumatrix(s) should have ", resnum, " columns for ", resnum, " resources."))
   if (missing(kmatrix)){
     pars$Ks <-  matrix(rep(1, times = spnum*resnum), nrow = spnum, byrow = TRUE)
   } else{
@@ -63,6 +86,8 @@ make_par_list <-  function(spnum = 2,
   pars$nresources = resnum
   pars$resspeed = rep(resspeed, times = resnum)
   pars$resconc = rep(resconc, times = resnum)
+  pars$timepars = timepars
+  pars$timeswitch = timeswitch
 
   resdyn <- paste0(
     if (chemo == TRUE & resspeed != 0 & respulse != 0){
@@ -84,11 +109,14 @@ make_par_list <-  function(spnum = 2,
     }
   )
   message(
-    paste0(
-      "Model properties: \n", spnum, " consumer(s) and ", resnum, " resource(s)\n",
-      "Consumers have", ifelse(linear, " type 1", " type 2")), " functional responses\n",
-    "Resources are", ifelse(essential, " essential", " substitutable\n"),
-    resdyn, "\n",
-    "Mortality is continuous")
+      "Model properties: \n",
+      " * ", spnum, " consumer(s) and ", resnum, " resource(s)\n",
+      " * ", "Consumers have", ifelse(linear, " type 1", " type 2"), " functional responses\n",
+      " * ", "Resources are", ifelse(essential, " essential", " substitutable\n"),
+      " * ", resdyn, "\n",
+      " * ", "Mortality is continuous\n",
+      " * ", ifelse(timepars, paste0("Parameters are time dependent with switching every ", timeswitch, " time steps"),
+             "Parameters are constant through time ")
+  )
   return(pars)
 }

@@ -23,7 +23,7 @@ plot_funcresp <- function(pars, maxx){
     theme(axis.text = element_text(size = 8),
           axis.title= element_text(size = 10)) +
     coord_cartesian(expand = FALSE) +
-    facet_wrap(~resource, nrow = 1) +
+    facet_grid(paramstate ~ resource) +
     scale_colour_manual(values=cbbPalette)
 }
 

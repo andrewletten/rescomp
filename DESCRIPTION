@@ -17,7 +17,8 @@ Imports:
     ggplot2,
     tidyr,
     deSolve,
-    rlang
+    rlang,
+    stats
 Suggests: 
     rmarkdown,
     knitr

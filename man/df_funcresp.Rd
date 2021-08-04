@@ -9,7 +9,7 @@ df_funcresp(pars, maxx)
 \arguments{
 \item{pars}{parameter list from make_par_list()}
 
-\item{maxx}{maximum resource value to get percapita growth rates for (for plotting)}
+\item{maxx}{maximum resource value to get percapita growth rates (for plotting)}
 }
 \value{
 data frame

@@ -1,7 +1,7 @@
 #' Generate ggplot friendly dataframe for plotting functional responses
 #'
 #' @param pars parameter list from make_par_list()
-#' @param maxx maximum resource value to get percapita growth rates for (for plotting)
+#' @param maxx maximum resource value to get percapita growth rates (for plotting)
 #'
 #' @return data frame
 #' @export
@@ -17,11 +17,13 @@ df_funcresp <- function(pars, maxx){
   resp.iter <-  data.frame(matrix(nrow = length(resource.levels), ncol = pars$nresources))
   resp.iter$resource.levels <-  resource.levels
   resp.list <- list()
+  resp.list.TDP <- list()
 
+  for (k in 1:length(pars$mu)){
   for (i in 1:pars$nconsumers){
     for (j in 1:pars$nresources){
       resp.iter[,j] = func_form(R = resource.levels,
-                                mu = pars$mu[i,j],
+                                mu = pars$mu[[k]][i,j],
                                 Ks = pars$Ks[i,j],
                                 #aff = pars$aff[i,j],
                                 phi = pars$phi[i,j],
@@ -29,8 +31,11 @@ df_funcresp <- function(pars, maxx){
       names(resp.iter)[j] <-  paste0("Resource ", letters[c(1:pars$nresources)[j]])
     }
     resp.iter$sp <-  paste0("N", c(1:pars$nconsumers)[i])
+    resp.iter$paramstate <- paste0("TDP-state-", k)
     resp.list[[i]] <-  resp.iter
   }
-  resp.all <- do.call("rbind", resp.list)
-  tidyr::pivot_longer(resp.all, cols = !c(.data$resource.levels, .data$sp), names_to = "resource", values_to = "growth")
+    resp.list.TDP[[k]] <-  do.call("rbind", resp.list)
+  }
+  resp.all <- do.call("rbind", resp.list.TDP)
+  tidyr::pivot_longer(resp.all, cols = !c(.data$resource.levels, .data$sp, .data$paramstate), names_to = "resource", values_to = "growth")
 }

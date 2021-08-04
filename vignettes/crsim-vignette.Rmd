@@ -1,5 +1,5 @@
 ---
-title: "crsim, how to..."
+title: "crsim: vignette"
 author: "Andrew D. Letten"
 output: rmarkdown::html_document
 vignette: >
@@ -15,22 +15,26 @@ knitr::opts_chunk$set(
 )
 ```
 
+`crsim` is an R package for defining ode models of consumer-resource interactions for use alongside `deSolve`. It also provides a number of additional functions for visualising functional responses and output dynamics from `deSolve`.
+
 ```{r setup}
 library(crsim)
 library(deSolve)
 
 ```
 
+The main user function in `crsim` is `make_par_list()`. This is where you define the structure and parameterisation of the model.
+
 ```{r}
 pars <- make_par_list(
   spnum = 2, 
   resnum = 2,
   linear = FALSE,
-  mumatrix = matrix(c(0.7, 0.17, 
+  mumatrix = list(matrix(c(0.7, 0.17, 
                       0.2, 0.6), 
                     nrow = 2, 
                     ncol = 2,
-                    byrow = TRUE),
+                    byrow = TRUE)),
   kmatrix = matrix(c(1, 0.075, 
                      0.1, 1), 
                    nrow = 2, 
@@ -41,7 +45,10 @@ pars <- make_par_list(
   resspeed = 1,
   resconc = 0.6,
   respulse = 0,
-  mort = 0.1
+  mort = 0.1,
+  timepars = FALSE,
+  timeswitch = 96,
+  timeswitch_length = 1000
 )
 ```
 
@@ -70,10 +77,10 @@ pars <- make_par_list(
   spnum = 2, 
   resnum = 1,
   linear = FALSE,
-  mumatrix = matrix(c(0.7, 0.15), 
+  mumatrix = list(matrix(c(0.7, 0.15), 
                     nrow = 2, 
                     ncol = 1,
-                    byrow = TRUE),
+                    byrow = TRUE)),
   kmatrix = matrix(c(1, 0.02), 
                    nrow = 2, 
                    ncol = 1, 
@@ -83,7 +90,10 @@ pars <- make_par_list(
   resspeed = 0,
   resconc = 0.6,
   respulse = 0.75,
-  mort = 0.1
+  mort = 0.1,
+  timepars = FALSE,
+  timeswitch = 0,
+  timeswitch_length = 1000
 )
 ```
 ```{r}
