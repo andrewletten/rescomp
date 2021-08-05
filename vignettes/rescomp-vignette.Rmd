@@ -2,7 +2,7 @@
 title: "Package rescomp: making consumer-resource simulations easier"
 author: "Andrew D. Letten"
 output: 
-#  rmarkdown::html_document: default
+  rmarkdown::html_document: default
   rmarkdown::pdf_document: 
 #    number_sections: true
 vignette: >
