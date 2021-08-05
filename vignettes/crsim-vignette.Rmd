@@ -1,9 +1,10 @@
 ---
-title: "crsim: vignette"
+title: "Package crsim: making consumer-resource simulations easier"
 author: "Andrew D. Letten"
 output: 
 #  rmarkdown::html_document: default
-  rmarkdown::pdf_document: default
+  rmarkdown::pdf_document: 
+#    number_sections: true
 vignette: >
   %\VignetteIndexEntry{crsim, how to...}
   %\VignetteEngine{knitr::rmarkdown}
@@ -25,19 +26,23 @@ The main user function in `crsim` is `make_par_list()`, which facilitates the de
 - Consumer functional response (type I or type II)
 - Resource dynamic (chemostat, logistic and/or pulsed)
 - Resource type (substitutable or essential)
-- Time dependent parameters 
+- Time dependent consumption parameters 
 
-Examples demonstrated in this vignette include:
+See `?make_par_list` for all argument options.
+
+**Examples demonstrated in this vignette include:**
 
 - One type 2 consumer and one logistically growing resource
-- One type 1 consumer and one continuously supplied resource (i.e. chemostat) 
+- One type 2 consumer and one continuously supplied resource (i.e. chemostat) 
 - Two type 2 consumers and one logistically growing resource
-- Two type 2 consumers and two substitutable resources in a chemostat
-- Two type 2 consumers and one externally pulsed resource
-- Two type 2 consumers with time dependent parameters and one continuously supplied resource
+- Two type 1 consumers and two substitutable resources in a chemostat
+- Two type 2 consumers and one externally pulsed resource 
+    * Continuous mortality
+    * Serial batch culture
+- Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource
 
 
-### Single type 1 consumer and single logistically growing resource
+### Type 1 consumer on a logistically growing resource
 
 
 ```{r setup}
@@ -56,9 +61,9 @@ pars <- make_par_list(
 )
 ```
 
-Visualise funcitonal responses with `plot_funcresp`. Faceted by resources and time dependent parameterisations (when relevant).
+Visualise funcitonal responses with `crsim::plot_funcresp`. Faceted by resources and time dependent parameterisations (when relevant).
 
-```{r, fig.width = 4, fig.height = 3}
+```{r, fig.width = 3, fig.height = 3}
 plot_funcresp(pars, maxx = 0.2)
 ```
 
@@ -78,45 +83,30 @@ m1 <- ode(
 
 `plot_cr_sim` plots the output dynamics.
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.width = 6, fig.height = 3}
 plot_crsim(m1, pars) 
 ```
 
+### Type 1 consumer on a continuously suppplied resource
+
+To switch to a continuously supplied resource,use `chemo = TRUE'.
+
 ```{r}
 pars <- make_par_list(
-  spnum = 2, 
-  resnum = 2,
+  spnum = 1, 
+  resnum = 1,
   linear = FALSE,
-  mumatrix = list(matrix(c(0.7, 0.17, 
-                      0.2, 0.6), 
-                    nrow = 2, 
-                    ncol = 2,
-                    byrow = TRUE)),
-  kmatrix = matrix(c(1, 0.075, 
-                     0.1, 1), 
-                   nrow = 2, 
-                   ncol = 2, 
-                   byrow = TRUE),
-  essential = FALSE, 
-  chemo = TRUE,
-  resspeed = 1,
-  resconc = 0.6,
-  respulse = 0,
-  mort = 0.1,
-  timepars = FALSE,
-  timeswitch = 96,
-  timeswitch_length = 1000
+  mumatrix = list(matrix(0.1)),
+  resspeed = 3,
+  resconc = 0.2,
+  chemo = TRUE
 )
 ```
 
-```{r, fig.width = 8, fig.height = 4}
-plot_funcresp(pars, maxx = 0.6)
-```
-
 ```{r}
-happenings <- time_vals(total = 1000)
+happenings <- time_vals(total = 500)
 
-testrun.df <- ode(
+m1 <- ode(
   func = def_cr_ode,
   y = initiate_state(vars=pars),
   parms = pars,
@@ -125,50 +115,186 @@ testrun.df <- ode(
   )
 ```
 
-```{r, fig.width = 8, fig.height = 4}
-plot_crsim(testrun.df, pars) 
+```{r, fig.width = 6, fig.height = 3}
+plot_crsim(m1, pars) 
 ```
 
-Now with a single pulsing resource...
+### Two type 2 consumers on a logistically growing resource
 
 ```{r}
 pars <- make_par_list(
   spnum = 2, 
   resnum = 1,
   linear = FALSE,
-  mumatrix = list(matrix(c(0.7, 0.15), 
+  mumatrix = list(matrix(c(0.7,0.05), 
                     nrow = 2, 
                     ncol = 1,
                     byrow = TRUE)),
-  kmatrix = matrix(c(1, 0.02), 
+  kmatrix = matrix(c(2, 0.015), 
                    nrow = 2, 
                    ncol = 1, 
-                   byrow = TRUE),
-  essential = FALSE, 
-  chemo = TRUE,
-  resspeed = 0,
-  resconc = 0.6,
-  respulse = 0.75,
-  mort = 0.1,
-  timepars = FALSE,
-  timeswitch = 0,
-  timeswitch_length = 1000
+                   byrow = TRUE),  
+  resspeed = 3,
+  resconc = 0.2
 )
 ```
 
-```{r}
-happenings <- time_vals(total = 1000, pulse = 10)
+```{r, fig.width = 3, fig.height = 3}
+plot_funcresp(pars, maxx = 0.2)
+```
 
-testrun.df <- ode(
+```{r}
+happenings <- time_vals(total = 2000)
+
+m1 <- ode(
+  func = def_cr_ode,
+  y = initiate_state(vars=pars),
+  parms = pars,
+  times = happenings$totaltime,
+  method = "lsoda"
+  )
+```
+
+```{r, fig.width = 6, fig.height = 3}
+plot_crsim(m1, pars) 
+```
+Owing to the trade-off in functional responses (gleaner-opportunist) and resource fluctuations generated by N2, the two consumers are able to coexist via the coexistence mechanism known as 'relative nonlinearity of competition'.
+
+### Two type 1 consumers and two substitutable resources in a chemostat
+
+```{r}
+pars <- make_par_list(
+  spnum = 2, 
+  resnum = 2,
+  linear = TRUE,
+  mumatrix = list(matrix(c(0.07,0.03,
+                           0.04,0.05), 
+                    nrow = 2, 
+                    ncol = 2,
+                    byrow = TRUE)),
+  resspeed = 3,
+  resconc = 0.2,
+  chemo = TRUE,
+  essential = FALSE
+)
+```
+
+```{r, fig.width = 6, fig.height = 3}
+plot_funcresp(pars, maxx = 0.2)
+```
+
+```{r}
+happenings <- time_vals(total = 1000)
+
+m1 <- ode(
+  func = def_cr_ode,
+  y = initiate_state(vars=pars),
+  parms = pars,
+  times = happenings$totaltime,
+  method = "lsoda"
+  )
+```
+
+```{r, fig.width = 6, fig.height = 3}
+plot_crsim(m1, pars) 
+```
+Resource partitioning, where each consumer is a better competitor (lower R*) for a different resource, results in coexistence.
+
+### Two type 2 consumers and one externally pulsed resource (continuous mortality)
+
+External resource pulsing is handled using an event function, `crsim::eventfun_respulse` which is passed in a list to `deSolve::ode`. The size of the resource pulse is specified as a numeric with the argument `respulse` in the call to `make_par_list`. To prevent any other mode of resource supply, `resspeed` should be set to zero. The frequency of pulsing is set with the `pulse` argument in `crsim::time_vals`. The resultant vector of pusling intervals should be included in the same list containing the event function.
+
+```{r}
+pars <- make_par_list(
+  spnum = 2, 
+  resnum = 1,
+  linear = FALSE,
+  mumatrix = list(matrix(c(0.7,0.05), 
+                    nrow = 2, 
+                    ncol = 1,
+                    byrow = TRUE)),
+  kmatrix = matrix(c(2, 0.015), 
+                   nrow = 2, 
+                   ncol = 1, 
+                   byrow = TRUE),  
+  resspeed = 0, # set to zero for no additional resource supply 
+  resconc = 0.2,
+  respulse = 0.3 # resource pulse size
+)
+```
+
+```{r, fig.width = 3, fig.height = 3}
+plot_funcresp(pars, maxx = max(pars$respulse))
+```
+
+```{r}
+happenings <- time_vals(total = 2000, pulse = 100) # 'pulse' sets the interval 
+
+m1 <- ode(
   func = def_cr_ode,
   y = initiate_state(vars=pars),
   parms = pars,
   times = happenings$totaltime,
   method = "lsoda",
-  events = list(func = eventfun_respulse, time = happenings$pulseseq)
+  # events argument takes a list including the event function and a vector of pulsing intervals
+  events = list(func = eventfun_respulse, time = happenings$pulseseq),
   )
 ```
 
-```{r, fig.width = 8, fig.height = 4}
-plot_crsim(testrun.df, pars) 
+```{r, fig.width = 6, fig.height = 3}
+plot_crsim(m1, pars) 
 ```
+
+### Two type 2 consumers and one externally pulsed resource (serial transfer with pulsed mortality)
+
+*To be implemented*
+
+### Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource
+
+Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in `deSolve` with forcing functions. `crsim` provides a straightforward means of implementing forcing functions in the background. Three additional arguments are needed in `make_par_list`: `timepars`, `timeswitch` and `time_switch_length`. `timepars` should be set to `TRUE`; `timeswitch` adjusts the frequency of switching between 'environmental states'; `time_switch_length` adjust the total time over which the environment varies (for most applications this should equal the total time in the call to `time_vals`). 
+
+In addition, if `time_pars` = TRUE, the mumatrix argument `make_par_list` expects a list containing two matrices, reflecting two different environmental states. At this stage `crsim` only handles two states with equal time allotted to each state.
+
+```{r}
+pars <- make_par_list(
+  spnum = 2, 
+  resnum = 1,
+  linear = FALSE,
+  mumatrix = list(matrix(c(0.3,0.1), 
+                    nrow = 2, 
+                    ncol = 1,
+                    byrow = TRUE),
+                  matrix(c(0.2,0.5), 
+                    nrow = 2, 
+                    ncol = 1,
+                    byrow = TRUE)),
+  chemo = TRUE,
+  resspeed = 0.1,
+  resconc = 0.1,
+  timepars = TRUE,
+  timeswitch = 50,
+  timeswitch_length = 2000
+)
+```
+
+```{r, fig.width = 3, fig.height = 6}
+plot_funcresp(pars, maxx = max(pars$resconc))
+```
+
+```{r}
+happenings <- time_vals(total = 2000)
+
+m1 <- ode(
+  func = def_cr_ode,
+  y = initiate_state(vars=pars),
+  parms = pars,
+  times = happenings$totaltime,
+  method = "lsoda",
+  )
+```
+
+```{r, fig.width = 6, fig.height = 3}
+plot_crsim(m1, pars) 
+```
+
+The two consumers coexist due species-specific environmental responses leading to a temporal storage effect (formalization of temporal niche paritioning arising from density dependence in environment-competition covariance).
