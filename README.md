@@ -55,7 +55,7 @@ pars <- make_par_list(
 plot_funcresp(pars, maxx = 0.2)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="40%" />
 
 ``` r
 happenings <- time_vals(total = 2000)
@@ -73,4 +73,4 @@ m1 <- ode(
 plot_crsim(m1, pars) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="40%" />
