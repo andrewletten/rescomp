@@ -16,7 +16,8 @@ plot_funcresp <- function(pars, maxx){
 
   ggplot2::ggplot(df, aes(y = .data$growth, x = .data$resource.levels)) +
     geom_line(aes(col = .data$sp), size = 1, alpha=0.8) +
-    theme(legend.position="none") +
+    theme(legend.position="none",
+          strip.background = element_blank(),) +
     xlab("Resource concentration") +
     ylab("Per capita growth rate") +
     geom_hline(yintercept = pars$all_d, linetype = "dashed") +

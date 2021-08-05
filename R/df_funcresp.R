@@ -31,7 +31,7 @@ df_funcresp <- function(pars, maxx){
       names(resp.iter)[j] <-  paste0("Resource ", letters[c(1:pars$nresources)[j]])
     }
     resp.iter$sp <-  paste0("N", c(1:pars$nconsumers)[i])
-    resp.iter$paramstate <- paste0("TDP-state-", k)
+    resp.iter$paramstate <- paste0("env-state-", k)
     resp.list[[i]] <-  resp.iter
   }
     resp.list.TDP[[k]] <-  do.call("rbind", resp.list)

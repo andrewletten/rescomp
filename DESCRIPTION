@@ -1,5 +1,5 @@
-Package: crsim
-Title: Simulate Resource Competition
+Package: rescomp
+Title: Efficient modelling of resource competition
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Andrew",

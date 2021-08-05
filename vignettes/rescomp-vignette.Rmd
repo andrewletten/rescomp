@@ -1,12 +1,12 @@
 ---
-title: "Package crsim: making consumer-resource simulations easier"
+title: "Package rescomp: making consumer-resource simulations easier"
 author: "Andrew D. Letten"
 output: 
 #  rmarkdown::html_document: default
   rmarkdown::pdf_document: 
 #    number_sections: true
 vignette: >
-  %\VignetteIndexEntry{crsim, how to...}
+  %\VignetteIndexEntry{rescomp, how to...}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,9 +18,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-`crsim` is an R package for defining ode models of consumer-resource interactions for use alongside `deSolve`. It also provides a number of additional functions for visualising functional responses and output dynamics from `deSolve`.
+`rescomp` is an R package for defining ode models of consumer-resource interactions for use alongside `deSolve`. It also provides a number of additional functions for visualising functional responses and output dynamics from `deSolve`.
 
-The main user function in `crsim` is `make_par_list()`, which facilitates the definition and parameterisation of a desired model. Features/options include: 
+The main user function in `rescomp` is `make_par_list()`, which facilitates the definition and parameterisation of a desired model. Features/options include: 
 
 - Number of consumers/resources
 - Consumer functional response (type I or type II)
@@ -46,7 +46,7 @@ See `?make_par_list` for all argument options.
 
 
 ```{r setup}
-library(crsim)
+library(rescomp)
 library(deSolve)
 ```
 
@@ -61,7 +61,7 @@ pars <- make_par_list(
 )
 ```
 
-Visualise funcitonal responses with `crsim::plot_funcresp`. Faceted by resources and time dependent parameterisations (when relevant).
+Visualise funcitonal responses with `rescomp::plot_funcresp`. Faceted by resources and time dependent parameterisations (when relevant).
 
 ```{r, fig.width = 3, fig.height = 3}
 plot_funcresp(pars, maxx = 0.2)
@@ -179,7 +179,7 @@ pars <- make_par_list(
 )
 ```
 
-```{r, fig.width = 6, fig.height = 3}
+```{r, fig.width = 5, fig.height = 3}
 plot_funcresp(pars, maxx = 0.2)
 ```
 
@@ -202,7 +202,7 @@ Resource partitioning, where each consumer is a better competitor (lower R*) for
 
 ### Two type 2 consumers and one externally pulsed resource (continuous mortality)
 
-External resource pulsing is handled using an event function, `crsim::eventfun_respulse` which is passed in a list to `deSolve::ode`. The size of the resource pulse is specified as a numeric with the argument `respulse` in the call to `make_par_list`. To prevent any other mode of resource supply, `resspeed` should be set to zero. The frequency of pulsing is set with the `pulse` argument in `crsim::time_vals`. The resultant vector of pusling intervals should be included in the same list containing the event function.
+External resource pulsing is handled using an event function, `rescomp::eventfun_respulse` which is passed in a list to `deSolve::ode`. The size of the resource pulse is specified as a numeric with the argument `respulse` in the call to `make_par_list`. To prevent any other mode of resource supply, `resspeed` should be set to zero. The frequency of pulsing is set with the `pulse` argument in `rescomp::time_vals`. The resultant vector of pusling intervals should be included in the same list containing the event function.
 
 ```{r}
 pars <- make_par_list(
@@ -251,9 +251,9 @@ plot_crsim(m1, pars)
 
 ### Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource
 
-Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in `deSolve` with forcing functions. `crsim` provides a straightforward means of implementing forcing functions in the background. Three additional arguments are needed in `make_par_list`: `timepars`, `timeswitch` and `time_switch_length`. `timepars` should be set to `TRUE`; `timeswitch` adjusts the frequency of switching between 'environmental states'; `time_switch_length` adjust the total time over which the environment varies (for most applications this should equal the total time in the call to `time_vals`). 
+Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in `deSolve` with forcing functions. `rescomp` provides a straightforward means of implementing forcing functions in the background. Three additional arguments are needed in `make_par_list`: `timepars`, `timeswitch` and `time_switch_length`. `timepars` should be set to `TRUE`; `timeswitch` adjusts the frequency of switching between 'environmental states'; `time_switch_length` adjust the total time over which the environment varies (for most applications this should equal the total time in the call to `time_vals`). 
 
-In addition, if `time_pars` = TRUE, the mumatrix argument `make_par_list` expects a list containing two matrices, reflecting two different environmental states. At this stage `crsim` only handles two states with equal time allotted to each state.
+In addition, if `time_pars` = TRUE, the mumatrix argument `make_par_list` expects a list containing two matrices, reflecting two different environmental states. At this stage `rescomp` only handles two states with equal time allotted to each state.
 
 ```{r}
 pars <- make_par_list(
@@ -277,7 +277,7 @@ pars <- make_par_list(
 )
 ```
 
-```{r, fig.width = 3, fig.height = 6}
+```{r, fig.width = 3, fig.height = 5}
 plot_funcresp(pars, maxx = max(pars$resconc))
 ```
 
