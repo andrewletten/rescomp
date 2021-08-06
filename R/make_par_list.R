@@ -91,18 +91,22 @@ make_par_list <-  function(spnum = 1,
   }
   if (nrow(pars$mu[[1]]) != spnum) stop(paste0("mumatrix(s) should have ", spnum, " rows for ", spnum, " consumers."))
   if (ncol(pars$mu[[1]]) != resnum) stop(paste0("mumatrix(s) should have ", resnum, " columns for ", resnum, " resources."))
+
   if (missing(kmatrix)){
-    pars$Ks <-  matrix(rep(0.1, times = spnum*resnum), nrow = spnum, byrow = TRUE)
+    pars$Ks <-  matrix(rep(1, times = spnum*resnum), nrow = spnum, byrow = TRUE)
   } else{
     stopifnot(is.matrix(kmatrix))
     pars$Ks <- kmatrix
-  }
+    if(linear == TRUE) stop("Matrix of half saturation constants provided for a linear (type 1) functional response")
+   }
+
   if (missing(qmatrix)){
     pars$Qs <- matrix(rep(0.001, times = spnum*resnum), nrow = spnum, byrow = TRUE)
   } else {
     stopifnot(is.matrix(qmatrix))
     pars$Qs <- qmatrix
   }
+
   if(linear == TRUE){
     pars$phi <-  matrix(rep(0, times = spnum*resnum), nrow = spnum, byrow = TRUE)
   } else {

@@ -2,8 +2,8 @@
 title: "rescomp: An R package to simplify ODE modelling of consumer-resource interactions"
 author: "Andrew D. Letten"
 output: 
-#  rmarkdown::html_document: default
-  rmarkdown::pdf_document:
+#    html_document: default
+    rmarkdown::pdf_document: default
 #    number_sections: true
 vignette: >
   %\VignetteIndexEntry{rescomp, how to...}
@@ -43,7 +43,7 @@ See `?make_par_list` for all argument options.
 - Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource
 
 
-## Type 1 consumer on a logistically growing resource
+## Type 2 consumer on a logistically growing resource
 
 
 ```{r setup}
@@ -56,16 +56,16 @@ pars <- make_par_list(
   spnum = 1, 
   resnum = 1,
   linear = FALSE,
-  mumatrix = list(matrix(0.1)),
+  mumatrix = list(matrix(0.12)),
   resspeed = 3,
-  resconc = 0.2
+  resconc = 2
 )
 ```
 
 Visualise funcitonal responses with `rescomp::plot_funcresp`. Faceted by resources and time dependent parameterisations (when relevant).
 
 ```{r, fig.width = 3, fig.height = 3}
-plot_funcresp(pars, maxx = 0.2)
+plot_funcresp(pars, maxx = 2)
 ```
 
 The function `time_vals` is used for setting total simulation time (and is used to set the resource pulse interval when used in conjunction with an event function [see below]). The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources.
@@ -88,7 +88,7 @@ m1 <- ode(
 plot_crsim(m1, pars) 
 ```
 
-## Type 1 consumer on a continuously suppplied resource
+## Type 2 consumer on a continuously suppplied resource
 
 To switch to a continuously supplied resource,use `chemo = TRUE'.
 
@@ -97,9 +97,9 @@ pars <- make_par_list(
   spnum = 1, 
   resnum = 1,
   linear = FALSE,
-  mumatrix = list(matrix(0.1)),
+  mumatrix = list(matrix(0.12)),
   resspeed = 3,
-  resconc = 0.2,
+  resconc = 2,
   chemo = TRUE
 )
 ```
@@ -175,14 +175,14 @@ pars <- make_par_list(
                     ncol = 2,
                     byrow = TRUE)),
   resspeed = 3,
-  resconc = 0.2,
+  resconc = 1,
   chemo = TRUE,
   essential = FALSE
 )
 ```
 
 ```{r, fig.width = 5, fig.height = 3}
-plot_funcresp(pars, maxx = 0.2)
+plot_funcresp(pars, maxx = 1)
 ```
 
 ```{r}
@@ -312,7 +312,7 @@ Note, to reproduce the dynamics of a single batch culture experiment (i.e. witho
 
 ```{r}
 pars <- make_par_list(resspeed = 0, mort = 0)
-happenings <- time_vals(total = 50) 
+happenings <- time_vals(total = 500) 
 
 testrun.df <- ode(
   func = def_cr_ode,
@@ -346,6 +346,11 @@ pars <- make_par_list(
                     nrow = 2, 
                     ncol = 1,
                     byrow = TRUE)),
+  kmatrix = matrix(c(0.1, 0.1), 
+                   nrow = 2, 
+                   ncol = 1, 
+                   byrow = TRUE),  
+
   chemo = TRUE,
   resspeed = 0.1,
   resconc = 0.1,

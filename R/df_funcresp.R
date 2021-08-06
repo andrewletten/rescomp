@@ -9,7 +9,7 @@
 #' @importFrom rlang .data
 df_funcresp <- function(pars, maxx){
   if (missing(maxx)){
-    resource.levels <- seq(0,0.2,length.out = 1000)
+    resource.levels <- seq(0,1,length.out = 1000)
   } else{
     resource.levels <- seq(0,maxx,length.out = 1000)
   }
