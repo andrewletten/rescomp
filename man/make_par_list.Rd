@@ -5,7 +5,7 @@
 \title{Generate list of parameters for a consumer-resource model to be passed to \code{deSolve::ode}}
 \usage{
 make_par_list(
-  spnum = 2,
+  spnum = 1,
   resnum = 1,
   mumatrix,
   kmatrix,

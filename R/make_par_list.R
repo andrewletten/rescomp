@@ -27,7 +27,7 @@
 #'
 #' @examples
 #' make_par_list()
-make_par_list <-  function(spnum = 2,
+make_par_list <-  function(spnum = 1,
                            resnum = 1,
                            mumatrix,
                            kmatrix,
