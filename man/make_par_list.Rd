@@ -17,6 +17,8 @@ make_par_list(
   resspeed = 1,
   resconc = 1,
   respulse = 0,
+  mortpulse = 0,
+  batchtrans = FALSE,
   timepars = FALSE,
   timeswitch,
   timeswitch_length
@@ -50,6 +52,10 @@ The number of rows should be equal to \code{spnum} and \code{resnum} respectivel
 \item{resconc}{Resource carrying capacity (if chemo = FALSE), otherwise chemostat supply concentration}
 
 \item{respulse}{Resource pulse size. Requires events argument in call to \code{ode}.}
+
+\item{mortpulse}{Consumer mortality fraction if non-constant mortality (e.g. serial-batch transfer). Requires events argument in call to \code{ode}.}
+
+\item{batchtrans}{If TRUE...}
 
 \item{timepars}{If TRUE, time dependent parameters required.}
 

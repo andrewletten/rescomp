@@ -93,10 +93,14 @@ eventfun_respulse <- function(Time, State, Pars) {
     R <- State[(1 + Pars$nconsumers):length(State)]
     N <- State[1:Pars$nconsumers]
     for (j in 1:length(R)) {
-      R[j] <- R[j] + Pars$respulse
+      if (Pars$batchtrans == TRUE){
+        R[j] <- R[j]*(1-Pars$mortpulse) + Pars$respulse*(Pars$mortpulse)
+      } else {
+        R[j] <- R[j] + Pars$respulse
+      }
     }
     for (i in 1:length(N)) {
-      N[i] <- N[i]
+      N[i] <- N[i]*(1-Pars$mortpulse)
     }
     return(c(N, R))
   })

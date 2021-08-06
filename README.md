@@ -28,7 +28,7 @@ library(deSolve)
 
 The main user function in `rescomp` is `make_par_list`, which
 facilitates the definition and parameterisation of a desired model. The
-default output from `make_par_list` is list defining a model for a
+default output from `make_par_list` is a list defining a model for a
 single consumer (type I \[linear\] functional response) and a single
 logistically growing resource.
 

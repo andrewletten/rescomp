@@ -16,6 +16,8 @@
 #' @param resspeed Resource intrinsic rate of increase (if chemo = FALSE), otherwise chemostat dilution rate. Set to zero for pulsing only.
 #' @param resconc Resource carrying capacity (if chemo = FALSE), otherwise chemostat supply concentration
 #' @param respulse Resource pulse size. Requires events argument in call to `ode`.
+#' @param mortpulse Consumer mortality fraction if non-constant mortality (e.g. serial-batch transfer). Requires events argument in call to `ode`.
+#' @param batchtrans If TRUE...
 #' @param timepars If TRUE, time dependent parameters required.
 #' @param timeswitch Frequency of parameter switching if timepars = TRUE.
 #' @param timeswitch_length If timepars = TRUE, total time for parameter switching. Should be equivalent to total simulation time.
@@ -39,6 +41,8 @@ make_par_list <-  function(spnum = 1,
                            resspeed = 1,
                            resconc = 1,
                            respulse = 0,
+                           mortpulse = 0,
+                           batchtrans = FALSE,
                            timepars = FALSE,
                            timeswitch,
                            timeswitch_length){
@@ -114,6 +118,8 @@ make_par_list <-  function(spnum = 1,
   pars$resspeed = rep(resspeed, times = resnum)
   pars$resconc = rep(resconc, times = resnum)
   pars$timepars = timepars
+  pars$mortpulse = mortpulse
+  pars$batchtrans = batchtrans
 
   resdyn <- paste0(
     if (chemo == TRUE & resspeed != 0 & respulse != 0){

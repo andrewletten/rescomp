@@ -2,8 +2,8 @@
 title: "Package rescomp: making consumer-resource simulations easier"
 author: "Andrew D. Letten"
 output: 
-  rmarkdown::html_document: default
-  rmarkdown::pdf_document: 
+#  rmarkdown::html_document: default
+  rmarkdown::pdf_document:
 #    number_sections: true
 vignette: >
   %\VignetteIndexEntry{rescomp, how to...}
@@ -26,6 +26,7 @@ The main user function in `rescomp` is `make_par_list()`, which facilitates the 
 - Consumer functional response (type I or type II)
 - Resource dynamic (chemostat, logistic and/or pulsed)
 - Resource type (substitutable or essential)
+- Continuous or intermittent mortality (e.g. serial transfer)
 - Time dependent consumption parameters 
 
 See `?make_par_list` for all argument options.
@@ -38,7 +39,7 @@ See `?make_par_list` for all argument options.
 - Two type 1 consumers and two substitutable resources in a chemostat
 - Two type 2 consumers and one externally pulsed resource 
     * Continuous mortality
-    * Serial batch culture
+    * Serial transfer in batch culture (intermittent mortality)
 - Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource
 
 
@@ -247,7 +248,50 @@ plot_crsim(m1, pars)
 
 ### Two type 2 consumers and one externally pulsed resource (serial transfer with pulsed mortality)
 
-*To be implemented*
+```{r}
+pars <- make_par_list(
+  spnum = 2, 
+  resnum = 1,
+  linear = FALSE,
+  mumatrix = list(matrix(c(0.2,0.2), 
+                         nrow = 2, 
+                         ncol = 1,
+                         byrow = TRUE)),
+  kmatrix = matrix(c(0.3, 0.2), 
+                   nrow = 2, 
+                   ncol = 1, 
+                   byrow = TRUE),  
+  chemo = TRUE,
+  resspeed = 0,
+  resconc = 0.6,
+  respulse = 1,
+  mort = 0,
+  mortpulse = 0.8,
+  batchtrans = TRUE
+)
+```
+
+```{r, fig.width = 3, fig.height = 3}
+plot_funcresp(pars, maxx = max(pars$respulse))
+```
+
+```{r}
+happenings <- time_vals(total = 1000, pulse = 100)
+
+testrun.df <- ode(
+  func = def_cr_ode,
+  y = initiate_state(restart = 0.2, vars=pars),
+  parms = pars,
+  times = happenings$totaltime,
+  method = "lsoda",
+  events = list(func = eventfun_respulse, time = happenings$pulseseq)
+)
+```
+
+```{r, fig.width = 6, fig.height = 3}
+plot_crsim(testrun.df, pars) 
+```
+
 
 ### Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource
 
