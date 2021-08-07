@@ -3,9 +3,8 @@
 #' @param spnum Number of consumers
 #' @param resnum Number of resources
 #' @param mumatrix A list containing the matrix(s) of maximum growth rates (type 2) /
-#' constant of proportionalities (type 1). The number
-#' of rows should be equal to `spnum` and `resnum` respectively. If `timepars` = TRUE,
-#' expects a list of length 2.
+#' constant of proportionalities (type 1). The number of rows should be equal to
+#' `spnum` and `resnum` respectively. If `timepars` = TRUE, expects a list of length 2.
 #' @param kmatrix Matrix of half saturation constants (type 2, ignored if linear = TRUE).
 #' The number of rows should be equal to `spnum` and `resnum` respectively.
 #' @param qmatrix Matrix of resource quotas. The number of rows should be equal to `spnum` and `resnum` respectively.
@@ -17,7 +16,7 @@
 #' @param resconc Resource carrying capacity (if chemo = FALSE), otherwise chemostat supply concentration
 #' @param respulse Resource pulse size. Requires events argument in call to `ode`.
 #' @param mortpulse Consumer mortality fraction if non-constant mortality (e.g. serial-batch transfer). Requires events argument in call to `ode`.
-#' @param batchtrans If TRUE...
+#' @param batchtrans If TRUE, both resource is also fractionally sampled  (see vignette).
 #' @param timepars If TRUE, time dependent parameters required.
 #' @param timeswitch Frequency of parameter switching if timepars = TRUE.
 #' @param timeswitch_length If timepars = TRUE, total time for parameter switching. Should be equivalent to total simulation time.
@@ -55,19 +54,27 @@ make_par_list <-  function(spnum = 1,
   stopifnot(is.logical(chemo))
   stopifnot(is.logical(timepars))
   stopifnot(is.numeric(mort))
+  stopifnot(is.numeric(mortpulse))
+  stopifnot(mortpulse >= 0 & mortpulse <= 1)
   stopifnot(is.numeric(resspeed))
   stopifnot(is.numeric(resconc))
   stopifnot(is.numeric(respulse))
-  # mumatrix, kmatrix and qmatrix checks in code block below (as usually missing)
-  #
+  # mumatrix, kmatrix and qmatrix checks below
 
   pars  <-  list()
+
+  # mu matrix
   if (missing(mumatrix)){
     pars$mu <-  list(matrix(rep(0.1, times = spnum*resnum), nrow = spnum, byrow = TRUE))
   } else{
     stopifnot(is.list(mumatrix))
     pars$mu <- mumatrix
   }
+  if (nrow(pars$mu[[1]]) != spnum) stop(paste0("mumatrix(s) should have ", spnum, " rows for ", spnum, " consumers."))
+  if (ncol(pars$mu[[1]]) != resnum) stop(paste0("mumatrix(s) should have ", resnum, " columns for ", resnum, " resources."))
+
+
+  # time dependent parms
   if (timepars == TRUE){
     # stopifnot(is.numeric(timeswitch))
     # stopifnot(is.numeric(timeswitch_length))
@@ -76,7 +83,7 @@ make_par_list <-  function(spnum = 1,
     mu_funs_byres <-  list()
     mu_funs_bycons <-  list()
 
-    # Create a list of functions
+    # ist of functions
     for (i in 1:nrow(pars$mu[[1]])) {
       for (j in 1:ncol(pars$mu[[1]])) {
         force_mu <- rep(c(pars$mu[[1]][i,j], pars$mu[[2]][i,j]), length.out = length(forcetime))
@@ -89,8 +96,7 @@ make_par_list <-  function(spnum = 1,
   } else {
     if (length(pars$mu) > 1) stop(paste0("Time dependent parameters set to FALSE but more than one mu matrix provided"))
   }
-  if (nrow(pars$mu[[1]]) != spnum) stop(paste0("mumatrix(s) should have ", spnum, " rows for ", spnum, " consumers."))
-  if (ncol(pars$mu[[1]]) != resnum) stop(paste0("mumatrix(s) should have ", resnum, " columns for ", resnum, " resources."))
+
 
   if (missing(kmatrix)){
     pars$Ks <-  matrix(rep(1, times = spnum*resnum), nrow = spnum, byrow = TRUE)
@@ -112,6 +118,7 @@ make_par_list <-  function(spnum = 1,
   } else {
     pars$phi <- matrix(rep(1, times = spnum*resnum), nrow = spnum, byrow = TRUE)
   }
+
   pars$type3 <- matrix(rep(1/2, times = spnum*resnum), nrow = spnum, byrow = TRUE) # currently fixed on type 1 or type 2
   pars$all_d <- mort
   pars$respulse = respulse
@@ -124,6 +131,9 @@ make_par_list <-  function(spnum = 1,
   pars$timepars = timepars
   pars$mortpulse = mortpulse
   pars$batchtrans = batchtrans
+
+
+  # print conditions ------------------------------------------------------------
 
   resdyn <- paste0(
     if (chemo == TRUE & resspeed != 0 & respulse != 0){
@@ -150,7 +160,7 @@ make_par_list <-  function(spnum = 1,
       " * ", "Consumers have", ifelse(linear, " type 1", " type 2"), " functional responses\n",
       " * ", "Resources are", ifelse(essential, " essential", " substitutable"), " (ignore if only a single resource)\n",
       " * ", resdyn, "\n",
-      " * ", "Mortality is continuous (equal to resource dilution rate?)\n",
+      " * ", "Mortality is", ifelse(mortpulse == 0, " continuous", " intermittent"), "\n",
       " * ", ifelse(timepars, paste0("Parameters are time dependent with switching every ", timeswitch, " time steps"),
              "Parameters are constant through time ")
   )

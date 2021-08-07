@@ -13,7 +13,8 @@ plot_crsim <- function(odeobj, pars){
   comp.gg$state.var.type <- "Consumers"
   comp.gg$state.var.type[grep("R", comp.gg$state.var)] <- "Resources"
 
-  cbbPalette = c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  cbbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  resSet1 <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33", "#A65628")
 
   ggplot2::ggplot(comp.gg,
     aes(y = .data$count, x = .data$time)) +
@@ -30,8 +31,9 @@ plot_crsim <- function(odeobj, pars){
     xlab("Time") +
 
     theme(strip.background = element_blank(),
-            axis.text = element_text(size = 8),
-            axis.title = element_text(size = 10)) +
+          axis.text = element_text(size = 8),
+          axis.title = element_text(size = 10),
+          legend.title = element_blank()) +
 
     #  panel_border(colour = "black") + #xlim(800,1400) +
 
@@ -39,5 +41,5 @@ plot_crsim <- function(odeobj, pars){
       ~ state.var.type,
       scales = "free") +
 
-    scale_colour_manual(values=cbbPalette)
+    scale_colour_manual(values=c(cbbPalette, resSet1))
 }

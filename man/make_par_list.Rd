@@ -30,9 +30,8 @@ make_par_list(
 \item{resnum}{Number of resources}
 
 \item{mumatrix}{A list containing the matrix(s) of maximum growth rates (type 2) /
-constant of proportionalities (type 1). The number
-of rows should be equal to \code{spnum} and \code{resnum} respectively. If \code{timepars} = TRUE,
-expects a list of length 2.}
+constant of proportionalities (type 1). The number of rows should be equal to
+\code{spnum} and \code{resnum} respectively. If \code{timepars} = TRUE, expects a list of length 2.}
 
 \item{kmatrix}{Matrix of half saturation constants (type 2, ignored if linear = TRUE).
 The number of rows should be equal to \code{spnum} and \code{resnum} respectively.}
@@ -55,7 +54,7 @@ The number of rows should be equal to \code{spnum} and \code{resnum} respectivel
 
 \item{mortpulse}{Consumer mortality fraction if non-constant mortality (e.g. serial-batch transfer). Requires events argument in call to \code{ode}.}
 
-\item{batchtrans}{If TRUE...}
+\item{batchtrans}{If TRUE, both resource is also fractionally sampled  (see vignette).}
 
 \item{timepars}{If TRUE, time dependent parameters required.}
 
