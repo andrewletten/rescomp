@@ -38,7 +38,8 @@ def_cr_ode <- function(Time, State, Pars) {
     dN <- N
     for (i in 1:length(N)) {
       for (j in 1:length(R)) {
-        dN.perR[i, j] <- (mu[i, j] * N[i] * (R[j])^(2 * type3[i, j])) / ((Ks[i, j])^(2 * type3[i, j]) + phi[i, j] * (R[j])^(2 * type3[i, j]))
+        dN.perR[i, j] <- (mu[i, j] * N[i] * (R[j])^(2 * type3[i, j])) /
+          ((Ks[i, j])^(2 * type3[i, j]) + phi[i, j] * (R[j])^(2 * type3[i, j]))
       }
       if (Pars$essential == TRUE) {
         dN[i] <- min(dN.perR[i, ]) - (all_d * N[i])
@@ -56,9 +57,11 @@ def_cr_ode <- function(Time, State, Pars) {
           dR.perN[i, ] <- (min(dN.perR[i, ])) * Qs[i, ]
         }
         if (Pars$chemo == TRUE) {
-          dR[j] <- resspeed[j] * (resconc[j] - R[j]) - sum(dR.perN[, j])
+          dR[j] <- resspeed[j] * (resconc[j] - R[j]) -
+            sum(dR.perN[, j])
         } else {
-          dR[j] <- (resspeed[j] * R[j] * (1 - (R[j] / resconc[j]))) - sum(dR.perN[, j])
+          dR[j] <- (resspeed[j] * R[j] * (1 - (R[j] / resconc[j]))) -
+            sum(dR.perN[, j])
         }
       }
     } else {
@@ -69,7 +72,8 @@ def_cr_ode <- function(Time, State, Pars) {
         if (Pars$chemo == TRUE) {
           dR[j] <- resspeed[j] * (resconc[j] - R[j]) - sum(dR.perN[, j])
         } else {
-          dR[j] <- (resspeed[j] * R[j] * (1 - (R[j] / resconc[j]))) - sum(dR.perN[, j])
+          dR[j] <- (resspeed[j] * R[j] * (1 - (R[j] / resconc[j]))) -
+            sum(dR.perN[, j])
         }
       }
     }

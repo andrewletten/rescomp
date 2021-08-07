@@ -6,9 +6,11 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of `rescomp` is to simplify the process of defining, simulating
-and visualizing the output of ode models of consumer-resource
-interactions.
+The goal of the R package `rescomp` is to simplify the process of
+defining, simulating and visualizing the output of ODE models of
+consumer-resource interactions. In essence, it is a consumer-resource
+modelling focused interface (front and back) to the excellent `deSolve`
+package.
 
 ## Installation
 
@@ -37,7 +39,6 @@ pars <- make_par_list()
 #> Model properties: 
 #>  * 1 consumer(s) and 1 resource(s)
 #>  * Consumers have type 1 functional responses
-#>  * Resources are substitutable (ignore if only a single resource)
 #>  * Resources grow logistically
 #>  * Mortality is continuous
 #>  * Parameters are constant through time
@@ -87,6 +88,7 @@ models. Features/options include:
 -   Consumer functional response (type I or type II)
 -   Resource dynamic (chemostat, logistic and/or pulsed)
 -   Resource type (substitutable or essential)
+-   Continuous or intermittent mortality (e.g. serial transfer)
 -   Time dependent consumption parameters
 
 See `?make_par_list` for all argument options.
@@ -115,7 +117,6 @@ pars <- make_par_list(
 #> Model properties: 
 #>  * 2 consumer(s) and 1 resource(s)
 #>  * Consumers have type 2 functional responses
-#>  * Resources are substitutable (ignore if only a single resource)
 #>  * Resources grow logistically
 #>  * Mortality is continuous
 #>  * Parameters are constant through time

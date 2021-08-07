@@ -1,5 +1,5 @@
 ---
-title: "rescomp: An R package to simplify ODE modelling of consumer-resource interactions"
+title: "rescomp: An R package for efficient ODE modelling of resource competition"
 author: "Andrew D. Letten"
 output: 
 #    html_document: default

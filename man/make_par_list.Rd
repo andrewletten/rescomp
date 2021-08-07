@@ -2,7 +2,8 @@
 % Please edit documentation in R/make_par_list.R
 \name{make_par_list}
 \alias{make_par_list}
-\title{Generate list of parameters for a consumer-resource model to be passed to \code{deSolve::ode}}
+\title{Generate list of parameters for a consumer-resource model to be
+passed to \code{deSolve::ode}}
 \usage{
 make_par_list(
   spnum = 1,
@@ -29,14 +30,17 @@ make_par_list(
 
 \item{resnum}{Number of resources}
 
-\item{mumatrix}{A list containing the matrix(s) of maximum growth rates (type 2) /
-constant of proportionalities (type 1). The number of rows should be equal to
-\code{spnum} and \code{resnum} respectively. If \code{timepars} = TRUE, expects a list of length 2.}
+\item{mumatrix}{A list containing the matrix(s) of maximum growth rates
+(type 2) / constant of proportionalities (type 1).
+The number of rows should be equal to \code{spnum} and \code{resnum} respectively.
+If \code{timepars} = TRUE, expects a list of length 2.}
 
-\item{kmatrix}{Matrix of half saturation constants (type 2, ignored if linear = TRUE).
+\item{kmatrix}{Matrix of half saturation constants
+(type 2, ignored if linear = TRUE). The number of rows should be equal
+to \code{spnum} and \code{resnum} respectively.}
+
+\item{qmatrix}{Matrix of resource quotas.
 The number of rows should be equal to \code{spnum} and \code{resnum} respectively.}
-
-\item{qmatrix}{Matrix of resource quotas. The number of rows should be equal to \code{spnum} and \code{resnum} respectively.}
 
 \item{linear}{If FALSE equals type 2 function (i.e. Monod).}
 
@@ -46,27 +50,35 @@ The number of rows should be equal to \code{spnum} and \code{resnum} respectivel
 
 \item{mort}{Density independent mortality rate.}
 
-\item{resspeed}{Resource intrinsic rate of increase (if chemo = FALSE), otherwise chemostat dilution rate. Set to zero for pulsing only.}
+\item{resspeed}{Resource intrinsic rate of increase (if chemo = FALSE),
+otherwise chemostat dilution rate. Set to zero for pulsing only.}
 
-\item{resconc}{Resource carrying capacity (if chemo = FALSE), otherwise chemostat supply concentration}
+\item{resconc}{Resource carrying capacity (if chemo = FALSE),
+otherwise chemostat supply concentration}
 
-\item{respulse}{Resource pulse size. Requires events argument in call to \code{ode}.}
+\item{respulse}{Resource pulse size.
+Requires events argument in call to \code{ode}.}
 
-\item{mortpulse}{Consumer mortality fraction if non-constant mortality (e.g. serial-batch transfer). Requires events argument in call to \code{ode}.}
+\item{mortpulse}{Consumer mortality fraction if non-constant mortality
+(e.g. serial-batch transfer). Requires events argument in call to \code{ode}.}
 
-\item{batchtrans}{If TRUE, both resource is also fractionally sampled  (see vignette).}
+\item{batchtrans}{If TRUE, both resource is also fractionally sampled
+(see vignette).}
 
 \item{timepars}{If TRUE, time dependent parameters required.}
 
 \item{timeswitch}{Frequency of parameter switching if timepars = TRUE.}
 
-\item{timeswitch_length}{If timepars = TRUE, total time for parameter switching. Should be equivalent to total simulation time.}
+\item{timeswitch_length}{If timepars = TRUE,
+total time for parameter switching.
+Should be equivalent to total simulation time.}
 }
 \value{
 list
 }
 \description{
-Generate list of parameters for a consumer-resource model to be passed to \code{deSolve::ode}
+Generate list of parameters for a consumer-resource model to be
+passed to \code{deSolve::ode}
 }
 \examples{
 make_par_list()
