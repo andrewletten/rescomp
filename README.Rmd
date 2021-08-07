@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of rescomp is to simplify the process of defining, simulating and visualizing the output of ode models of consumer-resource interactions.
+The goal of `rescomp` is to simplify the process of defining, simulating and visualizing the output of ode models of consumer-resource interactions.
 
 ## Installation
 

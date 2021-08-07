@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of rescomp is to simplify the process of defining, simulating
+The goal of `rescomp` is to simplify the process of defining, simulating
 and visualizing the output of ode models of consumer-resource
 interactions.
 
@@ -39,7 +39,7 @@ pars <- make_par_list()
 #>  * Consumers have type 1 functional responses
 #>  * Resources are substitutable (ignore if only a single resource)
 #>  * Resources grow logistically
-#>  * Mortality is continuous (equal to resource dilution rate?)
+#>  * Mortality is continuous
 #>  * Parameters are constant through time
 ```
 
@@ -117,7 +117,7 @@ pars <- make_par_list(
 #>  * Consumers have type 2 functional responses
 #>  * Resources are substitutable (ignore if only a single resource)
 #>  * Resources grow logistically
-#>  * Mortality is continuous (equal to resource dilution rate?)
+#>  * Mortality is continuous
 #>  * Parameters are constant through time
 ```
 
