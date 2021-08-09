@@ -37,10 +37,12 @@ See `?make_par_list` for all argument options.
 - One type 2 consumer and one continuously supplied resource (i.e. chemostat) 
 - Two type 2 consumers and one logistically growing resource
 - Two type 1 consumers and two substitutable resources in a chemostat
+- Two type 1 consumers and two essential resources in a chemostat
 - Two type 2 consumers and one externally pulsed resource 
     * Continuous mortality
     * Serial transfer in batch culture (intermittent mortality)
 - Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource
+- Three type 1 consumers on three essential resources generating an intransitive loop (i.e. rock paper scissors dynamics). 
 
 
 ## Type 2 consumer on a logistically growing resource
@@ -176,6 +178,7 @@ pars <- make_par_list(
                     byrow = TRUE)),
   resspeed = 3,
   resconc = 1,
+  mort = 0.01,
   chemo = TRUE,
   essential = FALSE
 )
@@ -202,6 +205,66 @@ plot_crsim(m1, pars)
 ```
 
 Resource partitioning, where each consumer is a better competitor (lower R*) for a different resource, results in coexistence.
+
+## Two type 1 consumers and two essential resources in a chemostat
+
+Using `pars$essential = TRUE` switches the previous parameteristion to essential resources while keeping all else equal.
+
+```{r}
+pars$essential = TRUE
+
+m1 <- ode(
+  func = def_cr_ode,
+  y = initiate_state(vars=pars),
+  parms = pars,
+  times = happenings$totaltime,
+  method = "lsoda"
+  )
+```
+
+```{r, fig.width = 6, fig.height = 3}
+plot_crsim(m1, pars) 
+```
+There is no coexistence now because each species needs to have a larger impact on the resource that is most limiting its growth. For 'consumer 1' it is 'resource b', whereas for 'consumer 2' it is 'resource a'. We can adjust consumer resource impacts via the resource quota matrix.
+
+```{r}
+pars <- make_par_list(
+  spnum = 2, 
+  resnum = 2,
+  linear = TRUE,
+  mumatrix = list(matrix(c(0.07, 0.03,
+                           0.04, 0.05), 
+                    nrow = 2, 
+                    ncol = 2,
+                    byrow = TRUE)),
+  qmatrix = matrix(c(0.001, 0.005,
+                     0.005, 0.001),
+                   nrow = 2,
+                   ncol = 2,
+                   byrow = TRUE),
+  resspeed = 3,
+  resconc = 1,
+  mort = 0.01,
+  chemo = TRUE,
+  essential = TRUE
+)
+```
+
+
+```{r}
+m1 <- ode(
+  func = def_cr_ode,
+  y = initiate_state(vars=pars),
+  parms = pars,
+  times = happenings$totaltime,
+  method = "lsoda"
+  )
+```
+
+```{r, fig.width = 6, fig.height = 3}
+plot_crsim(m1, pars) 
+```
+
 
 ## Two type 2 consumers and one externally pulsed resource (continuous mortality)
 
@@ -381,3 +444,55 @@ plot_crsim(m1, pars)
 ```
 
 The two consumers coexist due species-specific environmental responses leading to a temporal storage effect (formalization of temporal niche paritioning arising from density dependence in environment-competition covariance).
+
+
+## Three type 1 consumers on three essential resources generating an intransitive loop (i.e. rock paper scissors dynamics).
+
+```{r}
+pars <- make_par_list(
+  spnum = 3, 
+  resnum = 3,
+  linear = TRUE,
+  mumatrix = list(matrix(c(
+    0.11, 0.07,  0.045,
+    0.05, 0.11,  0.07,
+    0.07, 0.047, 0.1
+    ), 
+    nrow = 3,
+    ncol = 3,
+    byrow = TRUE)),
+  qmatrix = matrix(c(
+    0.2, 0.7, 0.4,
+    0.4, 0.2, 0.7,
+    0.7, 0.4, 0.2
+    ), 
+    nrow = 3,
+    ncol = 3,
+    byrow = TRUE),
+  essential = TRUE,  
+  chemo = FALSE,
+  mort = 0.015,
+  resspeed = 10,
+  resconc = 0.5
+)
+```
+
+```{r, fig.width = 6, fig.height = 3}
+plot_funcresp(pars, maxx = max(pars$resconc))
+```
+
+```{r}
+happenings <- time_vals(total = 2000)
+
+m1 <- ode(
+  func = def_cr_ode,
+  y = initiate_state(vars=pars),
+  parms = pars,
+  times = happenings$totaltime,
+  method = "lsoda",
+  )
+```
+
+```{r, fig.width = 6, fig.height = 3}
+plot_crsim(m1, pars) 
+```
