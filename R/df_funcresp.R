@@ -1,17 +1,22 @@
-#' Generate ggplot friendly dataframe for plotting functional responses
+#' Generate ggplot friendly data frame for plotting functional responses
 #'
 #' @param pars parameter list from make_par_list()
-#' @param maxx maximum resource value to get percapita growth rates
+#' @param maxx maximum resource value to get percapita growth rates across
 #' (for plotting)
 #'
 #' @return data frame
 #' @export
+#'
+#' @examples
+#' pars <- make_par_list()
+#' df_funcresp(pars)
 #'
 #' @importFrom rlang .data
 df_funcresp <- function(pars, maxx) {
   if (missing(maxx)) {
     resource.levels <- seq(0, 1, length.out = 1000)
   } else {
+    stopifnot(is.numeric(maxx), maxx >= 0)
     resource.levels <- seq(0, maxx, length.out = 1000)
   }
 

@@ -7,13 +7,31 @@
 plot_funcresp(pars, maxx)
 }
 \arguments{
-\item{pars}{parameter list from make_par_list()}
+\item{pars}{Parameter list from make_par_list()}
 
-\item{maxx}{maximum resource value to get percapita growth rates for (for plotting)}
+\item{maxx}{Resource value to calculate per-capita growth rates up to (xlim).}
 }
 \value{
 ggplot object
 }
 \description{
 Plot functional responses
+}
+\examples{
+
+pars <- make_par_list()
+plot_funcresp(pars)
+
+pars <- make_par_list(
+    spnum = 2,
+    resnum = 2,
+    linear = FALSE,
+    mumatrix = list(matrix(c(0.7,0.3,
+                             0.4,0.5),
+                           nrow = 2,
+                           ncol = 2,
+                           byrow = TRUE))
+)
+plot_funcresp(pars)
+
 }

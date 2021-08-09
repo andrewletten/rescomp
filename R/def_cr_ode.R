@@ -113,15 +113,18 @@ eventfun_respulse <- function(Time, State, Pars) {
 
 #' Timings of happenings
 #'
-#' @param total total time
-#' @param step step size
-#' @param doround round time vector?
-#' @param pulse pulsing interval
+#' @param total Total time.
+#' @param step Step size.
+#' @param doround Round time units (handles issues with numerical differences
+#'     that produce warning messages when pulsing resources and/or consumers).
+#' @param pulse Pulsing interval.
 #'
 # #' @return
 #' @export
 #'
-# #' @examples
+#' @examples
+#'
+#' time_vals(1000, pulse = 100)
 time_vals <- function(total = 1000,
                       step = 0.1,
                       doround = TRUE,

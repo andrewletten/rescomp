@@ -17,3 +17,18 @@ ggplot object
 \description{
 Plot consumer and resource dynamics from deSolve output
 }
+\examples{
+
+library(deSolve)
+pars <- make_par_list()
+happenings <- time_vals()
+m1 <- ode(
+    func = def_cr_ode,
+    y = initiate_state(vars = pars),
+    parms = pars,
+    times = happenings$totaltime,
+    method = "lsoda"
+)
+plot_crsim(m1, pars)
+
+}

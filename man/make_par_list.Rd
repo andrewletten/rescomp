@@ -81,5 +81,24 @@ Generate list of parameters for a consumer-resource model to be
 passed to \code{deSolve::ode}
 }
 \examples{
+
+# Single type I consumer on a single logistically growing resource
 make_par_list()
+
+# Two type II consumers and two substitutable resources in a chemostat
+pars <- make_par_list(
+    spnum = 2,
+    resnum = 2,
+    linear = FALSE,
+    mumatrix = list(matrix(c(0.7,0.3,
+                             0.4,0.5),
+                           nrow = 2,
+                           ncol = 2,
+                           byrow = TRUE)),
+    resspeed = 3,
+    resconc = 1,
+    chemo = TRUE,
+    essential = FALSE
+)
+
 }

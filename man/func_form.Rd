@@ -2,24 +2,49 @@
 % Please edit documentation in R/func_form.R
 \name{func_form}
 \alias{func_form}
-\title{Generate type 1,2 or 3 functional response}
+\title{Generate type 1, 2 or 3 functional response}
 \usage{
-func_form(R, mu, Ks, phi, type3)
+func_form(R, mu, Ks = 1, phi = 0, type3 = 1/2)
 }
 \arguments{
-\item{R}{vector of resource concentrations}
+\item{R}{Vector of resource concentrations.}
 
-\item{mu}{maximum growth rate}
+\item{mu}{Maximum growth rate}
 
-\item{Ks}{half saturation constant}
+\item{Ks}{Half saturation constant; 1 if linear (default).}
 
-\item{phi}{0 if linear, 1 otherwise}
+\item{phi}{Dummy variable for nonlinear (type I or II) functional responses;
+0 if linear (default), 1 otherwise.}
 
-\item{type3}{1 if type 3, 1/2 otherwise}
+\item{type3}{1 if type 3, 1/2 otherwise (default)}
 }
 \value{
 vector
 }
 \description{
-Generate type 1,2 or 3 functional response
+Generate type 1, 2 or 3 functional response
+}
+\examples{
+
+# Linear (type I) functional response.
+func_form(R = seq(0, 1, length.out = 1000),
+          mu = 1,
+          Ks = 1,
+          phi = 0,
+          type3 = 1/2)
+
+# Saturating (type II, aka Monod) functional response.
+func_form(R = seq(0, 1, length.out = 1000),
+          mu = 1,
+          Ks = 0.1,
+          phi = 1,
+          type3 = 1/2)
+
+# Sigmoidal (type III) functional response.
+func_form(R = seq(0, 1, length.out = 1000),
+          mu = 1,
+          Ks = 0.1,
+          phi = 1,
+          type3 = 1)
+
 }

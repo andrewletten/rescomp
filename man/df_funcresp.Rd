@@ -2,19 +2,24 @@
 % Please edit documentation in R/df_funcresp.R
 \name{df_funcresp}
 \alias{df_funcresp}
-\title{Generate ggplot friendly dataframe for plotting functional responses}
+\title{Generate ggplot friendly data frame for plotting functional responses}
 \usage{
 df_funcresp(pars, maxx)
 }
 \arguments{
 \item{pars}{parameter list from make_par_list()}
 
-\item{maxx}{maximum resource value to get percapita growth rates
+\item{maxx}{maximum resource value to get percapita growth rates across
 (for plotting)}
 }
 \value{
 data frame
 }
 \description{
-Generate ggplot friendly dataframe for plotting functional responses
+Generate ggplot friendly data frame for plotting functional responses
+}
+\examples{
+pars <- make_par_list()
+df_funcresp(pars)
+
 }

@@ -294,7 +294,7 @@ plot_funcresp(pars, maxx = max(pars$respulse))
 ```{r}
 happenings <- time_vals(total = 1000, pulse = 100) # pulse resource and mortality schedule
 
-testrun.df <- ode(
+m1 <- ode(
   func = def_cr_ode,
   y = initiate_state(restart = 0.2, vars=pars),
   parms = pars,
@@ -305,7 +305,7 @@ testrun.df <- ode(
 ```
 
 ```{r, fig.width = 6, fig.height = 3}
-plot_crsim(testrun.df, pars) 
+plot_crsim(m1, pars) 
 ```
 
 Note, to reproduce the dynamics of a single batch culture experiment (i.e. without serial transfer) as potentially measured via optical density in a plate reader (negligible or unobservable mortality), simply set both `resspeed` and `mort` to zero. 

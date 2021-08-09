@@ -7,14 +7,19 @@
 time_vals(total = 1000, step = 0.1, doround = TRUE, pulse)
 }
 \arguments{
-\item{total}{total time}
+\item{total}{Total time.}
 
-\item{step}{step size}
+\item{step}{Step size.}
 
-\item{doround}{round time vector?}
+\item{doround}{Round time units (handles issues with numerical differences
+that produce warning messages when pulsing resources and/or consumers).}
 
-\item{pulse}{pulsing interval}
+\item{pulse}{Pulsing interval.}
 }
 \description{
 Timings of happenings
+}
+\examples{
+
+time_vals(1000, pulse = 100)
 }

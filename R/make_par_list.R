@@ -38,7 +38,26 @@
 #' @importFrom stats approxfun
 #'
 #' @examples
+#'
+#' # Single type I consumer on a single logistically growing resource
 #' make_par_list()
+#'
+#' # Two type II consumers and two substitutable resources in a chemostat
+#' pars <- make_par_list(
+#'     spnum = 2,
+#'     resnum = 2,
+#'     linear = FALSE,
+#'     mumatrix = list(matrix(c(0.7,0.3,
+#'                              0.4,0.5),
+#'                            nrow = 2,
+#'                            ncol = 2,
+#'                            byrow = TRUE)),
+#'     resspeed = 3,
+#'     resconc = 1,
+#'     chemo = TRUE,
+#'     essential = FALSE
+#' )
+#'
 make_par_list <- function(spnum = 1,
                           resnum = 1,
                           mumatrix,
@@ -114,7 +133,7 @@ make_par_list <- function(spnum = 1,
     mu_funs_byres <- list()
     mu_funs_bycons <- list()
 
-    # ist of functions
+    # list of approx functions
     for (i in seq_len(nrow(pars$mu[[1]]))) {
       for (j in seq_len(ncol(pars$mu[[1]]))) {
         force_mu <- rep(c(pars$mu[[1]][i, j],
@@ -184,7 +203,7 @@ make_par_list <- function(spnum = 1,
   pars$batchtrans <- batchtrans
 
 
-  # print conditions ------------------------------------------------------------
+  # print conditions ----------------------------------------------------------
 
   resdyn <- paste0(
     if (chemo == TRUE & resspeed != 0 & respulse != 0) {

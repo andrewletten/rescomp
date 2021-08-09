@@ -6,7 +6,20 @@
 #' @return ggplot object
 #' @export
 #'
-# #' @examples
+#' @examples
+#'
+#' library(deSolve)
+#' pars <- make_par_list()
+#' happenings <- time_vals()
+#' m1 <- ode(
+#'     func = def_cr_ode,
+#'     y = initiate_state(vars = pars),
+#'     parms = pars,
+#'     times = happenings$totaltime,
+#'     method = "lsoda"
+#' )
+#' plot_crsim(m1, pars)
+#'
 plot_crsim <- function(odeobj, pars){
   plot.df <-  frame_and_name(odeobj, pars)
   comp.gg <- tidyr::pivot_longer(plot.df, cols = !c(.data$time), names_to = "state.var", values_to = "count")
