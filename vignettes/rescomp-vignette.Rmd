@@ -18,12 +18,96 @@ knitr::opts_chunk$set(
 )
 ```
 
-`rescomp` is an R package for defining ode models of consumer-resource interactions for use alongside `deSolve`. It also provides a number of additional functions for visualising functional responses and output dynamics from `deSolve`.
+`rescomp` is an R package for defining ODE models of consumer-resource interactions for use alongside the package `deSolve`. It also provides a number of additional functions for visualising functional responses and output dynamics from `deSolve`.
 
-The main user function in `rescomp` is `make_par_list()`, which facilitates the definition and parameterisation of a desired model. Features/options include: 
+# Model formulation
+
+All `rescomp` models take the general form,
+
+$$
+\frac{dN_{i}}{dt} = N_{i}(\mu_{i}(R_{1},R_{2},...)-m) \,,
+$$
+
+$$
+\frac{dR_{j}}{dt} = \Psi_{j} (R_{j}) - \sum_{i = 1}^{n}Q_{ij} \mu_{ij}(R_j) N_i \,,
+$$
+
+where $N_{i}$ is the population density of consumer $i$, $R_{j}$ is the density/concentration of resource $j$, $\mu_{i}(R_{j})$ is the per capita consumer functional response of consumer $i$, $m$ is the per capita mortality rate (constant or pulsed), $\Psi_{j}(R_j)$ is the resource supply function, and $Q_{ij}$ is the resource quota of consumer $i$ on resource $j$.  
+
+From this general form, different model formulations are distinguished by: i) the number of consumers/resources; ii) the form of the consumer functional response; iii) the mode of resource supply; iV) the type of resource; and v) any impulsive (instantaneous changes in consumer/resource density/concentration) or forcing (time dependent model parameters) dynamics.
+
+The consumer growth function can take one of three forms: 
+
+i) linear (type I), 
+ 
+$$
+\mu_{ij}(R_{j}) = a_{ij}R_{j} \,,
+$$
+ 
+where $a_{ij}$ is a constant of proportionality; 
+
+ii) nonlinear type II (aka Monod),
+ 
+$$
+\mu_{ij}(R_{j}) = \mu _{max_{ij}}\frac{R_{j}}{k_{ij} + R_{j}} \,,
+$$
+ 
+where $\mu_{max_{ij}}$ is the maximum growth rate and $k_{ij}$ is the half saturation constant for consumer $i$ on resource $j$; or 
+
+iii) nonlinear type III,
+
+$$
+\mu_{ij}(R_{j}) = \mu _{max_{ij}}\frac{R_{j}^2}{k_{ij}^2 + R_{j}^2} \,.
+$$
+
+In all three cases, the functional response is either assumed to be constant or variable through time (the latter is mediated by time dependent formulations of $a_{ij}$ (type I) or $\mu_{max_{ij}}$ (type II & III).
+
+The resource supply function, $\Psi_{j}(R_j)$, can also take several forms. Specifically, either the resources are biological and grow logistically,
+ 
+$$
+\Psi_{j} (R_{j}) = r_{j}R_{j}\left(1-\frac{R_{j}}{K_{j}}\right) \,,
+$$
+ 
+where $r_j$ is the resource intrinsic rate of increase and $K_j$ is the resource carrying capacity; 
+
+Or the resources are supplied to the systems at a fixed concentration and rate (as in a chemostat),
+ 
+$$
+\Psi_{j} (R_{j}) = d(S_{j} - R_{j}) \,,
+$$
+ 
+where \textit{d} represents the flux of resources into and out of the system.
+
+Or the resources are pulsed intermittently (see below).
+
+In the case of multiple resources, each resource is either treated as essential to consumer growth following Leibig's law of the minimum, in which case,
+ 
+$$
+\mu_{i}(R_{1}, R_{2},...,R_{n}) = min(\mu_{i}(R_{1}), \mu_{i}(R_{2}),..., \mu_{i}(R_{n})) \,;
+$$
+ 
+or substitutable such that:
+ 
+$$
+\mu_{i}(R_{1}, R_{2},...,R_{n}) = \mu_{i}(R_{1}) + \mu_{i}(R_{2}) + ... + \mu_{i}(R_{n}) \,.
+$$ 
+
+Impulsive and non-autonomous consumer and resource behaviour is facilitated through:
+
+$$
+\Psi_{j} (R_{j}) = \Delta R_{j} = (1-d)(S_{j} -R_{j}), t =  k\tau, k = 1,2,...  
+$$
+$$
+	\Delta X_{i} = dX_{i}, t =  k\tau, k = 1,2,..., 
+$$
+
+# Using `rescomp` 
+
+
+The main user function in `rescomp` is `make_par_list()`, which facilitates the definition and parameterisation of a desired model. Function arguments include: 
 
 - Number of consumers/resources
-- Consumer functional response (type I or type II)
+- Consumer functional response (type I, II or II)
 - Resource dynamic (chemostat, logistic and/or pulsed)
 - Resource type (substitutable or essential)
 - Continuous or intermittent mortality (e.g. serial transfer)
@@ -225,6 +309,7 @@ m1 <- ode(
 ```{r, fig.width = 6, fig.height = 3}
 plot_crsim(m1, pars) 
 ```
+
 There is no coexistence now because each species needs to have a larger impact on the resource that is most limiting its growth. For 'consumer 1' it is 'resource b', whereas for 'consumer 2' it is 'resource a'. We can adjust consumer resource impacts via the resource quota matrix.
 
 ```{r}
@@ -313,7 +398,7 @@ plot_crsim(m1, pars)
 
 ## Two type 2 consumers and one externally pulsed resource (serial transfer with pulsed mortality)
 
-Serial transfer in batch culture differs from the above scenario in that resource pulses are typically accompanied by large instantaneous changes in population density. For an example, in a serial transfer experiment with bacteria, a researcher might sample a fraction (e.g. 10%) of the community every 24 hours and inoculate that fraction intro fresh media.   
+Serial transfer in batch culture differs from the above scenario in that resource pulses are typically accompanied by large instantaneous changes in population density. For an example, in a serial transfer experiment with bacteria, an experimenter might sample a fraction (e.g. 10%) of the community every 24 hours and inoculate that fraction intro fresh media.   
 
 Simulating serial transfer in batch culture is implemented by: 
 
@@ -325,7 +410,7 @@ Note that the effect of setting `batchtrans = TRUE` is to enforce  fractional sa
 
 $$(1-m)R + mS,$$
 
-where $m$ is given by `mortpulse` and therefore $1 - m$ equat es to the transfer fraction, $R$ is the resource concentration prior to transfer, and $S$ is the resource pulse size given by `respulse`. To inhibit the behavior, i.e to stop fractional sampling of the resource but maintain intermittent mortality use `batchtrans = FALSE` but still assign a non-zero value for `mortpulse`.    
+where $m$ is given by `mortpulse` and therefore $1 - m$ equates to the transfer fraction, $R$ is the resource concentration prior to transfer, and $S$ is the resource pulse size given by `respulse`. To inhibit the behaviour, i.e. to stop fractional sampling of the resource but maintain intermittent mortality use `batchtrans = FALSE` but still assign a non-zero value for `mortpulse`.    
 
 ```{r}
 pars <- make_par_list(
@@ -371,7 +456,7 @@ m1 <- ode(
 plot_crsim(m1, pars) 
 ```
 
-Note, to reproduce the dynamics of a single batch culture experiment (i.e. without serial transfer) as potentially measured via optical density in a plate reader (negligible or unobservable mortality), simply set both `resspeed` and `mort` to zero. 
+Note, to reproduce the dynamics of a single batch culture experiment (i.e. without serial transfer) as potentially measured via optical density in a plate reader (negligible or unobserved mortality), simply set both `resspeed` and `mort` to zero. 
 
 ```{r}
 pars <- make_par_list(resspeed = 0, mort = 0)
@@ -392,9 +477,11 @@ plot_crsim(testrun.df, pars)
 
 ## Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource
 
-Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in `deSolve` with forcing functions. `rescomp` provides a straightforward means of implementing forcing functions in the background. Three additional arguments are needed in `make_par_list`: `timepars`, `timeswitch` and `time_switch_length`. `timepars` should be set to `TRUE`; `timeswitch` adjusts the frequency of switching between 'environmental states'; `time_switch_length` adjust the total time over which the environment varies (for most applications this should equal the total time in the call to `time_vals`). 
+Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in `deSolve` with forcing functions. `rescomp` provides a convenient means of implementing forcing functions in the background. Three additional arguments are needed in `make_par_list`: `timepars`, `timeswitch` and `time_switch_length`. `timepars` should be set to `TRUE`; `timeswitch` adjusts the frequency of switching between 'environmental states'; `time_switch_length` adjust the total time over which the environment varies (for most applications this should equal the total time in the call to `time_vals`). 
 
-In addition, if `time_pars` = TRUE, the mumatrix argument `make_par_list` expects a list containing two matrices, reflecting two different environmental states. At this stage `rescomp` only handles two states with equal time allotted to each state.
+In addition, if `time_pars = TRUE`, the mumatrix argument in `make_par_list` expects a list containing two matrices, reflecting two different environmental states. At this stage `rescomp` only handles two states with equal time allotted to each state. 
+
+<!-- or a linear transition between states -->
 
 ```{r}
 pars <- make_par_list(
@@ -443,7 +530,7 @@ m1 <- ode(
 plot_crsim(m1, pars) 
 ```
 
-The two consumers coexist due species-specific environmental responses leading to a temporal storage effect (formalization of temporal niche paritioning arising from density dependence in environment-competition covariance).
+The two consumers coexist due species-specific environmental responses leading to a temporal storage effect (formalization of temporal niche paritioning arising from density dependence in environment-competition covariance) (ref).
 
 
 ## Three type 1 consumers on three essential resources generating an intransitive loop (i.e. rock paper scissors dynamics).

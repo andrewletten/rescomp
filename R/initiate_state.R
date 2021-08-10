@@ -9,6 +9,6 @@
 #'
 #' @examples
 #' initiate_state(vars = make_par_list())
-initiate_state <- function(constart = 10, restart = vars$resconc, vars){
+initiate_state <- function(vars, constart = 10, restart = vars$resconc){
   c(rep(constart, vars$nconsumers), restart)
 }

@@ -31,7 +31,7 @@ plot_funcresp <- function(pars, maxx){
 
   df <- df_funcresp(pars, maxx)
 
-  ggplot2::ggplot(df, aes(y = .data$growth, x = .data$resource.levels)) +
+  p <- ggplot2::ggplot(df, aes(y = .data$growth, x = .data$resource.levels)) +
     geom_line(aes(col = .data$sp), size = 1, alpha=0.8) +
     theme(legend.title = element_blank(),
           strip.background = element_blank(),) +
@@ -41,7 +41,16 @@ plot_funcresp <- function(pars, maxx){
     theme(axis.text = element_text(size = 8),
           axis.title= element_text(size = 10)) +
     coord_cartesian(expand = FALSE) +
-    facet_grid(paramstate ~ resource) +
     scale_colour_manual(values=cbbPalette)
+
+  if(length(unique(df$paramstate)) > 1 & length(unique(df$resource)) > 1){
+    p + facet_grid(.data$paramstate ~ .data$resource)
+  } else if(length(unique(df$paramstate)) > 1 & length(unique(df$resource)) == 1){
+    p + facet_grid(rows = vars(.data$paramstate))
+  } else if(length(unique(df$paramstate)) == 1 & length(unique(df$resource)) > 1){
+    p + facet_grid(cols = vars(.data$resource))
+  } else{
+    p
+  }
 }
 

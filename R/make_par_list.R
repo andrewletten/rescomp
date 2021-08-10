@@ -178,16 +178,16 @@ make_par_list <- function(spnum = 1,
   }
 
   if (linear == TRUE) {
-    pars$phi <- matrix(rep(0, times = spnum * resnum),
+    pars$phi <- matrix(rep(0, times = spnum*resnum),
                        nrow = spnum,
                        byrow = TRUE)
   } else {
-    pars$phi <- matrix(rep(1, times = spnum * resnum),
+    pars$phi <- matrix(rep(1, times = spnum*resnum),
                        nrow = spnum,
                        byrow = TRUE)
   }
 
-  pars$type3 <- matrix(rep(1 / 2, times = spnum * resnum),
+  pars$type3 <- matrix(rep(1/2, times = spnum*resnum),
                        nrow = spnum,
                        byrow = TRUE) # currently fixed on type 1 or type 2
   pars$all_d <- mort
