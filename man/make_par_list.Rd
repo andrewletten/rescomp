@@ -19,10 +19,11 @@ make_par_list(
   resconc = 1,
   respulse = 0,
   mortpulse = 0,
+  pulsefreq = 0,
   batchtrans = FALSE,
   timepars = FALSE,
-  timeswitch,
-  timeswitch_length
+  totaltime = 1000,
+  timeparfreq = 0
 )
 }
 \arguments{
@@ -62,16 +63,16 @@ Requires events argument in call to \code{ode}.}
 \item{mortpulse}{Consumer mortality fraction if non-constant mortality
 (e.g. serial-batch transfer). Requires events argument in call to \code{ode}.}
 
+\item{pulsefreq}{Frequency of resource pulsing and/or intemittent mortality.}
+
 \item{batchtrans}{If TRUE, both resource is also fractionally sampled
 (see vignette).}
 
 \item{timepars}{If TRUE, time dependent parameters required.}
 
-\item{timeswitch}{Frequency of parameter switching if timepars = TRUE.}
+\item{totaltime}{Total simulation time}
 
-\item{timeswitch_length}{If timepars = TRUE,
-total time for parameter switching.
-Should be equivalent to total simulation time.}
+\item{timeparfreq}{Frequency of parameter switching if timepars = TRUE.}
 }
 \value{
 list

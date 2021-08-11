@@ -8,7 +8,7 @@
 #' @param events NULL
 #' @param ... Other arguments passed to `deSolve::ode`
 #'
-#' @return Object of class deSolve
+#' @return Matrix of class deSolve
 #' @export
 #'
 #' @examples
@@ -21,21 +21,31 @@
 #'
 sim_rescomp <-  function(
   parms,
-  y = initiate_state(parms),
   times,
+  y = initiate_state(parms), # move to if (missing) in function
   events = NULL,
   ...
   ){
+  if (missing(times)) {
+    if (parms$pulsefreq == 0){
+      times <- time_vals(parms$totaltime)
+    } else {
+      times <- time_vals(times, parms$pulsefreq)
+    }
+  } else {
+    times <-  times
+  }
+
   if(length(times) == 1){
     events = NULL
     if(parms$respulse != 0 | parms$mortpulse != 0){
       warning(strwrap("respulse or mortpulse parameters nonzero but no pulse
-                      sequence provided", prefix = " "), immediate. = TRUE)
+                      sequence provided. ", prefix = " "), immediate. = TRUE)
     }
   } else {
     if(parms$respulse == 0 & parms$mortpulse == 0){
       warning(strwrap("Pulse sequence provided but respulse and mortpulse both
-                      set to zero", prefix = " "), immediate. = TRUE)
+                      set to zero. ", prefix = " "), immediate. = TRUE)
     }
     events = list(func = eventfun_respulse, time = times$pulseseq)
   }

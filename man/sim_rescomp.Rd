@@ -5,22 +5,22 @@
 \title{Simulate resource competition (a convenience wrapper for
 \code{deSolve::ode})}
 \usage{
-sim_rescomp(parms, y = initiate_state(parms), times, events = NULL, ...)
+sim_rescomp(parms, times, y = initiate_state(parms), events = NULL, ...)
 }
 \arguments{
 \item{parms}{Parameter list returned by \code{rescomp::make_par_list}.}
 
-\item{y}{Initial values for state variables.}
-
 \item{times}{List. Total simulation time and pulsing if relevant
 (use \code{rescomp::time_vals})}
 
+\item{y}{Initial values for state variables.}
+
 \item{events}{NULL}
 
-\item{...}{Arguments passed to deSolve::ODE}
+\item{...}{Other arguments passed to \code{deSolve::ode}}
 }
 \value{
-Object of class deSolve
+Matrix of class deSolve
 }
 \description{
 Simulate resource competition (a convenience wrapper for

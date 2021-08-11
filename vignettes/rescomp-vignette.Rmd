@@ -103,7 +103,6 @@ $$
 
 # Using `rescomp` 
 
-
 The main user function in `rescomp` is `make_par_list()`, which facilitates the definition and parameterisation of a desired model. Function arguments include: 
 
 - Number of consumers/resources
@@ -172,6 +171,12 @@ m1 <- ode(
 
 ```{r, fig.width = 6, fig.height = 3}
 plot_crsim(m1, pars) 
+```
+
+An alternative to calling `deSolve::ode` directly is to call `rescomp::sim_rescomp`, a wrapper to `ode` with convenient defaults and arguments inherited from pars.  
+
+```{r}
+m1 <- sim_rescomp(pars)
 ```
 
 ## Type 2 consumer on a continuously suppplied resource
@@ -477,7 +482,7 @@ plot_crsim(testrun.df, pars)
 
 ## Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource
 
-Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in `deSolve` with forcing functions. `rescomp` provides a convenient means of implementing forcing functions in the background. Three additional arguments are needed in `make_par_list`: `timepars`, `timeswitch` and `time_switch_length`. `timepars` should be set to `TRUE`; `timeswitch` adjusts the frequency of switching between 'environmental states'; `time_switch_length` adjust the total time over which the environment varies (for most applications this should equal the total time in the call to `time_vals`). 
+Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in `deSolve` with forcing functions. `rescomp` provides a convenient means of implementing forcing functions in the background. Two additional arguments are needed in `make_par_list`: `timepars` and `timeparfreq`. `timepars` should be set to `TRUE`; `timeparfreq` adjusts the frequency of switching between 'environmental states'.
 
 In addition, if `time_pars = TRUE`, the mumatrix argument in `make_par_list` expects a list containing two matrices, reflecting two different environmental states. At this stage `rescomp` only handles two states with equal time allotted to each state. 
 
@@ -505,8 +510,8 @@ pars <- make_par_list(
   resspeed = 0.1,
   resconc = 0.1,
   timepars = TRUE,
-  timeswitch = 50,
-  timeswitch_length = 2000
+  timeparfreq = 50,
+  totaltime = 2000
 )
 ```
 

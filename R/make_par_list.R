@@ -24,14 +24,14 @@
 #'     Requires events argument in call to `ode`.
 #' @param mortpulse Consumer mortality fraction if non-constant mortality
 #'     (e.g. serial-batch transfer). Requires events argument in call to `ode`.
+#' @param pulsefreq Frequency of resource pulsing and/or intemittent mortality.
 #' @param batchtrans If TRUE, both resource is also fractionally sampled
 #'     (see vignette).
 #' @param timepars If TRUE, time dependent parameters required.
-#' @param timeswitch Frequency of parameter switching if timepars = TRUE.
-#' @param timeswitch_length If timepars = TRUE,
-#'     total time for parameter switching.
-#'     Should be equivalent to total simulation time.
-#'
+#' @param timeparfreq Frequency of parameter switching if timepars = TRUE.
+#' @param totaltime Total simulation time
+#' @param timeparfreq Frequency of parameter switching if timepars = TRUE.
+
 #' @return list
 #' @export
 #'
@@ -71,10 +71,11 @@ make_par_list <- function(spnum = 1,
                           resconc = 1,
                           respulse = 0,
                           mortpulse = 0,
+                          pulsefreq = 0,
                           batchtrans = FALSE,
                           timepars = FALSE,
-                          timeswitch,
-                          timeswitch_length) {
+                          totaltime = 1000,
+                          timeparfreq = 0) {
 
   # Check input classes
   stopifnot(is.numeric(spnum))
@@ -129,7 +130,7 @@ make_par_list <- function(spnum = 1,
       stop(paste0(
         "Time dependent parameters set to true but
         only one mu matrix provided"))
-    forcetime <- seq(0, timeswitch_length, timeswitch)
+    forcetime <- seq(0, totaltime, timeparfreq)
     mu_funs_byres <- list()
     mu_funs_bycons <- list()
 
@@ -147,7 +148,7 @@ make_par_list <- function(spnum = 1,
       mu_funs_bycons[[i]] <- mu_funs_byres
     }
     pars$mu_approx_fun <- mu_funs_bycons
-    pars$timeswitch <- timeswitch
+    pars$timeparfreq <- timeparfreq
   } else {
     if (length(pars$mu) > 1)
       stop(paste0(
@@ -200,10 +201,12 @@ make_par_list <- function(spnum = 1,
   pars$resconc <- rep(resconc, times = resnum)
   pars$timepars <- timepars
   pars$mortpulse <- mortpulse
+  pars$totaltime <- totaltime
+  pars$pulsefreq <- pulsefreq
   pars$batchtrans <- batchtrans
+  pars$timeparfreq <- timeparfreq
 
-
-  # print conditions ----------------------------------------------------------
+  # Print model/simulation properites
 
   resdyn <- paste0(
     if (chemo == TRUE & resspeed != 0 & respulse != 0) {
@@ -247,17 +250,47 @@ make_par_list <- function(spnum = 1,
           resdyn, "\n"),
 
     paste0(" * ",
-          "Mortality is",
-          ifelse(mortpulse == 0, " continuous", " intermittent"),
+          if(mort > 0 & mortpulse == 0){
+            "Mortality is continuous"
+          } else if (mort > 0 & mortpulse > 0){
+            "Mortality is continuous and intermittent"
+          } else if (mort == 0 & mortpulse > 0){
+            "Mortality intermittent"
+          } else if (mort == 0 & mortpulse == 0){
+            "No mortality"
+          },
           "\n"),
 
     paste0(" * ",
           ifelse(timepars,
                  paste0("Parameters are time dependent with switching every ",
-                        timeswitch,
+                        timeparfreq,
                         " time steps"),
-                 "Parameters are constant through time "
-    ))
+                 "Parameters are constant through time"
+                 ),
+          "\n",
+          "\n"
+          ),
+
+    "Simulation properties: \n",
+
+    paste0(" * ",
+           "Total simulation time: ", totaltime, " time steps", "\n"),
+
+    if (respulse != 0 & mortpulse == 0){
+      paste0(" * ",
+             "Resources pulsing every ", pulsefreq, " timesteps",
+             "\n")
+    } else if (respulse == 0 & mortpulse != 0){
+      paste0(" * ",
+             "Intermittent mortality every", pulsefreq, " timesteps",
+             "\n")
+    } else if (respulse != 0 & mortpulse != 0){
+      paste0(" * ",
+             "Resources pulsing and intermittent mortality every ", pulsefreq, " timesteps",
+             "\n")
+    } else {
+    }
   )
   return(pars)
 }

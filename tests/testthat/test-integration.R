@@ -342,8 +342,8 @@ test_that("Two type 2 consumers with time dependent consumption parameters and
               resspeed = 0.1,
               resconc = 0.1,
               timepars = TRUE,
-              timeswitch = 10,
-              timeswitch_length = 50
+              timeparfreq = 10,
+              totaltime = 50
             ))
 
             happenings <- time_vals(total = 50)

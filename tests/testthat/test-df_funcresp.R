@@ -20,8 +20,8 @@ test_that("Unique levels in output match arguments to make_par_list", {
 
   pars4 <- suppressMessages(make_par_list(spnum = 2, resnum = 2,
                          timepars = TRUE,
-                         timeswitch_length = 1000,
-                         timeswitch = 10,
+                         totaltime = 1000,
+                         timeparfreq = 10,
                          mumatrix = list(matrix(c(1, 1,
                                                   1, 1), nrow = 2, ncol = 2),
                                          matrix(c(2, 2,
