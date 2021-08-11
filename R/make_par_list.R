@@ -291,6 +291,7 @@ make_par_list <- function(spnum = 1,
              "\n")
     } else {
     }
+    # Message initial states
   )
   return(pars)
 }

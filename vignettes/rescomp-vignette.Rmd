@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-`rescomp` is an R package for defining ODE models of consumer-resource interactions for use alongside the package `deSolve`. It also provides a number of additional functions for visualising functional responses and output dynamics from `deSolve`.
+`rescomp` is an R package for generating, simulating and visualising ODE models of consumer-resource interactions. It is primarily built on top of `deSolve`.
 
 # Model formulation
 
