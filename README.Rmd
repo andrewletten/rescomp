@@ -75,7 +75,9 @@ The main utility of `rescomp` comes with specifying more elaborate models and si
 
 See `?make_par_list` for all argument options. 
 
-The below example demonstrates how to build and simulate a model for two consumers with type II functional responses on a single logistically growing resources. A wide range of other examples can be found in the package vignette. 
+The following two examples demonstrate how to build and simulate a model for: i) two consumers with type II functional responses on a single logistically growing resources; and ii) two consumers with type I functional responses with pulsed resources and time dependent consumptions parameters. A wide range of other examples can be found in the package vignette. 
+
+### Example 1
 
 ```{r}
 pars <- make_par_list(
@@ -103,6 +105,45 @@ plot_funcresp(pars, maxx = 0.2)
 ```{r, fig.width = 9, fig.height = 4.5, out.width = "80%"}
 m2 <- sim_rescomp(pars)
 plot_crsim(m2, pars) 
+```
+
+### Example 2
+
+```{r}
+pars <- make_par_list(
+  spnum = 2, 
+  resnum = 2,
+  linear = TRUE,
+  timepars = TRUE,
+  timeparfreq = 40,
+  mumatrix = list(matrix(c(0.4,0.1,
+                           0.05, 0.02), 
+                    nrow = 2, 
+                    ncol = 2,
+                    byrow = TRUE),
+                  matrix(c(0.2, 0.1,
+                           0.5, 0.3), 
+                    nrow = 2, 
+                    ncol = 2,
+                    byrow = TRUE)),
+  resspeed = 0,
+  resconc = 1,
+  respulse = 1,
+  pulsefreq = 40,
+  totaltime = 1000
+)
+```
+
+```{r, fig.width = 6, fig.height = 4}
+plot_funcresp(pars, maxx = 1)
+```
+
+```{r}
+m3 <- sim_rescomp(pars)
+```
+
+```{r, fig.width = 9, fig.height = 4.5, out.width = "80%"}
+plot_crsim(m3, pars) 
 ```
 
 Disclaimer: As a biologist with no formal training in software development, I cannot vouch 100% that `rescomp` is bug free, maximally efficient or entirely consistent with 'tidy' principles. I have done my best but please use with caution!

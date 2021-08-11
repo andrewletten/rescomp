@@ -85,10 +85,14 @@ models and simulation dynamics. Features/options include:
 
 See `?make_par_list` for all argument options.
 
-The below example demonstrates how to build and simulate a model for two
-consumers with type II functional responses on a single logistically
-growing resources. A wide range of other examples can be found in the
-package vignette.
+The following two examples demonstrate how to build and simulate a model
+for: i) two consumers with type II functional responses on a single
+logistically growing resources; and ii) two consumers with type I
+functional responses with pulsed resources and time dependent
+consumptions parameters. A wide range of other examples can be found in
+the package vignette.
+
+### Example 1
 
 ``` r
 pars <- make_par_list(
@@ -130,6 +134,60 @@ plot_crsim(m2, pars)
 ```
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="80%" />
+
+### Example 2
+
+``` r
+pars <- make_par_list(
+  spnum = 2, 
+  resnum = 2,
+  linear = TRUE,
+  timepars = TRUE,
+  timeparfreq = 40,
+  mumatrix = list(matrix(c(0.4,0.1,
+                           0.05, 0.02), 
+                    nrow = 2, 
+                    ncol = 2,
+                    byrow = TRUE),
+                  matrix(c(0.2, 0.1,
+                           0.5, 0.3), 
+                    nrow = 2, 
+                    ncol = 2,
+                    byrow = TRUE)),
+  resspeed = 0,
+  resconc = 1,
+  respulse = 1,
+  pulsefreq = 40,
+  totaltime = 1000
+)
+#> Model properties: 
+#>  * 2 consumer(s) and 2 resource(s)
+#>  * Consumers have type 1 functional responses
+#>  * Resources are substitutable
+#>  * Resources are pulsed only
+#>  * Mortality is continuous
+#>  * Parameters are time dependent with switching every 40 time steps
+#> 
+#> Simulation properties: 
+#>  * Total simulation time: 1000 time steps
+#>  * Resources pulsing every 40 timesteps
+```
+
+``` r
+plot_funcresp(pars, maxx = 1)
+```
+
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="40%" />
+
+``` r
+m3 <- sim_rescomp(pars)
+```
+
+``` r
+plot_crsim(m3, pars) 
+```
+
+<img src="man/figures/README-unnamed-chunk-13-1.png" width="80%" />
 
 Disclaimer: As a biologist with no formal training in software
 development, I cannot vouch 100% that `rescomp` is bug free, maximally

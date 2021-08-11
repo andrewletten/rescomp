@@ -30,10 +30,10 @@ sim_rescomp <-  function(
     if (parms$pulsefreq == 0){
       times <- time_vals(parms$totaltime)
     } else {
-      times <- time_vals(times, parms$pulsefreq)
+      times <- time_vals(parms$totaltime, pulse = parms$pulsefreq)
     }
   } else {
-    times <-  times
+    times <- times
   }
 
   if(length(times) == 1){

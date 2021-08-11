@@ -204,7 +204,6 @@ make_par_list <- function(spnum = 1,
   pars$totaltime <- totaltime
   pars$pulsefreq <- pulsefreq
   pars$batchtrans <- batchtrans
-  pars$timeparfreq <- timeparfreq
 
   # Print model/simulation properites
 
