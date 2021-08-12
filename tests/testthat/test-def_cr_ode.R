@@ -2,7 +2,7 @@ test_that("Differentials are as expected for given state/pars", {
 
   dN <- def_cr_ode(
     State = c(10,1),
-    Pars = suppressMessages(make_par_list())
+    Pars = suppressMessages(spec_rescomp())
     )
   # Expected: (func_form(R = 1, mu = 0.1, Ks = 1, phi = 0, type3 = 1/2) - 0.03)*10
   expect_equal(dN[[1]][1], 0.7)
@@ -10,7 +10,7 @@ test_that("Differentials are as expected for given state/pars", {
   dN <- def_cr_ode(
     State = c(10, 10, 1),
     Pars = suppressMessages(
-      make_par_list(
+      spec_rescomp(
         spnum = 2,
         resnum = 1,
         mumatrix = list(matrix(c(0.7,1), nrow = 2, ncol = 1))

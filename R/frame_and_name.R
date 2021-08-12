@@ -1,7 +1,7 @@
 #' Convert object of class deSolve to a data frame and name columns
 #'
 #' @param odeobject object of class deSolve
-#' @param pars Model parameters from make_par_list()
+#' @param pars Model parameters from spec_rescomp()
 #'
 #' @return data frame
 #' @export
@@ -9,7 +9,7 @@
 #'
 #'
 #' @examples
-#' pars <- make_par_list()
+#' pars <- spec_rescomp()
 #' m1 <- sim_rescomp(pars)
 #' frame_and_name(m1, pars)
 #'

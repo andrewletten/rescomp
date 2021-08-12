@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-`rescomp` is an R package for generating, simulating and visualising ODE models of consumer-resource interactions. In essence, it is a consumer-resource modelling focused interface to the excellent `deSolve` package.
+`rescomp` is an R package for generating, simulating and visualising ODE models of consumer-resource interactions. In essence, it is a consumer-resource modelling focused interface to the canonical `deSolve` package.
 
 # Model formulation
 
@@ -96,7 +96,7 @@ The model specification also allows for instantaneous changes in consumer and re
 
 # Using `rescomp` 
 
-The main user function in `rescomp` is `make_par_list()`, which facilitates the definition and parameterisation of a desired model and the specification of simulation parameters. Function arguments include (but are not limited to): 
+The main user function in `rescomp` is `spec_rescomp()`, which facilitates the definition and parameterisation of a desired model and the specification of simulation parameters. Function arguments include (but are not limited to): 
 
 - Number of consumers/resources
 - Consumer functional response (type I, II or II)
@@ -105,7 +105,7 @@ The main user function in `rescomp` is `make_par_list()`, which facilitates the 
 - Continuous or intermittent mortality (e.g. serial transfer)
 - Time dependent consumption parameters 
 
-See `?make_par_list` for all argument options.
+See `?spec_rescomp` for all argument options.
 
 **Examples demonstrated in this vignette include:**
 
@@ -130,7 +130,7 @@ library(deSolve)
 ```
 
 ```{r}
-pars <- make_par_list(
+pars <- spec_rescomp(
   spnum = 1, 
   resnum = 1,
   linear = FALSE,
@@ -148,7 +148,7 @@ Visualise functional responses with `rescomp::plot_funcresp`. Faceted by resourc
 plot_funcresp(pars, maxx = 2)
 ```
 
-The model can then be simulated with `rescomp::sim_rescomp`. `sim_rescomp` is a wrapper to `deSolve::ode` that takes the output from `make_par_list` as its main argument.
+The model can then be simulated with `rescomp::sim_rescomp`. `sim_rescomp` is a wrapper to `deSolve::ode` that takes the output from `spec_rescomp` as its main argument.
 
 ```{r}
 m1 <- sim_rescomp(pars)
@@ -177,7 +177,7 @@ plot_crsim(m1, pars)
 ## Type 2 consumer on a continuously suppplied resource
 
 ```{r}
-pars <- make_par_list(
+pars <- spec_rescomp(
   spnum = 1, 
   resnum = 1,
   linear = FALSE,
@@ -199,7 +199,7 @@ plot_crsim(m1, pars)
 ## Two type 2 consumers on a logistically growing resource
 
 ```{r}
-pars <- make_par_list(
+pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
   linear = FALSE,
@@ -235,7 +235,7 @@ Owing to the trade-off in functional responses (gleaner-opportunist) and resourc
 ## Two type 1 consumers and two substitutable resources in a chemostat
 
 ```{r}
-pars <- make_par_list(
+pars <- spec_rescomp(
   spnum = 2, 
   resnum = 2,
   linear = TRUE,
@@ -281,7 +281,7 @@ plot_crsim(m1, pars)
 There is no coexistence now because each species needs to have a larger impact on the resource that is most limiting its growth. For 'consumer 1' it is 'resource b', whereas for 'consumer 2' it is 'resource a'. We can adjust consumer resource impacts via the resource quota matrix.
 
 ```{r}
-pars <- make_par_list(
+pars <- spec_rescomp(
   spnum = 2, 
   resnum = 2,
   linear = TRUE,
@@ -314,10 +314,10 @@ plot_crsim(m1, pars)
 
 ## Two type 2 consumers and one externally pulsed resource (continuous mortality)
 
-External resource pulsing is handled using an event function, `rescomp::eventfun_respulse`, which is passed in a list to `deSolve::ode`. The size of the resource pulse is specified as a numeric with the argument `respulse` in the call to `make_par_list`. To prevent any other mode of resource supply, `resspeed` should be set to zero. The frequency of pulsing is set with the `pulse` argument in `rescomp::time_vals`. The resultant vector of pusling intervals should be included in the same list containing the event function.
+External resource pulsing is handled using an event function, `rescomp::eventfun_respulse`, which is passed in a list to `deSolve::ode`. The size of the resource pulse is specified as a numeric with the argument `respulse` in the call to `spec_rescomp`. To prevent any other mode of resource supply, `resspeed` should be set to zero. The frequency of pulsing is set with the `pulse` argument in `rescomp::time_vals`. The resultant vector of pusling intervals should be included in the same list containing the event function.
 
 ```{r}
-pars <- make_par_list(
+pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
   linear = FALSE,
@@ -354,14 +354,14 @@ Serial transfer in batch culture differs from the above scenario in that resourc
 
 Simulating serial transfer in batch culture is implemented by: 
 
-  1. Using `batchtrans = TRUE` in `rescomp::make_par_list`. 
+  1. Using `batchtrans = TRUE` in `rescomp::spec_rescomp`. 
   2. Assigning a value from 0 to 1 for the argument `mortpulse`. This is the fraction of the consumer(s) population instantaneous 'killed' at set intervals. Note the transfer fraction = 1 - `mortpulse`.
   3. Setting the serial transfer schedule with the `pulse` argument in `rescomp::time_vals` (coincident with resource pulse intervals).
   
 Note that the effect of setting `batchtrans = TRUE` is to enforce  fractional sampling of the resource/media in addition to the consumers. As such, immediately after a transfer event the resource concentration will be equal to: $(1-M)R_{j} + MS_{j}$, where $R$ is the resource concentration prior to transfer, and $S$ is the resource pulse size given by `respulse`. To inhibit the behaviour, i.e. to stop fractional sampling of the resource but maintain intermittent mortality use `batchtrans = FALSE` but still assign a non-zero value for `mortpulse`.    
 
 ```{r}
-pars <- make_par_list(
+pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
   linear = FALSE,
@@ -398,7 +398,7 @@ plot_crsim(m1, pars)
 Note, to reproduce the dynamics of a single batch culture experiment (i.e. without serial transfer) as potentially measured via optical density in a plate reader (negligible or unobserved mortality), simply set both `resspeed` and `mort` to zero. 
 
 ```{r}
-pars <- make_par_list(resspeed = 0, mort = 0, totaltime = 500)
+pars <- spec_rescomp(resspeed = 0, mort = 0, totaltime = 500)
 m1 <- sim_rescomp(pars)
 ```
 
@@ -408,14 +408,14 @@ plot_crsim(m1, pars)
 
 ## Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource
 
-Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in `deSolve` with forcing functions. `rescomp` provides a convenient means of implementing forcing functions in the background. Two additional arguments are needed in `make_par_list`: `timepars` and `timeparfreq`. `timepars` should be set to `TRUE`; `timeparfreq` adjusts the frequency of switching between 'environmental states'.
+Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in `deSolve` with forcing functions. `rescomp` provides a convenient means of implementing forcing functions in the background. Two additional arguments are needed in `spec_rescomp`: `timepars` and `timeparfreq`. `timepars` should be set to `TRUE`; `timeparfreq` adjusts the frequency of switching between 'environmental states'.
 
-In addition, if `time_pars = TRUE`, the mumatrix argument in `make_par_list` expects a list containing two matrices, reflecting two different environmental states. At this stage `rescomp` only handles two states with equal time allotted to each state. 
+In addition, if `time_pars = TRUE`, the mumatrix argument in `spec_rescomp` expects a list containing two matrices, reflecting two different environmental states. At this stage `rescomp` only handles two states with equal time allotted to each state. 
 
 <!-- or a linear transition between states -->
 
 ```{r}
-pars <- make_par_list(
+pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
   linear = FALSE,
@@ -459,7 +459,7 @@ The two consumers coexist due species-specific environmental responses leading t
 ## Three type 1 consumers on three essential resources generating an intransitive loop (i.e. rock paper scissors dynamics).
 
 ```{r}
-pars <- make_par_list(
+pars <- spec_rescomp(
   spnum = 3, 
   resnum = 3,
   linear = TRUE,

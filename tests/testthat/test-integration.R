@@ -6,7 +6,7 @@ library(deSolve)
 # -------------------------------------------------------------------------
 test_that("defaults as expected", {
   # rescomp approach
-  pars <- suppressMessages(make_par_list())
+  pars <- suppressMessages(spec_rescomp())
   happenings <- time_vals(50)
   m1 <- ode(
     func = def_cr_ode,
@@ -39,7 +39,7 @@ test_that("defaults as expected", {
 # -------------------------------------------------------------------------
 test_that("defaults with chemo TRUE as expected", {
   # rescomp approach
-  pars <- suppressMessages(make_par_list(chemo = TRUE))
+  pars <- suppressMessages(spec_rescomp(chemo = TRUE))
   happenings <- time_vals(50)
   m1 <- ode(
     func = def_cr_ode,
@@ -73,7 +73,7 @@ test_that("defaults with chemo TRUE as expected", {
 
 test_that("2 type II on single logistic as expected", {
   # rescomp approach
-  pars <- suppressMessages(make_par_list(
+  pars <- suppressMessages(spec_rescomp(
     spnum = 2,
     resnum = 1,
     linear = FALSE,
@@ -130,7 +130,7 @@ test_that("Two type 1 consumers and two substitutable resources
           in a chemostat as expected", {
 
   # rescomp approach
-  pars <- suppressMessages(make_par_list(
+  pars <- suppressMessages(spec_rescomp(
     spnum = 2,
     resnum = 2,
     linear = TRUE,
@@ -187,7 +187,7 @@ test_that("Two type 2 consumers and one externally pulsed resource
           (continuous mortality)", {
 
             # rescomp approach
-            pars <- suppressMessages(make_par_list(
+            pars <- suppressMessages(spec_rescomp(
               spnum = 2,
               resnum = 1,
               linear = FALSE,
@@ -253,7 +253,7 @@ test_that("Two type 2 consumers and one externally pulsed resource
           (serial transfer with pulsed mortality)", {
 
             # rescomp approach
-            pars <- suppressMessages(make_par_list(
+            pars <- suppressMessages(spec_rescomp(
               spnum = 2,
               resnum = 1,
               linear = FALSE,
@@ -322,7 +322,7 @@ test_that("Two type 2 consumers with time dependent consumption parameters and
           one continuously supplied resource)", {
 
             # rescomp approach
-            pars <- suppressMessages(make_par_list(
+            pars <- suppressMessages(spec_rescomp(
               spnum = 2,
               resnum = 1,
               linear = FALSE,
@@ -399,7 +399,7 @@ test_that("Two type 1 consumers and two essential resources
           in a chemostat as expected", {
 
             # rescomp approach
-            pars <- suppressMessages(make_par_list(
+            pars <- suppressMessages(spec_rescomp(
               spnum = 2,
               resnum = 2,
               linear = TRUE,

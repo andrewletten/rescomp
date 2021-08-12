@@ -1,6 +1,6 @@
 #' Plot functional responses
 #'
-#' @param pars Parameter list from make_par_list()
+#' @param pars Parameter list from spec_rescomp()
 #' @param maxx Resource value to calculate per-capita growth rates up to (xlim).
 #'
 #' @import ggplot2
@@ -10,10 +10,10 @@
 #'
 #' @examples
 #'
-#' pars <- make_par_list()
+#' pars <- spec_rescomp()
 #' plot_funcresp(pars)
 #'
-#' pars <- make_par_list(
+#' pars <- spec_rescomp(
 #'     spnum = 2,
 #'     resnum = 2,
 #'     linear = FALSE,

@@ -1,6 +1,6 @@
 test_that("cr sim plots look as expected", {
   library(deSolve)
-  pars <- suppressMessages(make_par_list())
+  pars <- suppressMessages(spec_rescomp())
   happenings <- time_vals()
   m1 <- ode(
     func = def_cr_ode,

@@ -7,7 +7,7 @@
 df_funcresp(pars, maxx)
 }
 \arguments{
-\item{pars}{parameter list from make_par_list()}
+\item{pars}{parameter list from spec_rescomp()}
 
 \item{maxx}{maximum resource value to get percapita growth rates across
 (for plotting)}
@@ -19,7 +19,7 @@ data frame
 Generate ggplot friendly data frame for plotting functional responses
 }
 \examples{
-pars <- make_par_list()
+pars <- spec_rescomp()
 df_funcresp(pars)
 
 }

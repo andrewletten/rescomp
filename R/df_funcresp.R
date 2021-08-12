@@ -1,6 +1,6 @@
 #' Generate ggplot friendly data frame for plotting functional responses
 #'
-#' @param pars parameter list from make_par_list()
+#' @param pars parameter list from spec_rescomp()
 #' @param maxx maximum resource value to get percapita growth rates across
 #' (for plotting)
 #'
@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-#' pars <- make_par_list()
+#' pars <- spec_rescomp()
 #' df_funcresp(pars)
 #'
 #' @importFrom rlang .data

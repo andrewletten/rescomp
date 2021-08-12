@@ -1,14 +1,14 @@
 #' Plot consumer and resource dynamics from deSolve output
 #'
 #' @param odeobj odeobject
-#' @param pars parameters from make_par_list()
+#' @param pars parameters from spec_rescomp()
 #'
 #' @return ggplot object
 #' @export
 #'
 #' @examples
 #'
-#' pars <- make_par_list()
+#' pars <- spec_rescomp()
 #' m1 <- sim_rescomp(pars)
 #' plot_crsim(m1, pars)
 #'

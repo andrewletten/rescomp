@@ -36,10 +36,10 @@ library(rescomp)
 library(deSolve)
 ```
 
-The main user function in `rescomp` is `make_par_list`, which facilitates i) the definition and parameterisation of a desired consumer-resource model, and ii) the specification of simulation parameters. The default output from `make_par_list` is a list defining a model for a single type I consumer (linear functional response) and a single continuously supplied resource (e.g. chemostat).
+The main user function in `rescomp` is `spec_rescomp`, which facilitates i) the definition and parameterisation of a desired consumer-resource model, and ii) the specification of simulation parameters. The default output from `spec_rescomp` is a list defining a model for a single type I consumer (linear functional response) and a single continuously supplied resource (e.g. chemostat).
 
 ```{r}
-pars <- make_par_list()
+pars <- spec_rescomp()
 ```
 
 `rescomp::funcresp` plots the functional response for easy visualistion prior to running a simulation.
@@ -73,14 +73,14 @@ The main utility of `rescomp` comes with specifying more elaborate models and si
 - Time dependent consumption parameters 
 
 
-See `?make_par_list` for all argument options. 
+See `?spec_rescomp` for all argument options. 
 
 The following two examples demonstrate how to build and simulate a model for: i) two consumers with type II functional responses on a single logistically growing resources; and ii) two consumers with type I functional responses with pulsed resources and time dependent consumptions parameters. A wide range of other examples can be found in the package vignette. 
 
 ### Example 1
 
 ```{r}
-pars <- make_par_list(
+pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
   linear = FALSE,
@@ -111,7 +111,7 @@ plot_crsim(m2, pars)
 ### Example 2
 
 ```{r}
-pars <- make_par_list(
+pars <- spec_rescomp(
   spnum = 2, 
   resnum = 2,
   linear = TRUE,

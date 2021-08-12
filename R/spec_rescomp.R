@@ -4,7 +4,7 @@
 #' @param spnum Number of consumers
 #' @param resnum Number of resources
 #' @param mumatrix A list containing the matrix(s) of maximum growth rates
-#'     (type 2) / constant of proportionalities (type 1).
+#'     (type 2 or 3) / constant of proportionalities (type 1).
 #'     The number of rows should be equal to `spnum` and `resnum` respectively.
 #'     If `timepars` = TRUE, expects a list of length 2.
 #' @param kmatrix Matrix of half saturation constants
@@ -13,7 +13,8 @@
 #' @param qmatrix Matrix of resource quotas.
 #'     The number of rows should be equal to `spnum` and `resnum` respectively.
 #' @param linear If FALSE equals type 2 function (i.e. Monod).
-#' @param chemo If FALSE resources grow logistically.
+#' @param chemo Default is resources supplied continuously (chemostat).
+#'     If FALSE resources grow logistically.
 #' @param essential If FALSE resources are substitutable.
 #' @param mort Density independent mortality rate.
 #' @param resspeed Resource intrinsic rate of increase (if chemo = FALSE),
@@ -30,7 +31,6 @@
 #' @param timepars If TRUE, time dependent parameters required.
 #' @param timeparfreq Frequency of parameter switching if timepars = TRUE.
 #' @param totaltime Total simulation time
-#' @param timeparfreq Frequency of parameter switching if timepars = TRUE.
 #' @param cinit Initial consumer state values (densities). Either a single
 #'     integer for all consumers or a vector. Defaults to 10 for all
 #'     consumers. Note initial resource state values defaults to `resconc`.
@@ -44,10 +44,10 @@
 #' @examples
 #'
 #' # Single type I consumer on a single logistically growing resource
-#' make_par_list()
+#' spec_rescomp()
 #'
 #' # Two type II consumers and two substitutable resources in a chemostat
-#' pars <- make_par_list(
+#' pars <- spec_rescomp(
 #'     spnum = 2,
 #'     resnum = 2,
 #'     linear = FALSE,
@@ -62,7 +62,7 @@
 #'     essential = FALSE
 #' )
 #'
-make_par_list <- function(spnum = 1,
+spec_rescomp <- function(spnum = 1,
                           resnum = 1,
                           mumatrix,
                           kmatrix,

@@ -9,7 +9,7 @@ plot_crsim(odeobj, pars)
 \arguments{
 \item{odeobj}{odeobject}
 
-\item{pars}{parameters from make_par_list()}
+\item{pars}{parameters from spec_rescomp()}
 }
 \value{
 ggplot object
@@ -19,7 +19,7 @@ Plot consumer and resource dynamics from deSolve output
 }
 \examples{
 
-pars <- make_par_list()
+pars <- spec_rescomp()
 m1 <- sim_rescomp(pars)
 plot_crsim(m1, pars)
 

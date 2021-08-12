@@ -7,7 +7,7 @@
 initiate_state(pars)
 }
 \arguments{
-\item{pars}{Model parameters from make_par_list()}
+\item{pars}{Model parameters from spec_rescomp()}
 }
 \value{
 vector
@@ -16,5 +16,5 @@ vector
 Providing starting values for state variables
 }
 \examples{
-initiate_state(pars = make_par_list())
+initiate_state(pars = spec_rescomp())
 }

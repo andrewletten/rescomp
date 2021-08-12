@@ -1,20 +1,20 @@
 #' Simulate resource competition (a convenience wrapper for
 #'     `deSolve::ode`)
 #'
-#' @param parms Parameter list returned by `rescomp::make_par_list`.
+#' @param parms Parameter list returned by `rescomp::spec_rescomp`.
 #' @param y Vector of initial values for state variables. If provided,
 #'     overrides values given in parms.
 #' @param times List of up to 2 giving total simulation time and pulsing
 #'     sequence where relevant (use `rescomp::time_vals`). If provided,
 #'     overrides values given in parms.
-#' @param events NULL (events specified in `make_par_list`)
+#' @param events NULL (events specified in `spec_rescomp`)
 #' @param ... Other arguments passed to `deSolve::ode`
 #'
-#' @return Matrix of class deSolve
+#' @return An object of class deSolve
 #' @export
 #'
 #' @examples
-#' pars <- make_par_list()
+#' pars <- spec_rescomp()
 #' sim_rescomp(parms = pars)
 #'
 sim_rescomp <-  function(

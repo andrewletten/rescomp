@@ -8,7 +8,7 @@
 sim_rescomp(parms, times, y, events = NULL, ...)
 }
 \arguments{
-\item{parms}{Parameter list returned by \code{rescomp::make_par_list}.}
+\item{parms}{Parameter list returned by \code{rescomp::spec_rescomp}.}
 
 \item{times}{List of up to 2 giving total simulation time and pulsing
 sequence where relevant (use \code{rescomp::time_vals}). If provided,
@@ -17,19 +17,19 @@ overrides values given in parms.}
 \item{y}{Vector of initial values for state variables. If provided,
 overrides values given in parms.}
 
-\item{events}{NULL (events specified in \code{make_par_list})}
+\item{events}{NULL (events specified in \code{spec_rescomp})}
 
 \item{...}{Other arguments passed to \code{deSolve::ode}}
 }
 \value{
-Matrix of class deSolve
+An object of class deSolve
 }
 \description{
 Simulate resource competition (a convenience wrapper for
 \code{deSolve::ode})
 }
 \examples{
-pars <- make_par_list()
+pars <- spec_rescomp()
 sim_rescomp(parms = pars)
 
 }

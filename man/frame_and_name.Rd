@@ -9,7 +9,7 @@ frame_and_name(odeobject, pars)
 \arguments{
 \item{odeobject}{object of class deSolve}
 
-\item{pars}{Model parameters from make_par_list()}
+\item{pars}{Model parameters from spec_rescomp()}
 }
 \value{
 data frame
@@ -18,7 +18,7 @@ data frame
 Convert object of class deSolve to a data frame and name columns
 }
 \examples{
-pars <- make_par_list()
+pars <- spec_rescomp()
 m1 <- sim_rescomp(pars)
 frame_and_name(m1, pars)
 
