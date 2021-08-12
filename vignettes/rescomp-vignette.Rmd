@@ -126,7 +126,6 @@ See `?spec_rescomp` for all argument options.
 
 ```{r setup}
 library(rescomp)
-library(deSolve)
 ```
 
 ```{r}

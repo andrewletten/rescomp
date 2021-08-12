@@ -24,7 +24,6 @@ devtools::install_github("andrewletten/rescomp")
 
 ``` r
 library(rescomp)
-library(deSolve)
 ```
 
 The main user function in `rescomp` is `spec_rescomp`, which facilitates

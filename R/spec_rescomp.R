@@ -134,9 +134,12 @@ spec_rescomp <- function(spnum = 1,
     # stopifnot(is.numeric(timeswitch))
     # stopifnot(is.numeric(timeswitch_length))
     if (length(pars$mu) == 1)
-      stop(paste0(
+      stop(
         "Time dependent parameters set to true but
-        only one mu matrix provided"))
+        only one mu matrix provided")
+    if (missing(timeparfreq))
+      stop("If timepars = TRUE, timeparfreq must be provided")
+
     forcetime <- seq(0, totaltime, timeparfreq)
     mu_funs_byres <- list()
     mu_funs_bycons <- list()
@@ -274,16 +277,15 @@ spec_rescomp <- function(spnum = 1,
           },
           "\n"),
 
-    paste0(" * ",
-          ifelse(timepars,
-                 paste0("Parameters are time dependent with switching every ",
-                        timeparfreq,
-                        " time steps"),
-                 "Parameters are constant through time"
-                 ),
-          "\n",
-          "\n"
-          ),
+    if(timepars == TRUE){
+      paste0(" * ", "Parameters are time dependent with switching every ",
+             timeparfreq,
+             " time steps",
+             "\n",
+             "\n")
+    } else {
+      "\n"
+    },
 
     "Simulation properties \n",
 
