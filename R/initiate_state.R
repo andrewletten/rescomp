@@ -1,14 +1,16 @@
 #' Providing starting values for state variables
 #'
-#' @param constart Starting abundance for consumers
-#' @param restart Starting concentration for resources
-#' @param vars Model parameters from make_par_list()
+#' @param pars Model parameters from make_par_list()
 #'
 #' @return vector
 #' @export
 #'
 #' @examples
-#' initiate_state(vars = make_par_list())
-initiate_state <- function(vars, constart = 10, restart = vars$resconc){
-  c(rep(constart, vars$nconsumers), restart)
+#' initiate_state(pars = make_par_list())
+initiate_state <- function(pars){
+  if(length(pars$cinit) == 1){
+    c(rep(pars$cinit, times = pars$nconsumers), pars$resconc)
+  } else {
+    c(pars$cinit, pars$resconc)
+  }
 }

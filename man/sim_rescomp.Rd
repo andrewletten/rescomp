@@ -5,17 +5,19 @@
 \title{Simulate resource competition (a convenience wrapper for
 \code{deSolve::ode})}
 \usage{
-sim_rescomp(parms, times, y = initiate_state(parms), events = NULL, ...)
+sim_rescomp(parms, times, y, events = NULL, ...)
 }
 \arguments{
 \item{parms}{Parameter list returned by \code{rescomp::make_par_list}.}
 
-\item{times}{List. Total simulation time and pulsing if relevant
-(use \code{rescomp::time_vals})}
+\item{times}{List of up to 2 giving total simulation time and pulsing
+sequence where relevant (use \code{rescomp::time_vals}). If provided,
+overrides values given in parms.}
 
-\item{y}{Initial values for state variables.}
+\item{y}{Vector of initial values for state variables. If provided,
+overrides values given in parms.}
 
-\item{events}{NULL}
+\item{events}{NULL (events specified in \code{make_par_list})}
 
 \item{...}{Other arguments passed to \code{deSolve::ode}}
 }

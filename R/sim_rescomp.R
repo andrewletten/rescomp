@@ -1,11 +1,13 @@
 #' Simulate resource competition (a convenience wrapper for
 #'     `deSolve::ode`)
 #'
-#' @param y Initial values for state variables.
 #' @param parms Parameter list returned by `rescomp::make_par_list`.
-#' @param times List. Total simulation time and pulsing if relevant
-#'     (use `rescomp::time_vals`)
-#' @param events NULL
+#' @param y Vector of initial values for state variables. If provided,
+#'     overrides values given in parms.
+#' @param times List of up to 2 giving total simulation time and pulsing
+#'     sequence where relevant (use `rescomp::time_vals`). If provided,
+#'     overrides values given in parms.
+#' @param events NULL (events specified in `make_par_list`)
 #' @param ... Other arguments passed to `deSolve::ode`
 #'
 #' @return Matrix of class deSolve
@@ -22,7 +24,7 @@
 sim_rescomp <-  function(
   parms,
   times,
-  y = initiate_state(parms), # move to if (missing) in function
+  y,
   events = NULL,
   ...
   ){
@@ -49,6 +51,13 @@ sim_rescomp <-  function(
     }
     events = list(func = eventfun_respulse, time = times$pulseseq)
   }
+
+  if (missing(y)){
+    y <- initiate_state(parms)
+  } else {
+    y <- y
+  }
+
   mod <- deSolve::ode(
     func = def_cr_ode,
     y = y,

@@ -4,7 +4,7 @@ test_that("cr sim plots look as expected", {
   happenings <- time_vals()
   m1 <- ode(
     func = def_cr_ode,
-    y = initiate_state(vars = pars),
+    y = initiate_state(pars),
     parms = pars,
     times = happenings$totaltime,
     method = "lsoda"

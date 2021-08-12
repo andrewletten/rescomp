@@ -10,7 +10,7 @@ test_that("defaults as expected", {
   happenings <- time_vals(50)
   m1 <- ode(
     func = def_cr_ode,
-    y = initiate_state(vars = pars),
+    y = initiate_state(pars),
     parms = pars,
     times = happenings$totaltime,
     method = "lsoda"
@@ -43,7 +43,7 @@ test_that("defaults with chemo TRUE as expected", {
   happenings <- time_vals(50)
   m1 <- ode(
     func = def_cr_ode,
-    y = initiate_state(vars = pars),
+    y = initiate_state(pars),
     parms = pars,
     times = happenings$totaltime,
     method = "lsoda"
@@ -95,7 +95,7 @@ test_that("2 type II on single logistic as expected", {
 
   m1 <- ode(
     func = def_cr_ode,
-    y = initiate_state(vars = pars),
+    y = initiate_state(pars),
     parms = pars,
     times = happenings$totaltime,
     method = "lsoda"
@@ -148,7 +148,7 @@ test_that("Two type 1 consumers and two substitutable resources
 
   m1 <- ode(
     func = def_cr_ode,
-    y = initiate_state(vars = pars),
+    y = initiate_state(pars),
     parms = pars,
     times = happenings$totaltime,
     method = "lsoda"
@@ -207,7 +207,7 @@ test_that("Two type 2 consumers and one externally pulsed resource
 
             m1 <- ode(
               func = def_cr_ode,
-              y = initiate_state(vars=pars),
+              y = initiate_state(pars),
               parms = pars,
               times = happenings$totaltime,
               method = "lsoda",
@@ -277,7 +277,7 @@ test_that("Two type 2 consumers and one externally pulsed resource
 
             m1 <- ode(
               func = def_cr_ode,
-              y = initiate_state(restart = 1, vars=pars),
+              y = initiate_state(pars),
               parms = pars,
               times = happenings$totaltime,
               method = "lsoda",
@@ -350,7 +350,7 @@ test_that("Two type 2 consumers with time dependent consumption parameters and
 
             m1 <- ode(
               func = def_cr_ode,
-              y = initiate_state(vars=pars),
+              y = initiate_state(pars),
               parms = pars,
               times = happenings$totaltime,
               method = "lsoda",
@@ -418,7 +418,7 @@ test_that("Two type 1 consumers and two essential resources
 
             m1 <- ode(
               func = def_cr_ode,
-              y = initiate_state(vars = pars),
+              y = initiate_state(pars),
               parms = pars,
               times = happenings$totaltime,
               method = "lsoda"

@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-`rescomp` is an R package for generating, simulating and visualising ODE models of consumer-resource interactions. It is primarily built on top of `deSolve`.
+`rescomp` is an R package for generating, simulating and visualising ODE models of consumer-resource interactions. In essence, it is a consumer-resource modelling focused interface to the excellent `deSolve` package.
 
 # Model formulation
 
@@ -32,9 +32,9 @@ $$
 \frac{dR_{j}}{dt} = \Psi_{j} (R_{j}) - \sum_{i = 1}^{n}Q_{ij} \mu_{ij}(R_j) N_i \,,
 $$
 
-where $N_{i}$ is the population density of consumer $i$, $R_{j}$ is the density/concentration of resource $j$, $\mu_{i}(R_{j})$ is the per capita consumer functional response of consumer $i$, $m$ is the per capita mortality rate (constant or pulsed), $\Psi_{j}(R_j)$ is the resource supply function, and $Q_{ij}$ is the resource quota of consumer $i$ on resource $j$.  
+where $N_{i}$ is the population density of consumer $i$, $R_{j}$ is the density/concentration of resource $j$, $\mu_{i}()$ is the per capita consumer functional response of consumer $i$, $m$ is the per capita mortality rate (constant or pulsed), $\Psi_{j}(R_j)$ is the resource supply function, and $Q_{ij}$ is the resource quota of consumer $i$ on resource $j$.  
 
-From this general form, different model formulations are distinguished by: i) the number of consumers/resources; ii) the form of the consumer functional response; iii) the mode of resource supply; iV) the type of resource; and v) any impulsive (instantaneous changes in consumer/resource density/concentration) or forcing (time dependent model parameters) dynamics.
+From this general form, different model formulations are distinguished by: i) the number of consumers/resources; ii) the form of the consumer functional response; iii) the mode of resource supply; iv) the type of resource; and v) any non-autonomous behaviour including instantaneous changes in consumer/resource density and/or time dependent model parameters.
 
 The consumer growth function can take one of three forms: 
 
@@ -92,18 +92,11 @@ $$
 \mu_{i}(R_{1}, R_{2},...,R_{n}) = \mu_{i}(R_{1}) + \mu_{i}(R_{2}) + ... + \mu_{i}(R_{n}) \,.
 $$ 
 
-Impulsive and non-autonomous consumer and resource behaviour is facilitated through:
-
-$$
-\Psi_{j} (R_{j}) = \Delta R_{j} = (1-d)(S_{j} -R_{j}), t =  k\tau, k = 1,2,...  
-$$
-$$
-	\Delta X_{i} = dX_{i}, t =  k\tau, k = 1,2,..., 
-$$
+The model specification also allows for instantaneous changes in consumer and resource state variables, e.g. in batch transfer (further details in examples below).
 
 # Using `rescomp` 
 
-The main user function in `rescomp` is `make_par_list()`, which facilitates the definition and parameterisation of a desired model. Function arguments include: 
+The main user function in `rescomp` is `make_par_list()`, which facilitates the definition and parameterisation of a desired model and the specification of simulation parameters. Function arguments include (but are not limited to): 
 
 - Number of consumers/resources
 - Consumer functional response (type I, II or II)
@@ -143,28 +136,21 @@ pars <- make_par_list(
   linear = FALSE,
   mumatrix = list(matrix(0.12)),
   resspeed = 3,
-  resconc = 2
+  resconc = 2,
+  totaltime = 500
 )
 ```
 
-Visualise funcitonal responses with `rescomp::plot_funcresp`. Faceted by resources and time dependent parameterisations (when relevant).
+Visualise functional responses with `rescomp::plot_funcresp`. Faceted by resources and time dependent parameterisations (when relevant).
 
 ```{r, fig.width = 4, fig.height = 3}
 plot_funcresp(pars, maxx = 2)
 ```
 
-The function `time_vals` is used for setting total simulation time (and is used to set the resource pulse interval when used in conjunction with an event function [see below]). The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources.
+The model can then be simulated with `rescomp::sim_rescomp`. `sim_rescomp` is a wrapper to `deSolve::ode` that takes the output from `make_par_list` as its main argument.
 
 ```{r}
-happenings <- time_vals(total = 500)
-
-m1 <- ode(
-  func = def_cr_ode,
-  y = initiate_state(vars=pars),
-  parms = pars,
-  times = happenings$totaltime,
-  method = "lsoda"
-  )
+m1 <- sim_rescomp(pars)
 ```
 
 `plot_cr_sim` plots the output dynamics.
@@ -173,11 +159,8 @@ m1 <- ode(
 plot_crsim(m1, pars) 
 ```
 
-An alternative to calling `deSolve::ode` directly is to call `rescomp::sim_rescomp`, a wrapper to `ode` with convenient defaults and arguments inherited from pars.  
+<!-- The function `time_vals` is used for setting total simulation time (and is used to set the resource pulse interval when used in conjunction with an event function [see below]). The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources. -->
 
-```{r}
-m1 <- sim_rescomp(pars)
-```
 
 ## Type 2 consumer on a continuously suppplied resource
 
@@ -191,20 +174,13 @@ pars <- make_par_list(
   mumatrix = list(matrix(0.12)),
   resspeed = 3,
   resconc = 2,
-  chemo = TRUE
+  chemo = TRUE,
+  totaltime = 500
 )
 ```
 
 ```{r}
-happenings <- time_vals(total = 500)
-
-m1 <- ode(
-  func = def_cr_ode,
-  y = initiate_state(vars=pars),
-  parms = pars,
-  times = happenings$totaltime,
-  method = "lsoda"
-  )
+m1 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 6, fig.height = 3}
@@ -227,7 +203,8 @@ pars <- make_par_list(
                    ncol = 1, 
                    byrow = TRUE),  
   resspeed = 3,
-  resconc = 0.2
+  resconc = 0.2,
+  totaltime = 2000
 )
 ```
 
@@ -236,15 +213,7 @@ plot_funcresp(pars, maxx = 0.2)
 ```
 
 ```{r}
-happenings <- time_vals(total = 2000)
-
-m1 <- ode(
-  func = def_cr_ode,
-  y = initiate_state(vars=pars),
-  parms = pars,
-  times = happenings$totaltime,
-  method = "lsoda"
-  )
+m1 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 6, fig.height = 3}
@@ -278,15 +247,7 @@ plot_funcresp(pars, maxx = 1)
 ```
 
 ```{r}
-happenings <- time_vals(total = 1000)
-
-m1 <- ode(
-  func = def_cr_ode,
-  y = initiate_state(vars=pars),
-  parms = pars,
-  times = happenings$totaltime,
-  method = "lsoda"
-  )
+m1 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 6, fig.height = 3}
@@ -301,14 +262,7 @@ Using `pars$essential = TRUE` switches the previous parameteristion to essential
 
 ```{r}
 pars$essential = TRUE
-
-m1 <- ode(
-  func = def_cr_ode,
-  y = initiate_state(vars=pars),
-  parms = pars,
-  times = happenings$totaltime,
-  method = "lsoda"
-  )
+m1 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 6, fig.height = 3}
@@ -342,13 +296,7 @@ pars <- make_par_list(
 
 
 ```{r}
-m1 <- ode(
-  func = def_cr_ode,
-  y = initiate_state(vars=pars),
-  parms = pars,
-  times = happenings$totaltime,
-  method = "lsoda"
-  )
+m1 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 6, fig.height = 3}
@@ -375,7 +323,8 @@ pars <- make_par_list(
                    byrow = TRUE),  
   resspeed = 0, # set to zero for no additional resource supply 
   resconc = 0.2,
-  respulse = 0.3 # resource pulse size
+  respulse = 0.3,
+  pulsefreq = 100# resource pulse size
 )
 ```
 
@@ -384,17 +333,7 @@ plot_funcresp(pars, maxx = max(pars$respulse))
 ```
 
 ```{r}
-happenings <- time_vals(total = 2000, pulse = 100) # 'pulse' sets the interval 
-
-m1 <- ode(
-  func = def_cr_ode,
-  y = initiate_state(vars=pars),
-  parms = pars,
-  times = happenings$totaltime,
-  method = "lsoda",
-  # events argument takes a list including the event function and a vector of pulsing intervals
-  events = list(func = eventfun_respulse, time = happenings$pulseseq),
-  )
+m1 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 6, fig.height = 3}
@@ -403,7 +342,7 @@ plot_crsim(m1, pars)
 
 ## Two type 2 consumers and one externally pulsed resource (serial transfer with pulsed mortality)
 
-Serial transfer in batch culture differs from the above scenario in that resource pulses are typically accompanied by large instantaneous changes in population density. For an example, in a serial transfer experiment with bacteria, an experimenter might sample a fraction (e.g. 10%) of the community every 24 hours and inoculate that fraction intro fresh media.   
+Serial transfer in batch culture differs from the above scenario in that resource pulses are typically accompanied by large instantaneous changes in population density. For an example, in a serial transfer experiment with bacteria, an experimenter might sample a fraction (e.g. 10%) of the community every 24 hours and inoculate that fraction intro fresh media. As such, the consumer population density immediately following a transfer event will be equal to: $(1-M)N_{i}$, where $M$ is instantaneous mortality fraction given by `mortpulse`.
 
 Simulating serial transfer in batch culture is implemented by: 
 
@@ -411,11 +350,7 @@ Simulating serial transfer in batch culture is implemented by:
   2. Assigning a value from 0 to 1 for the argument `mortpulse`. This is the fraction of the consumer(s) population instantaneous 'killed' at set intervals. Note the transfer fraction = 1 - `mortpulse`.
   3. Setting the serial transfer schedule with the `pulse` argument in `rescomp::time_vals` (coincident with resource pulse intervals).
   
-Note that the effect of setting `batchtrans = TRUE` is to enforce  fractional sampling of the resource/media in addition to the consumers. As such, immediately after a transfer event the resource concentration will be equal to: 
-
-$$(1-m)R + mS,$$
-
-where $m$ is given by `mortpulse` and therefore $1 - m$ equates to the transfer fraction, $R$ is the resource concentration prior to transfer, and $S$ is the resource pulse size given by `respulse`. To inhibit the behaviour, i.e. to stop fractional sampling of the resource but maintain intermittent mortality use `batchtrans = FALSE` but still assign a non-zero value for `mortpulse`.    
+Note that the effect of setting `batchtrans = TRUE` is to enforce  fractional sampling of the resource/media in addition to the consumers. As such, immediately after a transfer event the resource concentration will be equal to: $(1-M)R_{j} + MS_{j}$, where $R$ is the resource concentration prior to transfer, and $S$ is the resource pulse size given by `respulse`. To inhibit the behaviour, i.e. to stop fractional sampling of the resource but maintain intermittent mortality use `batchtrans = FALSE` but still assign a non-zero value for `mortpulse`.    
 
 ```{r}
 pars <- make_par_list(
@@ -436,7 +371,8 @@ pars <- make_par_list(
   respulse = 1,
   mort = 0, # set to zero to make the transfer fraction the effective mortality rate
   mortpulse = 0.8,
-  batchtrans = TRUE
+  batchtrans = TRUE,
+  pulsefreq = 100,
 )
 ```
 
@@ -445,16 +381,7 @@ plot_funcresp(pars, maxx = max(pars$respulse))
 ```
 
 ```{r}
-happenings <- time_vals(total = 1000, pulse = 100) # pulse resource and mortality schedule
-
-m1 <- ode(
-  func = def_cr_ode,
-  y = initiate_state(restart = 0.2, vars=pars),
-  parms = pars,
-  times = happenings$totaltime,
-  method = "lsoda",
-  events = list(func = eventfun_respulse, time = happenings$pulseseq)
-)
+m1 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 6, fig.height = 3}
@@ -464,20 +391,12 @@ plot_crsim(m1, pars)
 Note, to reproduce the dynamics of a single batch culture experiment (i.e. without serial transfer) as potentially measured via optical density in a plate reader (negligible or unobserved mortality), simply set both `resspeed` and `mort` to zero. 
 
 ```{r}
-pars <- make_par_list(resspeed = 0, mort = 0)
-happenings <- time_vals(total = 500) 
-
-testrun.df <- ode(
-  func = def_cr_ode,
-  y = initiate_state(restart = 0.2, vars=pars),
-  parms = pars,
-  times = happenings$totaltime,
-  method = "lsoda"
-)
+pars <- make_par_list(resspeed = 0, mort = 0, totaltime = 500)
+m1 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 6, fig.height = 3}
-plot_crsim(testrun.df, pars) 
+plot_crsim(m1, pars) 
 ```
 
 ## Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource
@@ -520,15 +439,7 @@ plot_funcresp(pars, maxx = max(pars$resconc))
 ```
 
 ```{r}
-happenings <- time_vals(total = 2000)
-
-m1 <- ode(
-  func = def_cr_ode,
-  y = initiate_state(vars=pars),
-  parms = pars,
-  times = happenings$totaltime,
-  method = "lsoda",
-  )
+m1 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 6, fig.height = 3}
@@ -565,7 +476,8 @@ pars <- make_par_list(
   chemo = FALSE,
   mort = 0.015,
   resspeed = 10,
-  resconc = 0.5
+  resconc = 0.5,
+  totaltime = 2000
 )
 ```
 
@@ -574,15 +486,7 @@ plot_funcresp(pars, maxx = max(pars$resconc))
 ```
 
 ```{r}
-happenings <- time_vals(total = 2000)
-
-m1 <- ode(
-  func = def_cr_ode,
-  y = initiate_state(vars=pars),
-  parms = pars,
-  times = happenings$totaltime,
-  method = "lsoda",
-  )
+m1 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 6, fig.height = 3}

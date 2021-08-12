@@ -36,15 +36,16 @@ single logistically growing resource.
 
 ``` r
 pars <- make_par_list()
-#> Model properties: 
+#> Model properties 
 #>  * 1 consumer(s) and 1 resource(s)
 #>  * Consumers have type 1 functional responses
 #>  * Resources grow logistically
 #>  * Mortality is continuous
 #>  * Parameters are constant through time
 #> 
-#> Simulation properties: 
-#>  * Total simulation time: 1000 time steps
+#> Simulation properties 
+#>  * Simulation time: 1000 time steps
+#>  * Init state: consumer(s) = 10, resource(s) = [1]
 ```
 
 `rescomp::funcresp` plots the functional response for easy visualistion
@@ -71,10 +72,11 @@ Output dynamics can be visualised with `rescomp::plot_crsim`.
 plot_crsim(m1, pars) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="80%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="70%" />
 
 The main utility of `rescomp` comes with specifying more elaborate
-models and simulation dynamics. Features/options include:
+models and simulation dynamics. Features/options include (but not
+limited to):
 
 -   Number of consumers/resources
 -   Consumer functional response (type I or type II)
@@ -111,15 +113,16 @@ pars <- make_par_list(
   resconc = 0.2,
   totaltime = 2000
 )
-#> Model properties: 
+#> Model properties 
 #>  * 2 consumer(s) and 1 resource(s)
 #>  * Consumers have type 2 functional responses
 #>  * Resources grow logistically
 #>  * Mortality is continuous
 #>  * Parameters are constant through time
 #> 
-#> Simulation properties: 
-#>  * Total simulation time: 2000 time steps
+#> Simulation properties 
+#>  * Simulation time: 2000 time steps
+#>  * Init state: consumer(s) = [10, 10], resource(s) = [0.2]
 ```
 
 ``` r
@@ -133,7 +136,7 @@ m2 <- sim_rescomp(pars)
 plot_crsim(m2, pars) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="80%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="70%" />
 
 ### Example 2
 
@@ -160,7 +163,7 @@ pars <- make_par_list(
   pulsefreq = 40,
   totaltime = 1000
 )
-#> Model properties: 
+#> Model properties 
 #>  * 2 consumer(s) and 2 resource(s)
 #>  * Consumers have type 1 functional responses
 #>  * Resources are substitutable
@@ -168,16 +171,17 @@ pars <- make_par_list(
 #>  * Mortality is continuous
 #>  * Parameters are time dependent with switching every 40 time steps
 #> 
-#> Simulation properties: 
-#>  * Total simulation time: 1000 time steps
+#> Simulation properties 
+#>  * Simulation time: 1000 time steps
 #>  * Resources pulsing every 40 timesteps
+#>  * Init state: consumer(s) = [10, 10], resource(s) = [1, 1]
 ```
 
 ``` r
 plot_funcresp(pars, maxx = 1)
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="40%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="60%" />
 
 ``` r
 m3 <- sim_rescomp(pars)
@@ -187,7 +191,7 @@ m3 <- sim_rescomp(pars)
 plot_crsim(m3, pars) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-13-1.png" width="80%" />
+<img src="man/figures/README-unnamed-chunk-13-1.png" width="70%" />
 
 Disclaimer: As a biologist with no formal training in software
 development, I cannot vouch 100% that `rescomp` is bug free, maximally

@@ -31,7 +31,11 @@
 #' @param timeparfreq Frequency of parameter switching if timepars = TRUE.
 #' @param totaltime Total simulation time
 #' @param timeparfreq Frequency of parameter switching if timepars = TRUE.
-
+#' @param cinit Initial consumer state values (densities). Either a single
+#'     integer for all consumers or a vector. Defaults to 10 for all
+#'     consumers. Note Initial resource state values defaults to `resconc`.
+#'
+#'
 #' @return list
 #' @export
 #'
@@ -75,7 +79,8 @@ make_par_list <- function(spnum = 1,
                           batchtrans = FALSE,
                           timepars = FALSE,
                           totaltime = 1000,
-                          timeparfreq = 0) {
+                          timeparfreq = 0,
+                          cinit = 10) {
 
   # Check input classes
   stopifnot(is.numeric(spnum))
@@ -204,30 +209,12 @@ make_par_list <- function(spnum = 1,
   pars$totaltime <- totaltime
   pars$pulsefreq <- pulsefreq
   pars$batchtrans <- batchtrans
+  pars$cinit <- cinit
 
   # Print model/simulation properites
 
-  resdyn <- paste0(
-    if (chemo == TRUE & resspeed != 0 & respulse != 0) {
-      "Resource supply is continuous (e.g. chemostat) AND pulsed"
-    } else if (chemo == TRUE & resspeed == 0 & respulse != 0) {
-      "Resource supply is pulsed only"
-    } else if (chemo == TRUE & resspeed != 0 & respulse == 0) {
-      "Resource supply is continuous (e.g. chemostat)"
-    } else if (chemo == TRUE & resspeed == 0 & respulse == 0) {
-      "Resources are not supplied?!"
-    } else if (chemo == FALSE & resspeed != 0 & respulse != 0) {
-      "Resources grow logistically and are pulsed"
-    } else if (chemo == FALSE & resspeed == 0 & respulse != 0) {
-      "Resources are pulsed only"
-    } else if (chemo == FALSE & resspeed != 0 & respulse == 0) {
-      "Resources grow logistically"
-    } else if (chemo == FALSE & resspeed == 0 & respulse == 0) {
-      "Resources are not supplied?!"
-    }
-  )
   message(
-    "Model properties: \n",
+    "Model properties \n",
 
     paste0(" * ",
           spnum, " consumer(s) and ", resnum, " resource(s)",
@@ -246,7 +233,24 @@ make_par_list <- function(spnum = 1,
       },
 
     paste0(" * ",
-          resdyn, "\n"),
+           if (chemo == TRUE & resspeed != 0 & respulse != 0) {
+             "Resource supply is continuous (e.g. chemostat) AND pulsed"
+           } else if (chemo == TRUE & resspeed == 0 & respulse != 0) {
+             "Resource supply is pulsed only"
+           } else if (chemo == TRUE & resspeed != 0 & respulse == 0) {
+             "Resource supply is continuous (e.g. chemostat)"
+           } else if (chemo == TRUE & resspeed == 0 & respulse == 0) {
+             "Resources are not supplied?!"
+           } else if (chemo == FALSE & resspeed != 0 & respulse != 0) {
+             "Resources grow logistically and are pulsed"
+           } else if (chemo == FALSE & resspeed == 0 & respulse != 0) {
+             "Resources are pulsed only"
+           } else if (chemo == FALSE & resspeed != 0 & respulse == 0) {
+             "Resources grow logistically"
+           } else if (chemo == FALSE & resspeed == 0 & respulse == 0) {
+             "Resources are not supplied?!"
+           },
+           "\n"),
 
     paste0(" * ",
           if(mort > 0 & mortpulse == 0){
@@ -271,26 +275,43 @@ make_par_list <- function(spnum = 1,
           "\n"
           ),
 
-    "Simulation properties: \n",
+    "Simulation properties \n",
 
     paste0(" * ",
-           "Total simulation time: ", totaltime, " time steps", "\n"),
+           "Simulation time: ", totaltime, " time steps", "\n"),
 
     if (respulse != 0 & mortpulse == 0){
       paste0(" * ",
              "Resources pulsing every ", pulsefreq, " timesteps",
              "\n")
-    } else if (respulse == 0 & mortpulse != 0){
+      } else if (respulse == 0 & mortpulse != 0){
       paste0(" * ",
              "Intermittent mortality every", pulsefreq, " timesteps",
              "\n")
-    } else if (respulse != 0 & mortpulse != 0){
+        } else if (respulse != 0 & mortpulse != 0){
       paste0(" * ",
-             "Resources pulsing and intermittent mortality every ", pulsefreq, " timesteps",
+             "Resources pulsing and intermittent mortality every ", pulsefreq,
+             " timesteps",
              "\n")
-    } else {
-    }
-    # Message initial states
+        } else {
+
+          },
+
+    paste0(" * ",
+           "Init state: consumer(s) = ",
+           if(length(pars$cinit) == 1 & spnum > 1){
+             paste0("[",
+                    paste0(rep(cinit, times = spnum),
+                           collapse = ", "),
+                    "]")
+           } else {
+             cinit
+           },
+           ", resource(s) = ",
+           paste0("[",
+                  paste0(pars$resconc,
+                         collapse = ", "), "]"),
+           "\n")
   )
   return(pars)
 }

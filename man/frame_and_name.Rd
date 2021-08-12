@@ -18,16 +18,8 @@ data frame
 Convert object of class deSolve to a data frame and name columns
 }
 \examples{
-library(deSolve)
 pars <- make_par_list()
-happenings <- time_vals()
-m1 <- ode(
-    func = def_cr_ode,
-    y = initiate_state(vars = pars),
-    parms = pars,
-    times = happenings$totaltime,
-    method = "lsoda"
-)
+m1 <- sim_rescomp(pars)
 frame_and_name(m1, pars)
 
 }

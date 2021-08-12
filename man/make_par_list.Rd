@@ -23,7 +23,8 @@ make_par_list(
   batchtrans = FALSE,
   timepars = FALSE,
   totaltime = 1000,
-  timeparfreq = 0
+  timeparfreq = 0,
+  cinit = 10
 )
 }
 \arguments{
@@ -73,6 +74,10 @@ Requires events argument in call to \code{ode}.}
 \item{totaltime}{Total simulation time}
 
 \item{timeparfreq}{Frequency of parameter switching if timepars = TRUE.}
+
+\item{cinit}{Initial consumer state values (densities). Either a single
+integer for all consumers or a vector. Defaults to 10 for all
+consumers. Note Initial resource state values defaults to \code{resconc}.}
 }
 \value{
 list

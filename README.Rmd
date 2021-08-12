@@ -58,12 +58,12 @@ m1 <- sim_rescomp(pars)
 
 Output dynamics can be visualised with `rescomp::plot_crsim`.
 
-```{r, fig.width = 9, fig.height = 4.5, out.width = "80%"}
+```{r, fig.width = 9, fig.height = 4.5, out.width = "70%"}
 plot_crsim(m1, pars) 
 ```
 
 
-The main utility of `rescomp` comes with specifying more elaborate models and simulation dynamics. Features/options include: 
+The main utility of `rescomp` comes with specifying more elaborate models and simulation dynamics. Features/options include (but not limited to): 
 
 - Number of consumers/resources
 - Consumer functional response (type I or type II)
@@ -102,7 +102,7 @@ pars <- make_par_list(
 plot_funcresp(pars, maxx = 0.2)
 ```
 
-```{r, fig.width = 9, fig.height = 4.5, out.width = "80%"}
+```{r, fig.width = 9, fig.height = 4.5, out.width = "70%"}
 m2 <- sim_rescomp(pars)
 plot_crsim(m2, pars) 
 ```
@@ -134,7 +134,7 @@ pars <- make_par_list(
 )
 ```
 
-```{r, fig.width = 6, fig.height = 4}
+```{r, fig.width = 6, fig.height = 4, out.width = "60%"}
 plot_funcresp(pars, maxx = 1)
 ```
 
@@ -142,7 +142,7 @@ plot_funcresp(pars, maxx = 1)
 m3 <- sim_rescomp(pars)
 ```
 
-```{r, fig.width = 9, fig.height = 4.5, out.width = "80%"}
+```{r, fig.width = 9, fig.height = 4.5, out.width = "70%"}
 plot_crsim(m3, pars) 
 ```
 
