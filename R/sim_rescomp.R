@@ -15,11 +15,7 @@
 #'
 #' @examples
 #' pars <- make_par_list()
-#' happenings <- time_vals(total = 1000)
-#' init <- initiate_state(pars)
-#' sim_rescomp(y = init,
-#'     parms = pars,
-#'     times = happenings)
+#' sim_rescomp(parms = pars)
 #'
 sim_rescomp <-  function(
   parms,
@@ -36,6 +32,7 @@ sim_rescomp <-  function(
     }
   } else {
     times <- times
+    message("totaltime in parms will be overidden\n")
   }
 
   if(length(times) == 1){
@@ -56,6 +53,7 @@ sim_rescomp <-  function(
     y <- initiate_state(parms)
   } else {
     y <- y
+    message("cinit in parms will be overidden\n")
   }
 
   mod <- deSolve::ode(

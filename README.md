@@ -32,20 +32,20 @@ facilitates i) the definition and parameterisation of a desired
 consumer-resource model, and ii) the specification of simulation
 parameters. The default output from `make_par_list` is a list defining a
 model for a single type I consumer (linear functional response) and a
-single logistically growing resource.
+single continuously supplied resource (e.g. chemostat).
 
 ``` r
 pars <- make_par_list()
 #> Model properties 
 #>  * 1 consumer(s) and 1 resource(s)
 #>  * Consumers have type 1 functional responses
-#>  * Resources grow logistically
+#>  * Resource supply is continuous (e.g. chemostat)
 #>  * Mortality is continuous
 #>  * Parameters are constant through time
 #> 
 #> Simulation properties 
 #>  * Simulation time: 1000 time steps
-#>  * Init state: consumer(s) = 10, resource(s) = [1]
+#>  * Init state: consumer(s) = [10], resource(s) = [1]
 ```
 
 `rescomp::funcresp` plots the functional response for easy visualistion
@@ -109,6 +109,7 @@ pars <- make_par_list(
                    nrow = 2, 
                    ncol = 1, 
                    byrow = TRUE),  
+  chemo = FALSE,
   resspeed = 3,
   resconc = 0.2,
   totaltime = 2000
@@ -167,7 +168,7 @@ pars <- make_par_list(
 #>  * 2 consumer(s) and 2 resource(s)
 #>  * Consumers have type 1 functional responses
 #>  * Resources are substitutable
-#>  * Resources are pulsed only
+#>  * Resource supply is pulsed only
 #>  * Mortality is continuous
 #>  * Parameters are time dependent with switching every 40 time steps
 #> 

@@ -21,7 +21,7 @@ test_that("defaults as expected", {
     func = function(Time, State, Pars) {
       with(as.list(c(State, Pars)), {
         dN <- (N * 0.1 * R) - 0.03 * N
-        dR <- 1 * R * (1 - R / 1) - (N * 0.1 * R * 0.001)
+        dR <- 1 * (1 - R) - (N * 0.1 * R * 0.001)
         return(list(c(dN, dR)))
       })
     },
@@ -87,6 +87,7 @@ test_that("2 type II on single logistic as expected", {
                      ncol = 1,
                      byrow = TRUE
     ),
+    chemo = FALSE,
     resspeed = 3,
     resconc = 0.2
   ))

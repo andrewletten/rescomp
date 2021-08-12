@@ -30,10 +30,6 @@ Simulate resource competition (a convenience wrapper for
 }
 \examples{
 pars <- make_par_list()
-happenings <- time_vals(total = 1000)
-init <- initiate_state(pars)
-sim_rescomp(y = init,
-    parms = pars,
-    times = happenings)
+sim_rescomp(parms = pars)
 
 }

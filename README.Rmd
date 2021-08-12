@@ -36,7 +36,7 @@ library(rescomp)
 library(deSolve)
 ```
 
-The main user function in `rescomp` is `make_par_list`, which facilitates i) the definition and parameterisation of a desired consumer-resource model, and ii) the specification of simulation parameters. The default output from `make_par_list` is a list defining a model for a single type I consumer (linear functional response) and a single logistically growing resource.
+The main user function in `rescomp` is `make_par_list`, which facilitates i) the definition and parameterisation of a desired consumer-resource model, and ii) the specification of simulation parameters. The default output from `make_par_list` is a list defining a model for a single type I consumer (linear functional response) and a single continuously supplied resource (e.g. chemostat).
 
 ```{r}
 pars <- make_par_list()
@@ -92,6 +92,7 @@ pars <- make_par_list(
                    nrow = 2, 
                    ncol = 1, 
                    byrow = TRUE),  
+  chemo = FALSE,
   resspeed = 3,
   resconc = 0.2,
   totaltime = 2000

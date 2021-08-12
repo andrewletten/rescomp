@@ -33,7 +33,7 @@
 #' @param timeparfreq Frequency of parameter switching if timepars = TRUE.
 #' @param cinit Initial consumer state values (densities). Either a single
 #'     integer for all consumers or a vector. Defaults to 10 for all
-#'     consumers. Note Initial resource state values defaults to `resconc`.
+#'     consumers. Note initial resource state values defaults to `resconc`.
 #'
 #'
 #' @return list
@@ -69,7 +69,7 @@ make_par_list <- function(spnum = 1,
                           qmatrix,
                           linear = TRUE,
                           essential = FALSE,
-                          chemo = FALSE,
+                          chemo = TRUE,
                           mort = 0.03,
                           resspeed = 1,
                           resconc = 1,
@@ -95,6 +95,8 @@ make_par_list <- function(spnum = 1,
   stopifnot(is.numeric(resspeed))
   stopifnot(is.numeric(resconc))
   stopifnot(is.numeric(respulse))
+  stopifnot(is.numeric(cinit))
+
   # mumatrix, kmatrix and qmatrix checks below
 
   pars <- list()
@@ -161,7 +163,7 @@ make_par_list <- function(spnum = 1,
         more than one mu matrix provided"))
   }
 
-
+  # kmatrix
   if (missing(kmatrix)) {
     pars$Ks <- matrix(rep(1, times = spnum * resnum),
                       nrow = spnum,
@@ -174,6 +176,7 @@ make_par_list <- function(spnum = 1,
            for a linear (type 1) functional response")
   }
 
+  # qmatrix
   if (missing(qmatrix)) {
     pars$Qs <- matrix(rep(0.001, times = spnum * resnum),
                       nrow = spnum,
@@ -183,6 +186,7 @@ make_par_list <- function(spnum = 1,
     pars$Qs <- qmatrix
   }
 
+  # linearity
   if (linear == TRUE) {
     pars$phi <- matrix(rep(0, times = spnum*resnum),
                        nrow = spnum,
@@ -193,9 +197,16 @@ make_par_list <- function(spnum = 1,
                        byrow = TRUE)
   }
 
+  # type 3, currently fixed on type 1 or type 2
   pars$type3 <- matrix(rep(1/2, times = spnum*resnum),
                        nrow = spnum,
-                       byrow = TRUE) # currently fixed on type 1 or type 2
+                       byrow = TRUE)
+  # cinit
+  if(length(cinit) > 1 & spnum != length(cinit))
+    stop("Length of cinit must equal spnum if a vector (length > 1) of initial states provided")
+  pars$cinit <- cinit
+
+
   pars$all_d <- mort
   pars$respulse <- respulse
   pars$essential <- essential
@@ -209,7 +220,6 @@ make_par_list <- function(spnum = 1,
   pars$totaltime <- totaltime
   pars$pulsefreq <- pulsefreq
   pars$batchtrans <- batchtrans
-  pars$cinit <- cinit
 
   # Print model/simulation properites
 
@@ -305,7 +315,9 @@ make_par_list <- function(spnum = 1,
                            collapse = ", "),
                     "]")
            } else {
-             cinit
+             paste0("[",
+                    paste0(cinit, collapse = ", "),
+                    "]")
            },
            ", resource(s) = ",
            paste0("[",
