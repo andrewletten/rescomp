@@ -6,6 +6,14 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
+*Disclaimer: `rescomp` is still in the very early stages of development,
+with functions, arguments and workflows still liable to change with high
+frequency. I have made the repository public in its premature state
+primarily for ease of sharing with friends, collaborators and students
+during development. Please use with caution and perform your own sanity
+checks, especially if intending to use within a research context!
+Feedback and pull requests very welcome.*
+
 The goal of the R package `rescomp` is to simplify the process of
 defining, simulating and visualizing the output of ODE models of
 consumer-resource interactions. In essence, it is a consumer-resource
@@ -40,7 +48,6 @@ pars <- spec_rescomp()
 #>  * Consumers have type 1 functional responses
 #>  * Resource supply is continuous (e.g. chemostat)
 #>  * Mortality is continuous
-#>  * Parameters are constant through time
 #> 
 #> Simulation properties 
 #>  * Simulation time: 1000 time steps
@@ -74,7 +81,7 @@ plot_crsim(m1, pars)
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="70%" />
 
 The main utility of `rescomp` comes with specifying more elaborate
-models and simulation dynamics. Features/options include (but not
+models and simulation dynamics. Features/options include (but are not
 limited to):
 
 -   Number of consumers/resources
@@ -118,7 +125,6 @@ pars <- spec_rescomp(
 #>  * Consumers have type 2 functional responses
 #>  * Resources grow logistically
 #>  * Mortality is continuous
-#>  * Parameters are constant through time
 #> 
 #> Simulation properties 
 #>  * Simulation time: 2000 time steps
@@ -193,7 +199,4 @@ plot_crsim(m3, pars)
 
 <img src="man/figures/README-unnamed-chunk-13-1.png" width="70%" />
 
-Disclaimer: As a biologist with no formal training in software
-development, I cannot vouch 100% that `rescomp` is bug free, maximally
-efficient or entirely consistent with ‘tidy’ principles. I have done my
-best but please use with caution!
+<!-- Disclaimer: As a biologist with no formal training in software development, I cannot vouch that `rescomp` is 100% bug free, maximally efficient or entirely consistent with 'tidy' principles. I have done my best but please use with caution! -->

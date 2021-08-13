@@ -4,6 +4,8 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -18,6 +20,8 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 <!-- badges: end -->
+
+*Disclaimer: `rescomp` is still in the very early stages of development, with functions, arguments and workflows still liable to change with high frequency. I have made the repository public in its premature state primarily for ease of sharing with friends, collaborators and students during development. Please use with caution and perform your own sanity checks, especially if intending to use within a research context! Feedback and pull requests very welcome.*
 
 The goal of the R package `rescomp` is to simplify the process of defining, simulating and visualizing the output of ODE models of consumer-resource interactions. In essence, it is a consumer-resource modelling focused interface to the excellent `deSolve` package.
 
@@ -62,7 +66,7 @@ plot_crsim(m1, pars)
 ```
 
 
-The main utility of `rescomp` comes with specifying more elaborate models and simulation dynamics. Features/options include (but not limited to): 
+The main utility of `rescomp` comes with specifying more elaborate models and simulation dynamics. Features/options include (but are not limited to): 
 
 - Number of consumers/resources
 - Consumer functional response (type I or type II)
@@ -146,4 +150,4 @@ m3 <- sim_rescomp(pars)
 plot_crsim(m3, pars) 
 ```
 
-Disclaimer: As a biologist with no formal training in software development, I cannot vouch 100% that `rescomp` is bug free, maximally efficient or entirely consistent with 'tidy' principles. I have done my best but please use with caution!
+<!-- Disclaimer: As a biologist with no formal training in software development, I cannot vouch that `rescomp` is 100% bug free, maximally efficient or entirely consistent with 'tidy' principles. I have done my best but please use with caution! -->
