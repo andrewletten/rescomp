@@ -11,8 +11,7 @@ with functions, arguments and workflows still liable to change with high
 frequency. I have made the repository public in its premature state
 primarily for ease of sharing with friends, collaborators and students
 during development. Please use with caution and perform your own sanity
-checks, especially if intending to use within a research context!
-Feedback and pull requests very welcome.*
+checks! Feedback and pull requests very welcome.*
 
 The goal of the R package `rescomp` is to simplify the process of
 defining, simulating and visualizing the output of ODE models of
