@@ -9,5 +9,5 @@ test_that("cr sim plots look as expected", {
     times = happenings$totaltime,
     method = "lsoda"
   )
-  vdiffr::expect_doppelganger("Default plot as expected", plot_crsim(m1, pars))
+  vdiffr::expect_doppelganger("Default plot as expected", plot_rescomp(m1, pars))
 })

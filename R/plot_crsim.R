@@ -10,9 +10,9 @@
 #'
 #' pars <- spec_rescomp()
 #' m1 <- sim_rescomp(pars)
-#' plot_crsim(m1, pars)
+#' plot_rescomp(m1, pars)
 #'
-plot_crsim <- function(odeobj, pars){
+plot_rescomp <- function(odeobj, pars){
   plot.df <-  frame_and_name(odeobj, pars)
   comp.gg <- tidyr::pivot_longer(plot.df, cols = !c(.data$time), names_to = "state.var", values_to = "count")
   comp.gg$state.var.type <- "Consumers"

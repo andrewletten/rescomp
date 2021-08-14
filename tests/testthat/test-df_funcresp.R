@@ -18,14 +18,18 @@ test_that("Unique levels in output match arguments to spec_rescomp", {
   expect_equal(length(unique(df3$paramstate)), 1)
   expect_equal(length(unique(df3$resource)), pars3$nresources)
 
-  pars4 <- suppressMessages(spec_rescomp(spnum = 2, resnum = 2,
-                         timepars = TRUE,
-                         totaltime = 1000,
-                         timeparfreq = 10,
-                         mumatrix = list(matrix(c(1, 1,
-                                                  1, 1), nrow = 2, ncol = 2),
-                                         matrix(c(2, 2,
-                                                  2, 2), nrow = 2, ncol = 2))))
+  pars4 <- suppressMessages(
+    spec_rescomp(
+      spnum = 2, resnum = 2,
+      timepars = TRUE,
+      totaltime = 1000,
+      timeparfreq = 10,
+      mumatrix = list(matrix(c(1, 1,
+                               1, 1),
+                             nrow = 2, ncol = 2),
+                      matrix(c(2, 2,
+                               2, 2),
+                             nrow = 2, ncol = 2))))
   df4 <- df_funcresp(pars4)
   expect_equal(length(unique(df4$sp)), pars3$nconsumers)
   expect_equal(length(unique(df4$paramstate)), 2)

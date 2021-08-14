@@ -59,10 +59,10 @@ The model is then simulated via `rescomp::sim_rescomp` (a wrapper for `deSolve::
 m1 <- sim_rescomp(pars)
 ```
 
-Output dynamics can be visualised with `rescomp::plot_crsim`.
+Output dynamics can be visualised with `rescomp::plot_rescomp`.
 
 ```{r, fig.width = 9, fig.height = 4.5, out.width = "70%"}
-plot_crsim(m1, pars) 
+plot_rescomp(m1, pars) 
 ```
 
 
@@ -108,7 +108,7 @@ plot_funcresp(pars, maxx = 0.2)
 
 ```{r, fig.width = 9, fig.height = 4.5, out.width = "70%"}
 m2 <- sim_rescomp(pars)
-plot_crsim(m2, pars) 
+plot_rescomp(m2, pars) 
 ```
 
 ### Example 2
@@ -147,7 +147,7 @@ m3 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 9, fig.height = 4.5, out.width = "70%"}
-plot_crsim(m3, pars) 
+plot_rescomp(m3, pars) 
 ```
 
 <!-- Disclaimer: As a biologist with no formal training in software development, I cannot vouch that `rescomp` is 100% bug free, maximally efficient or entirely consistent with 'tidy' principles. I have done my best but please use with caution! -->

@@ -71,10 +71,10 @@ The model is then simulated via `rescomp::sim_rescomp` (a wrapper for
 m1 <- sim_rescomp(pars)
 ```
 
-Output dynamics can be visualised with `rescomp::plot_crsim`.
+Output dynamics can be visualised with `rescomp::plot_rescomp`.
 
 ``` r
-plot_crsim(m1, pars) 
+plot_rescomp(m1, pars) 
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="70%" />
@@ -138,7 +138,7 @@ plot_funcresp(pars, maxx = 0.2)
 
 ``` r
 m2 <- sim_rescomp(pars)
-plot_crsim(m2, pars) 
+plot_rescomp(m2, pars) 
 ```
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="70%" />
@@ -193,7 +193,7 @@ m3 <- sim_rescomp(pars)
 ```
 
 ``` r
-plot_crsim(m3, pars) 
+plot_rescomp(m3, pars) 
 ```
 
 <img src="man/figures/README-unnamed-chunk-13-1.png" width="70%" />
