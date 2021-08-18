@@ -298,7 +298,7 @@ spec_rescomp <- function(spnum = 1,
              "\n")
       } else if (respulse == 0 & mortpulse != 0){
       paste0(" * ",
-             "Intermittent mortality every", pulsefreq, " timesteps",
+             "Intermittent mortality every ", pulsefreq, " timesteps",
              "\n")
         } else if (respulse != 0 & mortpulse != 0){
       paste0(" * ",

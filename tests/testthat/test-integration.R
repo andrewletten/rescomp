@@ -1,7 +1,7 @@
 # Integration tests -------------------------------------------------------
 library(deSolve)
 
-#skip_if(TRUE)
+skip_if(TRUE)
 
 # -------------------------------------------------------------------------
 test_that("defaults as expected", {

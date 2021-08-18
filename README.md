@@ -8,7 +8,7 @@
 
 *Disclaimer: `rescomp` is still in the very early stages of development,
 with functions, arguments and workflows still liable to change with high
-frequency. I have made the repository public in its premature state
+frequency. I have made the repository public in its immature state
 primarily for ease of sharing with friends, collaborators and students
 during development. Please use with caution and perform your own sanity
 checks! Feedback and pull requests very welcome.*
