@@ -2,8 +2,8 @@
 title: "rescomp: An R package for efficient ODE modelling of resource competition"
 author: "Andrew D. Letten"
 output: 
-#    html_document: default
-    rmarkdown::pdf_document: default
+    html_document: default
+#    rmarkdown::pdf_document: default
 #    number_sections: true
 vignette: >
   %\VignetteIndexEntry{rescomp, how to...}
