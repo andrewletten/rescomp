@@ -22,4 +22,122 @@ test_that("Differentials are as expected for given state/pars", {
   expect_equal(dN[[1]][1], 6.7)
   expect_equal(dN[[1]][2], 9.7)
 
+  dN <- def_cr_ode(
+    Time = 6,
+    State = c(10, 1),
+    Pars = suppressMessages(
+      spec_rescomp(
+        spnum = 1,
+        resnum = 1,
+        timepars = TRUE,
+        timeparfreq = 10,
+        mumatrix = list(matrix(c(0.7), nrow = 1, ncol = 1), matrix(c(1), nrow = 1, ncol = 1))
+      )
+    )
+  )
+  # Expected dN1: (func_form(R = 1, mu = 0.7, Ks = 1, phi = 0, type3 = 1/2) - 0.03)*10
+  expect_equal(dN[[1]][1], 6.7)
+
+
+  dN <- def_cr_ode(
+    Time = 17,
+    State = c(10, 1),
+    Pars = suppressMessages(
+      spec_rescomp(
+        spnum = 1,
+        resnum = 1,
+        timepars = TRUE,
+        timeparfreq = 10,
+        mumatrix = list(matrix(c(0.7), nrow = 1, ncol = 1), matrix(c(1), nrow = 1, ncol = 1))
+      )
+    )
+  )
+  # Expected dN1: (func_form(R = 1, mu = 1, Ks = 1, phi = 0, type3 = 1/2) - 0.03)*10
+  expect_equal(dN[[1]][1], 9.7)
+
+  dN <- def_cr_ode(
+    State = c(10, 1, 1),
+    Pars = suppressMessages(
+      spec_rescomp(
+        spnum = 1,
+        resnum = 2,
+        essential = TRUE,
+        mumatrix = list(matrix(c(0.7, 0.3), nrow = 1, ncol = 2))
+      )
+    )
+  )
+  # Expected dN1: (func_form(R = 1, mu = 0.3, Ks = 1, phi = 0, type3 = 1/2) - 0.03)*10
+  expect_equal(dN[[1]][1], 2.7)
+
+  dN <- def_cr_ode(
+    State = c(10, 1, 1),
+    Pars = suppressMessages(
+      spec_rescomp(
+        spnum = 1,
+        resnum = 2,
+        essential = TRUE,
+        chemo = FALSE,
+        mumatrix = list(matrix(c(0.7, 0.3), nrow = 1, ncol = 2))
+      )
+    )
+  )
+  # Expected dN1: (func_form(R = 1, mu = 0.3, Ks = 1, phi = 0, type3 = 1/2) - 0.03)*10
+  expect_equal(dN[[1]][1], 2.7)
+
+  dN <- def_cr_ode(
+    State = c(10, 1, 1),
+    Pars = suppressMessages(
+      spec_rescomp(
+        spnum = 1,
+        resnum = 2,
+        essential = FALSE,
+        chemo = FALSE,
+        mumatrix = list(matrix(c(0.7, 0.3), nrow = 1, ncol = 2))
+      )
+    )
+  )
+  # Expected dN1:
+  # (func_form(R = 1, mu = 0.7, Ks = 1, phi = 0, type3 = 1/2))*10 +
+  # (func_form(R = 1, mu = 0.3, Ks = 1, phi = 0, type3 = 1/2))*10 - 0.03*10
+  expect_equal(dN[[1]][1], 9.7)
+
+})
+
+test_that("event func gives correct output",{
+
+  NR <- eventfun_respulse(
+    State = c(10,1),
+    Pars = suppressMessages(spec_rescomp())
+    )
+  expect_equal(NR, c(10,1))
+
+  NR <- eventfun_respulse(
+    State = c(10,1),
+    Pars = suppressMessages(spec_rescomp(respulse = 1))
+  )
+  expect_equal(NR, c(10,2))
+
+  NR <- eventfun_respulse(
+    State = c(10,1),
+    Pars = suppressMessages(spec_rescomp(mortpulse = 0.2))
+  )
+  expect_equal(NR, c(8,1))
+
+  NR <- eventfun_respulse(
+    State = c(10,1),
+    Pars = suppressMessages(spec_rescomp(
+      mortpulse = 0.2,
+      respulse = 1))
+  )
+  expect_equal(NR, c(8,2))
+
+  NR <- eventfun_respulse(
+    State = c(10,1),
+    Pars = suppressMessages(spec_rescomp(
+      mortpulse = 0.2,
+      respulse = 1,
+      batchtrans = TRUE))
+  )
+  expect_equal(NR, c(8,1))
+
 })

@@ -15,7 +15,7 @@ spec_rescomp(
   essential = FALSE,
   chemo = TRUE,
   mort = 0.03,
-  resspeed = 1,
+  resspeed = 0.03,
   resconc = 1,
   respulse = 0,
   mortpulse = 0,
