@@ -4,6 +4,8 @@
 # rescomp
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/andrewletten/rescomp/workflows/R-CMD-check/badge.svg)](https://github.com/andrewletten/rescomp/actions)
 <!-- badges: end -->
 
 *Disclaimer: `rescomp` is still in the very early stages of development,
