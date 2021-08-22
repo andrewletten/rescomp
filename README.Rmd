@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "40%",
+  out.width = "70%",
   dpi = 300
 )
 ```
@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 *Disclaimer: `rescomp` is still in the very early stages of development, with functions, arguments and workflows still liable to change with high frequency. I have made the repository public in its immature state primarily for ease of sharing with friends, collaborators and students during development. Please use with caution and perform your own sanity checks! Feedback and pull requests very welcome.*
 
-The goal of the R package `rescomp` is to simplify the process of defining, simulating and visualizing the output of ODE models of consumer-resource interactions. In essence, it is a consumer-resource modelling focused interface to the excellent `deSolve` package.
+The goal of the R package `rescomp` is to simplify the process of defining, simulating and visualizing the output of ODE models of ecological consumer-resource interactions. In essence, it is a consumer-resource modelling focused interface to the excellent `deSolve` package.
 
 ## Installation
 
@@ -40,7 +40,7 @@ devtools::install_github("andrewletten/rescomp")
 library(rescomp)
 ```
 
-The main user function in `rescomp` is `spec_rescomp`, which facilitates i) the definition and parameterisation of a desired consumer-resource model, and ii) the specification of simulation parameters. The default output from `spec_rescomp` is a list defining a model for a single type I consumer (linear functional response) and a single continuously supplied resource (e.g. chemostat).
+The primary user function in `rescomp` is `spec_rescomp`, which facilitates i) the definition and parameterisation of a desired consumer-resource model, and ii) the specification of simulation parameters. The default output from `spec_rescomp` is a list defining a model for a single type I consumer (linear functional response) and a single continuously supplied resource (e.g. chemostat).
 
 ```{r}
 pars <- spec_rescomp()
@@ -62,7 +62,7 @@ m1 <- sim_rescomp(pars)
 
 Output dynamics can be visualised with `rescomp::plot_rescomp`.
 
-```{r, fig.width = 9, fig.height = 4.5, out.width = "70%"}
+```{r, fig.width = 9, fig.height = 4.5, out.width = "90%"}
 plot_rescomp(m1, pars) 
 ```
 

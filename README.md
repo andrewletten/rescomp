@@ -17,8 +17,9 @@ checks! Feedback and pull requests very welcome.*
 
 The goal of the R package `rescomp` is to simplify the process of
 defining, simulating and visualizing the output of ODE models of
-consumer-resource interactions. In essence, it is a consumer-resource
-modelling focused interface to the excellent `deSolve` package.
+ecological consumer-resource interactions. In essence, it is a
+consumer-resource modelling focused interface to the excellent `deSolve`
+package.
 
 ## Installation
 
@@ -35,12 +36,12 @@ devtools::install_github("andrewletten/rescomp")
 library(rescomp)
 ```
 
-The main user function in `rescomp` is `spec_rescomp`, which facilitates
-i) the definition and parameterisation of a desired consumer-resource
-model, and ii) the specification of simulation parameters. The default
-output from `spec_rescomp` is a list defining a model for a single type
-I consumer (linear functional response) and a single continuously
-supplied resource (e.g. chemostat).
+The primary user function in `rescomp` is `spec_rescomp`, which
+facilitates i) the definition and parameterisation of a desired
+consumer-resource model, and ii) the specification of simulation
+parameters. The default output from `spec_rescomp` is a list defining a
+model for a single type I consumer (linear functional response) and a
+single continuously supplied resource (e.g. chemostat).
 
 ``` r
 pars <- spec_rescomp()
@@ -62,7 +63,7 @@ prior to running a simulation.
 plot_funcresp(pars)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="40%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="70%" />
 
 <!-- `rescomp::time_vals` sets the simulation length (and other resource pulse frequency if required). The default simulation length is 1000. The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources.  -->
 
@@ -79,7 +80,7 @@ Output dynamics can be visualised with `rescomp::plot_rescomp`.
 plot_rescomp(m1, pars) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="90%" />
 
 The main utility of `rescomp` comes with specifying more elaborate
 models and simulation dynamics. Features/options include (but are not
@@ -136,7 +137,7 @@ pars <- spec_rescomp(
 plot_funcresp(pars, maxx = 0.2)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="40%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="70%" />
 
 ``` r
 m2 <- sim_rescomp(pars)
