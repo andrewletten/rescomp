@@ -187,9 +187,9 @@
 <span class="op">)</span>
 <span class="co">#&gt; Model properties </span>
 <span class="co">#&gt;  * 1 consumer(s) and 1 resource(s)</span>
-<span class="co">#&gt;  * Consumers have  functional responses</span>
+<span class="co">#&gt;  * Consumers have type 2 functional responses</span>
 <span class="co">#&gt;  * Resources grow logistically</span>
-<span class="co">#&gt;  * No mortality</span>
+<span class="co">#&gt;  * Mortality is continuous</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Simulation properties </span>
 <span class="co">#&gt;  * Simulation time: 500 time steps</span>
@@ -230,9 +230,9 @@
 <span class="op">)</span>
 <span class="co">#&gt; Model properties </span>
 <span class="co">#&gt;  * 1 consumer(s) and 1 resource(s)</span>
-<span class="co">#&gt;  * Consumers have  functional responses</span>
+<span class="co">#&gt;  * Consumers have type 2 functional responses</span>
 <span class="co">#&gt;  * Resource supply is continuous (e.g. chemostat)</span>
-<span class="co">#&gt;  * No mortality</span>
+<span class="co">#&gt;  * Mortality is continuous</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Simulation properties </span>
 <span class="co">#&gt;  * Simulation time: 300 time steps</span>
@@ -266,9 +266,9 @@
 <span class="op">)</span>
 <span class="co">#&gt; Model properties </span>
 <span class="co">#&gt;  * 2 consumer(s) and 1 resource(s)</span>
-<span class="co">#&gt;  * Consumers have  functional responses</span>
+<span class="co">#&gt;  * Consumers have type 2 functional responses</span>
 <span class="co">#&gt;  * Resources grow logistically</span>
-<span class="co">#&gt;  * No mortality</span>
+<span class="co">#&gt;  * Mortality is continuous</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Simulation properties </span>
 <span class="co">#&gt;  * Simulation time: 2000 time steps</span>
@@ -302,18 +302,12 @@
   essential <span class="op">=</span> <span class="cn">FALSE</span>,
   totaltime <span class="op">=</span> <span class="fl">1000</span>
 <span class="op">)</span>
-<span class="co">#&gt; Warning in if (pars$chemo == TRUE &amp; pars$resspeed != 0 &amp; pars$respulse != : the</span>
-<span class="co">#&gt; condition has length &gt; 1 and only the first element will be used</span>
-<span class="co">#&gt; Warning in if (pars$chemo == TRUE &amp; pars$resspeed == 0 &amp; pars$respulse != : the</span>
-<span class="co">#&gt; condition has length &gt; 1 and only the first element will be used</span>
-<span class="co">#&gt; Warning in if (pars$chemo == TRUE &amp; pars$resspeed != 0 &amp; pars$respulse == : the</span>
-<span class="co">#&gt; condition has length &gt; 1 and only the first element will be used</span>
 <span class="co">#&gt; Model properties </span>
 <span class="co">#&gt;  * 2 consumer(s) and 2 resource(s)</span>
-<span class="co">#&gt;  * Consumers have  functional responses</span>
+<span class="co">#&gt;  * Consumers have type 1 functional responses</span>
 <span class="co">#&gt;  * Resources are substitutable</span>
 <span class="co">#&gt;  * Resource supply is continuous (e.g. chemostat)</span>
-<span class="co">#&gt;  * No mortality</span>
+<span class="co">#&gt;  * Mortality is continuous</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Simulation properties </span>
 <span class="co">#&gt;  * Simulation time: 1000 time steps</span>
@@ -359,18 +353,12 @@
   mort <span class="op">=</span> <span class="fl">0.03</span>,
   essential <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span>
-<span class="co">#&gt; Warning in if (pars$chemo == TRUE &amp; pars$resspeed != 0 &amp; pars$respulse != : the</span>
-<span class="co">#&gt; condition has length &gt; 1 and only the first element will be used</span>
-<span class="co">#&gt; Warning in if (pars$chemo == TRUE &amp; pars$resspeed == 0 &amp; pars$respulse != : the</span>
-<span class="co">#&gt; condition has length &gt; 1 and only the first element will be used</span>
-<span class="co">#&gt; Warning in if (pars$chemo == TRUE &amp; pars$resspeed != 0 &amp; pars$respulse == : the</span>
-<span class="co">#&gt; condition has length &gt; 1 and only the first element will be used</span>
 <span class="co">#&gt; Model properties </span>
 <span class="co">#&gt;  * 2 consumer(s) and 2 resource(s)</span>
-<span class="co">#&gt;  * Consumers have  functional responses</span>
+<span class="co">#&gt;  * Consumers have type 1 functional responses</span>
 <span class="co">#&gt;  * Resources are essential</span>
 <span class="co">#&gt;  * Resource supply is continuous (e.g. chemostat)</span>
-<span class="co">#&gt;  * No mortality</span>
+<span class="co">#&gt;  * Mortality is continuous</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Simulation properties </span>
 <span class="co">#&gt;  * Simulation time: 1000 time steps</span>
@@ -405,9 +393,9 @@
 <span class="op">)</span>
 <span class="co">#&gt; Model properties </span>
 <span class="co">#&gt;  * 2 consumer(s) and 1 resource(s)</span>
-<span class="co">#&gt;  * Consumers have  functional responses</span>
+<span class="co">#&gt;  * Consumers have type 2 functional responses</span>
 <span class="co">#&gt;  * Resource supply is pulsed only</span>
-<span class="co">#&gt;  * No mortality</span>
+<span class="co">#&gt;  * Mortality is continuous</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Simulation properties </span>
 <span class="co">#&gt;  * Simulation time: 1000 time steps</span>
@@ -456,9 +444,9 @@
 <span class="op">)</span>
 <span class="co">#&gt; Model properties </span>
 <span class="co">#&gt;  * 2 consumer(s) and 1 resource(s)</span>
-<span class="co">#&gt;  * Consumers have  functional responses</span>
+<span class="co">#&gt;  * Consumers have type 2 functional responses</span>
 <span class="co">#&gt;  * Resource supply is pulsed only</span>
-<span class="co">#&gt;  * Mortality is continuous and intermittent</span>
+<span class="co">#&gt;  * Mortality intermittent</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Simulation properties </span>
 <span class="co">#&gt;  * Simulation time: 1000 time steps</span>
@@ -477,7 +465,7 @@
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>resspeed <span class="op">=</span> <span class="fl">0</span>, mort <span class="op">=</span> <span class="fl">0</span>, totaltime <span class="op">=</span> <span class="fl">500</span><span class="op">)</span>
 <span class="co">#&gt; Model properties </span>
 <span class="co">#&gt;  * 1 consumer(s) and 1 resource(s)</span>
-<span class="co">#&gt;  * Consumers have  functional responses</span>
+<span class="co">#&gt;  * Consumers have type 1 functional responses</span>
 <span class="co">#&gt;  * Resources are not supplied?!</span>
 <span class="co">#&gt;  * No mortality</span>
 <span class="co">#&gt; </span>
@@ -522,9 +510,9 @@
 <span class="op">)</span>
 <span class="co">#&gt; Model properties </span>
 <span class="co">#&gt;  * 2 consumer(s) and 1 resource(s)</span>
-<span class="co">#&gt;  * Consumers have  functional responses</span>
+<span class="co">#&gt;  * Consumers have type 2 functional responses</span>
 <span class="co">#&gt;  * Resource supply is continuous (e.g. chemostat)</span>
-<span class="co">#&gt;  * No mortality</span>
+<span class="co">#&gt;  * Mortality is continuous</span>
 <span class="co">#&gt;  * Parameters are time dependent with switching every 50 time steps</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Simulation properties </span>
@@ -571,26 +559,12 @@
   resconc <span class="op">=</span> <span class="fl">0.5</span>,
   totaltime <span class="op">=</span> <span class="fl">2000</span>
 <span class="op">)</span>
-<span class="co">#&gt; Warning in if (pars$chemo == TRUE &amp; pars$resspeed != 0 &amp; pars$respulse != : the</span>
-<span class="co">#&gt; condition has length &gt; 1 and only the first element will be used</span>
-<span class="co">#&gt; Warning in if (pars$chemo == TRUE &amp; pars$resspeed == 0 &amp; pars$respulse != : the</span>
-<span class="co">#&gt; condition has length &gt; 1 and only the first element will be used</span>
-<span class="co">#&gt; Warning in if (pars$chemo == TRUE &amp; pars$resspeed != 0 &amp; pars$respulse == : the</span>
-<span class="co">#&gt; condition has length &gt; 1 and only the first element will be used</span>
-<span class="co">#&gt; Warning in if (pars$chemo == TRUE &amp; pars$resspeed == 0 &amp; pars$respulse == : the</span>
-<span class="co">#&gt; condition has length &gt; 1 and only the first element will be used</span>
-<span class="co">#&gt; Warning in if (pars$chemo == FALSE &amp; pars$resspeed != 0 &amp; pars$respulse != : the</span>
-<span class="co">#&gt; condition has length &gt; 1 and only the first element will be used</span>
-<span class="co">#&gt; Warning in if (pars$chemo == FALSE &amp; pars$resspeed == 0 &amp; pars$respulse != : the</span>
-<span class="co">#&gt; condition has length &gt; 1 and only the first element will be used</span>
-<span class="co">#&gt; Warning in if (pars$chemo == FALSE &amp; pars$resspeed != 0 &amp; pars$respulse == : the</span>
-<span class="co">#&gt; condition has length &gt; 1 and only the first element will be used</span>
 <span class="co">#&gt; Model properties </span>
 <span class="co">#&gt;  * 3 consumer(s) and 3 resource(s)</span>
-<span class="co">#&gt;  * Consumers have  functional responses</span>
+<span class="co">#&gt;  * Consumers have type 1 functional responses</span>
 <span class="co">#&gt;  * Resources are essential</span>
 <span class="co">#&gt;  * Resources grow logistically</span>
-<span class="co">#&gt;  * No mortality</span>
+<span class="co">#&gt;  * Mortality is continuous</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Simulation properties </span>
 <span class="co">#&gt;  * Simulation time: 2000 time steps</span>
