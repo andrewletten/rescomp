@@ -209,7 +209,7 @@ spec_rescomp <- function(spnum = 1,
                        nrow = spnum,
                        byrow = TRUE)
 
-  } else if (funcresp == "type2"){
+  } else if (funcresp == "type3"){
     pars$phi <- matrix(rep(1, times = spnum*resnum),
                        nrow = spnum,
                        byrow = TRUE)
@@ -264,10 +264,10 @@ spec_rescomp <- function(spnum = 1,
 
 
 
-#' Print method for class rescomp
+#' S3 print method for class rescomp
 #'
 #' @param x rescomp object
-#' @param ... further arguments
+#' @param ... Further arguments
 #' @param detail Either "summary" or "list". "summary" (default) provides plain language
 #' summary info. "list" prints the full parameter list.
 #'

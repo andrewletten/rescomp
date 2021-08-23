@@ -97,7 +97,7 @@ See `?spec_rescomp` for all argument options.
 
 The following two examples demonstrate how to build and simulate a model
 for: i) two consumers with type II functional responses on a single
-logistically growing resources; and ii) two consumers with type I
+logistically growing resources; and ii) two consumers with type III
 functional responses with pulsed resources and time dependent
 consumptions parameters. A wide range of other examples can be found in
 the package vignette.
@@ -152,7 +152,7 @@ plot_rescomp(m2, pars)
 pars <- spec_rescomp(
   spnum = 2, 
   resnum = 2,
-  funcresp = "type1",
+  funcresp = "type3",
   timepars = TRUE,
   timeparfreq = 40,
   mumatrix = list(matrix(c(0.4,0.1,
@@ -173,7 +173,7 @@ pars <- spec_rescomp(
 )
 #> Model properties 
 #>  * 2 consumer(s) and 2 resource(s)
-#>  * Consumers have type 1 functional responses
+#>  * Consumers have type 3 functional responses
 #>  * Resources are substitutable
 #>  * Resource supply is pulsed only
 #>  * Mortality is continuous
