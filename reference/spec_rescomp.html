@@ -135,7 +135,7 @@ passed to <code><a href='https://rdrr.io/pkg/deSolve/man/ode.html'>deSolve::ode<
   <span class='va'>mumatrix</span>,
   <span class='va'>kmatrix</span>,
   <span class='va'>qmatrix</span>,
-  linear <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  funcresp <span class='op'>=</span> <span class='st'>"type1"</span>,
   essential <span class='op'>=</span> <span class='cn'>FALSE</span>,
   chemo <span class='op'>=</span> <span class='cn'>TRUE</span>,
   mort <span class='op'>=</span> <span class='fl'>0.03</span>,
@@ -172,7 +172,7 @@ If <code>timepars</code> = TRUE, expects a list of length 2.</p></td>
     <tr>
       <th>kmatrix</th>
       <td><p>Matrix of half saturation constants
-(type 2, ignored if linear = TRUE). The number of rows should be equal
+(type 2 or type 3, ignored if funcresp = "type1). The number of rows should be equal
 to <code>spnum</code> and <code>resnum</code> respectively.</p></td>
     </tr>
     <tr>
@@ -181,8 +181,8 @@ to <code>spnum</code> and <code>resnum</code> respectively.</p></td>
 The number of rows should be equal to <code>spnum</code> and <code>resnum</code> respectively.</p></td>
     </tr>
     <tr>
-      <th>linear</th>
-      <td><p>If FALSE equals type 2 function (i.e. Monod).</p></td>
+      <th>funcresp</th>
+      <td><p>Options include "type1", 'type2", or "type3".</p></td>
     </tr>
     <tr>
       <th>essential</th>
@@ -330,7 +330,7 @@ consumers. Note initial resource state values defaults to <code>resconc</code>.<
 <span class='va'>pars</span> <span class='op'>&lt;-</span> <span class='fu'>spec_rescomp</span><span class='op'>(</span>
     spnum <span class='op'>=</span> <span class='fl'>2</span>,
     resnum <span class='op'>=</span> <span class='fl'>2</span>,
-    linear <span class='op'>=</span> <span class='cn'>FALSE</span>,
+    funcresp <span class='op'>=</span> <span class='st'>"type2"</span>,
     mumatrix <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.7</span>,<span class='fl'>0.3</span>,
                              <span class='fl'>0.4</span>,<span class='fl'>0.5</span><span class='op'>)</span>,
                            nrow <span class='op'>=</span> <span class='fl'>2</span>,
