@@ -144,7 +144,7 @@ m2 <- sim_rescomp(pars)
 plot_rescomp(m2, pars) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="90%" />
 
 ### Example 2
 
@@ -189,7 +189,7 @@ pars <- spec_rescomp(
 plot_funcresp(pars, maxx = 1)
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="60%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="90%" />
 
 ``` r
 m3 <- sim_rescomp(pars)
@@ -199,6 +199,6 @@ m3 <- sim_rescomp(pars)
 plot_rescomp(m3, pars) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-13-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-13-1.png" width="90%" />
 
 <!-- Disclaimer: As a biologist with no formal training in software development, I cannot vouch that `rescomp` is 100% bug free, maximally efficient or entirely consistent with 'tidy' principles. I have done my best but please use with caution! -->

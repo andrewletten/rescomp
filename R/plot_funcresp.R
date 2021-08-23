@@ -16,7 +16,7 @@
 #' pars <- spec_rescomp(
 #'     spnum = 2,
 #'     resnum = 2,
-#'     funcresp = "type2,
+#'     funcresp = "type2",
 #'     mumatrix = list(matrix(c(0.7,0.3,
 #'                              0.4,0.5),
 #'                            nrow = 2,

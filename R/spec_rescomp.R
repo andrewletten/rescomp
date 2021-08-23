@@ -1,5 +1,5 @@
 #' Generate list of parameters for a consumer-resource model to be
-#'     passed to `deSolve::ode`
+#'     passed to `sim_rescomp`
 #'
 #' @param spnum Number of consumers
 #' @param resnum Number of resources
@@ -22,9 +22,8 @@
 #' @param resconc Resource carrying capacity (if chemo = FALSE),
 #'     otherwise chemostat supply concentration
 #' @param respulse Resource pulse size.
-#'     Requires events argument in call to `ode`.
 #' @param mortpulse Consumer mortality fraction if non-constant mortality
-#'     (e.g. serial-batch transfer). Requires events argument in call to `ode`.
+#'     (e.g. serial-batch transfer).
 #' @param pulsefreq Frequency of resource pulsing and/or intemittent mortality.
 #' @param batchtrans If TRUE, both resource is also fractionally sampled
 #'     (see vignette).
@@ -34,9 +33,10 @@
 #' @param cinit Initial consumer state values (densities). Either a single
 #'     integer for all consumers or a vector. Defaults to 10 for all
 #'     consumers. Note initial resource state values defaults to `resconc`.
+#' @param verbose If TRUE (default) prints model and simulation summary specs.
 #'
 #'
-#' @return list
+#' @return List object of class 'rescomp'.
 #' @export
 #'
 #' @importFrom stats approxfun
@@ -63,24 +63,25 @@
 #' )
 #'
 spec_rescomp <- function(spnum = 1,
-                          resnum = 1,
-                          mumatrix,
-                          kmatrix,
-                          qmatrix,
-                          funcresp = "type1",
-                          essential = FALSE,
-                          chemo = TRUE,
-                          mort = 0.03,
-                          resspeed = 0.03,
-                          resconc = 1,
-                          respulse = 0,
-                          mortpulse = 0,
-                          pulsefreq = 0,
-                          batchtrans = FALSE,
-                          timepars = FALSE,
-                          totaltime = 1000,
-                          timeparfreq = 0,
-                          cinit = 10) {
+                         resnum = 1,
+                         mumatrix,
+                         kmatrix,
+                         qmatrix,
+                         funcresp = "type1",
+                         essential = FALSE,
+                         chemo = TRUE,
+                         mort = 0.03,
+                         resspeed = 0.03,
+                         resconc = 1,
+                         respulse = 0,
+                         mortpulse = 0,
+                         pulsefreq = 0,
+                         batchtrans = FALSE,
+                         timepars = FALSE,
+                         totaltime = 1000,
+                         timeparfreq = 0,
+                         cinit = 10,
+                         verbose = TRUE) {
 
   # Check input classes
   stopifnot(is.numeric(spnum))
@@ -89,6 +90,7 @@ spec_rescomp <- function(spnum = 1,
   stopifnot(is.logical(essential))
   stopifnot(is.logical(chemo))
   stopifnot(is.logical(timepars))
+  stopifnot(is.logical(verbose))
   stopifnot(is.numeric(mort))
   stopifnot(is.numeric(mortpulse))
   stopifnot(mortpulse >= 0 & mortpulse <= 1)
@@ -252,62 +254,80 @@ spec_rescomp <- function(spnum = 1,
   pars$pulsefreq <- pulsefreq
   pars$batchtrans <- batchtrans
 
-  # Print model/simulation properites
+  class(pars) <- "rescomp"
+  if(verbose == TRUE){
+    print(pars)
+  }
+  return(pars)
+}
 
+
+
+#' Print method for class rescomp
+#'
+#' @param pars rescomp object
+#' @param detail Either "summary" or "list". "summary" (default) provides plain language
+#' summary info. "list" prints the full parameter list.
+#'
+#' @return
+#' @export
+#'
+print.rescomp <- function(pars, detail = "summary"){
+  if (detail == "summary"){
   message(
     "Model properties \n",
 
     paste0(" * ",
-          spnum, " consumer(s) and ", resnum, " resource(s)",
-          "\n"),
+           pars$nconsumers, " consumer(s) and ", pars$nresources, " resource(s)",
+           "\n"),
 
     paste0(" * ",
-          "Consumers have ",
-          gsub("(\\w+)(\\d)", "\\1 \\2", funcresp), " functional responses",
-          "\n"),
+           "Consumers have ",
+           gsub("(\\w+)(\\d)", "\\1 \\2", pars$funcresp), " functional responses",
+           "\n"),
 
-    if (resnum > 1) {
+    if (pars$nresources > 1) {
       paste0(" * ",
-              "Resources are",
-              ifelse(essential, " essential\n", " substitutable\n")
-             )
-      },
+             "Resources are",
+             ifelse(pars$essential, " essential\n", " substitutable\n")
+      )
+    },
 
     paste0(" * ",
-           if (chemo == TRUE & resspeed != 0 & respulse != 0) {
+           if (pars$chemo == TRUE & pars$resspeed != 0 & pars$respulse != 0) {
              "Resource supply is continuous (e.g. chemostat) AND pulsed"
-           } else if (chemo == TRUE & resspeed == 0 & respulse != 0) {
+           } else if (pars$chemo == TRUE & pars$resspeed == 0 & pars$respulse != 0) {
              "Resource supply is pulsed only"
-           } else if (chemo == TRUE & resspeed != 0 & respulse == 0) {
+           } else if (pars$chemo == TRUE & pars$resspeed != 0 & pars$respulse == 0) {
              "Resource supply is continuous (e.g. chemostat)"
-           } else if (chemo == TRUE & resspeed == 0 & respulse == 0) {
+           } else if (pars$chemo == TRUE & pars$resspeed == 0 & pars$respulse == 0) {
              "Resources are not supplied?!"
-           } else if (chemo == FALSE & resspeed != 0 & respulse != 0) {
+           } else if (pars$chemo == FALSE & pars$resspeed != 0 & pars$respulse != 0) {
              "Resources grow logistically and are pulsed"
-           } else if (chemo == FALSE & resspeed == 0 & respulse != 0) {
+           } else if (pars$chemo == FALSE & pars$resspeed == 0 & pars$respulse != 0) {
              "Resources are pulsed only"
-           } else if (chemo == FALSE & resspeed != 0 & respulse == 0) {
+           } else if (pars$chemo == FALSE & pars$resspeed != 0 & pars$respulse == 0) {
              "Resources grow logistically"
-           } else if (chemo == FALSE & resspeed == 0 & respulse == 0) {
+           } else if (pars$chemo == FALSE & pars$resspeed == 0 & pars$respulse == 0) {
              "Resources are not supplied?!"
            },
            "\n"),
 
     paste0(" * ",
-          if(mort > 0 & mortpulse == 0){
-            "Mortality is continuous"
-          } else if (mort > 0 & mortpulse > 0){
-            "Mortality is continuous and intermittent"
-          } else if (mort == 0 & mortpulse > 0){
-            "Mortality intermittent"
-          } else if (mort == 0 & mortpulse == 0){
-            "No mortality"
-          },
-          "\n"),
+           if(pars$mort > 0 & pars$mortpulse == 0){
+             "Mortality is continuous"
+           } else if (pars$mort > 0 & pars$mortpulse > 0){
+             "Mortality is continuous and intermittent"
+           } else if (pars$mort == 0 & pars$mortpulse > 0){
+             "Mortality intermittent"
+           } else if (pars$mort == 0 & pars$mortpulse == 0){
+             "No mortality"
+           },
+           "\n"),
 
-    if(timepars == TRUE){
+    if(pars$timepars == TRUE){
       paste0(" * ", "Parameters are time dependent with switching every ",
-             timeparfreq,
+             pars$timeparfreq,
              " time steps",
              "\n",
              "\n")
@@ -318,35 +338,35 @@ spec_rescomp <- function(spnum = 1,
     "Simulation properties \n",
 
     paste0(" * ",
-           "Simulation time: ", totaltime, " time steps", "\n"),
+           "Simulation time: ", pars$totaltime, " time steps", "\n"),
 
-    if (respulse != 0 & mortpulse == 0){
+    if (pars$respulse != 0 & pars$mortpulse == 0){
       paste0(" * ",
-             "Resources pulsing every ", pulsefreq, " timesteps",
+             "Resources pulsing every ", pars$pulsefreq, " timesteps",
              "\n")
-      } else if (respulse == 0 & mortpulse != 0){
+    } else if (pars$respulse == 0 & pars$mortpulse != 0){
       paste0(" * ",
              "Intermittent mortality every ", pulsefreq, " timesteps",
              "\n")
-        } else if (respulse != 0 & mortpulse != 0){
+    } else if (pars$respulse != 0 & pars$mortpulse != 0){
       paste0(" * ",
-             "Resources pulsing and intermittent mortality every ", pulsefreq,
+             "Resources pulsing and intermittent mortality every ", pars$pulsefreq,
              " timesteps",
              "\n")
-        } else {
+    } else {
 
-          },
+    },
 
     paste0(" * ",
            "Init state: consumer(s) = ",
-           if(length(pars$cinit) == 1 & spnum > 1){
+           if(length(pars$cinit) == 1 & pars$nconsumers > 1){
              paste0("[",
-                    paste0(rep(cinit, times = spnum),
+                    paste0(rep(pars$cinit, times = pars$nconsumers),
                            collapse = ", "),
                     "]")
            } else {
              paste0("[",
-                    paste0(cinit, collapse = ", "),
+                    paste0(pars$cinit, collapse = ", "),
                     "]")
            },
            ", resource(s) = ",
@@ -355,5 +375,7 @@ spec_rescomp <- function(spnum = 1,
                          collapse = ", "), "]"),
            "\n")
   )
-  return(pars)
+  } else if (detail == "list"){
+    print(pars[])
+  }
 }

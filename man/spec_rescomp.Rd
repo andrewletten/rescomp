@@ -3,7 +3,7 @@
 \name{spec_rescomp}
 \alias{spec_rescomp}
 \title{Generate list of parameters for a consumer-resource model to be
-passed to \code{deSolve::ode}}
+passed to \code{sim_rescomp}}
 \usage{
 spec_rescomp(
   spnum = 1,
@@ -24,7 +24,8 @@ spec_rescomp(
   timepars = FALSE,
   totaltime = 1000,
   timeparfreq = 0,
-  cinit = 10
+  cinit = 10,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -59,11 +60,10 @@ otherwise chemostat dilution rate. Set to zero for pulsing only.}
 \item{resconc}{Resource carrying capacity (if chemo = FALSE),
 otherwise chemostat supply concentration}
 
-\item{respulse}{Resource pulse size.
-Requires events argument in call to \code{ode}.}
+\item{respulse}{Resource pulse size.}
 
 \item{mortpulse}{Consumer mortality fraction if non-constant mortality
-(e.g. serial-batch transfer). Requires events argument in call to \code{ode}.}
+(e.g. serial-batch transfer).}
 
 \item{pulsefreq}{Frequency of resource pulsing and/or intemittent mortality.}
 
@@ -79,13 +79,15 @@ Requires events argument in call to \code{ode}.}
 \item{cinit}{Initial consumer state values (densities). Either a single
 integer for all consumers or a vector. Defaults to 10 for all
 consumers. Note initial resource state values defaults to \code{resconc}.}
+
+\item{verbose}{If TRUE (default) prints model and simulation summary specs.}
 }
 \value{
-list
+List object of class 'rescomp'.
 }
 \description{
 Generate list of parameters for a consumer-resource model to be
-passed to \code{deSolve::ode}
+passed to \code{sim_rescomp}
 }
 \examples{
 

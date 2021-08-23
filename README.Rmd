@@ -107,7 +107,7 @@ pars <- spec_rescomp(
 plot_funcresp(pars, maxx = 0.2)
 ```
 
-```{r, fig.width = 9, fig.height = 4.5, out.width = "70%"}
+```{r, fig.width = 9, fig.height = 4.5, out.width = "90%"}
 m2 <- sim_rescomp(pars)
 plot_rescomp(m2, pars) 
 ```
@@ -139,7 +139,7 @@ pars <- spec_rescomp(
 )
 ```
 
-```{r, fig.width = 6, fig.height = 4, out.width = "60%"}
+```{r, fig.width = 6, fig.height = 4, out.width = "90%"}
 plot_funcresp(pars, maxx = 1)
 ```
 
@@ -147,7 +147,7 @@ plot_funcresp(pars, maxx = 1)
 m3 <- sim_rescomp(pars)
 ```
 
-```{r, fig.width = 9, fig.height = 4.5, out.width = "70%"}
+```{r, fig.width = 9, fig.height = 4.5, out.width = "90%"}
 plot_rescomp(m3, pars) 
 ```
 
