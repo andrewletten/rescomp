@@ -125,7 +125,7 @@
 <li>Time dependent consumption parameters</li>
 </ul>
 <p>See <code><a href="reference/spec_rescomp.html">?spec_rescomp</a></code> for all argument options.</p>
-<p>The following two examples demonstrate how to build and simulate a model for: i) two consumers with type II functional responses on a single logistically growing resources; and ii) two consumers with type I functional responses with pulsed resources and time dependent consumptions parameters. A wide range of other examples can be found in the package vignette.</p>
+<p>The following two examples demonstrate how to build and simulate a model for: i) two consumers with type II functional responses on a single logistically growing resources; and ii) two consumers with type III functional responses with pulsed resources and time dependent consumptions parameters. A wide range of other examples can be found in the package vignette.</p>
 <div id="example-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example-1" class="anchor"></a>Example 1</h3>
@@ -171,7 +171,7 @@
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>
   spnum <span class="op">=</span> <span class="fl">2</span>, 
   resnum <span class="op">=</span> <span class="fl">2</span>,
-  funcresp <span class="op">=</span> <span class="st">"type1"</span>,
+  funcresp <span class="op">=</span> <span class="st">"type3"</span>,
   timepars <span class="op">=</span> <span class="cn">TRUE</span>,
   timeparfreq <span class="op">=</span> <span class="fl">40</span>,
   mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.4</span>,<span class="fl">0.1</span>,
@@ -192,7 +192,7 @@
 <span class="op">)</span>
 <span class="co">#&gt; Model properties </span>
 <span class="co">#&gt;  * 2 consumer(s) and 2 resource(s)</span>
-<span class="co">#&gt;  * Consumers have type 1 functional responses</span>
+<span class="co">#&gt;  * Consumers have type 3 functional responses</span>
 <span class="co">#&gt;  * Resources are substitutable</span>
 <span class="co">#&gt;  * Resource supply is pulsed only</span>
 <span class="co">#&gt;  * Mortality is continuous</span>
