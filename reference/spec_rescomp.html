@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Generate list of parameters for a consumer-resource model to be
-passed to deSolve::ode — spec_rescomp • rescomp</title>
+passed to sim_rescomp — spec_rescomp • rescomp</title>
 
 
 <!-- jquery -->
@@ -41,9 +41,9 @@ passed to deSolve::ode — spec_rescomp • rescomp</title>
 
 
 <meta property="og:title" content="Generate list of parameters for a consumer-resource model to be
-passed to deSolve::ode — spec_rescomp" />
+passed to sim_rescomp — spec_rescomp" />
 <meta property="og:description" content="Generate list of parameters for a consumer-resource model to be
-passed to deSolve::ode" />
+passed to sim_rescomp" />
 
 
 
@@ -119,14 +119,14 @@ passed to deSolve::ode" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generate list of parameters for a consumer-resource model to be
-passed to <code>deSolve::ode</code></h1>
+passed to <code>sim_rescomp</code></h1>
     
     <div class="hidden name"><code>spec_rescomp.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Generate list of parameters for a consumer-resource model to be
-passed to <code><a href='https://rdrr.io/pkg/deSolve/man/ode.html'>deSolve::ode</a></code></p>
+passed to <code>sim_rescomp</code></p>
     </div>
 
     <pre class="usage"><span class='fu'>spec_rescomp</span><span class='op'>(</span>
@@ -148,7 +148,8 @@ passed to <code><a href='https://rdrr.io/pkg/deSolve/man/ode.html'>deSolve::ode<
   timepars <span class='op'>=</span> <span class='cn'>FALSE</span>,
   totaltime <span class='op'>=</span> <span class='fl'>1000</span>,
   timeparfreq <span class='op'>=</span> <span class='fl'>0</span>,
-  cinit <span class='op'>=</span> <span class='fl'>10</span>
+  cinit <span class='op'>=</span> <span class='fl'>10</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -209,13 +210,12 @@ otherwise chemostat supply concentration</p></td>
     </tr>
     <tr>
       <th>respulse</th>
-      <td><p>Resource pulse size.
-Requires events argument in call to <code>ode</code>.</p></td>
+      <td><p>Resource pulse size.</p></td>
     </tr>
     <tr>
       <th>mortpulse</th>
       <td><p>Consumer mortality fraction if non-constant mortality
-(e.g. serial-batch transfer). Requires events argument in call to <code>ode</code>.</p></td>
+(e.g. serial-batch transfer).</p></td>
     </tr>
     <tr>
       <th>pulsefreq</th>
@@ -244,11 +244,15 @@ Requires events argument in call to <code>ode</code>.</p></td>
 integer for all consumers or a vector. Defaults to 10 for all
 consumers. Note initial resource state values defaults to <code>resconc</code>.</p></td>
     </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>If TRUE (default) prints model and simulation summary specs.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list</p>
+    <p>List object of class 'rescomp'.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -256,76 +260,21 @@ consumers. Note initial resource state values defaults to <code>resconc</code>.<
 <span class='fu'>spec_rescomp</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Model properties </span>
 #&gt; <span class='message'> * 1 consumer(s) and 1 resource(s)</span>
-#&gt; <span class='message'> * Consumers have type 1 functional responses</span>
+#&gt; <span class='message'> * Consumers have  functional responses</span>
 #&gt; <span class='message'> * Resource supply is continuous (e.g. chemostat)</span>
-#&gt; <span class='message'> * Mortality is continuous</span>
+#&gt; <span class='message'> * No mortality</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>Simulation properties </span>
 #&gt; <span class='message'> * Simulation time: 1000 time steps</span>
-#&gt; <span class='message'> * Init state: consumer(s) = [10], resource(s) = [1]</span></div><div class='output co'>#&gt; $mu
-#&gt; $mu[[1]]
-#&gt;      [,1]
-#&gt; [1,]  0.1
-#&gt; 
-#&gt; 
-#&gt; $Ks
-#&gt;      [,1]
-#&gt; [1,]    1
-#&gt; 
-#&gt; $Qs
-#&gt;       [,1]
-#&gt; [1,] 0.001
-#&gt; 
-#&gt; $phi
-#&gt;      [,1]
-#&gt; [1,]    0
-#&gt; 
-#&gt; $type3
-#&gt;      [,1]
-#&gt; [1,]  0.5
-#&gt; 
-#&gt; $cinit
-#&gt; [1] 10
-#&gt; 
-#&gt; $all_d
-#&gt; [1] 0.03
-#&gt; 
-#&gt; $respulse
-#&gt; [1] 0
-#&gt; 
-#&gt; $essential
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $chemo
-#&gt; [1] TRUE
-#&gt; 
-#&gt; $nconsumers
-#&gt; [1] 1
-#&gt; 
-#&gt; $nresources
-#&gt; [1] 1
-#&gt; 
-#&gt; $resspeed
-#&gt; [1] 0.03
-#&gt; 
-#&gt; $resconc
-#&gt; [1] 1
-#&gt; 
-#&gt; $timepars
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $mortpulse
-#&gt; [1] 0
-#&gt; 
-#&gt; $totaltime
-#&gt; [1] 1000
-#&gt; 
-#&gt; $pulsefreq
-#&gt; [1] 0
-#&gt; 
-#&gt; $batchtrans
-#&gt; [1] FALSE
-#&gt; </div><div class='input'>
+#&gt; <span class='message'> * Init state: consumer(s) = [10], resource(s) = [1]</span></div><div class='output co'>#&gt; <span class='message'>Model properties </span>
+#&gt; <span class='message'> * 1 consumer(s) and 1 resource(s)</span>
+#&gt; <span class='message'> * Consumers have  functional responses</span>
+#&gt; <span class='message'> * Resource supply is continuous (e.g. chemostat)</span>
+#&gt; <span class='message'> * No mortality</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>Simulation properties </span>
+#&gt; <span class='message'> * Simulation time: 1000 time steps</span>
+#&gt; <span class='message'> * Init state: consumer(s) = [10], resource(s) = [1]</span></div><div class='input'>
 <span class='co'># Two type II consumers and two substitutable resources in a chemostat</span>
 <span class='va'>pars</span> <span class='op'>&lt;-</span> <span class='fu'>spec_rescomp</span><span class='op'>(</span>
     spnum <span class='op'>=</span> <span class='fl'>2</span>,
@@ -341,12 +290,12 @@ consumers. Note initial resource state values defaults to <code>resconc</code>.<
     chemo <span class='op'>=</span> <span class='cn'>TRUE</span>,
     essential <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Model properties </span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: the condition has length &gt; 1 and only the first element will be used</span></div><div class='output co'>#&gt; <span class='warning'>Warning: the condition has length &gt; 1 and only the first element will be used</span></div><div class='output co'>#&gt; <span class='warning'>Warning: the condition has length &gt; 1 and only the first element will be used</span></div><div class='output co'>#&gt; <span class='message'>Model properties </span>
 #&gt; <span class='message'> * 2 consumer(s) and 2 resource(s)</span>
-#&gt; <span class='message'> * Consumers have type 2 functional responses</span>
+#&gt; <span class='message'> * Consumers have  functional responses</span>
 #&gt; <span class='message'> * Resources are substitutable</span>
 #&gt; <span class='message'> * Resource supply is continuous (e.g. chemostat)</span>
-#&gt; <span class='message'> * Mortality is continuous</span>
+#&gt; <span class='message'> * No mortality</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>Simulation properties </span>
 #&gt; <span class='message'> * Simulation time: 1000 time steps</span>
