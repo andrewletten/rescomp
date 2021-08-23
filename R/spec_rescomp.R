@@ -253,6 +253,7 @@ spec_rescomp <- function(spnum = 1,
   pars$totaltime <- totaltime
   pars$pulsefreq <- pulsefreq
   pars$batchtrans <- batchtrans
+  pars$funcresp <- funcresp
 
   class(pars) <- "rescomp"
   if(verbose == TRUE){
@@ -265,14 +266,15 @@ spec_rescomp <- function(spnum = 1,
 
 #' Print method for class rescomp
 #'
-#' @param pars rescomp object
+#' @param x rescomp object
+#' @param ... further arguments
 #' @param detail Either "summary" or "list". "summary" (default) provides plain language
 #' summary info. "list" prints the full parameter list.
 #'
-#' @return
 #' @export
 #'
-print.rescomp <- function(pars, detail = "summary"){
+print.rescomp <- function(x, ..., detail = "summary"){
+  pars <-  x
   if (detail == "summary"){
   message(
     "Model properties \n",
@@ -294,33 +296,33 @@ print.rescomp <- function(pars, detail = "summary"){
     },
 
     paste0(" * ",
-           if (pars$chemo == TRUE & pars$resspeed != 0 & pars$respulse != 0) {
+           if (pars$chemo == TRUE & pars$resspeed[1] != 0 & pars$respulse != 0) {
              "Resource supply is continuous (e.g. chemostat) AND pulsed"
-           } else if (pars$chemo == TRUE & pars$resspeed == 0 & pars$respulse != 0) {
+           } else if (pars$chemo == TRUE & pars$resspeed[1] == 0 & pars$respulse != 0) {
              "Resource supply is pulsed only"
-           } else if (pars$chemo == TRUE & pars$resspeed != 0 & pars$respulse == 0) {
+           } else if (pars$chemo == TRUE & pars$resspeed[1] != 0 & pars$respulse == 0) {
              "Resource supply is continuous (e.g. chemostat)"
-           } else if (pars$chemo == TRUE & pars$resspeed == 0 & pars$respulse == 0) {
+           } else if (pars$chemo == TRUE & pars$resspeed[1] == 0 & pars$respulse == 0) {
              "Resources are not supplied?!"
-           } else if (pars$chemo == FALSE & pars$resspeed != 0 & pars$respulse != 0) {
+           } else if (pars$chemo == FALSE & pars$resspeed[1] != 0 & pars$respulse != 0) {
              "Resources grow logistically and are pulsed"
-           } else if (pars$chemo == FALSE & pars$resspeed == 0 & pars$respulse != 0) {
+           } else if (pars$chemo == FALSE & pars$resspeed[1] == 0 & pars$respulse != 0) {
              "Resources are pulsed only"
-           } else if (pars$chemo == FALSE & pars$resspeed != 0 & pars$respulse == 0) {
+           } else if (pars$chemo == FALSE & pars$resspeed[1] != 0 & pars$respulse == 0) {
              "Resources grow logistically"
-           } else if (pars$chemo == FALSE & pars$resspeed == 0 & pars$respulse == 0) {
+           } else if (pars$chemo == FALSE & pars$resspeed[1] == 0 & pars$respulse == 0) {
              "Resources are not supplied?!"
            },
            "\n"),
 
     paste0(" * ",
-           if(pars$mort > 0 & pars$mortpulse == 0){
+           if(pars$all_d > 0 & pars$mortpulse == 0){
              "Mortality is continuous"
-           } else if (pars$mort > 0 & pars$mortpulse > 0){
+           } else if (pars$all_d > 0 & pars$mortpulse > 0){
              "Mortality is continuous and intermittent"
-           } else if (pars$mort == 0 & pars$mortpulse > 0){
+           } else if (pars$all_d == 0 & pars$mortpulse > 0){
              "Mortality intermittent"
-           } else if (pars$mort == 0 & pars$mortpulse == 0){
+           } else if (pars$all_d == 0 & pars$mortpulse == 0){
              "No mortality"
            },
            "\n"),
@@ -346,7 +348,7 @@ print.rescomp <- function(pars, detail = "summary"){
              "\n")
     } else if (pars$respulse == 0 & pars$mortpulse != 0){
       paste0(" * ",
-             "Intermittent mortality every ", pulsefreq, " timesteps",
+             "Intermittent mortality every ", pars$pulsefreq, " timesteps",
              "\n")
     } else if (pars$respulse != 0 & pars$mortpulse != 0){
       paste0(" * ",

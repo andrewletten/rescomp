@@ -4,16 +4,15 @@
 \alias{print.rescomp}
 \title{Print method for class rescomp}
 \usage{
-\method{print}{rescomp}(pars, detail = "summary")
+\method{print}{rescomp}(x, ..., detail = "summary")
 }
 \arguments{
-\item{pars}{rescomp object}
+\item{x}{rescomp object}
+
+\item{...}{further arguments}
 
 \item{detail}{Either "summary" or "list". "summary" (default) provides plain language
 summary info. "list" prints the full parameter list.}
-}
-\value{
-
 }
 \description{
 Print method for class rescomp
