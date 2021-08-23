@@ -70,7 +70,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
   # -------------------------------------------------------------------------
 
   # -------------------------------------------------------------------------
-  pars <- suppressMessages(spec_rescomp(linear = FALSE,
+  pars <- suppressMessages(spec_rescomp(funcresp = "type2",
                                 totaltime = 50))
   msim <- sim_rescomp(pars)
   # direct in deSolve

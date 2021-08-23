@@ -247,7 +247,7 @@
 ---
 
     Code
-      spec_rescomp(linear = FALSE)
+      spec_rescomp(funcresp = "type2")
     Message <simpleMessage>
       Model properties 
        * 1 consumer(s) and 1 resource(s)

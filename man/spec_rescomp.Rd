@@ -11,7 +11,7 @@ spec_rescomp(
   mumatrix,
   kmatrix,
   qmatrix,
-  linear = TRUE,
+  funcresp = "type1",
   essential = FALSE,
   chemo = TRUE,
   mort = 0.03,
@@ -38,13 +38,13 @@ The number of rows should be equal to \code{spnum} and \code{resnum} respectivel
 If \code{timepars} = TRUE, expects a list of length 2.}
 
 \item{kmatrix}{Matrix of half saturation constants
-(type 2, ignored if linear = TRUE). The number of rows should be equal
+(type 2 or type 3, ignored if funcresp = "type1). The number of rows should be equal
 to \code{spnum} and \code{resnum} respectively.}
 
 \item{qmatrix}{Matrix of resource quotas.
 The number of rows should be equal to \code{spnum} and \code{resnum} respectively.}
 
-\item{linear}{If FALSE equals type 2 function (i.e. Monod).}
+\item{funcresp}{Options include "type1", 'type2", or "type3".}
 
 \item{essential}{If FALSE resources are substitutable.}
 
@@ -96,7 +96,7 @@ spec_rescomp()
 pars <- spec_rescomp(
     spnum = 2,
     resnum = 2,
-    linear = FALSE,
+    funcresp = "type2",
     mumatrix = list(matrix(c(0.7,0.3,
                              0.4,0.5),
                            nrow = 2,

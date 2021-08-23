@@ -108,7 +108,7 @@ the package vignette.
 pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
-  linear = FALSE,
+  funcresp = "type2",
   mumatrix = list(matrix(c(0.7,0.05), 
                     nrow = 2, 
                     ncol = 1,
@@ -152,7 +152,7 @@ plot_rescomp(m2, pars)
 pars <- spec_rescomp(
   spnum = 2, 
   resnum = 2,
-  linear = TRUE,
+  funcresp = "type1",
   timepars = TRUE,
   timeparfreq = 40,
   mumatrix = list(matrix(c(0.4,0.1,

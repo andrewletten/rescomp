@@ -132,7 +132,7 @@ library(rescomp)
 pars <- spec_rescomp(
   spnum = 1, 
   resnum = 1,
-  linear = FALSE,
+  funcresp = "type2",
   mumatrix = list(matrix(0.12)),
   chemo = FALSE,
   resspeed = 3,
@@ -179,7 +179,7 @@ plot_rescomp(m1, pars)
 pars <- spec_rescomp(
   spnum = 1, 
   resnum = 1,
-  linear = FALSE,
+  funcresp = "type2",
   mumatrix = list(matrix(0.12)),
   resspeed = 0.03,
   resconc = 2,
@@ -201,7 +201,7 @@ plot_rescomp(m1, pars)
 pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
-  linear = FALSE,
+  funcresp = "type2",
   mumatrix = list(matrix(c(0.7,0.05), 
                     nrow = 2, 
                     ncol = 1,
@@ -237,7 +237,7 @@ Owing to the trade-off in functional responses (gleaner-opportunist) and resourc
 pars <- spec_rescomp(
   spnum = 2, 
   resnum = 2,
-  linear = TRUE,
+  funcresp = "type1",
   mumatrix = list(matrix(c(0.09,0.04,
                            0.05,0.08), 
                     nrow = 2, 
@@ -284,7 +284,7 @@ There is no coexistence now because each species needs to have a larger impact o
 pars <- spec_rescomp(
   spnum = 2, 
   resnum = 2,
-  linear = TRUE,
+  funcresp = "type1",
   mumatrix = list(matrix(c(0.09, 0.04,
                            0.05, 0.08), 
                     nrow = 2, 
@@ -320,7 +320,7 @@ External resource pulsing is handled using an event function, `rescomp::eventfun
 pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
-  linear = FALSE,
+  funcresp = "type2",
   mumatrix = list(matrix(c(0.7,0.05), 
                     nrow = 2, 
                     ncol = 1,
@@ -364,7 +364,7 @@ Note that the effect of setting `batchtrans = TRUE` is to enforce  fractional sa
 pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
-  linear = FALSE,
+  funcresp = "type2",
   mumatrix = list(matrix(c(0.2,0.2), 
                          nrow = 2, 
                          ncol = 1,
@@ -418,7 +418,7 @@ In addition, if `time_pars = TRUE`, the mumatrix argument in `spec_rescomp` expe
 pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
-  linear = FALSE,
+  funcresp = "type2",
   mumatrix = list(matrix(c(0.3,0.1), 
                     nrow = 2, 
                     ncol = 1,
@@ -462,7 +462,7 @@ The two consumers coexist due species-specific environmental responses leading t
 pars <- spec_rescomp(
   spnum = 3, 
   resnum = 3,
-  linear = TRUE,
+  funcresp = "type1",
   mumatrix = list(matrix(c(
     0.11, 0.07,  0.045,
     0.05, 0.11,  0.07,

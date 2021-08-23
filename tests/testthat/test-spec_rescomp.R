@@ -2,7 +2,7 @@ test_that("Correct model messages", {
   expect_snapshot(spec_rescomp())
   expect_snapshot(spec_rescomp(spnum = 2))
   expect_snapshot(spec_rescomp(resnum = 2))
-  expect_snapshot(spec_rescomp(linear = FALSE))
+  expect_snapshot(spec_rescomp(funcresp = "type2"))
   expect_snapshot(spec_rescomp(essential = TRUE))
   expect_snapshot(spec_rescomp(chemo = TRUE))
   expect_snapshot(spec_rescomp(chemo = TRUE,
@@ -85,17 +85,17 @@ test_that("Correct errors and fixes", {
 
   # error
   expect_error(suppressMessages(spec_rescomp(
-    linear = TRUE,
+    funcresp = "type1",
     kmatrix = matrix(1))),
     "Matrix of half saturation constants")
   # fix
   expect_error(suppressMessages(spec_rescomp(
-    linear = FALSE,
+    funcresp = "type2",
     kmatrix = matrix(1))),
     NA)
   # fix
   expect_error(suppressMessages(spec_rescomp(
-    linear = TRUE)),
+    funcresp = "type1")),
     NA)
 
   # error

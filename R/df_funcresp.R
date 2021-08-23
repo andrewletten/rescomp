@@ -35,7 +35,6 @@ df_funcresp <- function(pars, maxx) {
           R = resource.levels,
           mu = pars$mu[[k]][i, j],
           Ks = pars$Ks[i, j],
-          # aff = pars$aff[i,j],
           phi = pars$phi[i, j],
           type3 = pars$type3[i, j]
         )

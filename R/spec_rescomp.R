@@ -8,11 +8,11 @@
 #'     The number of rows should be equal to `spnum` and `resnum` respectively.
 #'     If `timepars` = TRUE, expects a list of length 2.
 #' @param kmatrix Matrix of half saturation constants
-#'     (type 2, ignored if linear = TRUE). The number of rows should be equal
+#'     (type 2 or type 3, ignored if funcresp = "type1). The number of rows should be equal
 #'     to `spnum` and `resnum` respectively.
 #' @param qmatrix Matrix of resource quotas.
 #'     The number of rows should be equal to `spnum` and `resnum` respectively.
-#' @param linear If FALSE equals type 2 function (i.e. Monod).
+#' @param funcresp Options include "type1", 'type2", or "type3".
 #' @param chemo Default is resources supplied continuously (chemostat).
 #'     If FALSE resources grow logistically.
 #' @param essential If FALSE resources are substitutable.
@@ -50,7 +50,7 @@
 #' pars <- spec_rescomp(
 #'     spnum = 2,
 #'     resnum = 2,
-#'     linear = FALSE,
+#'     funcresp = "type2",
 #'     mumatrix = list(matrix(c(0.7,0.3,
 #'                              0.4,0.5),
 #'                            nrow = 2,
@@ -67,7 +67,7 @@ spec_rescomp <- function(spnum = 1,
                           mumatrix,
                           kmatrix,
                           qmatrix,
-                          linear = TRUE,
+                          funcresp = "type1",
                           essential = FALSE,
                           chemo = TRUE,
                           mort = 0.03,
@@ -85,7 +85,7 @@ spec_rescomp <- function(spnum = 1,
   # Check input classes
   stopifnot(is.numeric(spnum))
   stopifnot(is.numeric(resnum))
-  stopifnot(is.logical(linear))
+  stopifnot(is.character(funcresp))
   stopifnot(is.logical(essential))
   stopifnot(is.logical(chemo))
   stopifnot(is.logical(timepars))
@@ -174,7 +174,7 @@ spec_rescomp <- function(spnum = 1,
   } else {
     stopifnot(is.matrix(kmatrix))
     pars$Ks <- kmatrix
-    if (linear == TRUE)
+    if (funcresp == "type1")
       stop("Matrix of half saturation constants provided
            for a linear (type 1) functional response")
   }
@@ -189,21 +189,49 @@ spec_rescomp <- function(spnum = 1,
     pars$Qs <- qmatrix
   }
 
-  # linearity
-  if (linear == TRUE) {
+  # functional response
+
+  if (funcresp == "type1") {
     pars$phi <- matrix(rep(0, times = spnum*resnum),
                        nrow = spnum,
                        byrow = TRUE)
-  } else {
+    pars$type3 <- matrix(rep(1/2, times = spnum*resnum),
+                         nrow = spnum,
+                         byrow = TRUE)
+
+  } else if (funcresp == "type2"){
     pars$phi <- matrix(rep(1, times = spnum*resnum),
                        nrow = spnum,
                        byrow = TRUE)
-  }
-
-  # type 3, currently fixed on type 1 or type 2
-  pars$type3 <- matrix(rep(1/2, times = spnum*resnum),
+    pars$type3 <- matrix(rep(1/2, times = spnum*resnum),
                        nrow = spnum,
                        byrow = TRUE)
+
+  } else if (funcresp == "type2"){
+    pars$phi <- matrix(rep(1, times = spnum*resnum),
+                       nrow = spnum,
+                       byrow = TRUE)
+    pars$type3 <- matrix(rep(1, times = spnum*resnum),
+                         nrow = spnum,
+                         byrow = TRUE)
+  }
+
+
+  # if (linear == TRUE) {
+  #   pars$phi <- matrix(rep(0, times = spnum*resnum),
+  #                      nrow = spnum,
+  #                      byrow = TRUE)
+  # } else {
+  #   pars$phi <- matrix(rep(1, times = spnum*resnum),
+  #                      nrow = spnum,
+  #                      byrow = TRUE)
+  # }
+  #
+  # # type 3, currently fixed on type 1 or type 2
+  # pars$type3 <- matrix(rep(1/2, times = spnum*resnum),
+  #                      nrow = spnum,
+  #                      byrow = TRUE)
+
   # cinit
   if(length(cinit) > 1 & spnum != length(cinit))
     stop("Length of cinit must equal spnum if a vector (length > 1) of initial states provided")
@@ -234,8 +262,8 @@ spec_rescomp <- function(spnum = 1,
           "\n"),
 
     paste0(" * ",
-          "Consumers have",
-          ifelse(linear, " type 1", " type 2"), " functional responses",
+          "Consumers have ",
+          gsub("(\\w+)(\\d)", "\\1 \\2", funcresp), " functional responses",
           "\n"),
 
     if (resnum > 1) {
