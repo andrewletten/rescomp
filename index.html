@@ -91,7 +91,7 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rescomp</span><span class="op">)</span></code></pre></div>
-<p>The primary user function in <code>rescomp</code> is <code>spec_rescomp</code>, which facilitates i) the definition and parameterisation of a desired consumer-resource model, and ii) the specification of simulation parameters. The default output from <code>spec_rescomp</code> is a list defining a model for a single type I consumer (linear functional response) and a single continuously supplied resource (e.g. chemostat).</p>
+<p>The primary user function in <code>rescomp</code> is <code>spec_rescomp</code>, which facilitates i) the definition and parameterisation of a desired consumer-resource model, and ii) the specification of simulation parameters. The default output from <code>spec_rescomp</code> is a list defining a model for a single type I consumer (linear functional response) and a single continuously supplied resource (e.g. in a chemostat).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Model properties </span>
@@ -118,14 +118,14 @@
 <p>The main utility of <code>rescomp</code> comes with specifying more elaborate models and simulation dynamics. Features/options include (but are not limited to):</p>
 <ul>
 <li>Number of consumers/resources</li>
-<li>Consumer functional response (type I or type II)</li>
+<li>Consumer functional response (type I, II or III)</li>
 <li>Resource dynamic (chemostat, logistic and/or pulsed)</li>
 <li>Resource type (substitutable or essential)</li>
 <li>Continuous or intermittent mortality (e.g. serial transfer)</li>
 <li>Time dependent consumption parameters</li>
 </ul>
 <p>See <code><a href="reference/spec_rescomp.html">?spec_rescomp</a></code> for all argument options.</p>
-<p>The following two examples demonstrate how to build and simulate a model for: i) two consumers with type II functional responses on a single logistically growing resources; and ii) two consumers with type III functional responses with pulsed resources and time dependent consumptions parameters. A wide range of other examples can be found in the package vignette.</p>
+<p>The following two examples demonstrate how to build and simulate a model for: i) two consumers with type II functional responses on a single logistically growing resources; and ii) two consumers with type III functional responses with pulsed resources and time dependent consumption parameters. A wide range of other examples can be found in the package vignette.</p>
 <div id="example-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example-1" class="anchor"></a>Example 1</h3>
@@ -196,7 +196,7 @@
 <span class="co">#&gt;  * Resources are substitutable</span>
 <span class="co">#&gt;  * Resource supply is pulsed only</span>
 <span class="co">#&gt;  * Mortality is continuous</span>
-<span class="co">#&gt;  * Parameters are time dependent with switching every 40 time steps</span>
+<span class="co">#&gt;  * Time dependent parameters with instantaneous switching every 40 timesteps</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Simulation properties </span>
 <span class="co">#&gt;  * Simulation time: 1000 time steps</span>

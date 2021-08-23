@@ -148,6 +148,7 @@ passed to <code>sim_rescomp</code></p>
   timepars <span class='op'>=</span> <span class='cn'>FALSE</span>,
   totaltime <span class='op'>=</span> <span class='fl'>1000</span>,
   timeparfreq <span class='op'>=</span> <span class='fl'>0</span>,
+  tpinterp <span class='op'>=</span> <span class='st'>"inst"</span>,
   cinit <span class='op'>=</span> <span class='fl'>10</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
@@ -237,6 +238,14 @@ otherwise chemostat supply concentration</p></td>
     <tr>
       <th>timeparfreq</th>
       <td><p>Frequency of parameter switching if timepars = TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>tpinterp</th>
+      <td><p>Either "inst" (default), "lin" or "sine" interpolation of
+time dependent parameters. If "inst", parameters switch instantaneously
+with frequency given by <code>timeparfreq</code>. If "lin" or "sine", parameters
+are interpolated linearly or sinusoidaly, respectively, with period 2x
+<code>timeparfreq</code>.</p></td>
     </tr>
     <tr>
       <th>cinit</th>
