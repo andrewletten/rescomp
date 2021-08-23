@@ -481,7 +481,7 @@
        * Consumers have type 1 functional responses
        * Resource supply is continuous (e.g. chemostat)
        * Mortality is continuous
-       * Time dependent parameters with instantaneous switching every 100 time steps
+       * Time dependent parameters with instantaneous switching every 100 timesteps
       
       Simulation properties 
        * Simulation time: 1000 time steps
@@ -491,7 +491,7 @@
        * Consumers have type 1 functional responses
        * Resource supply is continuous (e.g. chemostat)
        * Mortality is continuous
-       * Time dependent parameters with instantaneous switching every 100 time steps
+       * Time dependent parameters with instantaneous switching every 100 timesteps
       
       Simulation properties 
        * Simulation time: 1000 time steps
@@ -508,7 +508,7 @@
        * Consumers have type 1 functional responses
        * Resource supply is continuous (e.g. chemostat)
        * Mortality is continuous
-       * Time dependent parameters with linear interpolation (period = 200 time steps)
+       * Time dependent parameters with linear interpolation (period = 200 timesteps)
       
       Simulation properties 
        * Simulation time: 1000 time steps
@@ -518,7 +518,7 @@
        * Consumers have type 1 functional responses
        * Resource supply is continuous (e.g. chemostat)
        * Mortality is continuous
-       * Time dependent parameters with linear interpolation (period = 200 time steps)
+       * Time dependent parameters with linear interpolation (period = 200 timesteps)
       
       Simulation properties 
        * Simulation time: 1000 time steps
@@ -535,7 +535,7 @@
        * Consumers have type 1 functional responses
        * Resource supply is continuous (e.g. chemostat)
        * Mortality is continuous
-       * Time dependent parameters with sinusoidal interpolation (period = 200 time steps)
+       * Time dependent parameters with sinusoidal interpolation (period = 200 timesteps)
       
       Simulation properties 
        * Simulation time: 1000 time steps
@@ -545,7 +545,7 @@
        * Consumers have type 1 functional responses
        * Resource supply is continuous (e.g. chemostat)
        * Mortality is continuous
-       * Time dependent parameters with sinusoidal interpolation (period = 200 time steps)
+       * Time dependent parameters with sinusoidal interpolation (period = 200 timesteps)
       
       Simulation properties 
        * Simulation time: 1000 time steps
