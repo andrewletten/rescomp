@@ -35,7 +35,18 @@ test_that("Correct model messages", {
   expect_snapshot(spec_rescomp(mortpulse = 0.5,
                                mort = 0))
   expect_snapshot(spec_rescomp(mort = 0))
-
+  expect_snapshot(spec_rescomp(timepars = TRUE,
+                               mumatrix = list(matrix(1), matrix(1)),
+                               timeparfreq = 100,
+                               tpinterp = "inst"))
+  expect_snapshot(spec_rescomp(timepars = TRUE,
+                               mumatrix = list(matrix(1), matrix(1)),
+                               timeparfreq = 100,
+                               tpinterp = "lin"))
+  expect_snapshot(spec_rescomp(timepars = TRUE,
+                               mumatrix = list(matrix(1), matrix(1)),
+                               timeparfreq = 100,
+                               tpinterp = "sine"))
 #  expect_snapshot(spec_rescomp(timepars = TRUE)) throws error which is correct
 })
 

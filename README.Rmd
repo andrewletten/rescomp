@@ -40,7 +40,7 @@ devtools::install_github("andrewletten/rescomp")
 library(rescomp)
 ```
 
-The primary user function in `rescomp` is `spec_rescomp`, which facilitates i) the definition and parameterisation of a desired consumer-resource model, and ii) the specification of simulation parameters. The default output from `spec_rescomp` is a list defining a model for a single type I consumer (linear functional response) and a single continuously supplied resource (e.g. chemostat).
+The primary user function in `rescomp` is `spec_rescomp`, which facilitates i) the definition and parameterisation of a desired consumer-resource model, and ii) the specification of simulation parameters. The default output from `spec_rescomp` is a list defining a model for a single type I consumer (linear functional response) and a single continuously supplied resource (e.g. in a chemostat).
 
 ```{r}
 pars <- spec_rescomp()
@@ -70,16 +70,16 @@ plot_rescomp(m1, pars)
 The main utility of `rescomp` comes with specifying more elaborate models and simulation dynamics. Features/options include (but are not limited to): 
 
 - Number of consumers/resources
-- Consumer functional response (type I or type II)
+- Consumer functional response (type I, II or III)
 - Resource dynamic (chemostat, logistic and/or pulsed)
 - Resource type (substitutable or essential)
 - Continuous or intermittent mortality (e.g. serial transfer)
-- Time dependent consumption parameters 
+- Time dependent consumption parameters  
 
 
 See `?spec_rescomp` for all argument options. 
 
-The following two examples demonstrate how to build and simulate a model for: i) two consumers with type II functional responses on a single logistically growing resources; and ii) two consumers with type III functional responses with pulsed resources and time dependent consumptions parameters. A wide range of other examples can be found in the package vignette. 
+The following two examples demonstrate how to build and simulate a model for: i) two consumers with type II functional responses on a single logistically growing resources; and ii) two consumers with type III functional responses with pulsed resources and time dependent consumption parameters. A wide range of other examples can be found in the package vignette. 
 
 ### Example 1
 

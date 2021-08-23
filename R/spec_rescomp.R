@@ -29,6 +29,11 @@
 #'     (see vignette).
 #' @param timepars If TRUE, time dependent parameters required.
 #' @param timeparfreq Frequency of parameter switching if timepars = TRUE.
+#' @param tpinterp Either "inst" (default), "lin" or "sine" interpolation of
+#'     time dependent parameters. If "inst", parameters switch instantaneously
+#'     with frequency given by `timeparfreq`. If "lin" or "sine", parameters
+#'     are interpolated linearly or sinusoidaly, respectively, with period 2x
+#'     `timeparfreq`.
 #' @param totaltime Total simulation time
 #' @param cinit Initial consumer state values (densities). Either a single
 #'     integer for all consumers or a vector. Defaults to 10 for all
@@ -80,6 +85,7 @@ spec_rescomp <- function(spnum = 1,
                          timepars = FALSE,
                          totaltime = 1000,
                          timeparfreq = 0,
+                         tpinterp = "inst",
                          cinit = 10,
                          verbose = TRUE) {
 
@@ -142,25 +148,55 @@ spec_rescomp <- function(spnum = 1,
     if (missing(timeparfreq))
       stop("If timepars = TRUE, timeparfreq must be provided")
 
-    forcetime <- seq(0, totaltime, timeparfreq)
-    mu_funs_byres <- list()
-    mu_funs_bycons <- list()
+    if (tpinterp == "inst" | tpinterp == "lin"){
+      forcetime <- seq(0, totaltime, timeparfreq)
+      mu_funs_byres <- list()
+      mu_funs_bycons <- list()
 
-    # list of approx functions
-    for (i in seq_len(nrow(pars$mu[[1]]))) {
-      for (j in seq_len(ncol(pars$mu[[1]]))) {
-        force_mu <- rep(c(pars$mu[[1]][i, j],
-                          pars$mu[[2]][i, j]),
-                        length.out = length(forcetime))
-        mu_funs_byres[[j]] <- approxfun(forcetime,
-                                        force_mu,
-                                        method = "constant",
-                                        rule = 2)
+      if (tpinterp == "inst"){
+        interpmethod <- "constant"
+      } else if (tpinterp == "lin"){
+        interpmethod <- "linear"
       }
-      mu_funs_bycons[[i]] <- mu_funs_byres
+
+      # list of approx functions
+      for (i in seq_len(nrow(pars$mu[[1]]))) {
+        for (j in seq_len(ncol(pars$mu[[1]]))) {
+          force_mu <- rep(c(pars$mu[[1]][i, j],
+                            pars$mu[[2]][i, j]),
+                          length.out = length(forcetime))
+          mu_funs_byres[[j]] <- approxfun(forcetime,
+                                          force_mu,
+                                          method = interpmethod,
+                                          rule = 2)
+        }
+        mu_funs_bycons[[i]] <- mu_funs_byres
+      }
+      pars$mu_approx_fun <- mu_funs_bycons
+      pars$timeparfreq <- timeparfreq
+
+    } else if (tpinterp == "sine"){
+      mu_funs_byres <- list()
+      mu_funs_bycons <- list()
+      timeseq <- seq(0, totaltime, 0.1)
+      # list of approx functions
+      for (i in seq_len(nrow(pars$mu[[1]]))) {
+        for (j in seq_len(ncol(pars$mu[[1]]))) {
+          amplitude <- (pars$mu[[1]][i, j] - pars$mu[[2]][i, j])/2
+          meanmu <- (pars$mu[[1]][i, j] + pars$mu[[2]][i, j])/2
+          wave <- (meanmu + amplitude*sin((2*pi*timeseq)/(timeparfreq)/2))
+          mu_funs_byres[[j]] <- approxfun(timeseq,
+                                          wave,
+                                          method = "linear",
+                                          rule = 2)
+        }
+        mu_funs_bycons[[i]] <- mu_funs_byres
+      }
+      pars$mu_approx_fun <- mu_funs_bycons
+      pars$timeparfreq <- timeparfreq
+
     }
-    pars$mu_approx_fun <- mu_funs_bycons
-    pars$timeparfreq <- timeparfreq
+
   } else {
     if (length(pars$mu) > 1)
       stop(paste0(
@@ -254,6 +290,8 @@ spec_rescomp <- function(spnum = 1,
   pars$pulsefreq <- pulsefreq
   pars$batchtrans <- batchtrans
   pars$funcresp <- funcresp
+  pars$tpinterp <- tpinterp
+
 
   class(pars) <- "rescomp"
   if(verbose == TRUE){
@@ -328,11 +366,26 @@ print.rescomp <- function(x, ..., detail = "summary"){
            "\n"),
 
     if(pars$timepars == TRUE){
-      paste0(" * ", "Parameters are time dependent with switching every ",
+      if(pars$tpinterp == "inst"){
+        paste0(" * ", "Time dependent parameters with instantaneous switching every ",
              pars$timeparfreq,
-             " time steps",
+             " timesteps",
              "\n",
              "\n")
+      } else if (pars$tpinterp == "lin"){
+        paste0(" * ", "Time dependent parameters with linear interpolation (period = ",
+             pars$timeparfreq*2,
+             " timesteps)",
+             "\n",
+             "\n")
+      } else if (pars$tpinterp == "sine"){
+        paste0(" * ", "Time dependent parameters with sinusoidal interpolation (period = ",
+               pars$timeparfreq*2,
+               " timesteps)",
+               "\n",
+               "\n")
+      }
+
     } else {
       "\n"
     },

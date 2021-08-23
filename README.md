@@ -41,7 +41,7 @@ facilitates i) the definition and parameterisation of a desired
 consumer-resource model, and ii) the specification of simulation
 parameters. The default output from `spec_rescomp` is a list defining a
 model for a single type I consumer (linear functional response) and a
-single continuously supplied resource (e.g. chemostat).
+single continuously supplied resource (e.g. in a chemostat).
 
 ``` r
 pars <- spec_rescomp()
@@ -87,7 +87,7 @@ models and simulation dynamics. Features/options include (but are not
 limited to):
 
 -   Number of consumers/resources
--   Consumer functional response (type I or type II)
+-   Consumer functional response (type I, II or III)
 -   Resource dynamic (chemostat, logistic and/or pulsed)
 -   Resource type (substitutable or essential)
 -   Continuous or intermittent mortality (e.g. serial transfer)
@@ -99,7 +99,7 @@ The following two examples demonstrate how to build and simulate a model
 for: i) two consumers with type II functional responses on a single
 logistically growing resources; and ii) two consumers with type III
 functional responses with pulsed resources and time dependent
-consumptions parameters. A wide range of other examples can be found in
+consumption parameters. A wide range of other examples can be found in
 the package vignette.
 
 ### Example 1
@@ -177,7 +177,7 @@ pars <- spec_rescomp(
 #>  * Resources are substitutable
 #>  * Resource supply is pulsed only
 #>  * Mortality is continuous
-#>  * Parameters are time dependent with switching every 40 time steps
+#>  * Time dependent parameters with instantaneous switching every 40 timesteps
 #> 
 #> Simulation properties 
 #>  * Simulation time: 1000 time steps

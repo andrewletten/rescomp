@@ -24,6 +24,7 @@ spec_rescomp(
   timepars = FALSE,
   totaltime = 1000,
   timeparfreq = 0,
+  tpinterp = "inst",
   cinit = 10,
   verbose = TRUE
 )
@@ -75,6 +76,12 @@ otherwise chemostat supply concentration}
 \item{totaltime}{Total simulation time}
 
 \item{timeparfreq}{Frequency of parameter switching if timepars = TRUE.}
+
+\item{tpinterp}{Either "inst" (default), "lin" or "sine" interpolation of
+time dependent parameters. If "inst", parameters switch instantaneously
+with frequency given by \code{timeparfreq}. If "lin" or "sine", parameters
+are interpolated linearly or sinusoidaly, respectively, with period 2x
+\code{timeparfreq}.}
 
 \item{cinit}{Initial consumer state values (densities). Either a single
 integer for all consumers or a vector. Defaults to 10 for all

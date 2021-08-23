@@ -470,3 +470,84 @@
        * Simulation time: 1000 time steps
        * Init state: consumer(s) = [10], resource(s) = [1]
 
+---
+
+    Code
+      spec_rescomp(timepars = TRUE, mumatrix = list(matrix(1), matrix(1)),
+      timeparfreq = 100, tpinterp = "inst")
+    Message <simpleMessage>
+      Model properties 
+       * 1 consumer(s) and 1 resource(s)
+       * Consumers have type 1 functional responses
+       * Resource supply is continuous (e.g. chemostat)
+       * Mortality is continuous
+       * Time dependent parameters with instantaneous switching every 100 time steps
+      
+      Simulation properties 
+       * Simulation time: 1000 time steps
+       * Init state: consumer(s) = [10], resource(s) = [1]
+      Model properties 
+       * 1 consumer(s) and 1 resource(s)
+       * Consumers have type 1 functional responses
+       * Resource supply is continuous (e.g. chemostat)
+       * Mortality is continuous
+       * Time dependent parameters with instantaneous switching every 100 time steps
+      
+      Simulation properties 
+       * Simulation time: 1000 time steps
+       * Init state: consumer(s) = [10], resource(s) = [1]
+
+---
+
+    Code
+      spec_rescomp(timepars = TRUE, mumatrix = list(matrix(1), matrix(1)),
+      timeparfreq = 100, tpinterp = "lin")
+    Message <simpleMessage>
+      Model properties 
+       * 1 consumer(s) and 1 resource(s)
+       * Consumers have type 1 functional responses
+       * Resource supply is continuous (e.g. chemostat)
+       * Mortality is continuous
+       * Time dependent parameters with linear interpolation (period = 200 time steps)
+      
+      Simulation properties 
+       * Simulation time: 1000 time steps
+       * Init state: consumer(s) = [10], resource(s) = [1]
+      Model properties 
+       * 1 consumer(s) and 1 resource(s)
+       * Consumers have type 1 functional responses
+       * Resource supply is continuous (e.g. chemostat)
+       * Mortality is continuous
+       * Time dependent parameters with linear interpolation (period = 200 time steps)
+      
+      Simulation properties 
+       * Simulation time: 1000 time steps
+       * Init state: consumer(s) = [10], resource(s) = [1]
+
+---
+
+    Code
+      spec_rescomp(timepars = TRUE, mumatrix = list(matrix(1), matrix(1)),
+      timeparfreq = 100, tpinterp = "sine")
+    Message <simpleMessage>
+      Model properties 
+       * 1 consumer(s) and 1 resource(s)
+       * Consumers have type 1 functional responses
+       * Resource supply is continuous (e.g. chemostat)
+       * Mortality is continuous
+       * Time dependent parameters with sinusoidal interpolation (period = 200 time steps)
+      
+      Simulation properties 
+       * Simulation time: 1000 time steps
+       * Init state: consumer(s) = [10], resource(s) = [1]
+      Model properties 
+       * 1 consumer(s) and 1 resource(s)
+       * Consumers have type 1 functional responses
+       * Resource supply is continuous (e.g. chemostat)
+       * Mortality is continuous
+       * Time dependent parameters with sinusoidal interpolation (period = 200 time steps)
+      
+      Simulation properties 
+       * Simulation time: 1000 time steps
+       * Init state: consumer(s) = [10], resource(s) = [1]
+
