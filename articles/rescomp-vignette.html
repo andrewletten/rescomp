@@ -203,15 +203,15 @@
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <p><code>plot_cr_sim</code> plots the output dynamics.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">pars</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp-vignette_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 <p>Note the total simulation time and initial state variables given by <code>parms</code> can be overidden in <code>sim_recomp</code> with the arguments <code>times</code> and <code>y</code>, respectively. This will nevertheless print a message to make sure it is intentional. See <code><a href="../reference/time_vals.html">?rescomp::time_vals</a></code> for convenient specification of simulation time (and pulsing when used).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30000</span>, <span class="fl">1</span><span class="op">)</span>, times <span class="op">=</span> <span class="fu"><a href="../reference/time_vals.html">time_vals</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; totaltime in parms will be overidden</span>
-<span class="co">#&gt; cinit in parms will be overidden</span></code></pre></div>
+<span class="co">#&gt; totaltime in pars will be overidden</span>
+<span class="co">#&gt; cinit in pars will be overidden</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">pars</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp-vignette_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
 <!-- The function `time_vals` is used for setting total simulation time (and is used to set the resource pulse interval when used in conjunction with an event function [see below]). The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources. -->
 </div>
@@ -240,7 +240,7 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">pars</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp-vignette_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
 </div>
 <div id="two-type-2-consumers-on-a-logistically-growing-resource" class="section level2">
@@ -279,7 +279,7 @@
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">pars</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp-vignette_files/figure-html/unnamed-chunk-14-1.png" width="576"></p>
 <p>Owing to the trade-off in functional responses (gleaner-opportunist) and resource fluctuations generated by N2, the two consumers are able to coexist via the coexistence mechanism known as ‘relative nonlinearity of competition’.</p>
 </div>
@@ -318,7 +318,7 @@
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">pars</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp-vignette_files/figure-html/unnamed-chunk-18-1.png" width="576"></p>
 <p>Resource partitioning, where each consumer is a better competitor (lower R*) for a different resource, results in coexistence.</p>
 </div>
@@ -330,7 +330,7 @@
 <code class="sourceCode R"><span class="va">pars</span><span class="op">$</span><span class="va">essential</span> <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">pars</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span> </code></pre></div>
 <p><img src="rescomp-vignette_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
 <p>There is no coexistence now because each species needs to have a larger impact on the resource that is most limiting its growth. For ‘consumer 1’ it is ‘resource b’, whereas for ‘consumer 2’ it is ‘resource a’. We can adjust consumer resource impacts via the resource quota matrix.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
@@ -366,7 +366,7 @@
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">pars</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span> </code></pre></div>
 <p><img src="rescomp-vignette_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
 </div>
 <div id="two-type-2-consumers-and-one-externally-pulsed-resource-continuous-mortality" class="section level2">
@@ -407,7 +407,7 @@
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">pars</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp-vignette_files/figure-html/unnamed-chunk-27-1.png" width="576"></p>
 </div>
 <div id="two-type-2-consumers-and-one-externally-pulsed-resource-serial-transfer-with-pulsed-mortality" class="section level2">
@@ -458,7 +458,7 @@
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">pars</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp-vignette_files/figure-html/unnamed-chunk-31-1.png" width="576"></p>
 <p>Note, to reproduce the dynamics of a single batch culture experiment (i.e. without serial transfer) as potentially measured via optical density in a plate reader (negligible or unobserved mortality), simply set both <code>resspeed</code> and <code>mort</code> to zero.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
@@ -474,7 +474,7 @@
 <span class="co">#&gt;  * Init state: consumer(s) = [10], resource(s) = [1]</span>
 <span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">pars</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp-vignette_files/figure-html/unnamed-chunk-33-1.png" width="576"></p>
 </div>
 <div id="two-type-2-consumers-with-time-dependent-consumption-parameters-and-one-continuously-supplied-resource" class="section level2">
@@ -524,7 +524,7 @@
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">pars</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp-vignette_files/figure-html/unnamed-chunk-37-1.png" width="576"></p>
 <p>The two consumers coexist due species-specific environmental responses leading to a temporal storage effect (formalization of temporal niche paritioning arising from density dependence in environment-competition covariance) (ref).</p>
 </div>
@@ -575,7 +575,7 @@
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">pars</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp-vignette_files/figure-html/unnamed-chunk-41-1.png" width="576"></p>
 </div>
 </div>

@@ -124,18 +124,15 @@
     <p>Convert object of class deSolve to a data frame and name columns</p>
     </div>
 
-    <pre class="usage"><span class='fu'>frame_and_name</span><span class='op'>(</span><span class='va'>odeobject</span>, <span class='va'>pars</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>frame_and_name</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>odeobject</th>
-      <td><p>object of class deSolve</p></td>
-    </tr>
-    <tr>
-      <th>pars</th>
-      <td><p>Model parameters from spec_rescomp()</p></td>
+      <th>model</th>
+      <td><p>List output from <code><a href='sim_rescomp.html'>sim_rescomp()</a></code>. First element is an object of
+class deSolve. Second element is an object of class rescomp.</p></td>
     </tr>
     </table>
 
@@ -154,7 +151,7 @@
 #&gt; <span class='message'>Simulation properties </span>
 #&gt; <span class='message'> * Simulation time: 1000 time steps</span>
 #&gt; <span class='message'> * Init state: consumer(s) = [10], resource(s) = [1]</span></div><div class='input'><span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sim_rescomp.html'>sim_rescomp</a></span><span class='op'>(</span><span class='va'>pars</span><span class='op'>)</span>
-<span class='fu'>frame_and_name</span><span class='op'>(</span><span class='va'>m1</span>, <span class='va'>pars</span><span class='op'>)</span>
+<span class='fu'>frame_and_name</span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;         time        N1        Ra
 #&gt; 1        0.1  10.00000 1.0000000
 #&gt; 2        0.2  10.07024 0.9998998
