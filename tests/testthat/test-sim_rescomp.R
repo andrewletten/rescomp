@@ -20,7 +20,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
     method = "lsoda"
   )
   colnames(mcheck)[2:3] <- c("1", "2")
-  expect_equal(msim, mcheck)
+  expect_equal(msim[[1]], mcheck)
   # -------------------------------------------------------------------------
 
   # -------------------------------------------------------------------------
@@ -43,7 +43,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
     method = "lsoda"
   )
   colnames(mcheck)[2:4] <- c("1", "2", "3")
-  expect_equal(msim, mcheck, ignore_attr = TRUE)
+  expect_equal(msim[[1]], mcheck, ignore_attr = TRUE)
   # -------------------------------------------------------------------------
 
   # -------------------------------------------------------------------------
@@ -66,7 +66,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
     method = "lsoda"
   )
   colnames(mcheck)[2:4] <- c("1", "2", "3")
-  expect_equal(msim, mcheck)
+  expect_equal(msim[[1]], mcheck)
   # -------------------------------------------------------------------------
 
   # -------------------------------------------------------------------------
@@ -88,7 +88,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
     method = "lsoda"
   )
   colnames(mcheck)[2:3] <- c("1", "2")
-  expect_equal(msim, mcheck)
+  expect_equal(msim[[1]], mcheck)
   # -------------------------------------------------------------------------
 
   # -------------------------------------------------------------------------
@@ -110,7 +110,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
     method = "lsoda"
   )
   colnames(mcheck)[2:3] <- c("1", "2")
-  expect_equal(msim, mcheck)
+  expect_equal(msim[[1]], mcheck)
   # -------------------------------------------------------------------------
 
   # -------------------------------------------------------------------------
@@ -133,7 +133,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
     method = "lsoda"
   )
   colnames(mcheck)[2:3] <- c("1", "2")
-  expect_equal(msim, mcheck)
+  expect_equal(msim[[1]], mcheck)
   # -------------------------------------------------------------------------
 
   # -------------------------------------------------------------------------
@@ -166,7 +166,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
       time = seq(10, 50, 10)
   ))
   colnames(mcheck)[2:3] <- c("1", "2")
-  expect_equal(msim, mcheck)
+  expect_equal(msim[[1]], mcheck)
   # -------------------------------------------------------------------------
 
   # -------------------------------------------------------------------------

@@ -4,12 +4,11 @@
 \alias{plot_rescomp}
 \title{Plot consumer and resource dynamics from deSolve output}
 \usage{
-plot_rescomp(odeobj, pars)
+plot_rescomp(model)
 }
 \arguments{
-\item{odeobj}{odeobject}
-
-\item{pars}{parameters from spec_rescomp()}
+\item{model}{List output from \code{sim_rescomp()}. First element is an object of
+class deSolve. Second element is an object of class rescomp.}
 }
 \value{
 ggplot object
@@ -21,6 +20,6 @@ Plot consumer and resource dynamics from deSolve output
 
 pars <- spec_rescomp()
 m1 <- sim_rescomp(pars)
-plot_rescomp(m1, pars)
+plot_rescomp(m1)
 
 }

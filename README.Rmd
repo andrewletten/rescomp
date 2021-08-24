@@ -63,9 +63,10 @@ m1 <- sim_rescomp(pars)
 Output dynamics can be visualised with `rescomp::plot_rescomp`.
 
 ```{r, fig.width = 9, fig.height = 4.5, out.width = "90%"}
-plot_rescomp(m1, pars) 
+plot_rescomp(m1) 
 ```
 
+Note, the core `rescomp` functions are compatible with pipes. For example `spec_rescomp() |> sim_rescomp() |> plot_rescomp()` will output the plot above. 
 
 The main utility of `rescomp` comes with specifying more elaborate models and simulation dynamics. Features/options include (but are not limited to): 
 
@@ -109,7 +110,7 @@ plot_funcresp(pars, maxx = 0.2)
 
 ```{r, fig.width = 9, fig.height = 4.5, out.width = "90%"}
 m2 <- sim_rescomp(pars)
-plot_rescomp(m2, pars) 
+plot_rescomp(m2) 
 ```
 
 ### Example 2
@@ -148,7 +149,7 @@ m3 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 9, fig.height = 4.5, out.width = "90%"}
-plot_rescomp(m3, pars) 
+plot_rescomp(m3) 
 ```
 
 <!-- Disclaimer: As a biologist with no formal training in software development, I cannot vouch that `rescomp` is 100% bug free, maximally efficient or entirely consistent with 'tidy' principles. I have done my best but please use with caution! -->

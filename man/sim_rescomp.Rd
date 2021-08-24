@@ -5,10 +5,10 @@
 \title{Simulate resource competition (a convenience wrapper for
 \code{deSolve::ode})}
 \usage{
-sim_rescomp(parms, times, y, events = NULL, ...)
+sim_rescomp(pars, times, y, events = NULL, ...)
 }
 \arguments{
-\item{parms}{Parameter list returned by \code{rescomp::spec_rescomp}.}
+\item{pars}{Parameter list returned by \code{rescomp::spec_rescomp}.}
 
 \item{times}{List of up to 2 giving total simulation time and pulsing
 sequence where relevant (use \code{rescomp::time_vals}). If provided,
@@ -30,6 +30,6 @@ Simulate resource competition (a convenience wrapper for
 }
 \examples{
 pars <- spec_rescomp()
-sim_rescomp(parms = pars)
+sim_rescomp(pars = pars)
 
 }

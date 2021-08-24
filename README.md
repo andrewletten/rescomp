@@ -77,10 +77,14 @@ m1 <- sim_rescomp(pars)
 Output dynamics can be visualised with `rescomp::plot_rescomp`.
 
 ``` r
-plot_rescomp(m1, pars) 
+plot_rescomp(m1) 
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="90%" />
+
+Note, the core `rescomp` functions are compatible with pipes. For
+example `spec_rescomp() |> sim_rescomp() |> plot_rescomp()` will output
+the plot above.
 
 The main utility of `rescomp` comes with specifying more elaborate
 models and simulation dynamics. Features/options include (but are not
@@ -141,7 +145,7 @@ plot_funcresp(pars, maxx = 0.2)
 
 ``` r
 m2 <- sim_rescomp(pars)
-plot_rescomp(m2, pars) 
+plot_rescomp(m2) 
 ```
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="90%" />
@@ -196,7 +200,7 @@ m3 <- sim_rescomp(pars)
 ```
 
 ``` r
-plot_rescomp(m3, pars) 
+plot_rescomp(m3) 
 ```
 
 <img src="man/figures/README-unnamed-chunk-13-1.png" width="90%" />

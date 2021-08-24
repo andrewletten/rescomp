@@ -1,7 +1,7 @@
 #' Plot consumer and resource dynamics from deSolve output
 #'
-#' @param odeobj odeobject
-#' @param pars parameters from spec_rescomp()
+#' @param model List output from `sim_rescomp()`. First element is an object of
+#' class deSolve. Second element is an object of class rescomp.
 #'
 #' @return ggplot object
 #' @export
@@ -10,10 +10,10 @@
 #'
 #' pars <- spec_rescomp()
 #' m1 <- sim_rescomp(pars)
-#' plot_rescomp(m1, pars)
+#' plot_rescomp(m1)
 #'
-plot_rescomp <- function(odeobj, pars){
-  plot.df <-  frame_and_name(odeobj, pars)
+plot_rescomp <- function(model){
+  plot.df <-  frame_and_name(model)
   comp.gg <- tidyr::pivot_longer(plot.df, cols = !c(.data$time), names_to = "state.var", values_to = "count")
   comp.gg$state.var.type <- "Consumers"
   comp.gg$state.var.type[grep("R", comp.gg$state.var)] <- "Resources"
