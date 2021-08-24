@@ -93,6 +93,7 @@ spec_rescomp <- function(spnum = 1,
   stopifnot(is.numeric(spnum))
   stopifnot(is.numeric(resnum))
   stopifnot(is.character(funcresp))
+  stopifnot(is.character(tpinterp))
   stopifnot(is.logical(essential))
   stopifnot(is.logical(chemo))
   stopifnot(is.logical(timepars))
@@ -297,7 +298,8 @@ spec_rescomp <- function(spnum = 1,
   if(verbose == TRUE){
     print(pars)
   }
-  return(pars)
+
+  invisible(pars)
 }
 
 
