@@ -109,7 +109,7 @@
 <p><code>rescomp::funcresp</code> plots the functional response for easy visualistion prior to running a simulation.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="70%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-4-1.png"><!-- --></p>
 <!-- `rescomp::time_vals` sets the simulation length (and other resource pulse frequency if required). The default simulation length is 1000. The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources.  -->
 <p>The model is then simulated via <code><a href="reference/sim_rescomp.html">rescomp::sim_rescomp</a></code> (a wrapper for <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html">deSolve::ode</a></code> with convenient defaults).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -117,7 +117,7 @@
 <p>Output dynamics can be visualised with <code><a href="reference/plot_rescomp.html">rescomp::plot_rescomp</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span> </code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="90%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-6-1.png"><!-- --></p>
 <p>Note, the core <code>rescomp</code> functions are compatible with pipes. For example <code><a href="reference/plot_rescomp.html">spec_rescomp() |&gt; sim_rescomp() |&gt; plot_rescomp()</a></code> will output the plot above.</p>
 <p>The main utility of <code>rescomp</code> comes with specifying more elaborate models and simulation dynamics. Features/options include (but are not limited to):</p>
 <ul>
@@ -163,11 +163,11 @@
 <span class="co">#&gt;  * Init state: consumer(s) = [10, 10], resource(s) = [0.2]</span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="70%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-8-1.png"><!-- --></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span>
 <span class="fu"><a href="reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m2</span><span class="op">)</span> </code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="90%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-9-1.png"><!-- --></p>
 </div>
 <div id="example-2" class="section level3">
 <h3 class="hasAnchor">
@@ -209,12 +209,12 @@
 <span class="co">#&gt;  * Init state: consumer(s) = [10, 10], resource(s) = [1, 1]</span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-11-1.png" width="90%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-11-1.png"><!-- --></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m3</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m3</span><span class="op">)</span> </code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-13-1.png" width="90%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-13-1.png"><!-- --></p>
 <!-- Disclaimer: As a biologist with no formal training in software development, I cannot vouch that `rescomp` is 100% bug free, maximally efficient or entirely consistent with 'tidy' principles. I have done my best but please use with caution! -->
 </div>
 </div>
