@@ -2,6 +2,8 @@
 #'
 #' @param model List output from `sim_rescomp()`. First element is an object of
 #' class deSolve. Second element is an object of class rescomp.
+#' @param consumers Plot consumer dynamics? Default = TRUE.
+#' @param resources Plot resource dynamics? Default = TRUE.
 #'
 #' @return ggplot object
 #' @export
@@ -12,7 +14,7 @@
 #' m1 <- sim_rescomp(pars)
 #' plot_rescomp(m1)
 #'
-plot_rescomp <- function(model){
+plot_rescomp <- function(model, consumers = TRUE, resources = TRUE){
   plot.df <-  frame_and_name(model)
   comp.gg <- tidyr::pivot_longer(plot.df, cols = !c(.data$time), names_to = "state.var", values_to = "count")
   comp.gg$state.var.type <- "Consumers"
@@ -20,6 +22,12 @@ plot_rescomp <- function(model){
 
   cbbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
   resSet1 <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33", "#A65628")
+
+  if(consumers == TRUE & resources == FALSE){
+    comp.gg <- comp.gg[comp.gg$state.var.type != "Resources",]
+  } else if (consumers == FALSE & resources == TRUE){
+    comp.gg <- comp.gg[comp.gg$state.var.type != "Consumers",]
+  }
 
   ggplot2::ggplot(comp.gg,
     aes(y = .data$count, x = .data$time)) +

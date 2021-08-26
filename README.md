@@ -96,6 +96,7 @@ limited to):
 -   Resource type (substitutable or essential)
 -   Continuous or intermittent mortality (e.g. serial transfer)
 -   Time dependent consumption parameters
+-   Different consumer introduction times
 
 See `?spec_rescomp` for all argument options.
 

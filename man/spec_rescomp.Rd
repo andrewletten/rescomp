@@ -26,6 +26,7 @@ spec_rescomp(
   timeparfreq = 0,
   tpinterp = "inst",
   cinit = 10,
+  introseq = NULL,
   verbose = TRUE
 )
 }
@@ -86,6 +87,9 @@ are interpolated linearly or sinusoidaly, respectively, with period 2x
 \item{cinit}{Initial consumer state values (densities). Either a single
 integer for all consumers or a vector. Defaults to 10 for all
 consumers. Note initial resource state values defaults to \code{resconc}.}
+
+\item{introseq}{Time sequence as vector for consumer introductions.
+Vector length must equal spnum.}
 
 \item{verbose}{If TRUE (default) prints model and simulation summary specs.}
 }

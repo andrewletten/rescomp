@@ -3,7 +3,7 @@
 #'
 #' @param pars Parameter list returned by `rescomp::spec_rescomp`.
 #' @param y Vector of initial values for state variables. If provided,
-#'     overrides values given in parms.
+#'     overrides values given in pars.
 #' @param times List of up to 2 giving total simulation time and pulsing
 #'     sequence where relevant (use `rescomp::time_vals`). If provided,
 #'     overrides values given in parms.
@@ -25,10 +25,14 @@ sim_rescomp <-  function(
   ...
   ){
   if (missing(times)) {
-    if (pars$pulsefreq == 0){
-      times <- time_vals(pars$totaltime)
-    } else {
+    if (length(pars$pulsefreq) > 1){
       times <- time_vals(pars$totaltime, pulse = pars$pulsefreq)
+    } else if (pars$pulsefreq != 0){
+      times <- time_vals(pars$totaltime, pulse = pars$pulsefreq)
+    } else if (!is.null(pars$introseq)) {
+      times <- time_vals(pars$totaltime, introseq = pars$introseq)
+    } else{
+      times <- time_vals(pars$totaltime)
     }
   } else {
     times <- times
@@ -40,17 +44,25 @@ sim_rescomp <-  function(
     if(pars$respulse != 0 | pars$mortpulse != 0){
       warning(strwrap("respulse or mortpulse parameters nonzero but no pulse
                       sequence provided. ", prefix = " "), immediate. = TRUE)
-    }
-  } else {
-    if(pars$respulse == 0 & pars$mortpulse == 0){
-      warning(strwrap("Pulse sequence provided but respulse and mortpulse both
+      }
+    } else if (pars$pulsefreq != 0 & !is.null(pars$introseq)){
+      stop("Currently not possible to have delayed introductions and resource/mortality pulsing")
+    } else if (!is.null(pars$introseq)){
+      events = list(func = eventfun_starttime, time = times$introseq)
+    } else if (pars$pulsefreq != 0){
+      if(pars$respulse == 0 & pars$mortpulse == 0){
+        warning(strwrap("Pulse sequence provided but respulse and mortpulse both
                       set to zero. ", prefix = " "), immediate. = TRUE)
+      }
+      events = list(func = eventfun_respulse, time = times$pulseseq)
     }
-    events = list(func = eventfun_respulse, time = times$pulseseq)
-  }
 
   if (missing(y)){
-    y <- initiate_state(pars)
+    if (!is.null(pars$introseq)){
+      y <- c(rep(0, pars$nconsumers), pars$resconc)
+      } else {
+        y <- c(pars$cinit, pars$resconc)
+      }
   } else {
     y <- y
     message("cinit in pars will be overidden\n")

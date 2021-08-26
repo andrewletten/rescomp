@@ -4,11 +4,15 @@
 \alias{plot_rescomp}
 \title{Plot consumer and resource dynamics from deSolve output}
 \usage{
-plot_rescomp(model)
+plot_rescomp(model, consumers = TRUE, resources = TRUE)
 }
 \arguments{
 \item{model}{List output from \code{sim_rescomp()}. First element is an object of
 class deSolve. Second element is an object of class rescomp.}
+
+\item{consumers}{Plot consumer dynamics? Default = TRUE.}
+
+\item{resources}{Plot resource dynamics? Default = TRUE.}
 }
 \value{
 ggplot object

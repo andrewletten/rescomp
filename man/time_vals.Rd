@@ -4,7 +4,7 @@
 \alias{time_vals}
 \title{Timings of happenings}
 \usage{
-time_vals(total = 1000, step = 0.1, doround = TRUE, pulse)
+time_vals(total = 1000, step = 0.1, doround = TRUE, pulse, introseq = NULL)
 }
 \arguments{
 \item{total}{Total time.}
@@ -15,6 +15,9 @@ time_vals(total = 1000, step = 0.1, doround = TRUE, pulse)
 that produce warning messages when pulsing resources and/or consumers).}
 
 \item{pulse}{Pulsing interval.}
+
+\item{introseq}{sequence as vector for consumer introductions.
+Vector length must equal spnum.}
 }
 \description{
 Timings of happenings

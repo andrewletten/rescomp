@@ -38,6 +38,8 @@
 #' @param cinit Initial consumer state values (densities). Either a single
 #'     integer for all consumers or a vector. Defaults to 10 for all
 #'     consumers. Note initial resource state values defaults to `resconc`.
+#' @param introseq Time sequence as vector for consumer introductions.
+#'     Vector length must equal spnum.
 #' @param verbose If TRUE (default) prints model and simulation summary specs.
 #'
 #'
@@ -87,6 +89,8 @@ spec_rescomp <- function(spnum = 1,
                          timeparfreq = 0,
                          tpinterp = "inst",
                          cinit = 10,
+                         introseq = NULL,
+ #                        rinit,
                          verbose = TRUE) {
 
   # Check input classes
@@ -274,8 +278,28 @@ spec_rescomp <- function(spnum = 1,
   # cinit
   if(length(cinit) > 1 & spnum != length(cinit))
     stop("Length of cinit must equal spnum if a vector (length > 1) of initial states provided")
-  pars$cinit <- cinit
+  if(length(cinit) == 1){
+    pars$cinit <- rep(cinit, times = spnum)
+  } else {
+    pars$cinit <- cinit
+  }
 
+  if(!is.null(introseq) & length(introseq) != spnum){
+    stop("Vector of times for consumer introductions must equal spnum")
+  }
+
+
+
+  # if(length(rinit) > 1 & resnum != length(rinit))
+  #   stop("Length of rinit must equal resnum if a vector (length > 1) of initial states provided")
+  # pars$rinit <- rinit
+
+  # resconc
+  if(length(resconc) == 1){
+    pars$resconc <- rep(resconc, times = resnum)
+  } else {
+    pars$resconc <- resconc
+  }
 
   pars$all_d <- mort
   pars$respulse <- respulse
@@ -284,7 +308,6 @@ spec_rescomp <- function(spnum = 1,
   pars$nconsumers <- spnum
   pars$nresources <- resnum
   pars$resspeed <- rep(resspeed, times = resnum)
-  pars$resconc <- rep(resconc, times = resnum)
   pars$timepars <- timepars
   pars$mortpulse <- mortpulse
   pars$totaltime <- totaltime
@@ -292,6 +315,7 @@ spec_rescomp <- function(spnum = 1,
   pars$batchtrans <- batchtrans
   pars$funcresp <- funcresp
   pars$tpinterp <- tpinterp
+  pars$introseq <- introseq
 
 
   class(pars) <- "rescomp"

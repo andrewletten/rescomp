@@ -75,7 +75,8 @@ The main utility of `rescomp` comes with specifying more elaborate models and si
 - Resource dynamic (chemostat, logistic and/or pulsed)
 - Resource type (substitutable or essential)
 - Continuous or intermittent mortality (e.g. serial transfer)
-- Time dependent consumption parameters  
+- Time dependent consumption parameters
+- Different consumer introduction times 
 
 
 See `?spec_rescomp` for all argument options. 

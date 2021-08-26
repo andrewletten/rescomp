@@ -110,6 +110,34 @@ eventfun_respulse <- function(Time, State, Pars) {
   })
 }
 
+#' Event for different consumer start times
+#'
+#' @param Time time to simulate over
+#' @param State vector of initial states
+#' @param Pars a list
+#'
+# #' @return
+#' @export
+#'
+# #' @examples
+eventfun_starttime <- function(Time, State, Pars) {
+  with(as.list(State), {
+    R <- State[(1 + Pars$nconsumers):length(State)]
+    N <- State[1:Pars$nconsumers]
+    for (j in 1:length(R)) {
+      R[j] <- R[j]
+      }
+    for (i in 1:length(N)) {
+      if(Time %in% Pars$introseq[i]){
+        N[i] <- Pars$cinit[i]
+      } else {
+        N[i] <- N[i]
+      }
+      }
+    return(c(N, R))
+  })
+}
+
 
 #' Timings of happenings
 #'
@@ -118,6 +146,8 @@ eventfun_respulse <- function(Time, State, Pars) {
 #' @param doround Round time units (handles issues with numerical differences
 #'     that produce warning messages when pulsing resources and/or consumers).
 #' @param pulse Pulsing interval.
+#' @param introseq sequence as vector for consumer introductions.
+#'     Vector length must equal spnum.
 #'
 # #' @return
 #' @export
@@ -128,16 +158,23 @@ eventfun_respulse <- function(Time, State, Pars) {
 time_vals <- function(total = 1000,
                       step = 0.1,
                       doround = TRUE,
-                      pulse) {
+                      pulse,
+                      introseq = NULL) {
   time_vals <- list()
   ifelse(doround,
     time_vals$totaltime <- round(seq(0.1, total, by = step), 1),
     time_vals$totaltime <- seq(0.1, total, by = step)
   )
+
   if (missing(pulse)) {
     time_vals$pulseseq <- NULL
-  } else {
+  } else if (length(pulse) == 1){
     time_vals$pulseseq <- seq(pulse, total, by = pulse)
+  } else {
+    time_vals$pulseseq <- pulse
   }
+
+  time_vals$introseq <- introseq
+
   return(time_vals)
 }

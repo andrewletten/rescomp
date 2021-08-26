@@ -15,7 +15,7 @@ sequence where relevant (use \code{rescomp::time_vals}). If provided,
 overrides values given in parms.}
 
 \item{y}{Vector of initial values for state variables. If provided,
-overrides values given in parms.}
+overrides values given in pars.}
 
 \item{events}{NULL (events specified in \code{spec_rescomp})}
 
