@@ -20,7 +20,11 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/andrewletten/rescomp/workflows/R-CMD-check/badge.svg)](https://github.com/andrewletten/rescomp/actions)
+
+
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
+
 
 *Disclaimer: `rescomp` is still in the very early stages of development, with functions, arguments and workflows still liable to change with high frequency. I have made the repository public in its immature state primarily for ease of sharing with friends, collaborators and students during development. Please use with caution and perform your own sanity checks! Feedback and pull requests very welcome.*
 
@@ -48,7 +52,7 @@ pars <- spec_rescomp()
 
 `rescomp::funcresp` plots the functional response for easy visualistion prior to running a simulation.
 
-```{r, fig.width = 4, fig.height = 3}
+```{r, fig.width = 4, fig.height = 3, out.width = "70%"}
 plot_funcresp(pars)
 ```
 
@@ -105,7 +109,7 @@ pars <- spec_rescomp(
 )
 ```
 
-```{r, fig.width = 4, fig.height = 3}
+```{r, fig.width = 4, fig.height = 3, out.width = "70%"}
 plot_funcresp(pars, maxx = 0.2)
 ```
 
@@ -141,7 +145,7 @@ pars <- spec_rescomp(
 )
 ```
 
-```{r, fig.width = 6, fig.height = 5}
+```{r, fig.width = 6, fig.height = 5, out.width = "90%"}
 plot_funcresp(pars, maxx = 1)
 ```
 

@@ -6,6 +6,9 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/andrewletten/rescomp/workflows/R-CMD-check/badge.svg)](https://github.com/andrewletten/rescomp/actions)
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 *Disclaimer: `rescomp` is still in the very early stages of development,
@@ -63,7 +66,7 @@ prior to running a simulation.
 plot_funcresp(pars)
 ```
 
-![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="70%" />
 
 <!-- `rescomp::time_vals` sets the simulation length (and other resource pulse frequency if required). The default simulation length is 1000. The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources.  -->
 
@@ -142,7 +145,7 @@ pars <- spec_rescomp(
 plot_funcresp(pars, maxx = 0.2)
 ```
 
-![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="70%" />
 
 ``` r
 m2 <- sim_rescomp(pars)
@@ -194,7 +197,7 @@ pars <- spec_rescomp(
 plot_funcresp(pars, maxx = 1)
 ```
 
-![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="90%" />
 
 ``` r
 m3 <- sim_rescomp(pars)
