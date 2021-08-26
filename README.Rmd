@@ -10,9 +10,9 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "70%",
-  dpi = 300
+  fig.path = "man/figures/README-"
+#  out.width = "70%",
+#  dpi = 200
 )
 ```
 
@@ -62,7 +62,7 @@ m1 <- sim_rescomp(pars)
 
 Output dynamics can be visualised with `rescomp::plot_rescomp`.
 
-```{r, fig.width = 9, fig.height = 4.5, out.width = "90%"}
+```{r, fig.width = 6, fig.height = 3}
 plot_rescomp(m1) 
 ```
 
@@ -109,7 +109,7 @@ pars <- spec_rescomp(
 plot_funcresp(pars, maxx = 0.2)
 ```
 
-```{r, fig.width = 9, fig.height = 4.5, out.width = "90%"}
+```{r, fig.width = 6, fig.height = 3}
 m2 <- sim_rescomp(pars)
 plot_rescomp(m2) 
 ```
@@ -141,7 +141,7 @@ pars <- spec_rescomp(
 )
 ```
 
-```{r, fig.width = 6, fig.height = 4, out.width = "90%"}
+```{r, fig.width = 6, fig.height = 5}
 plot_funcresp(pars, maxx = 1)
 ```
 
@@ -149,7 +149,7 @@ plot_funcresp(pars, maxx = 1)
 m3 <- sim_rescomp(pars)
 ```
 
-```{r, fig.width = 9, fig.height = 4.5, out.width = "90%"}
+```{r, fig.width = 6, fig.height = 3}
 plot_rescomp(m3) 
 ```
 

@@ -63,7 +63,7 @@ prior to running a simulation.
 plot_funcresp(pars)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="70%" />
+![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
 
 <!-- `rescomp::time_vals` sets the simulation length (and other resource pulse frequency if required). The default simulation length is 1000. The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources.  -->
 
@@ -80,7 +80,7 @@ Output dynamics can be visualised with `rescomp::plot_rescomp`.
 plot_rescomp(m1) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="90%" />
+![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
 Note, the core `rescomp` functions are compatible with pipes. For
 example `spec_rescomp() |> sim_rescomp() |> plot_rescomp()` will output
@@ -142,14 +142,14 @@ pars <- spec_rescomp(
 plot_funcresp(pars, maxx = 0.2)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="70%" />
+![](man/figures/README-unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
 m2 <- sim_rescomp(pars)
 plot_rescomp(m2) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="90%" />
+![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
 
 ### Example 2
 
@@ -194,7 +194,7 @@ pars <- spec_rescomp(
 plot_funcresp(pars, maxx = 1)
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="90%" />
+![](man/figures/README-unnamed-chunk-11-1.png)<!-- -->
 
 ``` r
 m3 <- sim_rescomp(pars)
@@ -204,6 +204,6 @@ m3 <- sim_rescomp(pars)
 plot_rescomp(m3) 
 ```
 
-<img src="man/figures/README-unnamed-chunk-13-1.png" width="90%" />
+![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
 
 <!-- Disclaimer: As a biologist with no formal training in software development, I cannot vouch that `rescomp` is 100% bug free, maximally efficient or entirely consistent with 'tidy' principles. I have done my best but please use with caution! -->
