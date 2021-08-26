@@ -8,8 +8,8 @@
 #'     The number of rows should be equal to `spnum` and `resnum` respectively.
 #'     If `timepars` = TRUE, expects a list of length 2.
 #' @param kmatrix Matrix of half saturation constants
-#'     (type 2 or type 3, ignored if funcresp = "type1). The number of rows should be equal
-#'     to `spnum` and `resnum` respectively.
+#'     (type 2 or type 3, ignored if funcresp = "type1"). The number of rows
+#'     should be equal to `spnum` and `resnum` respectively.
 #' @param qmatrix Matrix of resource quotas.
 #'     The number of rows should be equal to `spnum` and `resnum` respectively.
 #' @param funcresp Options include "type1", 'type2", or "type3".
@@ -38,7 +38,7 @@
 #' @param cinit Initial consumer state values (densities). Either a single
 #'     integer for all consumers or a vector. Defaults to 10 for all
 #'     consumers. Note initial resource state values defaults to `resconc`.
-#' @param introseq Time sequence as vector for consumer introductions.
+#' @param introseq Time sequence as a vector for consumer introductions.
 #'     Vector length must equal spnum.
 #' @param verbose If TRUE (default) prints model and simulation summary specs.
 #'
@@ -233,7 +233,7 @@ spec_rescomp <- function(spnum = 1,
   }
 
   # functional response
-
+  # (if length(funcresp == 1)) do below, else...
   if (funcresp == "type1") {
     pars$phi <- matrix(rep(0, times = spnum*resnum),
                        nrow = spnum,

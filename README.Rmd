@@ -10,9 +10,9 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-"
+  fig.path = "man/figures/README-",
 #  out.width = "70%",
-#  dpi = 200
+  dpi = 300
 )
 ```
 
@@ -40,7 +40,7 @@ devtools::install_github("andrewletten/rescomp")
 library(rescomp)
 ```
 
-The primary user function in `rescomp` is `spec_rescomp`, which facilitates i) the definition and parameterisation of a desired consumer-resource model, and ii) the specification of simulation parameters. The default output from `spec_rescomp` is a list defining a model for a single type I consumer (linear functional response) and a single continuously supplied resource (e.g. in a chemostat).
+The primary user function in `rescomp` is `spec_rescomp`, which facilitates: i) the definition and parameterisation of a desired consumer-resource model, and ii) the specification of simulation parameters. The default output from `spec_rescomp` is a list defining a model for a single type I consumer (linear functional response) and a single continuously supplied resource (e.g. in a chemostat).
 
 ```{r}
 pars <- spec_rescomp()

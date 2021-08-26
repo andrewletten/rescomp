@@ -37,7 +37,7 @@ library(rescomp)
 ```
 
 The primary user function in `rescomp` is `spec_rescomp`, which
-facilitates i) the definition and parameterisation of a desired
+facilitates: i) the definition and parameterisation of a desired
 consumer-resource model, and ii) the specification of simulation
 parameters. The default output from `spec_rescomp` is a list defining a
 model for a single type I consumer (linear functional response) and a

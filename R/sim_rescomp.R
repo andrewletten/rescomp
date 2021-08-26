@@ -46,7 +46,7 @@ sim_rescomp <-  function(
                       sequence provided. ", prefix = " "), immediate. = TRUE)
       }
     } else if (pars$pulsefreq != 0 & !is.null(pars$introseq)){
-      stop("Currently not possible to have delayed introductions and resource/mortality pulsing")
+      stop("Currently not possible to have delayed introductions with resource/mortality pulsing")
     } else if (!is.null(pars$introseq)){
       events = list(func = eventfun_starttime, time = times$introseq)
     } else if (pars$pulsefreq != 0){
