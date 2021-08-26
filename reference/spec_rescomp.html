@@ -98,6 +98,9 @@ passed to sim_rescomp" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/classic-results.html">Classic results with rescomp</a>
+    </li>
+    <li>
       <a href="../articles/rescomp-vignette.html">rescomp: An R package for efficient ODE modelling of resource competition</a>
     </li>
   </ul>
@@ -150,6 +153,7 @@ passed to <code>sim_rescomp</code></p>
   timeparfreq <span class='op'>=</span> <span class='fl'>0</span>,
   tpinterp <span class='op'>=</span> <span class='st'>"inst"</span>,
   cinit <span class='op'>=</span> <span class='fl'>10</span>,
+  introseq <span class='op'>=</span> <span class='cn'>NULL</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
@@ -252,6 +256,11 @@ are interpolated linearly or sinusoidaly, respectively, with period 2x
       <td><p>Initial consumer state values (densities). Either a single
 integer for all consumers or a vector. Defaults to 10 for all
 consumers. Note initial resource state values defaults to <code>resconc</code>.</p></td>
+    </tr>
+    <tr>
+      <th>introseq</th>
+      <td><p>Time sequence as vector for consumer introductions.
+Vector length must equal spnum.</p></td>
     </tr>
     <tr>
       <th>verbose</th>

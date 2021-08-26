@@ -95,6 +95,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/classic-results.html">Classic results with rescomp</a>
+    </li>
+    <li>
       <a href="../articles/rescomp-vignette.html">rescomp: An R package for efficient ODE modelling of resource competition</a>
     </li>
   </ul>
@@ -124,7 +127,7 @@
     <p>Plot consumer and resource dynamics from deSolve output</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_rescomp</span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_rescomp</span><span class='op'>(</span><span class='va'>model</span>, consumers <span class='op'>=</span> <span class='cn'>TRUE</span>, resources <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,6 +136,14 @@
       <th>model</th>
       <td><p>List output from <code><a href='sim_rescomp.html'>sim_rescomp()</a></code>. First element is an object of
 class deSolve. Second element is an object of class rescomp.</p></td>
+    </tr>
+    <tr>
+      <th>consumers</th>
+      <td><p>Plot consumer dynamics? Default = TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>resources</th>
+      <td><p>Plot resource dynamics? Default = TRUE.</p></td>
     </tr>
     </table>
 

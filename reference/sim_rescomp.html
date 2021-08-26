@@ -98,6 +98,9 @@ deSolve::ode)" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/classic-results.html">Classic results with rescomp</a>
+    </li>
+    <li>
       <a href="../articles/rescomp-vignette.html">rescomp: An R package for efficient ODE modelling of resource competition</a>
     </li>
   </ul>
@@ -147,7 +150,7 @@ overrides values given in parms.</p></td>
     <tr>
       <th>y</th>
       <td><p>Vector of initial values for state variables. If provided,
-overrides values given in parms.</p></td>
+overrides values given in pars.</p></td>
     </tr>
     <tr>
       <th>events</th>
@@ -10203,6 +10206,9 @@ overrides values given in parms.</p></td>
 #&gt; [[2]]$cinit
 #&gt; [1] 10
 #&gt; 
+#&gt; [[2]]$resconc
+#&gt; [1] 1
+#&gt; 
 #&gt; [[2]]$all_d
 #&gt; [1] 0.03
 #&gt; 
@@ -10223,9 +10229,6 @@ overrides values given in parms.</p></td>
 #&gt; 
 #&gt; [[2]]$resspeed
 #&gt; [1] 0.03
-#&gt; 
-#&gt; [[2]]$resconc
-#&gt; [1] 1
 #&gt; 
 #&gt; [[2]]$timepars
 #&gt; [1] FALSE
