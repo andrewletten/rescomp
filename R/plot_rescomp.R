@@ -43,6 +43,7 @@ plot_rescomp <- function(model, consumers = TRUE, resources = TRUE){
 
     xlab("Time") +
 
+    theme_bw() +
     theme(strip.background = element_blank(),
           axis.text = element_text(size = 8),
           axis.title = element_text(size = 10),

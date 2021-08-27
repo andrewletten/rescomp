@@ -6,7 +6,6 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/andrewletten/rescomp/workflows/R-CMD-check/badge.svg)](https://github.com/andrewletten/rescomp/actions)
-
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
@@ -66,7 +65,7 @@ prior to running a simulation.
 plot_funcresp(pars)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="60%" />
 
 <!-- `rescomp::time_vals` sets the simulation length (and other resource pulse frequency if required). The default simulation length is 1000. The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources.  -->
 
@@ -99,7 +98,7 @@ limited to):
 -   Resource type (substitutable or essential)
 -   Continuous or intermittent mortality (e.g. serial transfer)
 -   Time dependent consumption parameters
--   Different consumer introduction times
+-   Delayed consumer introduction times
 
 See `?spec_rescomp` for all argument options.
 
@@ -145,7 +144,7 @@ pars <- spec_rescomp(
 plot_funcresp(pars, maxx = 0.2)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="70%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="60%" />
 
 ``` r
 m2 <- sim_rescomp(pars)

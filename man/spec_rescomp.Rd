@@ -41,8 +41,8 @@ The number of rows should be equal to \code{spnum} and \code{resnum} respectivel
 If \code{timepars} = TRUE, expects a list of length 2.}
 
 \item{kmatrix}{Matrix of half saturation constants
-(type 2 or type 3, ignored if funcresp = "type1). The number of rows should be equal
-to \code{spnum} and \code{resnum} respectively.}
+(type 2 or type 3, ignored if funcresp = "type1"). The number of rows
+should be equal to \code{spnum} and \code{resnum} respectively.}
 
 \item{qmatrix}{Matrix of resource quotas.
 The number of rows should be equal to \code{spnum} and \code{resnum} respectively.}
@@ -88,7 +88,7 @@ are interpolated linearly or sinusoidaly, respectively, with period 2x
 integer for all consumers or a vector. Defaults to 10 for all
 consumers. Note initial resource state values defaults to \code{resconc}.}
 
-\item{introseq}{Time sequence as vector for consumer introductions.
+\item{introseq}{Time sequence as a vector for consumer introductions.
 Vector length must equal spnum.}
 
 \item{verbose}{If TRUE (default) prints model and simulation summary specs.}

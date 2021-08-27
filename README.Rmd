@@ -20,8 +20,6 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/andrewletten/rescomp/workflows/R-CMD-check/badge.svg)](https://github.com/andrewletten/rescomp/actions)
-
-
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
@@ -52,7 +50,7 @@ pars <- spec_rescomp()
 
 `rescomp::funcresp` plots the functional response for easy visualistion prior to running a simulation.
 
-```{r, fig.width = 4, fig.height = 3, out.width = "70%"}
+```{r, fig.width = 4, fig.height = 3, out.width = "60%"}
 plot_funcresp(pars)
 ```
 
@@ -80,7 +78,7 @@ The main utility of `rescomp` comes with specifying more elaborate models and si
 - Resource type (substitutable or essential)
 - Continuous or intermittent mortality (e.g. serial transfer)
 - Time dependent consumption parameters
-- Different consumer introduction times 
+- Delayed consumer introduction times 
 
 
 See `?spec_rescomp` for all argument options. 
@@ -109,7 +107,7 @@ pars <- spec_rescomp(
 )
 ```
 
-```{r, fig.width = 4, fig.height = 3, out.width = "70%"}
+```{r, fig.width = 4, fig.height = 3, out.width = "60%"}
 plot_funcresp(pars, maxx = 0.2)
 ```
 
