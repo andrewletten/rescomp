@@ -42,9 +42,9 @@ def_cr_ode <- function(Time, State, Pars) {
           ((Ks[i, j])^(2 * type3[i, j]) + phi[i, j] * (R[j])^(2 * type3[i, j]))
       }
       if (Pars$essential == TRUE) {
-        dN[i] <- min(dN.perR[i, ]) - (all_d * N[i])
+        dN[i] <- min(dN.perR[i, ]) - (all_d[i] * N[i])
       } else {
-        dN[i] <- sum(dN.perR[i, ]) - (all_d * N[i])
+        dN[i] <- sum(dN.perR[i, ]) - (all_d[i] * N[i])
       }
     }
 

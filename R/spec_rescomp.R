@@ -16,7 +16,8 @@
 #' @param chemo Default is resources supplied continuously (chemostat).
 #'     If FALSE resources grow logistically.
 #' @param essential If FALSE resources are substitutable.
-#' @param mort Density independent mortality rate.
+#' @param mort Density independent mortality rates. Either a single value or a
+#'     vector of length = `spnum`.
 #' @param resspeed Resource intrinsic rate of increase (if chemo = FALSE),
 #'     otherwise chemostat dilution rate. Set to zero for pulsing only.
 #' @param resconc Resource carrying capacity (if chemo = FALSE),
@@ -301,7 +302,13 @@ spec_rescomp <- function(spnum = 1,
     pars$resconc <- resconc
   }
 
-  pars$all_d <- mort
+  # mortality
+  if(length(mort) == 1){
+    pars$all_d <- rep(mort, times = spnum)
+  } else {
+    pars$all_d <- mort
+  }
+
   pars$respulse <- respulse
   pars$essential <- essential
   pars$chemo <- chemo
@@ -380,13 +387,13 @@ print.rescomp <- function(x, ..., detail = "summary"){
            "\n"),
 
     paste0(" * ",
-           if(pars$all_d > 0 & pars$mortpulse == 0){
+           if(all(pars$all_d > 0) & pars$mortpulse == 0){
              "Mortality is continuous"
-           } else if (pars$all_d > 0 & pars$mortpulse > 0){
+           } else if (all(pars$all_d > 0) & pars$mortpulse > 0){
              "Mortality is continuous and intermittent"
-           } else if (pars$all_d == 0 & pars$mortpulse > 0){
+           } else if (all(pars$all_d == 0) & pars$mortpulse > 0){
              "Mortality intermittent"
-           } else if (pars$all_d == 0 & pars$mortpulse == 0){
+           } else if (all(pars$all_d == 0) & pars$mortpulse == 0){
              "No mortality"
            },
            "\n"),

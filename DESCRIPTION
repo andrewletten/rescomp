@@ -6,7 +6,7 @@ Authors@R:
            family = "Letten",
            role = c("aut", "cre"),
            email = "a.letten@uq.edu.au",
-           comment = c(ORCID = "https://orcid.org/0000-0001-6436-7942"))
+           comment = c(ORCID = "0000-0001-6436-7942"))
 URL: https://andrewletten.net/
 Description: This packages simulates canonical models of resource competition.
 License: MIT + file LICENSE
