@@ -79,7 +79,6 @@
 <a href="#rescomp" class="anchor"></a>rescomp</h1></div>
 <!-- badges: start -->
 
-<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a> <!-- badges: end --></p>
 <p><em>Disclaimer: <code>rescomp</code> is still in the very early stages of development, with functions, arguments and workflows still liable to change with high frequency. I have made the repository public in its immature state primarily for ease of sharing with friends, collaborators and students during development. Please use with caution and perform your own sanity checks! Feedback and pull requests very welcome.</em></p>
 <p>The goal of the R package <code>rescomp</code> is to simplify the process of defining, simulating and visualizing the output of ODE models of ecological consumer-resource interactions. In essence, it is a consumer-resource modelling focused interface to the excellent <code>deSolve</code> package.</p>
 <div id="installation" class="section level2">
@@ -110,7 +109,7 @@
 <p><code>rescomp::funcresp</code> plots the functional response for easy visualistion prior to running a simulation.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="70%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="60%"></p>
 <!-- `rescomp::time_vals` sets the simulation length (and other resource pulse frequency if required). The default simulation length is 1000. The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources.  -->
 <p>The model is then simulated via <code><a href="reference/sim_rescomp.html">rescomp::sim_rescomp</a></code> (a wrapper for <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html">deSolve::ode</a></code> with convenient defaults).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -128,7 +127,7 @@
 <li>Resource type (substitutable or essential)</li>
 <li>Continuous or intermittent mortality (e.g. serial transfer)</li>
 <li>Time dependent consumption parameters</li>
-<li>Different consumer introduction times</li>
+<li>Delayed consumer introduction times</li>
 </ul>
 <p>See <code><a href="reference/spec_rescomp.html">?spec_rescomp</a></code> for all argument options.</p>
 <p>The following two examples demonstrate how to build and simulate a model for: i) two consumers with type II functional responses on a single logistically growing resources; and ii) two consumers with type III functional responses with pulsed resources and time dependent consumption parameters. A wide range of other examples can be found in the package vignette.</p>
@@ -164,7 +163,7 @@
 <span class="co">#&gt;  * Init state: consumer(s) = [10, 10], resource(s) = [0.2]</span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="70%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="60%"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span>
 <span class="fu"><a href="reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m2</span><span class="op">)</span> </code></pre></div>
@@ -241,6 +240,7 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/andrewletten/rescomp/actions"><img src="https://github.com/andrewletten/rescomp/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>
 </div>
