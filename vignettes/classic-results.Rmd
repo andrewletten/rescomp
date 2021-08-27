@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 library(rescomp)
 ```
 
-#### Huisman and Weissing (1990) Biodiversity of plankton by species oscillations and chaos. *Nature*.
+#### [Huisman and Weissing (1990) Biodiversity of plankton by species oscillations and chaos. *Nature*, 402, 407–410](https://www.nature.com/articles/46540)
 
 
 ```{r}

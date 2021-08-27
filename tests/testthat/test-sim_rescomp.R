@@ -16,7 +16,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
     },
     parms = NULL,
     y = c(N = 10, R = 1),
-    times = (seq(0.1, 50, 0.1)),
+    times = (seq(0, 50, 0.1)),
     method = "lsoda"
   )
   colnames(mcheck)[2:3] <- c("1", "2")
@@ -39,7 +39,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
     },
     parms = NULL,
     y = c(N1 = 10, N2 = 10, R = 1),
-    times = (seq(0.1, 50, 0.1)),
+    times = (seq(0, 50, 0.1)),
     method = "lsoda"
   )
   colnames(mcheck)[2:4] <- c("1", "2", "3")
@@ -62,7 +62,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
     },
     parms = NULL,
     y = c(N1 = 10, R1 = 1, R2 = 1),
-    times = (seq(0.1, 50, 0.1)),
+    times = (seq(0, 50, 0.1)),
     method = "lsoda"
   )
   colnames(mcheck)[2:4] <- c("1", "2", "3")
@@ -84,7 +84,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
     },
     parms = NULL,
     y = c(N = 10, R = 1),
-    times = (seq(0.1, 50, 0.1)),
+    times = (seq(0, 50, 0.1)),
     method = "lsoda"
   )
   colnames(mcheck)[2:3] <- c("1", "2")
@@ -106,7 +106,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
     },
     parms = NULL,
     y = c(N = 10, R = 1),
-    times = (seq(0.1, 50, 0.1)),
+    times = (seq(0, 50, 0.1)),
     method = "lsoda"
   )
   colnames(mcheck)[2:3] <- c("1", "2")
@@ -129,7 +129,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
     },
     parms = NULL,
     y = c(N = 10, R = 1),
-    times = (seq(0.1, 50, 0.1)),
+    times = (seq(0, 50, 0.1)),
     method = "lsoda"
   )
   colnames(mcheck)[2:3] <- c("1", "2")
@@ -153,7 +153,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
     },
     parms = NULL,
     y = c(N = 10, R = 1),
-    times = round(seq(0.1, 50, 0.1), 1),
+    times = round(seq(0, 50, 0.1), 1),
     method = "lsoda",
     events = list(
       func = function(Time, State, Pars) {

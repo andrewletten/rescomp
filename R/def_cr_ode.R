@@ -162,19 +162,21 @@ time_vals <- function(total = 1000,
                       introseq = NULL) {
   time_vals <- list()
   ifelse(doround,
-    time_vals$totaltime <- round(seq(0.1, total, by = step), 1),
-    time_vals$totaltime <- seq(0.1, total, by = step)
+    time_vals$totaltime <- round(seq(0, total, by = step), 1), # sapply(step, nchar) - 2
+    time_vals$totaltime <- seq(0, total, by = step)
   )
 
   if (missing(pulse)) {
     time_vals$pulseseq <- NULL
   } else if (length(pulse) == 1){
-    time_vals$pulseseq <- seq(pulse, total, by = pulse)
+    time_vals$pulseseq <- round(seq(pulse, total, by = pulse), 1)
   } else {
-    time_vals$pulseseq <- pulse
+    time_vals$pulseseq <- round(pulse, 1)
   }
 
-  time_vals$introseq <- introseq
+#  if (!is.null(introseq)){
+    time_vals$introseq <- introseq
+#  }
 
   return(time_vals)
 }
