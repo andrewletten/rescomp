@@ -4,6 +4,7 @@
 #' class deSolve. Second element is an object of class rescomp.
 #' @param consumers Plot consumer dynamics? Default = TRUE.
 #' @param resources Plot resource dynamics? Default = TRUE.
+#' @param logy Log transfrom y-axis (default = FALSE).
 #'
 #' @return ggplot object
 #' @export
@@ -14,7 +15,10 @@
 #' m1 <- sim_rescomp(pars)
 #' plot_rescomp(m1)
 #'
-plot_rescomp <- function(model, consumers = TRUE, resources = TRUE){
+plot_rescomp <- function(model,
+                         consumers = TRUE,
+                         resources = TRUE,
+                         logy = FALSE){
   plot.df <-  frame_and_name(model)
   comp.gg <- tidyr::pivot_longer(plot.df, cols = !c(.data$time), names_to = "state.var", values_to = "count")
   comp.gg$state.var.type <- "Consumers"
@@ -29,14 +33,13 @@ plot_rescomp <- function(model, consumers = TRUE, resources = TRUE){
     comp.gg <- comp.gg[comp.gg$state.var.type != "Consumers",]
   }
 
-  ggplot2::ggplot(comp.gg,
-    aes(y = .data$count, x = .data$time)) +
+  p <- ggplot2::ggplot(comp.gg,
+                       aes(y = .data$count, x = .data$time)) +
 
     geom_line(aes(group = .data$state.var, col = .data$state.var),
-      size = 1,
-      alpha=0.9) +
+              size = 1,
+              alpha=0.9) +
 
-    # scale_y_log10() +
     # theme(legend.position="none") +
 
     ylab("Population size") +
@@ -49,11 +52,15 @@ plot_rescomp <- function(model, consumers = TRUE, resources = TRUE){
           axis.title = element_text(size = 10),
           legend.title = element_blank()) +
 
-    #  panel_border(colour = "black") + #xlim(800,1400) +
-
     facet_wrap(
       ~ state.var.type,
       scales = "free") +
 
     scale_colour_manual(values=c(cbbPalette, resSet1))
+
+  if(logy == TRUE) {
+    p + scale_y_log10(limits = c(1, NA))
+  } else {
+      p
+    }
 }

@@ -306,6 +306,7 @@ spec_rescomp <- function(spnum = 1,
   if(length(mort) == 1){
     pars$all_d <- rep(mort, times = spnum)
   } else {
+    stopifnot(length(mort) == spnum)
     pars$all_d <- mort
   }
 
@@ -461,7 +462,13 @@ print.rescomp <- function(x, ..., detail = "summary"){
            paste0("[",
                   paste0(pars$resconc,
                          collapse = ", "), "]"),
-           "\n")
+           "\n"),
+
+    if(!is.null(pars$introseq)){
+      paste0(" * ",
+             "Some or all consumers introduced after timepoint 0",
+             "\n")
+      }
   )
   } else if (detail == "list"){
     print(pars[])

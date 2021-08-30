@@ -79,3 +79,80 @@ plot_rescomp(m1, resources = FALSE)
 ```
 
 #### Grover (1990) Resource Competition in a Variable Environment: Phytoplankton Growing According to Monod's Model. *The American Naturalist*.
+
+```{r}
+period <- 1
+amp <- ((0.0002*0.25*period)/(1 - exp(-0.25*period)) - 0.0002)*2
+
+pars <- spec_rescomp(
+  spnum = 2, 
+  resnum = 1,
+  funcresp = "type2",
+  mumatrix = list(matrix(c(0.5, 
+                           0.6), 
+                   nrow = 2, 
+                   ncol = 1,
+                   byrow = TRUE)),
+  kmatrix = matrix(c(0.000001, 
+                     0.00001), 
+                   nrow = 2, 
+                   ncol = 1,
+                   byrow = TRUE),
+  qmatrix = matrix(c(1/10^8,
+                     1/10^8), 
+                   nrow = 2, 
+                   ncol = 1,
+                   byrow = TRUE),
+  resspeed = 0.25,
+  respulse = amp,
+  resconc = 0,
+  mort = 0.25,
+  cinit = 1000,
+  totaltime = 100, 
+  pulsefreq = period
+)
+```
+
+```{r}
+plot_funcresp(pars, maxx = 0.0001)
+```
+
+```{r}
+m1 <- sim_rescomp(pars, y = c(1000, 1000, amp))
+```
+
+
+```{r}
+plot_m1 <- plot_rescomp(m1, resource = FALSE, logy = TRUE)
+```
+
+
+```{r}
+period <- 4
+amp <- ((0.0002*0.25*period)/(1 - exp(-0.25*period)) - 0.0002)*2
+
+pars$pulsefreq <- period
+pars$respulse <- amp
+m4 <- sim_rescomp(pars, y = c(1000, 1000, amp))
+plot_rescomp(m4, resource = FALSE, logy = TRUE)
+```
+
+
+```{r}
+period <- 10
+amp <- ((0.0002*0.25*period)/(1 - exp(-0.25*period)) - 0.0002)*2
+
+pars$pulsefreq <- period
+pars$respulse <- amp
+m10 <- sim_rescomp(pars, y = c(1000, 1000, amp))
+plot_rescomp(m10, resource = FALSE, logy = TRUE)
+```
+
+
+```{r}
+pars$pulsefreq <- 0
+pars$respulse <- 0
+pars$resconc <- 0.0002
+mcons <- sim_rescomp(pars, y = c(1000, 1000, amp))
+plot_rescomp(mcons, resource = FALSE, logy = TRUE)
+```

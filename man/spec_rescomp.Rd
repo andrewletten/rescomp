@@ -54,7 +54,8 @@ The number of rows should be equal to \code{spnum} and \code{resnum} respectivel
 \item{chemo}{Default is resources supplied continuously (chemostat).
 If FALSE resources grow logistically.}
 
-\item{mort}{Density independent mortality rate.}
+\item{mort}{Density independent mortality rates. Either a single value or a
+vector of length = \code{spnum}.}
 
 \item{resspeed}{Resource intrinsic rate of increase (if chemo = FALSE),
 otherwise chemostat dilution rate. Set to zero for pulsing only.}
