@@ -141,7 +141,8 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Simulation properties </span>
 <span class="co">#&gt;  * Simulation time: 15000 time steps</span>
-<span class="co">#&gt;  * Init state: consumer(s) = [0.11, 0.12, 0.13, 0.1, 0.1, 0.1], resource(s) = [6, 10, 14]</span></code></pre></div>
+<span class="co">#&gt;  * Init state: consumer(s) = [0.11, 0.12, 0.13, 0.1, 0.1, 0.1], resource(s) = [6, 10, 14]</span>
+<span class="co">#&gt;  * Some or all consumers introduced after timepoint 0</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <p><img src="classic-results_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
@@ -158,6 +159,84 @@ Reproduces Fig 1c from Huisman and Weissing (1990).
 <div id="grover-1990-resource-competition-in-a-variable-environment-phytoplankton-growing-according-to-monods-model--the-american-naturalist-" class="section level4">
 <h4 class="hasAnchor">
 <a href="#grover-1990-resource-competition-in-a-variable-environment-phytoplankton-growing-according-to-monods-model--the-american-naturalist-" class="anchor"></a>Grover (1990) Resource Competition in a Variable Environment: Phytoplankton Growing According to Monod’s Model. <em>The American Naturalist</em>.</h4>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">period</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="va">amp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="fl">0.0002</span><span class="op">*</span><span class="fl">0.25</span><span class="op">*</span><span class="va">period</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.25</span><span class="op">*</span><span class="va">period</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">0.0002</span><span class="op">)</span><span class="op">*</span><span class="fl">2</span>
+
+<span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>
+  spnum <span class="op">=</span> <span class="fl">2</span>, 
+  resnum <span class="op">=</span> <span class="fl">1</span>,
+  funcresp <span class="op">=</span> <span class="st">"type2"</span>,
+  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, 
+                           <span class="fl">0.6</span><span class="op">)</span>, 
+                   nrow <span class="op">=</span> <span class="fl">2</span>, 
+                   ncol <span class="op">=</span> <span class="fl">1</span>,
+                   byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,
+  kmatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.000001</span>, 
+                     <span class="fl">0.00001</span><span class="op">)</span>, 
+                   nrow <span class="op">=</span> <span class="fl">2</span>, 
+                   ncol <span class="op">=</span> <span class="fl">1</span>,
+                   byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+  qmatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="fl">10</span><span class="op">^</span><span class="fl">8</span>,
+                     <span class="fl">1</span><span class="op">/</span><span class="fl">10</span><span class="op">^</span><span class="fl">8</span><span class="op">)</span>, 
+                   nrow <span class="op">=</span> <span class="fl">2</span>, 
+                   ncol <span class="op">=</span> <span class="fl">1</span>,
+                   byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+  resspeed <span class="op">=</span> <span class="fl">0.25</span>,
+  respulse <span class="op">=</span> <span class="va">amp</span>,
+  resconc <span class="op">=</span> <span class="fl">0</span>,
+  mort <span class="op">=</span> <span class="fl">0.25</span>,
+  cinit <span class="op">=</span> <span class="fl">1000</span>,
+  totaltime <span class="op">=</span> <span class="fl">100</span>, 
+  pulsefreq <span class="op">=</span> <span class="va">period</span>
+<span class="op">)</span>
+<span class="co">#&gt; Model properties </span>
+<span class="co">#&gt;  * 2 consumer(s) and 1 resource(s)</span>
+<span class="co">#&gt;  * Consumers have type 2 functional responses</span>
+<span class="co">#&gt;  * Resource supply is continuous (e.g. chemostat) AND pulsed</span>
+<span class="co">#&gt;  * Mortality is continuous</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Simulation properties </span>
+<span class="co">#&gt;  * Simulation time: 100 time steps</span>
+<span class="co">#&gt;  * Resources pulsing every 1 timesteps</span>
+<span class="co">#&gt;  * Init state: consumer(s) = [1000, 1000], resource(s) = [0]</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">0.0001</span><span class="op">)</span></code></pre></div>
+<p><img src="classic-results_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1000</span>, <span class="va">amp</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; cinit in pars will be overidden</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plot_m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, resource <span class="op">=</span> <span class="cn">FALSE</span>, logy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">period</span> <span class="op">&lt;-</span> <span class="fl">4</span>
+<span class="va">amp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="fl">0.0002</span><span class="op">*</span><span class="fl">0.25</span><span class="op">*</span><span class="va">period</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.25</span><span class="op">*</span><span class="va">period</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">0.0002</span><span class="op">)</span><span class="op">*</span><span class="fl">2</span>
+
+<span class="va">pars</span><span class="op">$</span><span class="va">pulsefreq</span> <span class="op">&lt;-</span> <span class="va">period</span>
+<span class="va">pars</span><span class="op">$</span><span class="va">respulse</span> <span class="op">&lt;-</span> <span class="va">amp</span>
+<span class="va">m4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1000</span>, <span class="va">amp</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; cinit in pars will be overidden</span>
+<span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m4</span>, resource <span class="op">=</span> <span class="cn">FALSE</span>, logy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p><img src="classic-results_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">period</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+<span class="va">amp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="fl">0.0002</span><span class="op">*</span><span class="fl">0.25</span><span class="op">*</span><span class="va">period</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.25</span><span class="op">*</span><span class="va">period</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">0.0002</span><span class="op">)</span><span class="op">*</span><span class="fl">2</span>
+
+<span class="va">pars</span><span class="op">$</span><span class="va">pulsefreq</span> <span class="op">&lt;-</span> <span class="va">period</span>
+<span class="va">pars</span><span class="op">$</span><span class="va">respulse</span> <span class="op">&lt;-</span> <span class="va">amp</span>
+<span class="va">m10</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1000</span>, <span class="va">amp</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; cinit in pars will be overidden</span>
+<span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m10</span>, resource <span class="op">=</span> <span class="cn">FALSE</span>, logy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p><img src="classic-results_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pars</span><span class="op">$</span><span class="va">pulsefreq</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+<span class="va">pars</span><span class="op">$</span><span class="va">respulse</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+<span class="va">pars</span><span class="op">$</span><span class="va">resconc</span> <span class="op">&lt;-</span> <span class="fl">0.0002</span>
+<span class="va">mcons</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1000</span>, <span class="va">amp</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; cinit in pars will be overidden</span>
+<span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">mcons</span>, resource <span class="op">=</span> <span class="cn">FALSE</span>, logy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; Warning: Removed 395 row(s) containing missing values (geom_path).</span></code></pre></div>
+<p><img src="classic-results_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 </div>
   </div>
 
