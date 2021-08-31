@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 library(rescomp)
 ```
 
-#### [Huisman and Weissing (1990) Biodiversity of plankton by species oscillations and chaos. *Nature*, 402, 407–410](https://www.nature.com/articles/46540)
+### [Huisman and Weissing (1999) Biodiversity of plankton by species oscillations and chaos. *Nature*, 402, 407–410](https://www.nature.com/articles/46540)
 
 
 ```{r}
@@ -74,16 +74,14 @@ plot_funcresp(pars)
 m1 <- sim_rescomp(pars)
 ```
 
-```{r, fig.cap = "Reproduces Fig 1c from Huisman and Weissing (1990)."}
+```{r, fig.cap = "Reproduces Fig 1c from Huisman and Weissing (1999)."}
 plot_rescomp(m1, resources = FALSE)
 ```
 
 #### Grover (1990) Resource Competition in a Variable Environment: Phytoplankton Growing According to Monod's Model. *The American Naturalist*.
 
-```{r}
-period <- 1
-amp <- ((0.0002*0.25*period)/(1 - exp(-0.25*period)) - 0.0002)*2
 
+```{r}
 pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
@@ -104,36 +102,54 @@ pars <- spec_rescomp(
                    ncol = 1,
                    byrow = TRUE),
   resspeed = 0.25,
-  respulse = amp,
-  resconc = 0,
+  resconc = 0.0002,
   mort = 0.25,
   cinit = 1000,
   totaltime = 100, 
-  pulsefreq = period
 )
 ```
 
-```{r}
+```{r, fig.cap = "Reproduces Fig 1 from Grover (1990). Resource concentration in $mu$mol per ml rather than  per L."}
 plot_funcresp(pars, maxx = 0.0001)
 ```
 
 ```{r}
-m1 <- sim_rescomp(pars, y = c(1000, 1000, amp))
+mcons <- sim_rescomp(pars)
+```
+
+
+```{r, warning = FALSE, fig.cap = "Reproduces Fig 4A from Grover (1990)."}
+plot_rescomp(mcons, resources = FALSE, logy = TRUE)
 ```
 
 
 ```{r}
-plot_m1 <- plot_rescomp(m1, resource = FALSE, logy = TRUE)
+period <- 1
+amp <- ((0.0002*0.25*period)/(1 - exp(-0.25*period)) - 0.0002)*2
+pars$respulse <- amp
+pars$resconc <- 0
+pars$rinit <- amp
+pars$pulsefreq <- period
+pars
+```
+
+```{r, fig.cap = "Reproduces Fig 4B from Grover (1990)."}
+m1 <- sim_rescomp(pars)
+plot_rescomp(m1, resource = FALSE, logy = TRUE)
 ```
 
 
-```{r}
+```{r, fig.cap = "Reproduces Fig 4C from Grover (1990)."}
 period <- 4
 amp <- ((0.0002*0.25*period)/(1 - exp(-0.25*period)) - 0.0002)*2
-
-pars$pulsefreq <- period
 pars$respulse <- amp
-m4 <- sim_rescomp(pars, y = c(1000, 1000, amp))
+pars$rinit <- amp
+pars$pulsefreq <- period
+pars
+```
+
+```{r}
+m4 <- sim_rescomp(pars)
 plot_rescomp(m4, resource = FALSE, logy = TRUE)
 ```
 
@@ -141,18 +157,13 @@ plot_rescomp(m4, resource = FALSE, logy = TRUE)
 ```{r}
 period <- 10
 amp <- ((0.0002*0.25*period)/(1 - exp(-0.25*period)) - 0.0002)*2
-
-pars$pulsefreq <- period
 pars$respulse <- amp
-m10 <- sim_rescomp(pars, y = c(1000, 1000, amp))
-plot_rescomp(m10, resource = FALSE, logy = TRUE)
+pars$rinit <- amp
+pars$pulsefreq <- period
+pars
 ```
 
-
-```{r}
-pars$pulsefreq <- 0
-pars$respulse <- 0
-pars$resconc <- 0.0002
-mcons <- sim_rescomp(pars, y = c(1000, 1000, amp))
-plot_rescomp(mcons, resource = FALSE, logy = TRUE)
+```{r, fig.cap = "Reproduces Fig 4D from Grover (1990)."}
+m10 <- sim_rescomp(pars)
+plot_rescomp(m10, resource = FALSE, logy = TRUE)
 ```

@@ -12,7 +12,8 @@
 #'     should be equal to `spnum` and `resnum` respectively.
 #' @param qmatrix Matrix of resource quotas.
 #'     The number of rows should be equal to `spnum` and `resnum` respectively.
-#' @param funcresp Options include "type1", 'type2", or "type3".
+#' @param funcresp A string or vector of strings of length `spnum`.
+#'     Options include "type1", 'type2", or "type3".
 #' @param chemo Default is resources supplied continuously (chemostat).
 #'     If FALSE resources grow logistically.
 #' @param essential If FALSE resources are substitutable.
@@ -20,6 +21,8 @@
 #'     vector of length = `spnum`.
 #' @param resspeed Resource intrinsic rate of increase (if chemo = FALSE),
 #'     otherwise chemostat dilution rate. Set to zero for pulsing only.
+#'     For continuous dilution of resource without resource supply, `resspeed`
+#'     should be non-zero with `resconc` set to zero.
 #' @param resconc Resource carrying capacity (if chemo = FALSE),
 #'     otherwise chemostat supply concentration
 #' @param respulse Resource pulse size.
@@ -39,6 +42,9 @@
 #' @param cinit Initial consumer state values (densities). Either a single
 #'     integer for all consumers or a vector. Defaults to 10 for all
 #'     consumers. Note initial resource state values defaults to `resconc`.
+#' @param rinit Initial resource state values (concentrations). Either a single
+#'     integer for all resources or a vector. Defaults to value given
+#'     in `resconc`.
 #' @param introseq Time sequence as a vector for consumer introductions.
 #'     Vector length must equal spnum.
 #' @param verbose If TRUE (default) prints model and simulation summary specs.
@@ -90,6 +96,7 @@ spec_rescomp <- function(spnum = 1,
                          timeparfreq = 0,
                          tpinterp = "inst",
                          cinit = 10,
+                         rinit = NULL,
                          introseq = NULL,
  #                        rinit,
                          verbose = TRUE) {
@@ -218,9 +225,6 @@ spec_rescomp <- function(spnum = 1,
   } else {
     stopifnot(is.matrix(kmatrix))
     pars$Ks <- kmatrix
-    if (funcresp == "type1")
-      stop("Matrix of half saturation constants provided
-           for a linear (type 1) functional response")
   }
 
   # qmatrix
@@ -234,8 +238,41 @@ spec_rescomp <- function(spnum = 1,
   }
 
   # functional response
-  # (if length(funcresp == 1)) do below, else...
-  if (funcresp == "type1") {
+  if (length(funcresp) == 1){
+    if (funcresp == "type1") {
+      pars$phi <- matrix(rep(0, times = spnum*resnum),
+                         nrow = spnum,
+                         byrow = TRUE)
+      pars$type3 <- matrix(rep(1/2, times = spnum*resnum),
+                           nrow = spnum,
+                           byrow = TRUE)
+      if (!missing(kmatrix)){
+          stop("Matrix of half saturation constants provided
+               for a linear (type 1) functional response")
+      }
+
+    } else if (funcresp == "type2"){
+      pars$phi <- matrix(rep(1, times = spnum*resnum),
+                         nrow = spnum,
+                         byrow = TRUE)
+      pars$type3 <- matrix(rep(1/2, times = spnum*resnum),
+                           nrow = spnum,
+                           byrow = TRUE)
+
+    } else if (funcresp == "type3"){
+      pars$phi <- matrix(rep(1, times = spnum*resnum),
+                         nrow = spnum,
+                         byrow = TRUE)
+      pars$type3 <- matrix(rep(1, times = spnum*resnum),
+                           nrow = spnum,
+                           byrow = TRUE)
+    }
+
+  } else if (length(funcresp) > 1){
+    if(length(funcresp) != spnum)
+    stop("Length of funcresp must equal spnum if a vector (length > 1) of
+         functional responses provided")
+
     pars$phi <- matrix(rep(0, times = spnum*resnum),
                        nrow = spnum,
                        byrow = TRUE)
@@ -243,38 +280,24 @@ spec_rescomp <- function(spnum = 1,
                          nrow = spnum,
                          byrow = TRUE)
 
-  } else if (funcresp == "type2"){
-    pars$phi <- matrix(rep(1, times = spnum*resnum),
-                       nrow = spnum,
-                       byrow = TRUE)
-    pars$type3 <- matrix(rep(1/2, times = spnum*resnum),
-                       nrow = spnum,
-                       byrow = TRUE)
+    for (i in 1:length(funcresp)){
+      if (funcresp[i] == "type1"){
+        pars$phi[i,] = pars$phi[i,]
+        pars$type3[i,] = pars$type3[i,]
+        pars$Ks[i,] = 1
+        if (any(kmatrix[i,] != 1)){warning(
+          paste0(strwrap("Warning: half saturation constant ignored (set to 1) for
+                  type 1 functional response", prefix = " ")), "\n\n")}
+      } else if (funcresp[i] == "type2"){
+        pars$phi[i,] = 1
+        pars$type3[i,] = pars$type3[i,]
+      } else if (funcresp[i] == "type3"){
+        pars$phi[i,] = 1
+        pars$type3[i,] = 1
+        }
+      }
+    }
 
-  } else if (funcresp == "type3"){
-    pars$phi <- matrix(rep(1, times = spnum*resnum),
-                       nrow = spnum,
-                       byrow = TRUE)
-    pars$type3 <- matrix(rep(1, times = spnum*resnum),
-                         nrow = spnum,
-                         byrow = TRUE)
-  }
-
-
-  # if (linear == TRUE) {
-  #   pars$phi <- matrix(rep(0, times = spnum*resnum),
-  #                      nrow = spnum,
-  #                      byrow = TRUE)
-  # } else {
-  #   pars$phi <- matrix(rep(1, times = spnum*resnum),
-  #                      nrow = spnum,
-  #                      byrow = TRUE)
-  # }
-  #
-  # # type 3, currently fixed on type 1 or type 2
-  # pars$type3 <- matrix(rep(1/2, times = spnum*resnum),
-  #                      nrow = spnum,
-  #                      byrow = TRUE)
 
   # cinit
   if(length(cinit) > 1 & spnum != length(cinit))
@@ -290,16 +313,20 @@ spec_rescomp <- function(spnum = 1,
   }
 
 
-
-  # if(length(rinit) > 1 & resnum != length(rinit))
-  #   stop("Length of rinit must equal resnum if a vector (length > 1) of initial states provided")
-  # pars$rinit <- rinit
-
   # resconc
   if(length(resconc) == 1){
     pars$resconc <- rep(resconc, times = resnum)
   } else {
     pars$resconc <- resconc
+  }
+
+  # rinit
+  if(length(rinit) > 1 & resnum != length(rinit))
+    stop("Length of rinit must equal resnum if a vector (length > 1) of initial states provided")
+  if(is.null(rinit)){
+    pars$rinit <- pars$resconc
+  } else {
+    pars$rinit <- rinit
   }
 
   # mortality
@@ -368,8 +395,10 @@ print.rescomp <- function(x, ..., detail = "summary"){
     },
 
     paste0(" * ",
-           if (pars$chemo == TRUE & pars$resspeed[1] != 0 & pars$respulse != 0) {
+           if (pars$chemo == TRUE & pars$resspeed[1] != 0 & pars$respulse != 0 & pars$resconc[1] != 0) {
              "Resource supply is continuous (e.g. chemostat) AND pulsed"
+           } else if(pars$chemo == TRUE & pars$resspeed[1] != 0 & pars$respulse != 0 & pars$resconc[1] == 0){
+             "Resource supply is pulsed only (but continuously diluted)"
            } else if (pars$chemo == TRUE & pars$resspeed[1] == 0 & pars$respulse != 0) {
              "Resource supply is pulsed only"
            } else if (pars$chemo == TRUE & pars$resspeed[1] != 0 & pars$respulse == 0) {
@@ -460,7 +489,7 @@ print.rescomp <- function(x, ..., detail = "summary"){
            },
            ", resource(s) = ",
            paste0("[",
-                  paste0(pars$resconc,
+                  paste0(pars$rinit,
                          collapse = ", "), "]"),
            "\n"),
 

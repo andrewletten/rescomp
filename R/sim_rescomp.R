@@ -59,9 +59,9 @@ sim_rescomp <-  function(
 
   if (missing(y)){
     if (!is.null(pars$introseq)){
-      y <- c(rep(0, pars$nconsumers), pars$resconc)
+      y <- c(rep(0, pars$nconsumers), pars$rinit)
       } else {
-        y <- c(pars$cinit, pars$resconc)
+        y <- c(pars$cinit, pars$rinit)
       }
   } else {
     y <- y
