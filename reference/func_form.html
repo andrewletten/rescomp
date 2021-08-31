@@ -127,7 +127,7 @@
     <p>Generate type 1, 2 or 3 functional response</p>
     </div>
 
-    <pre class="usage"><span class='fu'>func_form</span><span class='op'>(</span><span class='va'>R</span>, <span class='va'>mu</span>, Ks <span class='op'>=</span> <span class='fl'>1</span>, phi <span class='op'>=</span> <span class='fl'>0</span>, type3 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>func_form</span><span class='op'>(</span><span class='va'>R</span>, <span class='va'>mu</span>, Ks <span class='op'>=</span> <span class='fl'>1</span>, phi <span class='op'>=</span> <span class='fl'>0</span>, type3 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span>, eff <span class='op'>=</span> <span class='fl'>1</span>, mort <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,6 +152,15 @@
     <tr>
       <th>type3</th>
       <td><p>1 if type 3, 1/2 otherwise (default)</p></td>
+    </tr>
+    <tr>
+      <th>eff</th>
+      <td><p>Resource efficiency (under quota parameterisation ignored /
+set to 1)</p></td>
+    </tr>
+    <tr>
+      <th>mort</th>
+      <td><p>Mortality rate (currently set to zero)</p></td>
     </tr>
     </table>
 

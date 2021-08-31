@@ -138,6 +138,7 @@ passed to <code>sim_rescomp</code></p>
   <span class='va'>mumatrix</span>,
   <span class='va'>kmatrix</span>,
   <span class='va'>qmatrix</span>,
+  effmatrix <span class='op'>=</span> <span class='cn'>NULL</span>,
   funcresp <span class='op'>=</span> <span class='st'>"type1"</span>,
   essential <span class='op'>=</span> <span class='cn'>FALSE</span>,
   chemo <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -153,6 +154,7 @@ passed to <code>sim_rescomp</code></p>
   timeparfreq <span class='op'>=</span> <span class='fl'>0</span>,
   tpinterp <span class='op'>=</span> <span class='st'>"inst"</span>,
   cinit <span class='op'>=</span> <span class='fl'>10</span>,
+  rinit <span class='op'>=</span> <span class='cn'>NULL</span>,
   introseq <span class='op'>=</span> <span class='cn'>NULL</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
@@ -187,8 +189,16 @@ should be equal to <code>spnum</code> and <code>resnum</code> respectively.</p><
 The number of rows should be equal to <code>spnum</code> and <code>resnum</code> respectively.</p></td>
     </tr>
     <tr>
+      <th>effmatrix</th>
+      <td><p>Matrix of resource efficiencies.
+The number of rows should be equal to <code>spnum</code> and <code>resnum</code> respectively.
+NB. Incompatible with specification of resource quotas. Function will
+throw an error if both specified.</p></td>
+    </tr>
+    <tr>
       <th>funcresp</th>
-      <td><p>Options include "type1", 'type2", or "type3".</p></td>
+      <td><p>A string or vector of strings of length <code>spnum</code>.
+Options include "type1", 'type2", or "type3".</p></td>
     </tr>
     <tr>
       <th>essential</th>
@@ -207,7 +217,9 @@ vector of length = <code>spnum</code>.</p></td>
     <tr>
       <th>resspeed</th>
       <td><p>Resource intrinsic rate of increase (if chemo = FALSE),
-otherwise chemostat dilution rate. Set to zero for pulsing only.</p></td>
+otherwise chemostat dilution rate. Set to zero for pulsing only.
+For continuous dilution of resource without resource supply, <code>resspeed</code>
+should be non-zero with <code>resconc</code> set to zero.</p></td>
     </tr>
     <tr>
       <th>resconc</th>
@@ -257,6 +269,12 @@ are interpolated linearly or sinusoidaly, respectively, with period 2x
       <td><p>Initial consumer state values (densities). Either a single
 integer for all consumers or a vector. Defaults to 10 for all
 consumers. Note initial resource state values defaults to <code>resconc</code>.</p></td>
+    </tr>
+    <tr>
+      <th>rinit</th>
+      <td><p>Initial resource state values (concentrations). Either a single
+integer for all resources or a vector. Defaults to value given
+in <code>resconc</code>.</p></td>
     </tr>
     <tr>
       <th>introseq</th>
