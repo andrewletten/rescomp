@@ -36,7 +36,10 @@ df_funcresp <- function(pars, maxx) {
           mu = pars$mu[[k]][i, j],
           Ks = pars$Ks[i, j],
           phi = pars$phi[i, j],
-          type3 = pars$type3[i, j]
+          type3 = pars$type3[i, j],
+          eff = pars$eff[i, j],
+          mort = 0
+
         )
         names(resp.iter)[j] <- paste0("Resource ",
                                       letters[c(1:pars$nresources)[j]])

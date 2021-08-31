@@ -11,6 +11,7 @@ spec_rescomp(
   mumatrix,
   kmatrix,
   qmatrix,
+  effmatrix = NULL,
   funcresp = "type1",
   essential = FALSE,
   chemo = TRUE,
@@ -26,6 +27,7 @@ spec_rescomp(
   timeparfreq = 0,
   tpinterp = "inst",
   cinit = 10,
+  rinit = NULL,
   introseq = NULL,
   verbose = TRUE
 )
@@ -47,7 +49,13 @@ should be equal to \code{spnum} and \code{resnum} respectively.}
 \item{qmatrix}{Matrix of resource quotas.
 The number of rows should be equal to \code{spnum} and \code{resnum} respectively.}
 
-\item{funcresp}{Options include "type1", 'type2", or "type3".}
+\item{effmatrix}{Matrix of resource efficiencies.
+The number of rows should be equal to \code{spnum} and \code{resnum} respectively.
+NB. Incompatible with specification of resource quotas. Function will
+throw an error if both specified.}
+
+\item{funcresp}{A string or vector of strings of length \code{spnum}.
+Options include "type1", 'type2", or "type3".}
 
 \item{essential}{If FALSE resources are substitutable.}
 
@@ -58,7 +66,9 @@ If FALSE resources grow logistically.}
 vector of length = \code{spnum}.}
 
 \item{resspeed}{Resource intrinsic rate of increase (if chemo = FALSE),
-otherwise chemostat dilution rate. Set to zero for pulsing only.}
+otherwise chemostat dilution rate. Set to zero for pulsing only.
+For continuous dilution of resource without resource supply, \code{resspeed}
+should be non-zero with \code{resconc} set to zero.}
 
 \item{resconc}{Resource carrying capacity (if chemo = FALSE),
 otherwise chemostat supply concentration}
@@ -88,6 +98,10 @@ are interpolated linearly or sinusoidaly, respectively, with period 2x
 \item{cinit}{Initial consumer state values (densities). Either a single
 integer for all consumers or a vector. Defaults to 10 for all
 consumers. Note initial resource state values defaults to \code{resconc}.}
+
+\item{rinit}{Initial resource state values (concentrations). Either a single
+integer for all resources or a vector. Defaults to value given
+in \code{resconc}.}
 
 \item{introseq}{Time sequence as a vector for consumer introductions.
 Vector length must equal spnum.}

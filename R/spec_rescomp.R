@@ -4,7 +4,8 @@
 #' @param spnum Number of consumers
 #' @param resnum Number of resources
 #' @param mumatrix A list containing the matrix(s) of maximum growth rates
-#'     (type 2 or 3) / constant of proportionalities (type 1).
+#'     (type 2 or 3) / resource consumption rate constants (type 1, or type 2
+#'     when paremeterised using conversion efficiencies cf. resource quotas).
 #'     The number of rows should be equal to `spnum` and `resnum` respectively.
 #'     If `timepars` = TRUE, expects a list of length 2.
 #' @param kmatrix Matrix of half saturation constants
@@ -12,13 +13,18 @@
 #'     should be equal to `spnum` and `resnum` respectively.
 #' @param qmatrix Matrix of resource quotas.
 #'     The number of rows should be equal to `spnum` and `resnum` respectively.
-#' @param funcresp A string or vector of strings of length `spnum`.
+#'     Default = 0.001 for all consumers.
+#' @param effmatrix Matrix of resource conversion efficiencies.
+#'     The number of rows should be equal to `spnum` and `resnum` respectively.
+#'     NB. Incompatible with specification of resource quotas. Function will
+#'     throw an error if both specified.
+#' @param funcresp A character vector of length 1 or length equal to`spnum`.
 #'     Options include "type1", 'type2", or "type3".
-#' @param chemo Default is resources supplied continuously (chemostat).
+#' @param chemo Logical. Default is resources supplied continuously (chemostat).
 #'     If FALSE resources grow logistically.
-#' @param essential If FALSE resources are substitutable.
-#' @param mort Density independent mortality rates. Either a single value or a
-#'     vector of length = `spnum`.
+#' @param essential Logical. If FALSE resources are substitutable.
+#' @param mort Density independent mortality rates. Numeric vector of
+#'     length one or length = `spnum`.
 #' @param resspeed Resource intrinsic rate of increase (if chemo = FALSE),
 #'     otherwise chemostat dilution rate. Set to zero for pulsing only.
 #'     For continuous dilution of resource without resource supply, `resspeed`
@@ -28,7 +34,7 @@
 #' @param respulse Resource pulse size.
 #' @param mortpulse Consumer mortality fraction if non-constant mortality
 #'     (e.g. serial-batch transfer).
-#' @param pulsefreq Frequency of resource pulsing and/or intemittent mortality.
+#' @param pulsefreq Frequency of resource pulsing and/or intermittent mortality.
 #' @param batchtrans If TRUE, both resource is also fractionally sampled
 #'     (see vignette).
 #' @param timepars If TRUE, time dependent parameters required.
@@ -81,6 +87,7 @@ spec_rescomp <- function(spnum = 1,
                          mumatrix,
                          kmatrix,
                          qmatrix,
+                         effmatrix = NULL,
                          funcresp = "type1",
                          essential = FALSE,
                          chemo = TRUE,
@@ -227,14 +234,28 @@ spec_rescomp <- function(spnum = 1,
     pars$Ks <- kmatrix
   }
 
-  # qmatrix
-  if (missing(qmatrix)) {
+  # qmatrix/effmatrix
+  if (missing(qmatrix) & is.null(effmatrix)) {
     pars$Qs <- matrix(rep(0.001, times = spnum * resnum),
                       nrow = spnum,
                       byrow = TRUE)
-  } else {
+    pars$eff <- matrix(rep(1, times = spnum * resnum),
+                             nrow = spnum,
+                             byrow = TRUE)
+  } else if (is.null(effmatrix)){
     stopifnot(is.matrix(qmatrix))
     pars$Qs <- qmatrix
+    pars$eff <- matrix(rep(1, times = spnum * resnum),
+                             nrow = spnum,
+                             byrow = TRUE)
+  } else if (!missing(qmatrix) & !is.null(effmatrix)){
+    stop("Only one of resource quotas or efficiency allowed")
+  } else if(missing(qmatrix) & !is.null(effmatrix)){
+    stopifnot(is.matrix(effmatrix))
+    pars$eff <- effmatrix
+    pars$Qs <- matrix(rep(1, times = spnum * resnum),
+                       nrow = spnum,
+                       byrow = TRUE)
   }
 
   # functional response

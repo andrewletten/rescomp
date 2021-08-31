@@ -4,7 +4,7 @@
 \alias{func_form}
 \title{Generate type 1, 2 or 3 functional response}
 \usage{
-func_form(R, mu, Ks = 1, phi = 0, type3 = 1/2)
+func_form(R, mu, Ks = 1, phi = 0, type3 = 1/2, eff = 1, mort = 0)
 }
 \arguments{
 \item{R}{Vector of resource concentrations.}
@@ -17,6 +17,11 @@ func_form(R, mu, Ks = 1, phi = 0, type3 = 1/2)
 0 if linear (default), 1 otherwise.}
 
 \item{type3}{1 if type 3, 1/2 otherwise (default)}
+
+\item{eff}{Resource efficiency (under quota parameterisation ignored /
+set to 1)}
+
+\item{mort}{Mortality rate (currently set to zero)}
 }
 \value{
 vector

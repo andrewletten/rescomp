@@ -6,6 +6,9 @@
 #' @param phi Dummy variable for nonlinear (type I or II) functional responses;
 #'    0 if linear (default), 1 otherwise.
 #' @param type3 1 if type 3, 1/2 otherwise (default)
+#' @param eff Resource efficiency (under quota parameterisation ignored /
+#'     set to 1)
+#' @param mort Mortality rate (currently ignored / set to zero)
 #'
 #' @return vector
 #' @export
@@ -33,7 +36,7 @@
 #'           phi = 1,
 #'           type3 = 1)
 #'
-func_form <- function(R, mu, Ks = 1, phi = 0, type3 = 1/2) {
-  (mu*(R)^(2*type3)) /
-    ((Ks)^(2*type3) + (phi*(R)^(2*type3)))
+func_form <- function(R, mu, Ks = 1, phi = 0, type3 = 1/2, eff = 1, mort = 0) {
+  (eff*mu*(R)^(2*type3)) /
+    ((Ks)^(2*type3) + (phi*(R)^(2*type3))) - mort
 }
