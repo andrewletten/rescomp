@@ -1,8 +1,9 @@
 #' Generate ggplot friendly data frame for plotting functional responses
 #'
-#' @param pars parameter list from spec_rescomp()
-#' @param maxx maximum resource value to get percapita growth rates across
-#' (for plotting)
+#' @param pars Parameter list from spec_rescomp()
+#' @param maxx Maximum resource value to get percapita growth rates across
+#'     (for plotting)
+#' @param madj Logical. Standardize by mortality. Default = FALSE.
 #'
 #' @return data frame
 #' @export
@@ -12,7 +13,7 @@
 #' df_funcresp(pars)
 #'
 #' @importFrom rlang .data
-df_funcresp <- function(pars, maxx) {
+df_funcresp <- function(pars, maxx, madj = FALSE) {
   if (missing(maxx)) {
     resource.levels <- seq(0, 1, length.out = 1000)
   } else {
@@ -38,8 +39,11 @@ df_funcresp <- function(pars, maxx) {
           phi = pars$phi[i, j],
           type3 = pars$type3[i, j],
           eff = pars$eff[i, j],
-          mort = 0
-
+          if(madj == TRUE){
+            mort = pars$all_d[i]
+          } else {
+            mort = 0
+          }
         )
         names(resp.iter)[j] <- paste0("Resource ",
                                       letters[c(1:pars$nresources)[j]])

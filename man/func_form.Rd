@@ -21,7 +21,7 @@ func_form(R, mu, Ks = 1, phi = 0, type3 = 1/2, eff = 1, mort = 0)
 \item{eff}{Resource efficiency (under quota parameterisation ignored /
 set to 1)}
 
-\item{mort}{Mortality rate (currently set to zero)}
+\item{mort}{Mortality rate (currently ignored / set to zero)}
 }
 \value{
 vector

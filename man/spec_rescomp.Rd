@@ -38,7 +38,8 @@ spec_rescomp(
 \item{resnum}{Number of resources}
 
 \item{mumatrix}{A list containing the matrix(s) of maximum growth rates
-(type 2 or 3) / constant of proportionalities (type 1).
+(type 2 or 3) / resource consumption rate constants (type 1, or type 2
+when paremeterised using conversion efficiencies cf. resource quotas).
 The number of rows should be equal to \code{spnum} and \code{resnum} respectively.
 If \code{timepars} = TRUE, expects a list of length 2.}
 
@@ -47,23 +48,24 @@ If \code{timepars} = TRUE, expects a list of length 2.}
 should be equal to \code{spnum} and \code{resnum} respectively.}
 
 \item{qmatrix}{Matrix of resource quotas.
-The number of rows should be equal to \code{spnum} and \code{resnum} respectively.}
+The number of rows should be equal to \code{spnum} and \code{resnum} respectively.
+Default = 0.001 for all consumers.}
 
-\item{effmatrix}{Matrix of resource efficiencies.
+\item{effmatrix}{Matrix of resource conversion efficiencies.
 The number of rows should be equal to \code{spnum} and \code{resnum} respectively.
 NB. Incompatible with specification of resource quotas. Function will
 throw an error if both specified.}
 
-\item{funcresp}{A string or vector of strings of length \code{spnum}.
+\item{funcresp}{A character vector of length 1 or length equal to\code{spnum}.
 Options include "type1", 'type2", or "type3".}
 
-\item{essential}{If FALSE resources are substitutable.}
+\item{essential}{Logical. If FALSE resources are substitutable.}
 
-\item{chemo}{Default is resources supplied continuously (chemostat).
+\item{chemo}{Logical. Default is resources supplied continuously (chemostat).
 If FALSE resources grow logistically.}
 
-\item{mort}{Density independent mortality rates. Either a single value or a
-vector of length = \code{spnum}.}
+\item{mort}{Density independent mortality rates. Numeric vector of
+length one or length = \code{spnum}.}
 
 \item{resspeed}{Resource intrinsic rate of increase (if chemo = FALSE),
 otherwise chemostat dilution rate. Set to zero for pulsing only.
@@ -78,7 +80,7 @@ otherwise chemostat supply concentration}
 \item{mortpulse}{Consumer mortality fraction if non-constant mortality
 (e.g. serial-batch transfer).}
 
-\item{pulsefreq}{Frequency of resource pulsing and/or intemittent mortality.}
+\item{pulsefreq}{Frequency of resource pulsing and/or intermittent mortality.}
 
 \item{batchtrans}{If TRUE, both resource is also fractionally sampled
 (see vignette).}

@@ -4,12 +4,14 @@
 \alias{plot_funcresp}
 \title{Plot functional responses}
 \usage{
-plot_funcresp(pars, maxx)
+plot_funcresp(pars, maxx, madj = FALSE)
 }
 \arguments{
 \item{pars}{Parameter list from spec_rescomp()}
 
 \item{maxx}{Resource value to calculate per-capita growth rates up to (xlim).}
+
+\item{madj}{Logical. Standardize by mortality.}
 }
 \value{
 ggplot object

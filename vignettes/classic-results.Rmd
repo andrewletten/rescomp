@@ -52,7 +52,7 @@ pars <- spec_rescomp(
 
 
 ```{r, fig.width = 4, fig.height = 3}
-plot_funcresp(pars, maxx = 200)
+plot_funcresp(pars, maxx = 200, madj = TRUE)
 ```
 
 ```{r}

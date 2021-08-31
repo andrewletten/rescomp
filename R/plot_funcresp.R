@@ -2,6 +2,7 @@
 #'
 #' @param pars Parameter list from spec_rescomp()
 #' @param maxx Resource value to calculate per-capita growth rates up to (xlim).
+#' @param madj Logical. Standardize by mortality.
 #'
 #' @import ggplot2
 #'
@@ -25,11 +26,11 @@
 #' )
 #' plot_funcresp(pars)
 #'
-plot_funcresp <- function(pars, maxx){
+plot_funcresp <- function(pars, maxx, madj = FALSE){
 
   cbbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
-  df <- df_funcresp(pars, maxx)
+  df <- df_funcresp(pars, maxx, madj)
 
   p <- ggplot2::ggplot(df, aes(y = .data$growth, x = .data$resource.levels)) +
     geom_line(aes(col = .data$sp), size = 1, alpha=0.8) +
@@ -38,20 +39,33 @@ plot_funcresp <- function(pars, maxx){
           strip.background = element_blank(),) +
     xlab("Resource concentration") +
     ylab("Per capita growth rate") +
-    geom_hline(yintercept = pars$all_d, linetype = "dashed") +
     theme(axis.text = element_text(size = 8),
           axis.title= element_text(size = 10)) +
     coord_cartesian(expand = FALSE) +
     scale_colour_manual(values=cbbPalette)
 
   if(length(unique(df$paramstate)) > 1 & length(unique(df$resource)) > 1){
-    p + facet_grid(.data$paramstate ~ .data$resource)
+    p <- p + facet_grid(.data$paramstate ~ .data$resource)
   } else if(length(unique(df$paramstate)) > 1 & length(unique(df$resource)) == 1){
-    p + facet_grid(rows = vars(.data$paramstate))
+    p <- p + facet_grid(rows = vars(.data$paramstate))
   } else if(length(unique(df$paramstate)) == 1 & length(unique(df$resource)) > 1){
-    p + facet_grid(cols = vars(.data$resource))
+    p <- p + facet_grid(cols = vars(.data$resource))
   } else{
-    p
+    p <- p
+  }
+
+  if(madj == TRUE){
+    p + geom_hline(yintercept = 0, linetype = "dashed")
+  } else {
+    if (length(unique(pars$all_d)) > 1){
+      p + geom_hline(yintercept = pars$all_d,
+                     linetype = "dashed",
+                     col = cbbPalette[1:pars$nconsumers])
+    } else {
+      p + geom_hline(yintercept = pars$all_d,
+                     linetype = "dashed")
+    }
+
   }
 }
 

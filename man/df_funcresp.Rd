@@ -4,13 +4,15 @@
 \alias{df_funcresp}
 \title{Generate ggplot friendly data frame for plotting functional responses}
 \usage{
-df_funcresp(pars, maxx)
+df_funcresp(pars, maxx, madj = FALSE)
 }
 \arguments{
-\item{pars}{parameter list from spec_rescomp()}
+\item{pars}{Parameter list from spec_rescomp()}
 
-\item{maxx}{maximum resource value to get percapita growth rates across
+\item{maxx}{Maximum resource value to get percapita growth rates across
 (for plotting)}
+
+\item{madj}{Logical. Standardize by mortality. Default = FALSE.}
 }
 \value{
 data frame
