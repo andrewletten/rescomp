@@ -1,10 +1,10 @@
 #' Define consumer resource ODE function
 #'
-#' @param Time time to simulate over
-#' @param State vector of initial states
-#' @param Pars a list
+#' @param Time Time to simulate over
+#' @param State Vector of initial states
+#' @param Pars A list
 #'
-#' @return model formula to pass to ode
+#' @return Model formula to pass to sim_rescomp
 #' @export
 #'
 # #' @examples

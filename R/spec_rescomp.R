@@ -179,108 +179,18 @@ spec_rescomp <- function(spnum = 1,
     if (length(pars$mu) == 1 & length(pars$Ks) == 1)
       stop("Time dependent parameters set to true but
         only one mu and Ks matrix provided")
-    if (missing(timeparfreq))
+    if (missing(timeparfreq)){
       stop("If timepars = TRUE, timeparfreq must be provided")
-
-    if (tpinterp == "inst" | tpinterp == "lin"){
-      forcetime <- seq(0, totaltime, timeparfreq)
-      mu_funs_byres <- list()
-      mu_funs_bycons <- list()
-
-      if (tpinterp == "inst"){
-        interpmethod <- "constant"
-      } else if (tpinterp == "lin"){
-        interpmethod <- "linear"
-      }
-
-      # list of approx functions
-      for (i in seq_len(nrow(pars$mu[[1]]))) {
-        for (j in seq_len(ncol(pars$mu[[1]]))) {
-          force_mu <- rep(c(pars$mu[[1]][i, j],
-                            pars$mu[[2]][i, j]),
-                          length.out = length(forcetime))
-          mu_funs_byres[[j]] <- approxfun(forcetime,
-                                          force_mu,
-                                          method = interpmethod,
-                                          rule = 2)
-        }
-        mu_funs_bycons[[i]] <- mu_funs_byres
-      }
-      pars$mu_approx_fun <- mu_funs_bycons
+    } else {
       pars$timeparfreq <- timeparfreq
-
-    } else if (tpinterp == "sine"){
-      mu_funs_byres <- list()
-      mu_funs_bycons <- list()
-      timeseq <- seq(0, totaltime, 0.1)
-      # list of approx functions
-      for (i in seq_len(nrow(pars$mu[[1]]))) {
-        for (j in seq_len(ncol(pars$mu[[1]]))) {
-          amplitude <- (pars$mu[[1]][i, j] - pars$mu[[2]][i, j])/2
-          meanmu <- (pars$mu[[1]][i, j] + pars$mu[[2]][i, j])/2
-          wave <- (meanmu + amplitude*sin((2*pi*timeseq)/(timeparfreq)/2))
-          mu_funs_byres[[j]] <- approxfun(timeseq,
-                                          wave,
-                                          method = "linear",
-                                          rule = 2)
-        }
-        mu_funs_bycons[[i]] <- mu_funs_byres
-      }
-      pars$mu_approx_fun <- mu_funs_bycons
-      pars$timeparfreq <- timeparfreq
-
     }
 
-
-    # timedep Ks ----------------------------------------------------
-    if (length(pars$Ks) == 2){
-      if (tpinterp == "inst" | tpinterp == "lin"){
-        forcetime <- seq(0, totaltime, timeparfreq)
-        Ks_funs_byres <- list()
-        Ks_funs_bycons <- list()
-
-        if (tpinterp == "inst"){
-          interpmethod <- "constant"
-        } else if (tpinterp == "lin"){
-          interpmethod <- "linear"
-        }
-
-        # list of approx functions
-        for (i in seq_len(nrow(pars$Ks[[1]]))) {
-          for (j in seq_len(ncol(pars$Ks[[1]]))) {
-            force_Ks <- rep(c(pars$Ks[[1]][i, j],
-                              pars$Ks[[2]][i, j]),
-                            length.out = length(forcetime))
-            Ks_funs_byres[[j]] <- approxfun(forcetime,
-                                            force_Ks,
-                                            method = interpmethod,
-                                            rule = 2)
-          }
-          Ks_funs_bycons[[i]] <- Ks_funs_byres
-        }
-        pars$Ks_approx_fun <- Ks_funs_bycons
-        pars$timeparfreq <- timeparfreq
-
-      } else if (tpinterp == "sine"){
-        Ks_funs_byres <- list()
-        Ks_funs_bycons <- list()
-        timeseq <- seq(0, totaltime, 0.1)
-        # list of approx functions
-        for (i in seq_len(nrow(pars$Ks[[1]]))) {
-          for (j in seq_len(ncol(pars$Ks[[1]]))) {
-            amplitude <- (pars$Ks[[1]][i, j] - pars$Ks[[2]][i, j])/2
-            meanKs <- (pars$Ks[[1]][i, j] + pars$Ks[[2]][i, j])/2
-            wave <- (meanKs + amplitude*sin((2*pi*timeseq)/(timeparfreq)/2))
-            Ks_funs_byres[[j]] <- approxfun(timeseq,
-                                            wave,
-                                            method = "linear",
-                                            rule = 2)
-          }
-          Ks_funs_bycons[[i]] <- Ks_funs_byres
-        }
-        pars$Ks_approx_fun <- Ks_funs_bycons
-        pars$timeparfreq <- timeparfreq
-      }
+    environment(make_tdpars) <- environment()
+    if(length(pars$mu) > 1){
+      pars$mu_approx_fun <- make_tdpars("mu")
+    }
+    if(length(pars$Ks) > 1){
+      pars$Ks_approx_fun <- make_tdpars("Ks")
     }
 
   } else {
