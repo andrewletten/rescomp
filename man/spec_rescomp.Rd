@@ -33,47 +33,51 @@ spec_rescomp(
 )
 }
 \arguments{
-\item{spnum}{Number of consumers}
+\item{spnum}{Integer vector of length 1 for the number of consumers}
 
-\item{resnum}{Number of resources}
+\item{resnum}{Integer vector of length 1 for the numberof resources}
 
-\item{mumatrix}{A list containing the matrix(s) of maximum growth rates
-(type 2 or 3) / resource consumption rate constants (type 1, or type 2
-when paremeterised using conversion efficiencies cf. resource quotas).
-The number of rows should be equal to \code{spnum} and \code{resnum} respectively.
-If \code{timepars} = TRUE, expects a list of length 2.}
+\item{mumatrix}{Numeric matrix or list of matrices, the elements of which
+give the maximum growth rates (type 2 or 3) or resource consumption rate
+constants (type 1, or type 2 when parameterised using conversion
+efficiencies with \code{effmatrix}as opposed to resource quotas with
+\code{qmatrix}). The number of rows should
+be equal to \code{spnum} and \code{resnum} respectively. If \code{timepars} = TRUE,
+expects a list of length 2.}
 
-\item{kmatrix}{Matrix of half saturation constants
+\item{kmatrix}{Numeric matrix of half saturation constants
 (type 2 or type 3, ignored if funcresp = "type1"). The number of rows
 should be equal to \code{spnum} and \code{resnum} respectively.}
 
-\item{qmatrix}{Matrix of resource quotas.
+\item{qmatrix}{Numeric matrix of resource quotas.
 The number of rows should be equal to \code{spnum} and \code{resnum} respectively.
 Default = 0.001 for all consumers.}
 
-\item{effmatrix}{Matrix of resource conversion efficiencies.
+\item{effmatrix}{Numeric matrix of resource conversion efficiencies.
 The number of rows should be equal to \code{spnum} and \code{resnum} respectively.
 NB. Incompatible with specification of resource quotas. Function will
 throw an error if both specified.}
 
-\item{funcresp}{A character vector of length 1 or length equal to\code{spnum}.
+\item{funcresp}{Character vector of length 1 or length equal to\code{spnum}.
 Options include "type1", 'type2", or "type3".}
 
-\item{essential}{Logical. If FALSE resources are substitutable.}
+\item{essential}{Logical vector of length 1. If FALSE resources are substitutable.}
 
 \item{chemo}{Logical. Default is resources supplied continuously (chemostat).
 If FALSE resources grow logistically.}
 
-\item{mort}{Density independent mortality rates. Numeric vector of
-length one or length = \code{spnum}.}
+\item{mort}{Numeric vector of length 1 or length = \code{spnum} specifying
+density independent mortality rates.}
 
-\item{resspeed}{Resource intrinsic rate of increase (if chemo = FALSE),
-otherwise chemostat dilution rate. Set to zero for pulsing only.
-For continuous dilution of resource without resource supply, \code{resspeed}
-should be non-zero with \code{resconc} set to zero.}
+\item{resspeed}{Numeric vector of length 1 specifying resource intrinsic
+rate of increase (if chemo = FALSE), or otherwise chemostat dilution
+rate. Set to zero for pulsing only. For continuous dilution of resource
+without resource supply, \code{resspeed} should be non-zero with \code{resconc}
+set to zero.}
 
-\item{resconc}{Resource carrying capacity (if chemo = FALSE),
-otherwise chemostat supply concentration}
+\item{resconc}{Numeric vector of length 1 or length = \code{resnum} specifying
+resource carrying capacity (if chemo = FALSE), or otherwise chemostat
+supply concentration}
 
 \item{respulse}{Resource pulse size.}
 

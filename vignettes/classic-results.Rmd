@@ -1,5 +1,5 @@
 ---
-title: "Classic results with rescomp"
+title: "Reproducing past studies in resource competition with rescomp"
 output: rmarkdown::html_document
 vignette: >
   %\VignetteIndexEntry{classic-results}
@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This vignette reproduces classic results from the literature with `rescomp`.
+This vignette demonstrates the use of `rescomp` to reproduce various analyses of resource competition from the literature.
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -20,52 +20,8 @@ knitr::opts_chunk$set(
 library(rescomp)
 ```
 
-### Armstrong and McGehee (1980) Competitive Exclusion. *The American Naturalist*.
 
-```{r}
-pars <- spec_rescomp(
-  spnum = 2, 
-  resnum = 1,
-  funcresp = c("type2", "type1"),
-  mumatrix = list(matrix(c(0.5, 0.003), 
-                    nrow = 2, 
-                    ncol = 1,
-                    byrow = TRUE)),
-  kmatrix = matrix(c(50, 1), 
-                   nrow = 2, 
-                   ncol = 1, 
-                   byrow = TRUE),  
-  effmatrix = matrix(c(0.3, 0.33), 
-                   nrow = 2, 
-                   ncol = 1, 
-                   byrow = TRUE),  
-  mort = c(0.1, 0.11),
-  chemo = FALSE,
-  resspeed = 0.1,
-  resconc = 300,
-  totaltime = 600,
-  cinit = c(1,0.01),
-  rinit = 400,
-  introseq = c(0,194)
-)
-```
-
-
-```{r, fig.width = 4, fig.height = 3}
-plot_funcresp(pars, maxx = 200, madj = TRUE)
-```
-
-```{r}
-m1 <- sim_rescomp(pars)
-```
-
-```{r, fig.width = 6, fig.height = 3}
-plot_rescomp(m1)
-```
-
-
-
-### Huisman and Weissing (1999) [Biodiversity of plankton by species oscillations and chaos](https://www.nature.com/articles/46540). *Nature*, 402, 407–410
+# Huisman and Weissing (1999) [Biodiversity of plankton by species oscillations and chaos](https://www.nature.com/articles/46540). *Nature*, 402, 407–410
 
 
 ```{r}
@@ -123,7 +79,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resources = FALSE)
 ```
 
-#### Grover (1990) Resource Competition in a Variable Environment: Phytoplankton Growing According to Monod's Model. *The American Naturalist*.
+# Grover (1990) Resource Competition in a Variable Environment: Phytoplankton Growing According to Monod's Model. *The American Naturalist*.
 
 
 ```{r}
@@ -184,7 +140,7 @@ plot_rescomp(m1, resource = FALSE, logy = TRUE)
 ```
 
 
-```{r, fig.cap = "Reproduces Fig 4C from Grover (1990)."}
+```{r}
 period <- 4
 amp <- ((0.0002*0.25*period)/(1 - exp(-0.25*period)) - 0.0002)*2
 pars$respulse <- amp
@@ -193,7 +149,7 @@ pars$pulsefreq <- period
 pars
 ```
 
-```{r}
+```{r, fig.cap = "Reproduces Fig 4C from Grover (1990)."}
 m4 <- sim_rescomp(pars)
 plot_rescomp(m4, resource = FALSE, logy = TRUE)
 ```
@@ -212,3 +168,50 @@ pars
 m10 <- sim_rescomp(pars)
 plot_rescomp(m10, resource = FALSE, logy = TRUE)
 ```
+
+
+
+# Armstrong and McGehee (1980) Competitive Exclusion. *The American Naturalist*.
+
+```{r}
+pars <- spec_rescomp(
+  spnum = 2, 
+  resnum = 1,
+  funcresp = c("type2", "type1"),
+  mumatrix = matrix(c(0.5, 0.003), 
+                    nrow = 2, 
+                    ncol = 1,
+                    byrow = TRUE),
+  kmatrix = matrix(c(50, 1), 
+                   nrow = 2, 
+                   ncol = 1, 
+                   byrow = TRUE),  
+  effmatrix = matrix(c(0.3, 0.33), 
+                   nrow = 2, 
+                   ncol = 1, 
+                   byrow = TRUE),  
+  mort = c(0.1, 0.11),
+  chemo = FALSE,
+  resspeed = 0.1,
+  resconc = 300,
+  totaltime = 600,
+  cinit = c(1,0.01),
+  rinit = 100,
+  introseq = c(0,194)
+)
+```
+
+
+```{r, fig.width = 4, fig.height = 3}
+plot_funcresp(pars, maxx = 200, madj = TRUE)
+```
+
+```{r}
+m1 <- sim_rescomp(pars)
+```
+
+```{r, fig.width = 6, fig.height = 3}
+plot_rescomp(m1)
+```
+
+# Hastings et al,. 2018. Transient phenomena in ecology. Science, 361(6406).

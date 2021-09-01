@@ -1,36 +1,40 @@
 #' Generate list of parameters for a consumer-resource model to be
 #'     passed to `sim_rescomp`
 #'
-#' @param spnum Number of consumers
-#' @param resnum Number of resources
-#' @param mumatrix A list containing the matrix(s) of maximum growth rates
-#'     (type 2 or 3) / resource consumption rate constants (type 1, or type 2
-#'     when paremeterised using conversion efficiencies cf. resource quotas).
-#'     The number of rows should be equal to `spnum` and `resnum` respectively.
-#'     If `timepars` = TRUE, expects a list of length 2.
-#' @param kmatrix Matrix of half saturation constants
+#' @param spnum Integer vector of length 1 for the number of consumers
+#' @param resnum Integer vector of length 1 for the numberof resources
+#' @param mumatrix Numeric matrix or list of matrices, the elements of which
+#'     give the maximum growth rates (type 2 or 3) or resource consumption rate
+#'     constants (type 1, or type 2 when parameterised using conversion
+#'     efficiencies with `effmatrix` as opposed to resource quotas with
+#'     `qmatrix`). The number of rows should
+#'     be equal to `spnum` and `resnum` respectively. If `timepars` = TRUE,
+#'     expects a list of length 2.
+#' @param kmatrix Numeric matrix of half saturation constants
 #'     (type 2 or type 3, ignored if funcresp = "type1"). The number of rows
 #'     should be equal to `spnum` and `resnum` respectively.
-#' @param qmatrix Matrix of resource quotas.
+#' @param qmatrix Numeric matrix of resource quotas.
 #'     The number of rows should be equal to `spnum` and `resnum` respectively.
 #'     Default = 0.001 for all consumers.
-#' @param effmatrix Matrix of resource conversion efficiencies.
+#' @param effmatrix Numeric matrix of resource conversion efficiencies.
 #'     The number of rows should be equal to `spnum` and `resnum` respectively.
 #'     NB. Incompatible with specification of resource quotas. Function will
 #'     throw an error if both specified.
-#' @param funcresp A character vector of length 1 or length equal to`spnum`.
+#' @param funcresp Character vector of length 1 or length equal to `spnum`.
 #'     Options include "type1", 'type2", or "type3".
 #' @param chemo Logical. Default is resources supplied continuously (chemostat).
 #'     If FALSE resources grow logistically.
-#' @param essential Logical. If FALSE resources are substitutable.
-#' @param mort Density independent mortality rates. Numeric vector of
-#'     length one or length = `spnum`.
-#' @param resspeed Resource intrinsic rate of increase (if chemo = FALSE),
-#'     otherwise chemostat dilution rate. Set to zero for pulsing only.
-#'     For continuous dilution of resource without resource supply, `resspeed`
-#'     should be non-zero with `resconc` set to zero.
-#' @param resconc Resource carrying capacity (if chemo = FALSE),
-#'     otherwise chemostat supply concentration
+#' @param essential Logical vector of length 1. If FALSE resources are substitutable.
+#' @param mort Numeric vector of length 1 or length = `spnum` specifying
+#'     density independent mortality rates.
+#' @param resspeed Numeric vector of length 1 specifying resource intrinsic
+#'     rate of increase (if chemo = FALSE), or otherwise chemostat dilution
+#'     rate. Set to zero for pulsing only. For continuous dilution of resource
+#'     without resource supply, `resspeed` should be non-zero with `resconc`
+#'     set to zero.
+#' @param resconc Numeric vector of length 1 or length = `resnum` specifying
+#'     resource carrying capacity (if chemo = FALSE), or otherwise chemostat
+#'     supply concentration
 #' @param respulse Resource pulse size.
 #' @param mortpulse Consumer mortality fraction if non-constant mortality
 #'     (e.g. serial-batch transfer).
@@ -71,11 +75,11 @@
 #'     spnum = 2,
 #'     resnum = 2,
 #'     funcresp = "type2",
-#'     mumatrix = list(matrix(c(0.7,0.3,
-#'                              0.4,0.5),
-#'                            nrow = 2,
-#'                            ncol = 2,
-#'                            byrow = TRUE)),
+#'     mumatrix = matrix(c(0.7,0.3,
+#'                         0.4,0.5),
+#'                         nrow = 2,
+#'                         ncol = 2,
+#'                         byrow = TRUE)),
 #'     resspeed = 3,
 #'     resconc = 1,
 #'     chemo = TRUE,
@@ -105,7 +109,6 @@ spec_rescomp <- function(spnum = 1,
                          cinit = 10,
                          rinit = NULL,
                          introseq = NULL,
- #                        rinit,
                          verbose = TRUE) {
 
   # Check input classes
@@ -136,9 +139,12 @@ spec_rescomp <- function(spnum = 1,
              nrow = spnum,
              byrow = TRUE))
   } else {
-    stopifnot(is.list(mumatrix))
+    stopifnot(is.list(mumatrix) | is.matrix(mumatrix))
     pars$mu <- mumatrix
   }
+
+  if (!is.list(pars$mu)) pars$mu = list(pars$mu)
+
   if (nrow(pars$mu[[1]]) != spnum)
     stop(paste0(
       "mumatrix(s) should have ",
@@ -395,6 +401,7 @@ spec_rescomp <- function(spnum = 1,
 #'
 print.rescomp <- function(x, ..., detail = "summary"){
   pars <-  x
+  unifuncresps <- unique(pars$funcresp)
   if (detail == "summary"){
   message(
     "Model properties \n",
@@ -403,10 +410,33 @@ print.rescomp <- function(x, ..., detail = "summary"){
            pars$nconsumers, " consumer(s) and ", pars$nresources, " resource(s)",
            "\n"),
 
-    paste0(" * ",
-           "Consumers have ",
-           gsub("(\\w+)(\\d)", "\\1 \\2", pars$funcresp), " functional responses",
-           "\n"),
+    if (length(unifuncresps) == 1){
+      paste0(" * ",
+             "Consumers have ",
+             gsub("(\\w+)(\\d)", "\\1 \\2", unifuncresps), " functional responses",
+             "\n")
+    } else if (length(unifuncresps) == 2){
+      paste0(" * ",
+             "Consumers have ",
+             gsub("(\\w+)(\\d)", "\\1 \\2", unifuncresps[1]),
+             " or ",
+             gsub("(\\w+)(\\d)", "\\1 \\2", unifuncresps[2]),
+             " functional responses",
+             "\n")
+
+    } else if (length(unifuncresps) == 3){
+      paste0(" * ",
+             "Consumers have ",
+             gsub("(\\w+)(\\d)", "\\1 \\2", unifuncresps[1]),
+             " or ",
+             gsub("(\\w+)(\\d)", "\\1 \\2", unifuncresps[2]),
+             " or ",
+             gsub("(\\w+)(\\d)", "\\1 \\2", unifuncresps[3]),
+             " functional responses",
+             "\n")
+    },
+
+
 
     if (pars$nresources > 1) {
       paste0(" * ",

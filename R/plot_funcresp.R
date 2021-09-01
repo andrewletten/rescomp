@@ -1,8 +1,10 @@
 #' Plot functional responses
 #'
 #' @param pars Parameter list from spec_rescomp()
-#' @param maxx Resource value to calculate per-capita growth rates up to (xlim).
-#' @param madj Logical. Standardize by mortality.
+#' @param maxx Numeric vector of length 1.
+#'     Resource value to calculate per-capita growth rates up to (xlim).
+#' @param madj Logical vector of length 1. Whether to standardize per capita
+#'      growth rates by mortality.
 #'
 #' @import ggplot2
 #'
@@ -25,6 +27,7 @@
 #'                            byrow = TRUE))
 #' )
 #' plot_funcresp(pars)
+#' plot_funcresp(pars, madj = TRUE)
 #'
 plot_funcresp <- function(pars, maxx, madj = FALSE){
 
@@ -55,7 +58,7 @@ plot_funcresp <- function(pars, maxx, madj = FALSE){
   }
 
   if(madj == TRUE){
-    p + geom_hline(yintercept = 0, linetype = "dashed")
+    p + geom_hline(yintercept = 0, col = "grey")
   } else {
     if (length(unique(pars$all_d)) > 1){
       p + geom_hline(yintercept = pars$all_d,
