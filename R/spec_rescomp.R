@@ -162,15 +162,23 @@ spec_rescomp <- function(spnum = 1,
       resources.")
       )
 
+  # kmatrix
+  if (missing(kmatrix)) {
+    pars$Ks <- list(matrix(rep(1, times = spnum * resnum),
+                      nrow = spnum,
+                      byrow = TRUE))
+  } else {
+    stopifnot(is.matrix(kmatrix) | is.list(kmatrix))
+    pars$Ks <- kmatrix
+  }
+
+  if (!is.list(pars$Ks)) pars$Ks <- list(pars$Ks)
 
   # time dependent parms
   if (timepars == TRUE) {
-    # stopifnot(is.numeric(timeswitch))
-    # stopifnot(is.numeric(timeswitch_length))
-    if (length(pars$mu) == 1)
-      stop(
-        "Time dependent parameters set to true but
-        only one mu matrix provided")
+    if (length(pars$mu) == 1 & length(pars$Ks) == 1)
+      stop("Time dependent parameters set to true but
+        only one mu and Ks matrix provided")
     if (missing(timeparfreq))
       stop("If timepars = TRUE, timeparfreq must be provided")
 
@@ -223,22 +231,65 @@ spec_rescomp <- function(spnum = 1,
 
     }
 
+
+    # timedep Ks ----------------------------------------------------
+    if (length(pars$Ks) == 2){
+      if (tpinterp == "inst" | tpinterp == "lin"){
+        forcetime <- seq(0, totaltime, timeparfreq)
+        Ks_funs_byres <- list()
+        Ks_funs_bycons <- list()
+
+        if (tpinterp == "inst"){
+          interpmethod <- "constant"
+        } else if (tpinterp == "lin"){
+          interpmethod <- "linear"
+        }
+
+        # list of approx functions
+        for (i in seq_len(nrow(pars$Ks[[1]]))) {
+          for (j in seq_len(ncol(pars$Ks[[1]]))) {
+            force_Ks <- rep(c(pars$Ks[[1]][i, j],
+                              pars$Ks[[2]][i, j]),
+                            length.out = length(forcetime))
+            Ks_funs_byres[[j]] <- approxfun(forcetime,
+                                            force_Ks,
+                                            method = interpmethod,
+                                            rule = 2)
+          }
+          Ks_funs_bycons[[i]] <- Ks_funs_byres
+        }
+        pars$Ks_approx_fun <- Ks_funs_bycons
+        pars$timeparfreq <- timeparfreq
+
+      } else if (tpinterp == "sine"){
+        Ks_funs_byres <- list()
+        Ks_funs_bycons <- list()
+        timeseq <- seq(0, totaltime, 0.1)
+        # list of approx functions
+        for (i in seq_len(nrow(pars$Ks[[1]]))) {
+          for (j in seq_len(ncol(pars$Ks[[1]]))) {
+            amplitude <- (pars$Ks[[1]][i, j] - pars$Ks[[2]][i, j])/2
+            meanKs <- (pars$Ks[[1]][i, j] + pars$Ks[[2]][i, j])/2
+            wave <- (meanKs + amplitude*sin((2*pi*timeseq)/(timeparfreq)/2))
+            Ks_funs_byres[[j]] <- approxfun(timeseq,
+                                            wave,
+                                            method = "linear",
+                                            rule = 2)
+          }
+          Ks_funs_bycons[[i]] <- Ks_funs_byres
+        }
+        pars$Ks_approx_fun <- Ks_funs_bycons
+        pars$timeparfreq <- timeparfreq
+      }
+    }
+
   } else {
-    if (length(pars$mu) > 1)
+    if (length(pars$mu) > 1 | length(pars$Ks) > 1)
       stop(paste0(
         "Time dependent parameters set to FALSE but
-        more than one mu matrix provided"))
+        more than one mu or Ks matrix provided"))
   }
 
-  # kmatrix
-  if (missing(kmatrix)) {
-    pars$Ks <- matrix(rep(1, times = spnum * resnum),
-                      nrow = spnum,
-                      byrow = TRUE)
-  } else {
-    stopifnot(is.matrix(kmatrix))
-    pars$Ks <- kmatrix
-  }
 
   # qmatrix/effmatrix
   if (missing(qmatrix) & is.null(effmatrix)) {
@@ -311,10 +362,19 @@ spec_rescomp <- function(spnum = 1,
       if (funcresp[i] == "type1"){
         pars$phi[i,] = pars$phi[i,]
         pars$type3[i,] = pars$type3[i,]
-        pars$Ks[i,] = 1
-        if (any(kmatrix[i,] != 1)){warning(
-          paste0(strwrap("Warning: half saturation constant ignored (set to 1) for
+        if (length(kmatrix) == 1){
+          pars$Ks[[1]][i,] = 1
+          if (any(kmatrix[i,] != 1)){warning(
+            paste0(strwrap("Warning: half saturation constant ignored (set to 1) for
                   type 1 functional response", prefix = " ")), "\n\n")}
+        } else {
+          pars$Ks[[1]][i,] = 1
+          pars$Ks[[2]][i,] = 1
+          if (any(kmatrix[[1]][i,] != 1) | any(kmatrix[[2]][i,] != 1)){warning(
+            paste0(strwrap("Warning: half saturation constant ignored (set to 1) for
+                  type 1 functional response", prefix = " ")), "\n\n")}
+        }
+
       } else if (funcresp[i] == "type2"){
         pars$phi[i,] = 1
         pars$type3[i,] = pars$type3[i,]

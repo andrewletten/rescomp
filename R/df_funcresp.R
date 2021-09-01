@@ -34,8 +34,16 @@ df_funcresp <- function(pars, maxx, madj = FALSE) {
       for (j in 1:pars$nresources) {
         resp.iter[, j] <- func_form(
           R = resource.levels,
-          mu = pars$mu[[k]][i, j],
-          Ks = pars$Ks[i, j],
+          if (length(pars$mu) == 1){
+            mu = pars$mu[[1]][i, j]
+          } else {
+            mu = pars$mu[[k]][i, j]
+          },
+          if (length(pars$Ks) == 1){
+            mu = pars$Ks[[1]][i, j]
+          } else {
+            mu = pars$Ks[[k]][i, j]
+          },
           phi = pars$phi[i, j],
           type3 = pars$type3[i, j],
           eff = pars$eff[i, j],
