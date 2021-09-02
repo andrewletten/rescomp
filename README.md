@@ -107,7 +107,7 @@ for: i) two consumers with type II functional responses on a single
 logistically growing resources; and ii) two consumers with type III
 functional responses with pulsed resources and time dependent growth
 parameters. A wide range of other examples can be found in the package
-vignette.
+vignettes.
 
 ### Example 1
 

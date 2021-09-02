@@ -32,9 +32,11 @@ $$
 \frac{dR_{j}}{dt} = \Psi_{j} (R_{j}) - \sum_{i = 1}^{n}Q_{ij} \mu_{ij}(R_j) N_i \,,
 $$
 
-where $N_{i}$ is the population density of consumer $i$, $R_{j}$ is the density/concentration of resource $j$, $\mu_{i}()$ is the per capita consumer functional response of consumer $i$, $m$ is the per capita mortality rate (constant or pulsed), $\Psi_{j}(R_j)$ is the resource supply function, and $Q_{ij}$ is the resource quota of consumer $i$ on resource $j$.  
+where $N_{i}$ is the population density of consumer $i$, $R_{j}$ is the density/concentration of resource $j$, $\mu_{i}()$ is the per capita consumer functional response of consumer $i$, $m$ is the per capita mortality rate (constant or pulsed), $\Psi_{j}(R_j)$ is the resource supply function, and $Q_{ij}$ is the resource quota of consumer $i$ on resource $j$ (the amount of resource per unit consumer). 
 
-From this general form, different model formulations are distinguished by: i) the number of consumers/resources; ii) the form of the consumer functional response; iii) the mode of resource supply; iv) the type of resource; and v) any non-autonomous behaviour including instantaneous changes in consumer/resource density and/or time dependent model parameters.
+From this general form, different model formulations are distinguished by: i) the number of consumers/resources; ii) the form of the consumer functional response; iii) the mode of resource supply; iv) the type of resource; and v) any non-autonomous behaviour including time dependent model parameters and/or instantaneous changes in consumer/resource density (e.g. in batch transfer).
+
+## Consumer equations
 
 The consumer growth function can take one of three forms: 
 
@@ -44,23 +46,25 @@ $$
 \mu_{ij}(R_{j}) = a_{ij}R_{j} \,,
 $$
  
-where $a_{ij}$ is a constant of proportionality; 
+where $a_{ij}$ is a resource consumption constant. 
 
-ii) nonlinear type II (aka Monod),
+ii) nonlinear type II (aka Monod)
  
 $$
-\mu_{ij}(R_{j}) = \mu _{max_{ij}}\frac{R_{j}}{k_{ij} + R_{j}} \,,
+\mu_{ij}(R_{j}) = \mu_{max_{ij}}\frac{R_{j}}{k_{ij} + R_{j}} \,,
 $$
  
-where $\mu_{max_{ij}}$ is the maximum growth rate and $k_{ij}$ is the half saturation constant for consumer $i$ on resource $j$; or 
+where $\mu_{max_{ij}}$ is the maximum growth rate and $k_{ij}$ is the half saturation constant for consumer $i$ on resource $j$.
 
-iii) nonlinear type III,
+iii) nonlinear type III (sigmoidal),
 
 $$
 \mu_{ij}(R_{j}) = \mu _{max_{ij}}\frac{R_{j}^2}{k_{ij}^2 + R_{j}^2} \,.
 $$
 
-In all three cases, the functional response is either assumed to be constant or variable through time (the latter is mediated by time dependent formulations of $a_{ij}$ (type I) or $\mu_{max_{ij}}$ (type II & III).
+An alternative parameterisation to all three functional responses is to incorporate a consumption efficiency term, $c_{ij}$. The type I model becomes $\mu_{ij}(R_{j}) = a_{ij}c_{ij}R_{j}$, and for type II and III, $a_{ij}c_{ij}$ is substituted for $\mu _{max_{ij}}$. NB. this functional form is mutually exclusive with the specification of resources quotas in the resource equations, i.e. the $Q_{ij}$s are dropped from the resource equations.
+
+## Resource equations
 
 The resource supply function, $\Psi_{j}(R_j)$, can also take several forms. Specifically, either the resources are biological and grow logistically,
  
@@ -76,9 +80,9 @@ $$
 \Psi_{j} (R_{j}) = d(S_{j} - R_{j}) \,,
 $$
  
-where \textit{d} represents the flux of resources into and out of the system.
+where \textit{d} represents the flux of resources into and out of the system;
 
-Or the resources are pulsed intermittently (see below).
+Or the resources are pulsed intermittently (more examples).
 
 In the case of multiple resources, each resource is either treated as essential to consumer growth following Leibig's law of the minimum, in which case,
  
@@ -92,7 +96,6 @@ $$
 \mu_{i}(R_{1}, R_{2},...,R_{n}) = \mu_{i}(R_{1}) + \mu_{i}(R_{2}) + ... + \mu_{i}(R_{n}) \,.
 $$ 
 
-The model specification also allows for instantaneous changes in consumer and resource state variables, e.g. in batch transfer (further details in examples below).
 
 # Using `rescomp` 
 
@@ -103,7 +106,8 @@ The main user function in `rescomp` is `spec_rescomp()`, which facilitates the d
 - Resource dynamic (chemostat, logistic and/or pulsed)
 - Resource type (substitutable or essential)
 - Continuous or intermittent mortality (e.g. serial transfer)
-- Time dependent consumption parameters 
+- Delayed consumer introduction times 
+- Time dependent growth and consumption parameters 
 
 See `?spec_rescomp` for all argument options.
 
