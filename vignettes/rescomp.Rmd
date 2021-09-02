@@ -99,7 +99,7 @@ $$
 
 # Using `rescomp` 
 
-The main user function in `rescomp` is `spec_rescomp()`, which facilitates the definition and parameterisation of a desired model and the specification of simulation parameters. Function arguments include (but are not limited to): 
+The main user function in `rescomp` is `spec_rescomp()`, which facilitates the definition and parameterisation of a consumer-resource model and the specification of simulation parameters. Function arguments include (but are not limited to): 
 
 - Number of consumers/resources
 - Consumer functional response (type I, II or II)
@@ -124,6 +124,7 @@ See `?spec_rescomp` for all argument options.
 - Two consumers (type 2) with time dependent consumption parameters and one continuously supplied resource
 - Three consumers (type 1) on three essential resources generating an intransitive loop (i.e. rock paper scissors dynamics). 
 
+Additional examples illustrating other options and functionality can be found in the vignette "*Reproducing studies in resource competition with rescomp*", including delayed consumer introduction times and specifying a model with consumer resource efficiencies rather than resource quotas. 
 
 ## Type 2 consumer on a logistically growing resource
 
@@ -163,7 +164,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1)
 ```
 
-Note the total simulation time and initial state variables given by `parms` can be overidden in `sim_recomp` with the arguments `times` and `y`, respectively. This will nevertheless print a message to make sure it is intentional. See `?rescomp::time_vals` for convenient specification of simulation time (and pulsing when used).    
+Note the total simulation time and initial state variables given by `parms` can be overidden in `sim_recomp` with the arguments `times` and `y`, respectively. This will nevertheless print a message to the console to check it is intentional. See `?rescomp::time_vals` for convenient specification of simulation time (and pulsing when used).    
 
 ```{r}
 m1 <- sim_rescomp(pars, y = c(30000, 1), times = time_vals(200))

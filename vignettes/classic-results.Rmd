@@ -1,5 +1,5 @@
 ---
-title: "Reproducing past studies in resource competition with rescomp"
+title: "Reproducing studies in resource competition with rescomp"
 output: rmarkdown::html_document
 vignette: >
   %\VignetteIndexEntry{classic-results}
@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This vignette demonstrates the use of `rescomp` to reproduce various analyses of resource competition from the literature.
+This vignette demonstrates the use of `rescomp` to reproduce a variety of analyses of resource competition from the literature.
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -21,7 +21,9 @@ library(rescomp)
 ```
 
 
-# Huisman and Weissing (1999) [Biodiversity of plankton by species oscillations and chaos](https://www.nature.com/articles/46540). *Nature*, 402, 407–410
+# Huisman and Weissing (1999)
+
+[Biodiversity of plankton by species oscillations and chaos](https://www.nature.com/articles/46540). *Nature*, 402, 407–410
 
 
 ```{r}
@@ -65,7 +67,7 @@ pars <- spec_rescomp(
   introseq = c(0, 0, 0, 1000, 2000, 5000)
 )
 ```
-```{r}
+```{r, fig.width = 8, fig.height = 3,}
 plot_funcresp(pars)
 ```
 
@@ -75,11 +77,13 @@ plot_funcresp(pars)
 m1 <- sim_rescomp(pars)
 ```
 
-```{r, fig.cap = "Reproduces Fig 1c from Huisman and Weissing (1999)."}
+```{r, fig.width = 8, fig.height = 3, fig.cap = "Reproduces Fig 1c from Huisman and Weissing (1999)."}
 plot_rescomp(m1, resources = FALSE)
 ```
 
-# Grover (1990) Resource Competition in a Variable Environment: Phytoplankton Growing According to Monod's Model. *The American Naturalist*.
+# Grover (1990) 
+
+[Resource Competition in a Variable Environment: Phytoplankton Growing According to Monod's Model](https://www.journals.uchicago.edu/doi/abs/10.1086/285131). *The American Naturalist*, 136(6), 771-789.
 
 
 ```{r}
@@ -110,7 +114,7 @@ pars <- spec_rescomp(
 )
 ```
 
-```{r, fig.cap = "Reproduces Fig 1 from Grover (1990). Resource concentration in $mu$mol per ml rather than  per L."}
+```{r, fig.width = 4, fig.height = 3, fig.cap = "Reproduces Fig 1 from Grover (1990). Resource concentration in $mu$mol per ml rather than  per L."}
 plot_funcresp(pars, maxx = 0.0001)
 ```
 
@@ -119,7 +123,7 @@ mcons <- sim_rescomp(pars)
 ```
 
 
-```{r, warning = FALSE, fig.cap = "Reproduces Fig 4A from Grover (1990)."}
+```{r, fig.width = 4, fig.height = 3, warning = FALSE, fig.cap = "Reproduces Fig 4A from Grover (1990)."}
 plot_rescomp(mcons, resources = FALSE, logy = TRUE)
 ```
 
@@ -134,7 +138,7 @@ pars$pulsefreq <- period
 pars
 ```
 
-```{r, fig.cap = "Reproduces Fig 4B from Grover (1990)."}
+```{r, fig.width = 4, fig.height = 3, fig.cap = "Reproduces Fig 4B from Grover (1990)."}
 m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resource = FALSE, logy = TRUE)
 ```
@@ -149,7 +153,7 @@ pars$pulsefreq <- period
 pars
 ```
 
-```{r, fig.cap = "Reproduces Fig 4C from Grover (1990)."}
+```{r, fig.width = 4, fig.height = 3, fig.cap = "Reproduces Fig 4C from Grover (1990)."}
 m4 <- sim_rescomp(pars)
 plot_rescomp(m4, resource = FALSE, logy = TRUE)
 ```
@@ -164,14 +168,16 @@ pars$pulsefreq <- period
 pars
 ```
 
-```{r, fig.cap = "Reproduces Fig 4D from Grover (1990)."}
+```{r, fig.width = 4, fig.height = 3, fig.cap = "Reproduces Fig 4D from Grover (1990)."}
 m10 <- sim_rescomp(pars)
 plot_rescomp(m10, resource = FALSE, logy = TRUE)
 ```
 
 
 
-# Armstrong and McGehee (1980) Competitive Exclusion. *The American Naturalist*.
+# Armstrong and McGehee (1980) 
+
+[Competitive Exclusion](https://www.journals.uchicago.edu/doi/10.1086/283553). *The American Naturalist*, 115(2), 151-170.
 
 ```{r}
 pars <- spec_rescomp(
@@ -202,7 +208,9 @@ pars <- spec_rescomp(
 ```
 
 
-```{r, fig.width = 4, fig.height = 3}
+```{r, fig.width = 4, fig.height = 3, fig.cap = "Corresponds to Fig 2 from Armstrong and McGehee (1980)."}
+
+# Using madj = TRUE standardizes the functional response by mortality.
 plot_funcresp(pars, maxx = 200, madj = TRUE)
 ```
 
@@ -210,8 +218,8 @@ plot_funcresp(pars, maxx = 200, madj = TRUE)
 m1 <- sim_rescomp(pars)
 ```
 
-```{r, fig.width = 6, fig.height = 3}
+```{r, fig.width = 6, fig.height = 3, fig.cap = "Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide a closer correspondence to the original figure."}
 plot_rescomp(m1)
 ```
 
-# Hastings et al,. 2018. Transient phenomena in ecology. Science, 361(6406).
+<!-- # Hastings et al,. 2018. Transient phenomena in ecology. Science, 361(6406). -->
