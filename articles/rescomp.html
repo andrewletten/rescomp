@@ -97,8 +97,11 @@
 <p><span class="math display">\[
 \frac{dR_{j}}{dt} = \Psi_{j} (R_{j}) - \sum_{i = 1}^{n}Q_{ij} \mu_{ij}(R_j) N_i \,,
 \]</span></p>
-<p>where <span class="math inline">\(N_{i}\)</span> is the population density of consumer <span class="math inline">\(i\)</span>, <span class="math inline">\(R_{j}\)</span> is the density/concentration of resource <span class="math inline">\(j\)</span>, <span class="math inline">\(\mu_{i}()\)</span> is the per capita consumer functional response of consumer <span class="math inline">\(i\)</span>, <span class="math inline">\(m\)</span> is the per capita mortality rate (constant or pulsed), <span class="math inline">\(\Psi_{j}(R_j)\)</span> is the resource supply function, and <span class="math inline">\(Q_{ij}\)</span> is the resource quota of consumer <span class="math inline">\(i\)</span> on resource <span class="math inline">\(j\)</span>.</p>
-<p>From this general form, different model formulations are distinguished by: i) the number of consumers/resources; ii) the form of the consumer functional response; iii) the mode of resource supply; iv) the type of resource; and v) any non-autonomous behaviour including instantaneous changes in consumer/resource density and/or time dependent model parameters.</p>
+<p>where <span class="math inline">\(N_{i}\)</span> is the population density of consumer <span class="math inline">\(i\)</span>, <span class="math inline">\(R_{j}\)</span> is the density/concentration of resource <span class="math inline">\(j\)</span>, <span class="math inline">\(\mu_{i}()\)</span> is the per capita consumer functional response of consumer <span class="math inline">\(i\)</span>, <span class="math inline">\(m\)</span> is the per capita mortality rate (constant or pulsed), <span class="math inline">\(\Psi_{j}(R_j)\)</span> is the resource supply function, and <span class="math inline">\(Q_{ij}\)</span> is the resource quota of consumer <span class="math inline">\(i\)</span> on resource <span class="math inline">\(j\)</span> (the amount of resource per unit consumer).</p>
+<p>From this general form, different model formulations are distinguished by: i) the number of consumers/resources; ii) the form of the consumer functional response; iii) the mode of resource supply; iv) the type of resource; and v) any non-autonomous behaviour including time dependent model parameters and/or instantaneous changes in consumer/resource density (e.g. in batch transfer).</p>
+<div id="consumer-equations" class="section level2">
+<h2 class="hasAnchor">
+<a href="#consumer-equations" class="anchor"></a>Consumer equations</h2>
 <p>The consumer growth function can take one of three forms:</p>
 <ol style="list-style-type: lower-roman">
 <li>linear (type I),</li>
@@ -106,21 +109,25 @@
 <p><span class="math display">\[
 \mu_{ij}(R_{j}) = a_{ij}R_{j} \,,
 \]</span></p>
-<p>where <span class="math inline">\(a_{ij}\)</span> is a constant of proportionality;</p>
+<p>where <span class="math inline">\(a_{ij}\)</span> is a resource consumption constant.</p>
 <ol start="2" style="list-style-type: lower-roman">
-<li>nonlinear type II (aka Monod),</li>
+<li>nonlinear type II (aka Monod)</li>
 </ol>
 <p><span class="math display">\[
-\mu_{ij}(R_{j}) = \mu _{max_{ij}}\frac{R_{j}}{k_{ij} + R_{j}} \,,
+\mu_{ij}(R_{j}) = \mu_{max_{ij}}\frac{R_{j}}{k_{ij} + R_{j}} \,,
 \]</span></p>
-<p>where <span class="math inline">\(\mu_{max_{ij}}\)</span> is the maximum growth rate and <span class="math inline">\(k_{ij}\)</span> is the half saturation constant for consumer <span class="math inline">\(i\)</span> on resource <span class="math inline">\(j\)</span>; or</p>
+<p>where <span class="math inline">\(\mu_{max_{ij}}\)</span> is the maximum growth rate and <span class="math inline">\(k_{ij}\)</span> is the half saturation constant for consumer <span class="math inline">\(i\)</span> on resource <span class="math inline">\(j\)</span>.</p>
 <ol start="3" style="list-style-type: lower-roman">
-<li>nonlinear type III,</li>
+<li>nonlinear type III (sigmoidal),</li>
 </ol>
 <p><span class="math display">\[
 \mu_{ij}(R_{j}) = \mu _{max_{ij}}\frac{R_{j}^2}{k_{ij}^2 + R_{j}^2} \,.
 \]</span></p>
-<p>In all three cases, the functional response is either assumed to be constant or variable through time (the latter is mediated by time dependent formulations of <span class="math inline">\(a_{ij}\)</span> (type I) or <span class="math inline">\(\mu_{max_{ij}}\)</span> (type II &amp; III).</p>
+<p>An alternative parameterisation to all three functional responses is to incorporate a consumption efficiency term, <span class="math inline">\(c_{ij}\)</span>. The type I model becomes <span class="math inline">\(\mu_{ij}(R_{j}) = a_{ij}c_{ij}R_{j}\)</span>, and for type II and III, <span class="math inline">\(a_{ij}c_{ij}\)</span> is substituted for <span class="math inline">\(\mu _{max_{ij}}\)</span>. NB. this functional form is mutually exclusive with the specification of resources quotas in the resource equations, i.e. the <span class="math inline">\(Q_{ij}\)</span>s are dropped from the resource equations.</p>
+</div>
+<div id="resource-equations" class="section level2">
+<h2 class="hasAnchor">
+<a href="#resource-equations" class="anchor"></a>Resource equations</h2>
 <p>The resource supply function, <span class="math inline">\(\Psi_{j}(R_j)\)</span>, can also take several forms. Specifically, either the resources are biological and grow logistically,</p>
 <p><span class="math display">\[
 \Psi_{j} (R_{j}) = r_{j}R_{j}\left(1-\frac{R_{j}}{K_{j}}\right) \,,
@@ -130,8 +137,8 @@
 <p><span class="math display">\[
 \Psi_{j} (R_{j}) = d(S_{j} - R_{j}) \,,
 \]</span></p>
-<p>where  represents the flux of resources into and out of the system.</p>
-<p>Or the resources are pulsed intermittently (see below).</p>
+<p>where  represents the flux of resources into and out of the system;</p>
+<p>Or the resources are pulsed intermittently (more examples).</p>
 <p>In the case of multiple resources, each resource is either treated as essential to consumer growth following Leibig’s law of the minimum, in which case,</p>
 <p><span class="math display">\[
 \mu_{i}(R_{1}, R_{2},...,R_{n}) = min(\mu_{i}(R_{1}), \mu_{i}(R_{2}),..., \mu_{i}(R_{n})) \,;
@@ -140,7 +147,7 @@
 <p><span class="math display">\[
 \mu_{i}(R_{1}, R_{2},...,R_{n}) = \mu_{i}(R_{1}) + \mu_{i}(R_{2}) + ... + \mu_{i}(R_{n}) \,.
 \]</span></p>
-<p>The model specification also allows for instantaneous changes in consumer and resource state variables, e.g. in batch transfer (further details in examples below).</p>
+</div>
 </div>
 <div id="using-rescomp" class="section level1">
 <h1 class="hasAnchor">
@@ -153,7 +160,8 @@
 <li>Resource dynamic (chemostat, logistic and/or pulsed)</li>
 <li>Resource type (substitutable or essential)</li>
 <li>Continuous or intermittent mortality (e.g. serial transfer)</li>
-<li>Time dependent consumption parameters</li>
+<li>Delayed consumer introduction times</li>
+<li>Time dependent growth and consumption parameters</li>
 </ul>
 <p>See <code><a href="../reference/spec_rescomp.html">?spec_rescomp</a></code> for all argument options.</p>
 <p><strong>Examples demonstrated in this vignette include:</strong></p>
