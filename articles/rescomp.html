@@ -57,7 +57,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/classic-results.html">Classic results with rescomp</a>
+      <a href="../articles/classic-results.html">Reproducing past studies in resource competition with rescomp</a>
     </li>
   </ul>
 </li>
@@ -158,19 +158,19 @@
 <p>See <code><a href="../reference/spec_rescomp.html">?spec_rescomp</a></code> for all argument options.</p>
 <p><strong>Examples demonstrated in this vignette include:</strong></p>
 <ul>
-<li>One type 2 consumer and one logistically growing resource</li>
-<li>One type 2 consumer and one continuously supplied resource (i.e. chemostat)</li>
-<li>Two type 2 consumers and one logistically growing resource</li>
-<li>Two type 1 consumers and two substitutable resources in a chemostat</li>
-<li>Two type 1 consumers and two essential resources in a chemostat</li>
-<li>Two type 2 consumers and one externally pulsed resource
+<li>One consumer (type 2) and one logistically growing resource</li>
+<li>One consumer (type 2) and one continuously supplied resource (i.e. chemostat)</li>
+<li>Two consumers (type 1 and type 2) and one logistically growing resource</li>
+<li>Two consumers (type 1) and two substitutable resources in a chemostat</li>
+<li>Two consumers (type 1) and two essential resources in a chemostat</li>
+<li>Two consumers (type 2) and one externally pulsed resource
 <ul>
 <li>Continuous mortality</li>
 <li>Serial transfer in batch culture (intermittent mortality)</li>
 </ul>
 </li>
-<li>Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource</li>
-<li>Three type 1 consumers on three essential resources generating an intransitive loop (i.e. rock paper scissors dynamics).</li>
+<li>Two consumers (type 2) with time dependent consumption parameters and one continuously supplied resource</li>
+<li>Three consumers (type 1) on three essential resources generating an intransitive loop (i.e. rock paper scissors dynamics).</li>
 </ul>
 <div id="type-2-consumer-on-a-logistically-growing-resource" class="section level2">
 <h2 class="hasAnchor">
@@ -246,19 +246,19 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
 </div>
-<div id="two-type-2-consumers-on-a-logistically-growing-resource" class="section level2">
+<div id="two-consumers-type-1-and-type-2-on-a-logistically-growing-resource" class="section level2">
 <h2 class="hasAnchor">
-<a href="#two-type-2-consumers-on-a-logistically-growing-resource" class="anchor"></a>Two type 2 consumers on a logistically growing resource</h2>
+<a href="#two-consumers-type-1-and-type-2-on-a-logistically-growing-resource" class="anchor"></a>Two consumers (type 1 and type 2) on a logistically growing resource</h2>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>
   spnum <span class="op">=</span> <span class="fl">2</span>, 
   resnum <span class="op">=</span> <span class="fl">1</span>,
-  funcresp <span class="op">=</span> <span class="st">"type2"</span>,
-  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.05</span><span class="op">)</span>, 
+  funcresp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"type1"</span>, <span class="st">"type2"</span><span class="op">)</span>,
+  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.35</span>,<span class="fl">0.05</span><span class="op">)</span>, 
                     nrow <span class="op">=</span> <span class="fl">2</span>, 
                     ncol <span class="op">=</span> <span class="fl">1</span>,
                     byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,
-  kmatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">0.015</span><span class="op">)</span>, 
+  kmatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.015</span><span class="op">)</span>, 
                    nrow <span class="op">=</span> <span class="fl">2</span>, 
                    ncol <span class="op">=</span> <span class="fl">1</span>, 
                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,  
@@ -269,7 +269,7 @@
 <span class="op">)</span>
 <span class="co">#&gt; Model properties </span>
 <span class="co">#&gt;  * 2 consumer(s) and 1 resource(s)</span>
-<span class="co">#&gt;  * Consumers have type 2 functional responses</span>
+<span class="co">#&gt;  * Consumers have type 1 or type 2 functional responses</span>
 <span class="co">#&gt;  * Resources grow logistically</span>
 <span class="co">#&gt;  * Mortality is continuous</span>
 <span class="co">#&gt; </span>
@@ -284,7 +284,7 @@
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp_files/figure-html/unnamed-chunk-14-1.png" width="576"></p>
-<p>Owing to the trade-off in functional responses (gleaner-opportunist) and resource fluctuations generated by N2, the two consumers are able to coexist via the coexistence mechanism known as ‘relative nonlinearity of competition’.</p>
+<p>Owing to the trade-off in functional responses (gleaner-opportunist) and resource fluctuations generated by N2, the two consumers are able to coexist via the coexistence mechanism ‘relative nonlinearity of competition’.</p>
 </div>
 <div id="two-type-1-consumers-and-two-substitutable-resources-in-a-chemostat" class="section level2">
 <h2 class="hasAnchor">

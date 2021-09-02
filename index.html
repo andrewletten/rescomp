@@ -57,7 +57,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/classic-results.html">Classic results with rescomp</a>
+      <a href="articles/classic-results.html">Reproducing past studies in resource competition with rescomp</a>
     </li>
   </ul>
 </li>
@@ -126,11 +126,11 @@
 <li>Resource dynamic (chemostat, logistic and/or pulsed)</li>
 <li>Resource type (substitutable or essential)</li>
 <li>Continuous or intermittent mortality (e.g. serial transfer)</li>
-<li>Time dependent consumption parameters</li>
+<li>Time dependent growth and consumption parameters</li>
 <li>Delayed consumer introduction times</li>
 </ul>
 <p>See <code><a href="reference/spec_rescomp.html">?spec_rescomp</a></code> for all argument options.</p>
-<p>The following two examples demonstrate how to build and simulate a model for: i) two consumers with type II functional responses on a single logistically growing resources; and ii) two consumers with type III functional responses with pulsed resources and time dependent consumption parameters. A wide range of other examples can be found in the package vignette.</p>
+<p>The following two examples demonstrate how to build and simulate a model for: i) two consumers with type II functional responses on a single logistically growing resources; and ii) two consumers with type III functional responses with pulsed resources and time dependent growth parameters. A wide range of other examples can be found in the package vignette.</p>
 <div id="example-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example-1" class="anchor"></a>Example 1</h3>
@@ -139,10 +139,10 @@
   spnum <span class="op">=</span> <span class="fl">2</span>, 
   resnum <span class="op">=</span> <span class="fl">1</span>,
   funcresp <span class="op">=</span> <span class="st">"type2"</span>,
-  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.05</span><span class="op">)</span>, 
+  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.05</span><span class="op">)</span>, 
                     nrow <span class="op">=</span> <span class="fl">2</span>, 
                     ncol <span class="op">=</span> <span class="fl">1</span>,
-                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,
+                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
   kmatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">0.015</span><span class="op">)</span>, 
                    nrow <span class="op">=</span> <span class="fl">2</span>, 
                    ncol <span class="op">=</span> <span class="fl">1</span>, 

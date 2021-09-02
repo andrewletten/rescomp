@@ -98,7 +98,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/classic-results.html">Classic results with rescomp</a>
+      <a href="../articles/classic-results.html">Reproducing past studies in resource competition with rescomp</a>
     </li>
   </ul>
 </li>
@@ -127,7 +127,7 @@
     <p>Plot functional responses</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_funcresp</span><span class='op'>(</span><span class='va'>pars</span>, <span class='va'>maxx</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_funcresp</span><span class='op'>(</span><span class='va'>pars</span>, <span class='va'>maxx</span>, madj <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -138,7 +138,13 @@
     </tr>
     <tr>
       <th>maxx</th>
-      <td><p>Resource value to calculate per-capita growth rates up to (xlim).</p></td>
+      <td><p>Numeric vector of length 1.
+Resource value to calculate per-capita growth rates up to (xlim).</p></td>
+    </tr>
+    <tr>
+      <th>madj</th>
+      <td><p>Logical vector of length 1. Whether to standardize per capita
+growth rates by mortality.</p></td>
     </tr>
     </table>
 
@@ -179,7 +185,8 @@
 #&gt; <span class='message'>Simulation properties </span>
 #&gt; <span class='message'> * Simulation time: 1000 time steps</span>
 #&gt; <span class='message'> * Init state: consumer(s) = [10, 10], resource(s) = [1, 1]</span></div><div class='input'><span class='fu'>plot_funcresp</span><span class='op'>(</span><span class='va'>pars</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_funcresp-2.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='plot_funcresp-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot_funcresp</span><span class='op'>(</span><span class='va'>pars</span>, madj <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_funcresp-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -98,7 +98,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/classic-results.html">Classic results with rescomp</a>
+      <a href="../articles/classic-results.html">Reproducing past studies in resource competition with rescomp</a>
     </li>
   </ul>
 </li>
@@ -127,19 +127,23 @@
     <p>Generate ggplot friendly data frame for plotting functional responses</p>
     </div>
 
-    <pre class="usage"><span class='fu'>df_funcresp</span><span class='op'>(</span><span class='va'>pars</span>, <span class='va'>maxx</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>df_funcresp</span><span class='op'>(</span><span class='va'>pars</span>, <span class='va'>maxx</span>, madj <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>pars</th>
-      <td><p>parameter list from spec_rescomp()</p></td>
+      <td><p>Parameter list from spec_rescomp()</p></td>
     </tr>
     <tr>
       <th>maxx</th>
-      <td><p>maximum resource value to get percapita growth rates across
+      <td><p>Maximum resource value to get percapita growth rates across
 (for plotting)</p></td>
+    </tr>
+    <tr>
+      <th>madj</th>
+      <td><p>Logical. Standardize by mortality. Default = FALSE.</p></td>
     </tr>
     </table>
 
