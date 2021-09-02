@@ -7,14 +7,14 @@
 def_cr_ode(Time, State, Pars)
 }
 \arguments{
-\item{Time}{time to simulate over}
+\item{Time}{Time to simulate over}
 
-\item{State}{vector of initial states}
+\item{State}{Vector of initial states}
 
-\item{Pars}{a list}
+\item{Pars}{A list}
 }
 \value{
-model formula to pass to ode
+Model formula to pass to sim_rescomp
 }
 \description{
 Define consumer resource ODE function

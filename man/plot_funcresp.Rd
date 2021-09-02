@@ -9,9 +9,11 @@ plot_funcresp(pars, maxx, madj = FALSE)
 \arguments{
 \item{pars}{Parameter list from spec_rescomp()}
 
-\item{maxx}{Resource value to calculate per-capita growth rates up to (xlim).}
+\item{maxx}{Numeric vector of length 1.
+Resource value to calculate per-capita growth rates up to (xlim).}
 
-\item{madj}{Logical. Standardize by mortality.}
+\item{madj}{Logical vector of length 1. Whether to standardize per capita
+growth rates by mortality.}
 }
 \value{
 ggplot object
@@ -35,5 +37,6 @@ pars <- spec_rescomp(
                            byrow = TRUE))
 )
 plot_funcresp(pars)
+plot_funcresp(pars, madj = TRUE)
 
 }

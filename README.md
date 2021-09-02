@@ -97,7 +97,7 @@ limited to):
 -   Resource dynamic (chemostat, logistic and/or pulsed)
 -   Resource type (substitutable or essential)
 -   Continuous or intermittent mortality (e.g. serial transfer)
--   Time dependent consumption parameters
+-   Time dependent growth and consumption parameters
 -   Delayed consumer introduction times
 
 See `?spec_rescomp` for all argument options.
@@ -105,9 +105,9 @@ See `?spec_rescomp` for all argument options.
 The following two examples demonstrate how to build and simulate a model
 for: i) two consumers with type II functional responses on a single
 logistically growing resources; and ii) two consumers with type III
-functional responses with pulsed resources and time dependent
-consumption parameters. A wide range of other examples can be found in
-the package vignette.
+functional responses with pulsed resources and time dependent growth
+parameters. A wide range of other examples can be found in the package
+vignette.
 
 ### Example 1
 

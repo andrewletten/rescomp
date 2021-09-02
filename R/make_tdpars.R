@@ -1,21 +1,20 @@
 #' Internal function for making time dependent parameters
 #'
 #' @param crpars Focal parameter
-#' @param tpinterp
+#' @param pars Immature pars list
 #'
 #' @return A list of approximation functions
 #' @export
 #'
-#' @examples
-make_tdpars <- function(crpars){
-  if (tpinterp == "inst" | tpinterp == "lin"){
-    forcetime <- seq(0, totaltime, timeparfreq)
+make_tdpars <- function(crpars, pars){
+  if (pars$tpinterp == "inst" | pars$tpinterp == "lin"){
+    forcetime <- seq(0, pars$totaltime, pars$timeparfreq)
     cr_funs_byres <- list()
     cr_funs_bycons <- list()
 
-    if (tpinterp == "inst"){
+    if (pars$tpinterp == "inst"){
       interpmethod <- "constant"
-    } else if (tpinterp == "lin"){
+    } else if (pars$tpinterp == "lin"){
       interpmethod <- "linear"
     }
 
@@ -34,16 +33,16 @@ make_tdpars <- function(crpars){
     }
     cr_approx_fun <- cr_funs_bycons
 
-  } else if (tpinterp == "sine"){
+  } else if (pars$tpinterp == "sine"){
     cr_funs_byres <- list()
     cr_funs_bycons <- list()
-    timeseq <- seq(0, totaltime, 0.1)
+    timeseq <- seq(0, pars$totaltime, 0.1)
     # list of approx functions
     for (i in seq_len(nrow(pars[[crpars]][[1]]))) {
       for (j in seq_len(ncol(pars[[crpars]][[1]]))) {
         amplitude <- (pars[[crpars]][[1]][i, j] - pars[[crpars]][[2]][i, j])/2
         meancr <- (pars[[crpars]][[1]][i, j] + pars[[crpars]][[2]][i, j])/2
-        wave <- (meancr + amplitude*sin((2*pi*timeseq)/(timeparfreq)/2))
+        wave <- (meancr + amplitude*sin((2*pi*timeseq)/(pars$timeparfreq)/2))
         cr_funs_byres[[j]] <- approxfun(timeseq,
                                         wave,
                                         method = "linear",

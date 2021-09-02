@@ -56,7 +56,7 @@ test_that("Correct errors and fixes", {
   # error
   expect_error(suppressMessages(spec_rescomp(
     timepars = TRUE)),
-    "only one mu and Ks matrix")
+    "only one mu, k, and/or q matrix")
   expect_error(suppressMessages(spec_rescomp(
     timepars = TRUE,
     mumatrix = list(matrix(1), matrix(1)))),
@@ -64,11 +64,11 @@ test_that("Correct errors and fixes", {
   expect_error(suppressMessages(spec_rescomp(
     timepars = FALSE,
     mumatrix = list(matrix(1), matrix(1)))),
-    "more than one mu or Ks matrix")
+    "more than one mu, k, and/or q matrix")
   expect_error(suppressMessages(spec_rescomp(
     timepars = TRUE,
     timeparfreq = 100)),
-    "only one mu and Ks matrix")
+    "only one mu, k, and/or q matrix")
   # fix
   expect_error(suppressMessages(spec_rescomp(
     timepars = TRUE,

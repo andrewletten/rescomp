@@ -2,20 +2,23 @@
 #'     passed to `sim_rescomp`
 #'
 #' @param spnum Integer vector of length 1 for the number of consumers
-#' @param resnum Integer vector of length 1 for the numberof resources
+#' @param resnum Integer vector of length 1 for the number of resources
 #' @param mumatrix Numeric matrix or list of matrices, the elements of which
 #'     give the maximum growth rates (type 2 or 3) or resource consumption rate
 #'     constants (type 1, or type 2 when parameterised using conversion
 #'     efficiencies with `effmatrix` as opposed to resource quotas with
-#'     `qmatrix`). The number of rows should
-#'     be equal to `spnum` and `resnum` respectively. If `timepars` = TRUE,
-#'     expects a list of length 2.
-#' @param kmatrix Numeric matrix of half saturation constants
-#'     (type 2 or type 3, ignored if funcresp = "type1"). The number of rows
-#'     should be equal to `spnum` and `resnum` respectively.
-#' @param qmatrix Numeric matrix of resource quotas.
-#'     The number of rows should be equal to `spnum` and `resnum` respectively.
-#'     Default = 0.001 for all consumers.
+#'     `qmatrix`). The number of rows and columns should be equal to `spnum`
+#'     and `resnum` respectively. If `timepars` = TRUE, expects a list of
+#'     length 2.
+#' @param kmatrix Numeric matrix or list of matrices, the elements of which
+#'     give the of half saturation constants (type 2 or type 3, ignored if
+#'     funcresp = "type1"). The number of rows and columns should be equal to
+#'     `spnum` and `resnum` respectively. If `timepars` = TRUE, expects a list
+#'     of length 2.
+#' @param qmatrix Numeric matrix or list of matrices, the elements of which
+#'     give the resource quotas. The number of rows and columns should be equal to
+#'     `spnum` and `resnum` respectively. If `timepars` = TRUE, expects a list
+#'     of length 2. Default = 0.001 for all consumers.
 #' @param effmatrix Numeric matrix of resource conversion efficiencies.
 #'     The number of rows should be equal to `spnum` and `resnum` respectively.
 #'     NB. Incompatible with specification of resource quotas. Function will
@@ -49,11 +52,11 @@
 #'     are interpolated linearly or sinusoidaly, respectively, with period 2x
 #'     `timeparfreq`.
 #' @param totaltime Total simulation time
-#' @param cinit Initial consumer state values (densities). Either a single
-#'     integer for all consumers or a vector. Defaults to 10 for all
-#'     consumers. Note initial resource state values defaults to `resconc`.
-#' @param rinit Initial resource state values (concentrations). Either a single
-#'     integer for all resources or a vector. Defaults to value given
+#' @param cinit Numeric vector of length 1 or length = `spnum` specifying
+#'     initialconsumer state values (densities). Defaults to 10 for all
+#'     consumers.
+#' @param rinit Numeric vector of length 1 or length = `resnum` specifying
+#'     initial resource state values (concentrations). Defaults to value given
 #'     in `resconc`.
 #' @param introseq Time sequence as a vector for consumer introductions.
 #'     Vector length must equal spnum.
@@ -79,7 +82,7 @@
 #'                         0.4,0.5),
 #'                         nrow = 2,
 #'                         ncol = 2,
-#'                         byrow = TRUE)),
+#'                         byrow = TRUE),
 #'     resspeed = 3,
 #'     resconc = 1,
 #'     chemo = TRUE,
@@ -174,55 +177,62 @@ spec_rescomp <- function(spnum = 1,
 
   if (!is.list(pars$Ks)) pars$Ks <- list(pars$Ks)
 
-  # time dependent parms
-  if (timepars == TRUE) {
-    if (length(pars$mu) == 1 & length(pars$Ks) == 1)
-      stop("Time dependent parameters set to true but
-        only one mu and Ks matrix provided")
-    if (missing(timeparfreq)){
-      stop("If timepars = TRUE, timeparfreq must be provided")
-    } else {
-      pars$timeparfreq <- timeparfreq
-    }
-
-    environment(make_tdpars) <- environment()
-    if(length(pars$mu) > 1){
-      pars$mu_approx_fun <- make_tdpars("mu")
-    }
-    if(length(pars$Ks) > 1){
-      pars$Ks_approx_fun <- make_tdpars("Ks")
-    }
-
-  } else {
-    if (length(pars$mu) > 1 | length(pars$Ks) > 1)
-      stop(paste0(
-        "Time dependent parameters set to FALSE but
-        more than one mu or Ks matrix provided"))
-  }
-
-
   # qmatrix/effmatrix
   if (missing(qmatrix) & is.null(effmatrix)) {
     pars$Qs <- matrix(rep(0.001, times = spnum * resnum),
                       nrow = spnum,
                       byrow = TRUE)
     pars$eff <- matrix(rep(1, times = spnum * resnum),
-                             nrow = spnum,
-                             byrow = TRUE)
-  } else if (is.null(effmatrix)){
-    stopifnot(is.matrix(qmatrix))
+                       nrow = spnum,
+                       byrow = TRUE)
+  } else if (!missing(qmatrix) & is.null(effmatrix)){
+    stopifnot(is.matrix(qmatrix) | is.list(qmatrix))
     pars$Qs <- qmatrix
     pars$eff <- matrix(rep(1, times = spnum * resnum),
-                             nrow = spnum,
-                             byrow = TRUE)
+                       nrow = spnum,
+                       byrow = TRUE)
   } else if (!missing(qmatrix) & !is.null(effmatrix)){
-    stop("Only one of resource quotas or efficiency allowed")
+    stop("Model should be parameterised with resource quotas OR resource
+         efficiency, not both.")
   } else if(missing(qmatrix) & !is.null(effmatrix)){
     stopifnot(is.matrix(effmatrix))
     pars$eff <- effmatrix
     pars$Qs <- matrix(rep(1, times = spnum * resnum),
-                       nrow = spnum,
-                       byrow = TRUE)
+                      nrow = spnum,
+                      byrow = TRUE)
+  }
+
+  if (!is.list(pars$Qs)) pars$Qs <- list(pars$Qs)
+
+  pars$totaltime <- totaltime
+  pars$tpinterp <- tpinterp
+
+  # time dependent parms
+  if (timepars == TRUE) {
+    if (length(pars$mu) == 1 & length(pars$Ks) == 1 & length(pars$Qs) == 1)
+      stop("Time dependent parameters set to true but
+        only one mu, k, and/or q matrix provided")
+    if (missing(timeparfreq)){
+      stop("If timepars = TRUE, timeparfreq must be provided")
+    } else {
+      pars$timeparfreq <- timeparfreq
+    }
+
+    if(length(pars$mu) > 1){
+      pars$mu_approx_fun <- make_tdpars("mu", pars)
+    }
+    if(length(pars$Ks) > 1){
+      pars$Ks_approx_fun <- make_tdpars("Ks", pars)
+    }
+    if(length(pars$Qs) > 1){
+      pars$Qs_approx_fun <- make_tdpars("Qs", pars)
+    }
+
+  } else {
+    if (length(pars$mu) > 1 | length(pars$Ks) > 1 | length(pars$Qs) > 1)
+      stop(paste0(
+        "Time dependent parameters set to FALSE but
+        more than one mu, k, and/or q matrix provided"))
   }
 
   # functional response
@@ -272,7 +282,7 @@ spec_rescomp <- function(spnum = 1,
       if (funcresp[i] == "type1"){
         pars$phi[i,] = pars$phi[i,]
         pars$type3[i,] = pars$type3[i,]
-        if (length(kmatrix) == 1){
+        if (length(pars$Ks) == 1){
           pars$Ks[[1]][i,] = 1
           if (any(kmatrix[i,] != 1)){warning(
             paste0(strwrap("Warning: half saturation constant ignored (set to 1) for
@@ -342,11 +352,9 @@ spec_rescomp <- function(spnum = 1,
   pars$resspeed <- rep(resspeed, times = resnum)
   pars$timepars <- timepars
   pars$mortpulse <- mortpulse
-  pars$totaltime <- totaltime
   pars$pulsefreq <- pulsefreq
   pars$batchtrans <- batchtrans
   pars$funcresp <- funcresp
-  pars$tpinterp <- tpinterp
   pars$introseq <- introseq
 
 

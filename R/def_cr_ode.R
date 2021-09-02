@@ -47,6 +47,23 @@ def_cr_ode <- function(Time, State, Pars) {
     } else{
       Ks <- Ks[[1]]
     }
+
+    Qs_list_live <-  list()
+    Qs_live_eachres <-  list()
+
+    if(timepars == TRUE & length(Qs) > 1){
+      for (i in 1:nrow(Qs[[1]])) {
+        for (j in 1:ncol(Qs[[1]])) {
+          Qs_live_eachres[j] <- Qs_approx_fun[[i]][[j]](Time)
+        }
+        Qs_list_live[[i]] <- Qs_live_eachres
+      }
+      Qs <- matrix(unlist(Qs_list_live),
+                   nrow = nrow(Qs[[1]]),
+                   byrow = TRUE)
+    } else{
+      Qs <- Qs[[1]]
+    }
     # --------------------------------------------------------------------
 
 

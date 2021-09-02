@@ -35,30 +35,33 @@ spec_rescomp(
 \arguments{
 \item{spnum}{Integer vector of length 1 for the number of consumers}
 
-\item{resnum}{Integer vector of length 1 for the numberof resources}
+\item{resnum}{Integer vector of length 1 for the number of resources}
 
 \item{mumatrix}{Numeric matrix or list of matrices, the elements of which
 give the maximum growth rates (type 2 or 3) or resource consumption rate
 constants (type 1, or type 2 when parameterised using conversion
-efficiencies with \code{effmatrix}as opposed to resource quotas with
-\code{qmatrix}). The number of rows should
-be equal to \code{spnum} and \code{resnum} respectively. If \code{timepars} = TRUE,
-expects a list of length 2.}
+efficiencies with \code{effmatrix} as opposed to resource quotas with
+\code{qmatrix}). The number of rows and columns should be equal to \code{spnum}
+and \code{resnum} respectively. If \code{timepars} = TRUE, expects a list of
+length 2.}
 
-\item{kmatrix}{Numeric matrix of half saturation constants
-(type 2 or type 3, ignored if funcresp = "type1"). The number of rows
-should be equal to \code{spnum} and \code{resnum} respectively.}
+\item{kmatrix}{Numeric matrix or list of matrices, the elements of which
+give the of half saturation constants (type 2 or type 3, ignored if
+funcresp = "type1"). The number of rows and columns should be equal to
+\code{spnum} and \code{resnum} respectively. If \code{timepars} = TRUE, expects a list
+of length 2.}
 
-\item{qmatrix}{Numeric matrix of resource quotas.
-The number of rows should be equal to \code{spnum} and \code{resnum} respectively.
-Default = 0.001 for all consumers.}
+\item{qmatrix}{Numeric matrix or list of matrices, the elements of which
+give the resource quotas. The number of rows and columns should be equal to
+\code{spnum} and \code{resnum} respectively. If \code{timepars} = TRUE, expects a list
+of length 2. Default = 0.001 for all consumers.}
 
 \item{effmatrix}{Numeric matrix of resource conversion efficiencies.
 The number of rows should be equal to \code{spnum} and \code{resnum} respectively.
 NB. Incompatible with specification of resource quotas. Function will
 throw an error if both specified.}
 
-\item{funcresp}{Character vector of length 1 or length equal to\code{spnum}.
+\item{funcresp}{Character vector of length 1 or length equal to \code{spnum}.
 Options include "type1", 'type2", or "type3".}
 
 \item{essential}{Logical vector of length 1. If FALSE resources are substitutable.}
@@ -101,12 +104,12 @@ with frequency given by \code{timeparfreq}. If "lin" or "sine", parameters
 are interpolated linearly or sinusoidaly, respectively, with period 2x
 \code{timeparfreq}.}
 
-\item{cinit}{Initial consumer state values (densities). Either a single
-integer for all consumers or a vector. Defaults to 10 for all
-consumers. Note initial resource state values defaults to \code{resconc}.}
+\item{cinit}{Numeric vector of length 1 or length = \code{spnum} specifying
+initialconsumer state values (densities). Defaults to 10 for all
+consumers.}
 
-\item{rinit}{Initial resource state values (concentrations). Either a single
-integer for all resources or a vector. Defaults to value given
+\item{rinit}{Numeric vector of length 1 or length = \code{resnum} specifying
+initial resource state values (concentrations). Defaults to value given
 in \code{resconc}.}
 
 \item{introseq}{Time sequence as a vector for consumer introductions.
@@ -131,11 +134,11 @@ pars <- spec_rescomp(
     spnum = 2,
     resnum = 2,
     funcresp = "type2",
-    mumatrix = list(matrix(c(0.7,0.3,
-                             0.4,0.5),
-                           nrow = 2,
-                           ncol = 2,
-                           byrow = TRUE)),
+    mumatrix = matrix(c(0.7,0.3,
+                        0.4,0.5),
+                        nrow = 2,
+                        ncol = 2,
+                        byrow = TRUE),
     resspeed = 3,
     resconc = 1,
     chemo = TRUE,
