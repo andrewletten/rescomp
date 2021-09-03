@@ -77,7 +77,7 @@ plot_funcresp(pars)
 m1 <- sim_rescomp(pars)
 ```
 
-```{r, fig.width = 8, fig.height = 3, fig.cap = "Reproduces Fig 1c from Huisman and Weissing (1999)."}
+```{r, fig.width = 6, fig.height = 3, fig.cap = "Reproduces Fig 1c from Huisman and Weissing (1999)."}
 plot_rescomp(m1, resources = FALSE)
 ```
 

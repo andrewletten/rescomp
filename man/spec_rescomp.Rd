@@ -42,19 +42,20 @@ give the maximum growth rates (type 2 or 3) or resource consumption rate
 constants (type 1, or type 2 when parameterised using conversion
 efficiencies with \code{effmatrix} as opposed to resource quotas with
 \code{qmatrix}). The number of rows and columns should be equal to \code{spnum}
-and \code{resnum} respectively. If \code{timepars} = TRUE, expects a list of
-length 2.}
+and \code{resnum} respectively. For time dependent parameters
+(with \code{timepars} = TRUE), expects a list of length 2.}
 
 \item{kmatrix}{Numeric matrix or list of matrices, the elements of which
 give the of half saturation constants (type 2 or type 3, ignored if
 funcresp = "type1"). The number of rows and columns should be equal to
-\code{spnum} and \code{resnum} respectively. If \code{timepars} = TRUE, expects a list
-of length 2.}
+\code{spnum} and \code{resnum} respectively. For time dependent parameters
+(with \code{timepars} = TRUE), expects a list of length 2.}
 
 \item{qmatrix}{Numeric matrix or list of matrices, the elements of which
 give the resource quotas. The number of rows and columns should be equal to
-\code{spnum} and \code{resnum} respectively. If \code{timepars} = TRUE, expects a list
-of length 2. Default = 0.001 for all consumers.}
+\code{spnum} and \code{resnum} respectively. For time dependent parameters
+(with \code{timepars} = TRUE), expects a list of length 2.
+Default = 0.001 for all consumers.}
 
 \item{effmatrix}{Numeric matrix of resource conversion efficiencies.
 The number of rows should be equal to \code{spnum} and \code{resnum} respectively.
@@ -69,8 +70,10 @@ Options include "type1", 'type2", or "type3".}
 \item{chemo}{Logical. Default is resources supplied continuously (chemostat).
 If FALSE resources grow logistically.}
 
-\item{mort}{Numeric vector of length 1 or length = \code{spnum} specifying
-density independent mortality rates.}
+\item{mort}{Numeric vector or list of vectors of length 1 or
+length = \code{spnum}, specifying density independent mortality rates.
+For time dependent parameters
+(with \code{timepars} = TRUE), expects a list of length 2.}
 
 \item{resspeed}{Numeric vector of length 1 specifying resource intrinsic
 rate of increase (if chemo = FALSE), or otherwise chemostat dilution

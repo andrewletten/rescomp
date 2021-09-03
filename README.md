@@ -10,18 +10,14 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-*Disclaimer: `rescomp` is still in the very early stages of development,
-with functions, arguments and workflows still liable to change with high
-frequency. I have made the repository public in its immature state
-primarily for ease of sharing with friends, collaborators and students
-during development. Please use with caution and perform your own sanity
-checks! Feedback and pull requests very welcome.*
+*Disclaimer: `rescomp` is still in the early stages of development.
+Please use with caution and perform your own sanity checks. Feedback and
+pull requests very welcome.*
 
-The goal of the R package `rescomp` is to simplify the process of
-defining, simulating and visualizing the output of ODE models of
-ecological consumer-resource interactions. In essence, it is a
-consumer-resource modelling focused interface to the excellent `deSolve`
-package.
+`rescomp` is an R package that supports the definition, simulation and
+visualization of ODE models of ecological consumer-resource
+interactions. In essence, it is a consumer-resource modelling focused
+interface to the excellent `deSolve` package.
 
 ## Installation
 

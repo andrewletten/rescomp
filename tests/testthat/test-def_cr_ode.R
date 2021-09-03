@@ -101,9 +101,113 @@ test_that("Differentials are as expected for given state/pars", {
   # (func_form(R = 1, mu = 0.3, Ks = 1, phi = 0, type3 = 1/2))*10 - 0.03*10
   expect_equal(dN[[1]][1], 9.7)
 
+  dN <- def_cr_ode(
+    Time = 1,
+    State = c(10, 1),
+    Pars = suppressMessages(
+      spec_rescomp(
+        spnum = 1,
+        resnum = 1,
+        funcresp = "type2",
+        timepars = TRUE,
+        timeparfreq = 10,
+        kmatrix = list(matrix(c(0.5), nrow = 1, ncol = 1), matrix(c(0.05), nrow = 1, ncol = 1))
+      )
+    )
+  )
+  # Expected dN1: (func_form(R = 1, mu = 0.1, Ks = 0.5, phi = 1, type3 = 1/2) - 0.03)*10
+  expect_equal(round(dN[[1]][1], 5), round(0.3666667, 5))
+
+  dN <- def_cr_ode(
+    Time = 15,
+    State = c(10, 1),
+    Pars = suppressMessages(
+      spec_rescomp(
+        spnum = 1,
+        resnum = 1,
+        funcresp = "type2",
+        timepars = TRUE,
+        timeparfreq = 10,
+        kmatrix = list(matrix(c(0.5), nrow = 1, ncol = 1), matrix(c(0.05), nrow = 1, ncol = 1))
+      )
+    )
+  )
+  # Expected dN1: (func_form(R = 1, mu = 0.1, Ks = 0.05, phi = 1, type3 = 1/2) - 0.03)*10
+  expect_equal(round(dN[[1]][1], 5), round(0.652381, 5))
+
+  dN <- def_cr_ode(
+    Time = 1,
+    State = c(10, 1),
+    Pars = suppressMessages(
+      spec_rescomp(
+        spnum = 1,
+        resnum = 1,
+        funcresp = "type2",
+        timepars = TRUE,
+        timeparfreq = 10,
+        qmatrix = list(matrix(c(0.5), nrow = 1, ncol = 1),
+                       matrix(c(0.05), nrow = 1, ncol = 1))
+      )
+    )
+  )
+  # Expected dN2: -(func_form(R = 1, mu = 0.1, Ks = 1, phi = 1, type3 = 1/2))*10*0.5
+  expect_equal(dN[[1]][2], -0.25)
+
+  dN <- def_cr_ode(
+    Time = 15,
+    State = c(10, 1),
+    Pars = suppressMessages(
+      spec_rescomp(
+        spnum = 1,
+        resnum = 1,
+        funcresp = "type2",
+        timepars = TRUE,
+        timeparfreq = 10,
+        qmatrix = list(matrix(c(0.5), nrow = 1, ncol = 1),
+                       matrix(c(0.05), nrow = 1, ncol = 1))
+      )
+    )
+  )
+  # Expected dN2: -(func_form(R = 1, mu = 0.1, Ks = 1, phi = 1, type3 = 1/2))*10*0.05
+  expect_equal(dN[[1]][2], -0.025)
+
+  dN <- def_cr_ode(
+    Time = 1,
+    State = c(10, 1),
+    Pars = suppressMessages(
+      spec_rescomp(
+        spnum = 1,
+        resnum = 1,
+        funcresp = "type2",
+        timepars = TRUE,
+        timeparfreq = 10,
+        mort = list(0.01, 1)
+      )
+    )
+  )
+  # Expected dN2: (func_form(R = 1, mu = 0.1, Ks = 1, phi = 1, type3 = 1/2) - 0.01)*10
+  expect_equal(dN[[1]][1], 0.4)
+
+  dN <- def_cr_ode(
+    Time = 15,
+    State = c(10, 1),
+    Pars = suppressMessages(
+      spec_rescomp(
+        spnum = 1,
+        resnum = 1,
+        funcresp = "type2",
+        timepars = TRUE,
+        timeparfreq = 10,
+        mort = list(0.01, 1)
+      )
+    )
+  )
+  # Expected dN2: (func_form(R = 1, mu = 0.1, Ks = 1, phi = 1, type3 = 1/2) - 1)*10
+  expect_equal(dN[[1]][1], -9.5)
+
 })
 
-test_that("event func gives correct output",{
+test_that("event funcs gives correct output",{
 
   NR <- eventfun_respulse(
     State = c(10,1),
@@ -139,5 +243,25 @@ test_that("event func gives correct output",{
       batchtrans = TRUE))
   )
   expect_equal(NR, c(8,1))
+
+  NR <- eventfun_starttime(
+    Time = 1,
+    State = c(0,1),
+    Pars = suppressMessages(spec_rescomp(
+      introseq = c(10),
+      cinit = 10
+    ))
+  )
+  expect_equal(NR, c(0,1))
+
+  NR <- eventfun_starttime(
+    Time = 10,
+    State = c(0,1),
+    Pars = suppressMessages(spec_rescomp(
+      introseq = c(10),
+      cinit = 10
+    ))
+  )
+  expect_equal(NR, c(10,1))
 
 })
