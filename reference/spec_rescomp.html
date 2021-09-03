@@ -177,23 +177,24 @@ give the maximum growth rates (type 2 or 3) or resource consumption rate
 constants (type 1, or type 2 when parameterised using conversion
 efficiencies with <code>effmatrix</code> as opposed to resource quotas with
 <code>qmatrix</code>). The number of rows and columns should be equal to <code>spnum</code>
-and <code>resnum</code> respectively. If <code>timepars</code> = TRUE, expects a list of
-length 2.</p></td>
+and <code>resnum</code> respectively. For time dependent parameters
+(with <code>timepars</code> = TRUE), expects a list of length 2.</p></td>
     </tr>
     <tr>
       <th>kmatrix</th>
       <td><p>Numeric matrix or list of matrices, the elements of which
 give the of half saturation constants (type 2 or type 3, ignored if
 funcresp = "type1"). The number of rows and columns should be equal to
-<code>spnum</code> and <code>resnum</code> respectively. If <code>timepars</code> = TRUE, expects a list
-of length 2.</p></td>
+<code>spnum</code> and <code>resnum</code> respectively. For time dependent parameters
+(with <code>timepars</code> = TRUE), expects a list of length 2.</p></td>
     </tr>
     <tr>
       <th>qmatrix</th>
       <td><p>Numeric matrix or list of matrices, the elements of which
 give the resource quotas. The number of rows and columns should be equal to
-<code>spnum</code> and <code>resnum</code> respectively. If <code>timepars</code> = TRUE, expects a list
-of length 2. Default = 0.001 for all consumers.</p></td>
+<code>spnum</code> and <code>resnum</code> respectively. For time dependent parameters
+(with <code>timepars</code> = TRUE), expects a list of length 2.
+Default = 0.001 for all consumers.</p></td>
     </tr>
     <tr>
       <th>effmatrix</th>
@@ -218,8 +219,10 @@ If FALSE resources grow logistically.</p></td>
     </tr>
     <tr>
       <th>mort</th>
-      <td><p>Numeric vector of length 1 or length = <code>spnum</code> specifying
-density independent mortality rates.</p></td>
+      <td><p>Numeric vector or list of vectors of length 1 or
+length = <code>spnum</code>, specifying density independent mortality rates.
+For time dependent parameters
+(with <code>timepars</code> = TRUE), expects a list of length 2.</p></td>
     </tr>
     <tr>
       <th>resspeed</th>
