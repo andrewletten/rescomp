@@ -64,6 +64,19 @@ def_cr_ode <- function(Time, State, Pars) {
     } else{
       Qs <- Qs[[1]]
     }
+
+    mort_list_live <-  list()
+    mort_live_eachres <-  list()
+
+    if(timepars == TRUE & length(all_d) > 1){
+      for (i in 1:length(all_d[[1]])) {
+        mort_list_live[[i]] <- mort_approx_fun[[i]](Time)
+        }
+      all_d <- unlist(mort_list_live)
+    } else{
+      all_d <- all_d[[1]]
+    }
+
     # --------------------------------------------------------------------
 
 

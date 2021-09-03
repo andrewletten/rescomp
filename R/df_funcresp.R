@@ -1,4 +1,4 @@
-#' Generate ggplot friendly data frame for plotting functional responses
+#' Ge#' Generate ggplot friendly data frame for plotting functional responses
 #'
 #' @param pars Parameter list from spec_rescomp()
 #' @param maxx Maximum resource value to get percapita growth rates across
@@ -29,7 +29,12 @@ df_funcresp <- function(pars, maxx, madj = FALSE) {
   resp.list <- list()
   resp.list.TDP <- list()
 
-  for (k in seq_along(pars$mu)) {
+  maxparmlen <- max(length(pars$mu),
+                    length(pars$Ks),
+                    length(pars$Qs),
+                    length(pars$all_d))
+
+  for (k in 1:maxparmlen) {
     for (i in 1:pars$nconsumers) {
       for (j in 1:pars$nresources) {
         resp.iter[, j] <- func_form(
@@ -44,14 +49,23 @@ df_funcresp <- function(pars, maxx, madj = FALSE) {
           } else {
             mu = pars$Ks[[k]][i, j]
           },
+          if (length(pars$all_d) == 1){
+            if(madj == TRUE){
+              mort = pars$all_d[[1]][i]
+            } else {
+              mort = 0
+            }
+          } else {
+            if(madj == TRUE){
+              mort = pars$all_d[[k]][i]
+            } else {
+              mort = 0
+              }
+          },
+
           phi = pars$phi[i, j],
           type3 = pars$type3[i, j],
-          eff = pars$eff[i, j],
-          if(madj == TRUE){
-            mort = pars$all_d[i]
-          } else {
-            mort = 0
-          }
+          eff = pars$eff[i, j]
         )
         names(resp.iter)[j] <- paste0("Resource ",
                                       letters[c(1:pars$nresources)[j]])

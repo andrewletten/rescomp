@@ -8,17 +8,18 @@
 #'     constants (type 1, or type 2 when parameterised using conversion
 #'     efficiencies with `effmatrix` as opposed to resource quotas with
 #'     `qmatrix`). The number of rows and columns should be equal to `spnum`
-#'     and `resnum` respectively. If `timepars` = TRUE, expects a list of
-#'     length 2.
+#'     and `resnum` respectively. For time dependent parameters
+#'     (with `timepars` = TRUE), expects a list of length 2.
 #' @param kmatrix Numeric matrix or list of matrices, the elements of which
 #'     give the of half saturation constants (type 2 or type 3, ignored if
 #'     funcresp = "type1"). The number of rows and columns should be equal to
-#'     `spnum` and `resnum` respectively. If `timepars` = TRUE, expects a list
-#'     of length 2.
+#'     `spnum` and `resnum` respectively. For time dependent parameters
+#'     (with `timepars` = TRUE), expects a list of length 2.
 #' @param qmatrix Numeric matrix or list of matrices, the elements of which
 #'     give the resource quotas. The number of rows and columns should be equal to
-#'     `spnum` and `resnum` respectively. If `timepars` = TRUE, expects a list
-#'     of length 2. Default = 0.001 for all consumers.
+#'     `spnum` and `resnum` respectively. For time dependent parameters
+#'     (with `timepars` = TRUE), expects a list of length 2.
+#'     Default = 0.001 for all consumers.
 #' @param effmatrix Numeric matrix of resource conversion efficiencies.
 #'     The number of rows should be equal to `spnum` and `resnum` respectively.
 #'     NB. Incompatible with specification of resource quotas. Function will
@@ -28,8 +29,10 @@
 #' @param chemo Logical. Default is resources supplied continuously (chemostat).
 #'     If FALSE resources grow logistically.
 #' @param essential Logical vector of length 1. If FALSE resources are substitutable.
-#' @param mort Numeric vector of length 1 or length = `spnum` specifying
-#'     density independent mortality rates.
+#' @param mort Numeric vector or list of vectors of length 1 or
+#'     length = `spnum`, specifying density independent mortality rates.
+#'     For time dependent parameters
+#'     (with `timepars` = TRUE), expects a list of length 2.
 #' @param resspeed Numeric vector of length 1 specifying resource intrinsic
 #'     rate of increase (if chemo = FALSE), or otherwise chemostat dilution
 #'     rate. Set to zero for pulsing only. For continuous dilution of resource
@@ -123,15 +126,12 @@ spec_rescomp <- function(spnum = 1,
   stopifnot(is.logical(chemo))
   stopifnot(is.logical(timepars))
   stopifnot(is.logical(verbose))
-  stopifnot(is.numeric(mort))
   stopifnot(is.numeric(mortpulse))
   stopifnot(mortpulse >= 0 & mortpulse <= 1)
   stopifnot(is.numeric(resspeed))
   stopifnot(is.numeric(resconc))
   stopifnot(is.numeric(respulse))
   stopifnot(is.numeric(cinit))
-
-  # mumatrix, kmatrix and qmatrix checks below
 
   pars <- list()
 
@@ -204,14 +204,39 @@ spec_rescomp <- function(spnum = 1,
 
   if (!is.list(pars$Qs)) pars$Qs <- list(pars$Qs)
 
+  # mortality
+  stopifnot(is.numeric(mort) | is.list(mort))
+  if (!is.list(mort)){
+    if(length(mort) == 1){
+      pars$all_d <- list(rep(mort, times = spnum))
+    } else {
+      stopifnot(length(mort) == spnum)
+      pars$all_d <- list(mort)
+    }
+  } else {
+    if(length(mort[[1]]) == 1){
+      pars$all_d <- list(rep(mort[[1]], times = spnum),
+                         rep(mort[[2]], times = spnum))
+    } else {
+      stopifnot(length(mort[[1]]) == spnum)
+      pars$all_d <- mort
+    }
+  }
+
+
   pars$totaltime <- totaltime
   pars$tpinterp <- tpinterp
 
   # time dependent parms
   if (timepars == TRUE) {
-    if (length(pars$mu) == 1 & length(pars$Ks) == 1 & length(pars$Qs) == 1)
+    if (length(pars$mu) == 1 &
+        length(pars$Ks) == 1 &
+        length(pars$Qs) == 1 &
+        length(pars$all_d) == 1)
+
+
       stop("Time dependent parameters set to true but
-        only one mu, k, and/or q matrix provided")
+        only one mu-, k-, q-matrix and mortality vector provided")
     if (missing(timeparfreq)){
       stop("If timepars = TRUE, timeparfreq must be provided")
     } else {
@@ -227,6 +252,10 @@ spec_rescomp <- function(spnum = 1,
     if(length(pars$Qs) > 1){
       pars$Qs_approx_fun <- make_tdpars("Qs", pars)
     }
+    if(length(pars$all_d) > 1){
+      pars$mort_approx_fun <- make_tdpars("all_d", pars)
+    }
+
 
   } else {
     if (length(pars$mu) > 1 | length(pars$Ks) > 1 | length(pars$Qs) > 1)
@@ -336,14 +365,6 @@ spec_rescomp <- function(spnum = 1,
     pars$rinit <- rinit
   }
 
-  # mortality
-  if(length(mort) == 1){
-    pars$all_d <- rep(mort, times = spnum)
-  } else {
-    stopifnot(length(mort) == spnum)
-    pars$all_d <- mort
-  }
-
   pars$respulse <- respulse
   pars$essential <- essential
   pars$chemo <- chemo
@@ -445,17 +466,41 @@ print.rescomp <- function(x, ..., detail = "summary"){
            },
            "\n"),
 
-    paste0(" * ",
-           if(all(pars$all_d > 0) & pars$mortpulse == 0){
-             "Mortality is continuous"
-           } else if (all(pars$all_d > 0) & pars$mortpulse > 0){
-             "Mortality is continuous and intermittent"
-           } else if (all(pars$all_d == 0) & pars$mortpulse > 0){
-             "Mortality intermittent"
-           } else if (all(pars$all_d == 0) & pars$mortpulse == 0){
-             "No mortality"
+    if (length(pars$all_d) == 1){
+      paste0(" * ",
+             if(all(pars$all_d[[1]] > 0) & pars$mortpulse == 0){
+               "Mortality is continuous"
+             } else if (all(pars$all_d[[1]] > 0) & pars$mortpulse > 0){
+               "Mortality is continuous and intermittent"
+             } else if (all(pars$all_d[[1]] == 0) & pars$mortpulse > 0){
+               "Mortality intermittent"
+             } else if (all(pars$all_d[[1]] == 0) & pars$mortpulse == 0){
+               "No mortality"
+             },
+             "\n")
+
+    } else if(length(pars$all_d) == 2){
+      paste0(" * ",
+             if(all(pars$all_d[[1]] > 0) &
+                all(pars$all_d[[2]] > 0) &
+                pars$mortpulse == 0){
+               "Mortality is continuous"
+             } else if (all(pars$all_d[[1]] > 0) &
+                        all(pars$all_d[[2]] > 0) &
+                        pars$mortpulse > 0){
+               "Mortality is continuous and intermittent"
+             } else if (all(pars$all_d[[1]] == 0) &
+                        all(pars$all_d[[2]] == 0) &
+                        pars$mortpulse > 0){
+               "Mortality intermittent"
+             } else if (all(pars$all_d[[1]] == 0) &
+                        all(pars$all_d[[2]] == 0) &
+                        pars$mortpulse == 0){
+               "No mortality"
+             },
+             "\n")
            },
-           "\n"),
+
 
     if(pars$timepars == TRUE){
       if(pars$tpinterp == "inst"){

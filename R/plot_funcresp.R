@@ -35,6 +35,27 @@ plot_funcresp <- function(pars, maxx, madj = FALSE){
 
   df <- df_funcresp(pars, maxx, madj)
 
+  mortdf <- data.frame(
+
+    paramstate = rep(
+      rep(unique(df$paramstate),
+          each = length(unique(df$sp))),
+      times = length(unique(df$resource))),
+
+    sp = rep(
+      rep(unique(df$sp),
+          times = length(unique(df$paramstate))),
+      times = length(unique(df$resource))),
+
+    resource = rep(
+      unique(df$resource),
+          each = length(unique(df$paramstate)) * length(unique(df$sp))),
+
+    mort = rep(
+      unlist(pars$all_d),
+      times = length(unique(df$resource)))
+    )
+
   p <- ggplot2::ggplot(df, aes(y = .data$growth, x = .data$resource.levels)) +
     geom_line(aes(col = .data$sp), size = 1, alpha=0.8) +
     theme_bw() +
@@ -60,15 +81,24 @@ plot_funcresp <- function(pars, maxx, madj = FALSE){
   if(madj == TRUE){
     p + geom_hline(yintercept = 0, col = "grey")
   } else {
-    if (length(unique(pars$all_d)) > 1){
-      p + geom_hline(yintercept = pars$all_d,
-                     linetype = "dashed",
-                     col = cbbPalette[1:pars$nconsumers])
-    } else {
-      p + geom_hline(yintercept = pars$all_d,
-                     linetype = "dashed")
+    if (length(pars$all_d) == 1){
+      if (length(unique(unlist(pars$all_d))) > 1){
+        p + geom_hline(data = mortdf, aes(yintercept = .data$mort,
+                                          col = .data$sp), linetype = "dashed")
+      } else {
+        p + geom_hline(data = mortdf, aes(yintercept = .data$mort),
+                       linetype = "dashed")
+      }
+    } else if (length(pars$all_d) > 1){
+      if (length(unique(unlist(pars$all_d[[1]]))) > 1 |
+          length(unique(unlist(pars$all_d[[2]]))) > 1){
+        p + geom_hline(data = mortdf, aes(yintercept = .data$mort,
+                                          col = .data$sp), linetype = "dashed")
+      } else {
+        p + geom_hline(data = mortdf, aes(yintercept = .data$mort),
+                       linetype = "dashed")
+      }
     }
 
   }
 }
-
