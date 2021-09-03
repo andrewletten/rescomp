@@ -57,7 +57,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/classic-results.html">Reproducing past studies in resource competition with rescomp</a>
+      <a href="../articles/classic-results.html">Reproducing studies in resource competition with rescomp</a>
     </li>
   </ul>
 </li>
@@ -153,7 +153,7 @@
 <h1 class="hasAnchor">
 <a href="#using-rescomp" class="anchor"></a>Using <code>rescomp</code>
 </h1>
-<p>The main user function in <code>rescomp</code> is <code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code>, which facilitates the definition and parameterisation of a desired model and the specification of simulation parameters. Function arguments include (but are not limited to):</p>
+<p>The main user function in <code>rescomp</code> is <code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code>, which facilitates the definition and parameterisation of a consumer-resource model and the specification of simulation parameters. Function arguments include (but are not limited to):</p>
 <ul>
 <li>Number of consumers/resources</li>
 <li>Consumer functional response (type I, II or II)</li>
@@ -180,6 +180,7 @@
 <li>Two consumers (type 2) with time dependent consumption parameters and one continuously supplied resource</li>
 <li>Three consumers (type 1) on three essential resources generating an intransitive loop (i.e. rock paper scissors dynamics).</li>
 </ul>
+<p>Additional examples illustrating other options and functionality can be found in the vignette “<em>Reproducing studies in resource competition with rescomp</em>”, including delayed consumer introduction times and specifying a model with consumer resource efficiencies rather than resource quotas.</p>
 <div id="type-2-consumer-on-a-logistically-growing-resource" class="section level2">
 <h2 class="hasAnchor">
 <a href="#type-2-consumer-on-a-logistically-growing-resource" class="anchor"></a>Type 2 consumer on a logistically growing resource</h2>
@@ -216,7 +217,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
-<p>Note the total simulation time and initial state variables given by <code>parms</code> can be overidden in <code>sim_recomp</code> with the arguments <code>times</code> and <code>y</code>, respectively. This will nevertheless print a message to make sure it is intentional. See <code><a href="../reference/time_vals.html">?rescomp::time_vals</a></code> for convenient specification of simulation time (and pulsing when used).</p>
+<p>Note the total simulation time and initial state variables given by <code>parms</code> can be overidden in <code>sim_recomp</code> with the arguments <code>times</code> and <code>y</code>, respectively. This will nevertheless print a message to the console to check it is intentional. See <code><a href="../reference/time_vals.html">?rescomp::time_vals</a></code> for convenient specification of simulation time (and pulsing when used).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30000</span>, <span class="fl">1</span><span class="op">)</span>, times <span class="op">=</span> <span class="fu"><a href="../reference/time_vals.html">time_vals</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; totaltime in pars will be overidden</span>
