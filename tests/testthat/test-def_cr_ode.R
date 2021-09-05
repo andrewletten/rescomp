@@ -48,7 +48,8 @@ test_that("Differentials are as expected for given state/pars", {
         resnum = 1,
         timepars = TRUE,
         timeparfreq = 10,
-        mumatrix = list(matrix(c(0.7), nrow = 1, ncol = 1), matrix(c(1), nrow = 1, ncol = 1))
+        mumatrix = list(matrix(c(0.7), nrow = 1, ncol = 1),
+                        matrix(c(1), nrow = 1, ncol = 1))
       )
     )
   )
@@ -111,7 +112,8 @@ test_that("Differentials are as expected for given state/pars", {
         funcresp = "type2",
         timepars = TRUE,
         timeparfreq = 10,
-        kmatrix = list(matrix(c(0.5), nrow = 1, ncol = 1), matrix(c(0.05), nrow = 1, ncol = 1))
+        kmatrix = list(matrix(c(0.5), nrow = 1, ncol = 1),
+                       matrix(c(0.05), nrow = 1, ncol = 1))
       )
     )
   )
@@ -128,7 +130,8 @@ test_that("Differentials are as expected for given state/pars", {
         funcresp = "type2",
         timepars = TRUE,
         timeparfreq = 10,
-        kmatrix = list(matrix(c(0.5), nrow = 1, ncol = 1), matrix(c(0.05), nrow = 1, ncol = 1))
+        kmatrix = list(matrix(c(0.5), nrow = 1, ncol = 1),
+                       matrix(c(0.05), nrow = 1, ncol = 1))
       )
     )
   )

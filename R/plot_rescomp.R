@@ -5,6 +5,7 @@
 #' @param consumers Plot consumer dynamics? Default = TRUE.
 #' @param resources Plot resource dynamics? Default = TRUE.
 #' @param logy Log transfrom y-axis (default = FALSE).
+#' @param lwd Line width (default = 1)
 #'
 #' @return ggplot object
 #' @export
@@ -18,14 +19,24 @@
 plot_rescomp <- function(model,
                          consumers = TRUE,
                          resources = TRUE,
-                         logy = FALSE){
+                         logy = FALSE,
+                         lwd = 1){
   plot.df <-  frame_and_name(model)
-  comp.gg <- tidyr::pivot_longer(plot.df, cols = !c(.data$time), names_to = "state.var", values_to = "count")
+  comp.gg <- tidyr::pivot_longer(plot.df,
+                                 cols = !c(.data$time),
+                                 names_to = "state.var",
+                                 values_to = "count")
   comp.gg$state.var.type <- "Consumers"
   comp.gg$state.var.type[grep("R", comp.gg$state.var)] <- "Resources"
+  comp.gg$state.var <- factor(comp.gg$state.var,
+                              levels = unique(comp.gg$state.var))
 
-  cbbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-  resSet1 <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33", "#A65628")
+  cbbPalette <- rep(c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2",
+                      "#D55E00", "#CC79A7", "#E41A1C", "#377EB8", "#4DAF4A",
+                      "#984EA3", "#FF7F00", "#FFFF33", "#A65628"),
+                    length.out = length(unique(comp.gg$state.var)))
+
+
 
   if(consumers == TRUE & resources == FALSE){
     comp.gg <- comp.gg[comp.gg$state.var.type != "Resources",]
@@ -37,7 +48,7 @@ plot_rescomp <- function(model,
                        aes(y = .data$count, x = .data$time)) +
 
     geom_line(aes(group = .data$state.var, col = .data$state.var),
-              size = 1,
+              size = lwd,
               alpha=0.9) +
 
     # theme(legend.position="none") +
@@ -56,7 +67,7 @@ plot_rescomp <- function(model,
       ~ state.var.type,
       scales = "free") +
 
-    scale_colour_manual(values=c(cbbPalette, resSet1))
+    scale_colour_manual(values=c(cbbPalette))
 
   if(logy == TRUE) {
     p + scale_y_log10(limits = c(1, NA))

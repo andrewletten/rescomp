@@ -32,9 +32,10 @@
 plot_funcresp <- function(pars, maxx, madj = FALSE){
 
   cbbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  resSet1 <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33", "#A65628")
 
   df <- df_funcresp(pars, maxx, madj)
-
+  df$sp <- factor(df$sp, levels = unique(df$sp))
   mortdf <- data.frame(
 
     paramstate = rep(
@@ -66,7 +67,7 @@ plot_funcresp <- function(pars, maxx, madj = FALSE){
     theme(axis.text = element_text(size = 8),
           axis.title= element_text(size = 10)) +
     coord_cartesian(expand = FALSE) +
-    scale_colour_manual(values=cbbPalette)
+    scale_colour_manual(values=c(cbbPalette, resSet1))
 
   if(length(unique(df$paramstate)) > 1 & length(unique(df$resource)) > 1){
     p <- p + facet_grid(.data$paramstate ~ .data$resource)
