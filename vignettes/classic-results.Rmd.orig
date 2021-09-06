@@ -132,7 +132,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resources = FALSE, lwd = 1)
 ```
 
-These chaotic oscillations can in fact foster the coexistence of many more species than limiting resources. In the final example taken from Fig 4 of Husiman and Weissing (1999), 12 species persist on 5 resource.
+These chaotic oscillations can in fact foster the coexistence of many more species than limiting resources. In the final example taken from Fig 4 of Husiman and Weissing (1999), 12 species persist on 5 resources.
 
 
 ```{r}
