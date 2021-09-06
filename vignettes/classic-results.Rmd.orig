@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This vignette demonstrates the use of `rescomp` to reproduce a variety of analyses of resource competition from the literature.
+This vignette demonstrates the use of `rescomp` to reproduce several analyses of resource competition from the literature.
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -76,7 +76,7 @@ pars <- spec_rescomp(
 plot_funcresp(pars)
 ```
 
-Be warned the full simulation with 15000 time steps may take a while to run (~5 mins to run on a laptop with CPU 1.90GHz and 16GB of RAM).
+Be warned the full simulation with 15000 time steps may take a while to run (~2 mins on a laptop with CPU 1.90GHz and 16GB of RAM).
 
 ```{r}
 m1 <- sim_rescomp(pars)
@@ -86,7 +86,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resources = FALSE)
 ```
 
-Huisman and Weissing (1999) next showed that chaotic dynamics are common when each consumer is an intermediate competitor for the resource that most limits its growth.
+Huisman and Weissing (1999) next showed that chaotic dynamics are common when each consumes has a relatively larger impact on the resource for which it is an intermediate competitor. For example in the model specification below, consumer 1 is an intermediate competitor for resource 4 ($k_{1,4} = 0.30$) but has a larger impact (resource quota) on resource 4 relative to the other four consumers ($Q_{1,4} = 0.05$,  $Q_{i\neq1,4} = 0.03$)
 
 ```{r}
 pars <- spec_rescomp(
@@ -132,7 +132,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resources = FALSE, lwd = 1)
 ```
 
-These chaotic oscillations can in fact foster the coexistence of many more species than limiting resources. In the final example taken from Fig 4 of Husiman and Weissing, 12 species coexist on 5 resource.
+These chaotic oscillations can in fact foster the coexistence of many more species than limiting resources. In the final example taken from Fig 4 of Husiman and Weissing (1999), 12 species persist on 5 resource.
 
 
 ```{r}
@@ -198,7 +198,7 @@ pars <- spec_rescomp(
 plot_funcresp(pars)
 ```
 
-Be warned this simulation may take a relatively long time to run (~10 mins on a laptop with CPU 1.90GHz and 16GB of RAM).
+Be warned this simulation will take a relatively long time to run (~8 mins on a laptop with CPU 1.90GHz and 16GB of RAM).
 
 ```{r}
 m1 <- sim_rescomp(pars)
