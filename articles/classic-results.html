@@ -85,7 +85,7 @@
 
     
     
-<p>This vignette demonstrates the use of <code>rescomp</code> to reproduce a variety of analyses of resource competition from the literature.</p>
+<p>This vignette demonstrates the use of <code>rescomp</code> to reproduce several analyses of resource competition from the literature.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://andrewletten.net/">rescomp</a></span><span class="op">)</span></code></pre></div>
 <div id="huisman-and-weissing-1999" class="section level1">
@@ -148,13 +148,13 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <p><img src="classic-results-HW1999-funcresps-1c-1.png" title="plot of chunk HW1999-funcresps-1c" alt="plot of chunk HW1999-funcresps-1c" width="70%"></p>
-<p>Be warned the full simulation with 15000 time steps may take a while to run (~5 mins to run on a laptop with CPU 1.90GHz and 16GB of RAM).</p>
+<p>Be warned the full simulation with 15000 time steps may take a while to run (~2 mins on a laptop with CPU 1.90GHz and 16GB of RAM).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, resources <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="classic-results-HW1999-dynamics-1c-1.png" title="Reproduces Fig 1c from Huisman and Weissing (1999)." alt="Reproduces Fig 1c from Huisman and Weissing (1999)." width="70%"></p>
-<p>Huisman and Weissing (1999) next showed that chaotic dynamics are common when each consumer is an intermediate competitor for the resource that most limits its growth.</p>
+<p>Huisman and Weissing (1999) next showed that chaotic dynamics are common when each consumes has a relatively larger impact on the resource for which it is an intermediate competitor. For example in the model specification below, consumer 1 is an intermediate competitor for resource 4 (<span class="math inline">\(k_{1,4} = 0.30\)</span>) but has a larger impact (resource quota) on resource 4 relative to the other four consumers (<span class="math inline">\(Q_{1,4} = 0.05\)</span>, <span class="math inline">\(Q_{i\neq1,4} = 0.03\)</span>)</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>
   spnum <span class="op">=</span> <span class="fl">5</span>,
@@ -203,7 +203,7 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, resources <span class="op">=</span> <span class="cn">FALSE</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p><img src="classic-results-HW1999-dynamics-2a-1.png" title="Corresponds to Fig 2a of Huisman and Weissing (1999)." alt="Corresponds to Fig 2a of Huisman and Weissing (1999)." width="70%"></p>
-<p>These chaotic oscillations can in fact foster the coexistence of many more species than limiting resources. In the final example taken from Fig 4 of Husiman and Weissing, 12 species coexist on 5 resource.</p>
+<p>These chaotic oscillations can in fact foster the coexistence of many more species than limiting resources. In the final example taken from Fig 4 of Husiman and Weissing (1999), 12 species persist on 5 resources.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>
   spnum <span class="op">=</span> <span class="fl">12</span>,
@@ -274,7 +274,7 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <p><img src="classic-results-HW1999-funcresp-4-1.png" title="plot of chunk HW1999-funcresp-4" alt="plot of chunk HW1999-funcresp-4" width="70%"></p>
-<p>Be warned this simulation may take a relatively long time to run (~10 mins on a laptop with CPU 1.90GHz and 16GB of RAM).</p>
+<p>Be warned this simulation will take a relatively long time to run (~8 mins on a laptop with CPU 1.90GHz and 16GB of RAM).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
