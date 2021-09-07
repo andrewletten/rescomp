@@ -15,6 +15,12 @@ knitr::opts_chunk$set(
   comment = "#>", dev = "CairoPNG", dpi = 300, out.width = "70%",
   fig.path = "vignettes/classic-results-"
 )
+
+knitr::knit_hooks$set(htmlcap = function(before, options, envir) {
+  if(!before) {
+    paste('<p class="caption">',options$htmlcap,"</p>",sep="")
+    }
+    })
 ```
 
 ```{r setup}
@@ -82,7 +88,7 @@ Be warned the full simulation with 15000 time steps may take a while to run (~2 
 m1 <- sim_rescomp(pars)
 ```
 
-```{r HW1999-dynamics-1c, fig.width = 6, fig.height = 4, fig.cap = "Reproduces Fig 1c from Huisman and Weissing (1999)."}
+```{r HW1999-dynamics-1c, fig.width = 6, fig.height = 4, htmlcap = "Reproduces Fig 1c from Huisman and Weissing (1999)."}
 plot_rescomp(m1, resources = FALSE)
 ```
 
@@ -128,7 +134,7 @@ plot_funcresp(pars)
 m1 <- sim_rescomp(pars)
 ```
 
-```{r HW1999-dynamics-2a, fig.width = 6, fig.height = 4, fig.cap = "Corresponds to Fig 2a of Huisman and Weissing (1999)."}
+```{r HW1999-dynamics-2a, fig.width = 6, fig.height = 4, htmlcap = "Corresponds to Fig 2a of Huisman and Weissing (1999)."}
 plot_rescomp(m1, resources = FALSE, lwd = 1)
 ```
 
@@ -205,7 +211,7 @@ m1 <- sim_rescomp(pars)
 ```
 
 
-```{r HW1999-dynamics-4, fig.width = 6, fig.height = 4, fig.cap = "Composite of Figs 4a and 4b from Huisman and Weissing (1999)."}
+```{r HW1999-dynamics-4, fig.width = 6, fig.height = 4, htmlcap = "Composite of Figs 4a and 4b from Huisman and Weissing (1999)."}
 plot_rescomp(m1, resources = FALSE, lwd = 0.1)
 ```
 
@@ -243,7 +249,7 @@ pars <- spec_rescomp(
 )
 ```
 
-```{r Grover1990-funcresp-4a, fig.width = 4, fig.height = 3, fig.cap = "Reproduces Fig 1 from Grover (1990). Resource concentration in $mu$mol per ml rather than  per L."}
+```{r Grover1990-funcresp-4a, fig.width = 4, fig.height = 3, htmlcap = "Reproduces Fig 1 from Grover (1990). Resource concentration in $mu$mol per ml rather than  per L."}
 plot_funcresp(pars, maxx = 0.0001)
 ```
 
@@ -252,7 +258,7 @@ mcons <- sim_rescomp(pars)
 ```
 
 
-```{r Grover1990-dynamics-4a, fig.width = 4, fig.height = 3, warning = FALSE, fig.cap = "Reproduces Fig 4A from Grover (1990)."}
+```{r Grover1990-dynamics-4a, fig.width = 4, fig.height = 3, warning = FALSE, htmlcap = "Reproduces Fig 4A from Grover (1990)."}
 plot_rescomp(mcons, resources = FALSE, logy = TRUE)
 ```
 
@@ -267,7 +273,7 @@ pars$pulsefreq <- period
 pars
 ```
 
-```{r Grover1990-dynamics-4b, fig.width = 4, fig.height = 3, fig.cap = "Reproduces Fig 4B from Grover (1990)."}
+```{r Grover1990-dynamics-4b, fig.width = 4, fig.height = 3, htmlcap = "Reproduces Fig 4B from Grover (1990)."}
 m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resource = FALSE, logy = TRUE)
 ```
@@ -282,7 +288,7 @@ pars$pulsefreq <- period
 pars
 ```
 
-```{r Grover1990-dynamics-4c, fig.width = 4, fig.height = 3, fig.cap = "Reproduces Fig 4C from Grover (1990)."}
+```{r Grover1990-dynamics-4c, fig.width = 4, fig.height = 3, htmlcap = "Reproduces Fig 4C from Grover (1990)."}
 m4 <- sim_rescomp(pars)
 plot_rescomp(m4, resource = FALSE, logy = TRUE)
 ```
@@ -297,7 +303,7 @@ pars$pulsefreq <- period
 pars
 ```
 
-```{r Grover1990-dynamics-4d, fig.width = 4, fig.height = 3, fig.cap = "Reproduces Fig 4D from Grover (1990)."}
+```{r Grover1990-dynamics-4d, fig.width = 4, fig.height = 3, htmlcap = "Reproduces Fig 4D from Grover (1990)."}
 m10 <- sim_rescomp(pars)
 plot_rescomp(m10, resource = FALSE, logy = TRUE)
 ```
@@ -337,7 +343,7 @@ pars <- spec_rescomp(
 ```
 
 
-```{r AM1980-funcresp-2, fig.width = 4, fig.height = 3, fig.cap = "Corresponds to Fig 2 from Armstrong and McGehee (1980)."}
+```{r AM1980-funcresp-2, fig.width = 4, fig.height = 3, htmlcap = "Corresponds to Fig 2 from Armstrong and McGehee (1980)."}
 
 # Using madj = TRUE standardizes the functional response by mortality.
 plot_funcresp(pars, maxx = 200, madj = TRUE)
@@ -347,7 +353,7 @@ plot_funcresp(pars, maxx = 200, madj = TRUE)
 m1 <- sim_rescomp(pars)
 ```
 
-```{r AM1980-dynamics-1, fig.width = 6, fig.height = 3, fig.cap = "Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide a closer correspondence to the original figure."}
+```{r AM1980-dynamics-1, fig.width = 6, fig.height = 3, htmlcap = "Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide a closer correspondence to the original figure."}
 plot_rescomp(m1)
 ```
 

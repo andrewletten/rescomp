@@ -98,7 +98,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resources = FALSE)
 ```
 
-<img src="classic-results-HW1999-dynamics-1c-1.png" title="Reproduces Fig 1c from Huisman and Weissing (1999)." alt="Reproduces Fig 1c from Huisman and Weissing (1999)." width="70%" />
+<img src="classic-results-HW1999-dynamics-1c-1.png" title="plot of chunk HW1999-dynamics-1c" alt="plot of chunk HW1999-dynamics-1c" width="70%" /><p class="caption">Reproduces Fig 1c from Huisman and Weissing (1999).</p>
 
 Huisman and Weissing (1999) next showed that chaotic dynamics are common when each consumes has a relatively larger impact on the resource for which it is an intermediate competitor. For example in the model specification below, consumer 1 is an intermediate competitor for resource 4 ($k_{1,4} = 0.30$) but has a larger impact (resource quota) on resource 4 relative to the other four consumers ($Q_{1,4} = 0.05$,  $Q_{i\neq1,4} = 0.03$)
 
@@ -162,7 +162,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resources = FALSE, lwd = 1)
 ```
 
-<img src="classic-results-HW1999-dynamics-2a-1.png" title="Corresponds to Fig 2a of Huisman and Weissing (1999)." alt="Corresponds to Fig 2a of Huisman and Weissing (1999)." width="70%" />
+<img src="classic-results-HW1999-dynamics-2a-1.png" title="plot of chunk HW1999-dynamics-2a" alt="plot of chunk HW1999-dynamics-2a" width="70%" /><p class="caption">Corresponds to Fig 2a of Huisman and Weissing (1999).</p>
 
 These chaotic oscillations can in fact foster the coexistence of many more species than limiting resources. In the final example taken from Fig 4 of Husiman and Weissing (1999), 12 species persist on 5 resources.
 
@@ -258,7 +258,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resources = FALSE, lwd = 0.1)
 ```
 
-<img src="classic-results-HW1999-dynamics-4-1.png" title="Composite of Figs 4a and 4b from Huisman and Weissing (1999)." alt="Composite of Figs 4a and 4b from Huisman and Weissing (1999)." width="70%" />
+<img src="classic-results-HW1999-dynamics-4-1.png" title="plot of chunk HW1999-dynamics-4" alt="plot of chunk HW1999-dynamics-4" width="70%" /><p class="caption">Composite of Figs 4a and 4b from Huisman and Weissing (1999).</p>
 
 
 # Grover (1990)
@@ -309,7 +309,7 @@ pars <- spec_rescomp(
 plot_funcresp(pars, maxx = 0.0001)
 ```
 
-<img src="classic-results-Grover1990-funcresp-4a-1.png" title="Reproduces Fig 1 from Grover (1990). Resource concentration in $mu$mol per ml rather than  per L." alt="Reproduces Fig 1 from Grover (1990). Resource concentration in $mu$mol per ml rather than  per L." width="70%" />
+<img src="classic-results-Grover1990-funcresp-4a-1.png" title="plot of chunk Grover1990-funcresp-4a" alt="plot of chunk Grover1990-funcresp-4a" width="70%" /><p class="caption">Reproduces Fig 1 from Grover (1990). Resource concentration in $mu$mol per ml rather than  per L.</p>
 
 
 ```r
@@ -322,7 +322,7 @@ mcons <- sim_rescomp(pars)
 plot_rescomp(mcons, resources = FALSE, logy = TRUE)
 ```
 
-<img src="classic-results-Grover1990-dynamics-4a-1.png" title="Reproduces Fig 4A from Grover (1990)." alt="Reproduces Fig 4A from Grover (1990)." width="70%" />
+<img src="classic-results-Grover1990-dynamics-4a-1.png" title="plot of chunk Grover1990-dynamics-4a" alt="plot of chunk Grover1990-dynamics-4a" width="70%" /><p class="caption">Reproduces Fig 4A from Grover (1990).</p>
 
 
 
@@ -352,7 +352,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resource = FALSE, logy = TRUE)
 ```
 
-<img src="classic-results-Grover1990-dynamics-4b-1.png" title="Reproduces Fig 4B from Grover (1990)." alt="Reproduces Fig 4B from Grover (1990)." width="70%" />
+<img src="classic-results-Grover1990-dynamics-4b-1.png" title="plot of chunk Grover1990-dynamics-4b" alt="plot of chunk Grover1990-dynamics-4b" width="70%" /><p class="caption">Reproduces Fig 4B from Grover (1990).</p>
 
 
 
@@ -381,7 +381,7 @@ m4 <- sim_rescomp(pars)
 plot_rescomp(m4, resource = FALSE, logy = TRUE)
 ```
 
-<img src="classic-results-Grover1990-dynamics-4c-1.png" title="Reproduces Fig 4C from Grover (1990)." alt="Reproduces Fig 4C from Grover (1990)." width="70%" />
+<img src="classic-results-Grover1990-dynamics-4c-1.png" title="plot of chunk Grover1990-dynamics-4c" alt="plot of chunk Grover1990-dynamics-4c" width="70%" /><p class="caption">Reproduces Fig 4C from Grover (1990).</p>
 
 
 
@@ -410,7 +410,7 @@ m10 <- sim_rescomp(pars)
 plot_rescomp(m10, resource = FALSE, logy = TRUE)
 ```
 
-<img src="classic-results-Grover1990-dynamics-4d-1.png" title="Reproduces Fig 4D from Grover (1990)." alt="Reproduces Fig 4D from Grover (1990)." width="70%" />
+<img src="classic-results-Grover1990-dynamics-4d-1.png" title="plot of chunk Grover1990-dynamics-4d" alt="plot of chunk Grover1990-dynamics-4d" width="70%" /><p class="caption">Reproduces Fig 4D from Grover (1990).</p>
 
 
 
@@ -465,7 +465,7 @@ pars <- spec_rescomp(
 plot_funcresp(pars, maxx = 200, madj = TRUE)
 ```
 
-<img src="classic-results-AM1980-funcresp-2-1.png" title="Corresponds to Fig 2 from Armstrong and McGehee (1980)." alt="Corresponds to Fig 2 from Armstrong and McGehee (1980)." width="70%" />
+<img src="classic-results-AM1980-funcresp-2-1.png" title="plot of chunk AM1980-funcresp-2" alt="plot of chunk AM1980-funcresp-2" width="70%" /><p class="caption">Corresponds to Fig 2 from Armstrong and McGehee (1980).</p>
 
 
 ```r
@@ -477,6 +477,6 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1)
 ```
 
-<img src="classic-results-AM1980-dynamics-1-1.png" title="Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide a closer correspondence to the original figure." alt="Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide a closer correspondence to the original figure." width="70%" />
+<img src="classic-results-AM1980-dynamics-1-1.png" title="plot of chunk AM1980-dynamics-1" alt="plot of chunk AM1980-dynamics-1" width="70%" /><p class="caption">Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide a closer correspondence to the original figure.</p>
 
 <!-- # Hastings et al,. 2018. Transient phenomena in ecology. Science, 361(6406). -->
