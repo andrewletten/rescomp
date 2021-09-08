@@ -147,13 +147,13 @@
 <span class="co">#&gt;  * Some or all consumers introduced after timepoint 0</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
-<p><img src="classic-results-HW1999-funcresps-1c-1.png" title="plot of chunk HW1999-funcresps-1c" alt="plot of chunk HW1999-funcresps-1c" width="70%"></p>
+<p><img src="HW1999-funcresps-1c-1.png" title="plot of chunk HW1999-funcresps-1c" alt="plot of chunk HW1999-funcresps-1c" width="70%"></p>
 <p>Be warned the full simulation with 15000 time steps may take a while to run (~2 mins on a laptop with CPU 1.90GHz and 16GB of RAM).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, resources <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<img src="classic-results-HW1999-dynamics-1c-1.png" title="plot of chunk HW1999-dynamics-1c" alt="plot of chunk HW1999-dynamics-1c" width="70%"><p class="caption">
+<img src="HW1999-dynamics-1c-1.png" title="plot of chunk HW1999-dynamics-1c" alt="plot of chunk HW1999-dynamics-1c" width="70%"><p class="caption">
 Reproduces Fig 1c from Huisman and Weissing (1999).
 </p>
 <p>Huisman and Weissing (1999) next showed that chaotic dynamics are common when each consumes has a relatively larger impact on the resource for which it is an intermediate competitor. For example in the model specification below, consumer 1 is an intermediate competitor for resource 4 (<span class="math inline">\(k_{1,4} = 0.30\)</span>) but has a larger impact (resource quota) on resource 4 relative to the other four consumers (<span class="math inline">\(Q_{1,4} = 0.05\)</span>, <span class="math inline">\(Q_{i\neq1,4} = 0.03\)</span>)</p>
@@ -199,15 +199,15 @@ Reproduces Fig 1c from Huisman and Weissing (1999).
 <span class="co">#&gt;  * Init state: consumer(s) = [0.11, 0.12, 0.13, 0.14, 0.15], resource(s) = [6, 10, 14, 4, 9]</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
-<p><img src="classic-results-HW1999-funcresp-2-1.png" title="plot of chunk HW1999-funcresp-2" alt="plot of chunk HW1999-funcresp-2" width="70%"></p>
+<p><img src="HW1999-funcresp-2-1.png" title="plot of chunk HW1999-funcresp-2" alt="plot of chunk HW1999-funcresp-2" width="70%"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, resources <span class="op">=</span> <span class="cn">FALSE</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<img src="classic-results-HW1999-dynamics-2a-1.png" title="plot of chunk HW1999-dynamics-2a" alt="plot of chunk HW1999-dynamics-2a" width="70%"><p class="caption">
+<img src="HW1999-dynamics-2a-1.png" title="plot of chunk HW1999-dynamics-2a" alt="plot of chunk HW1999-dynamics-2a" width="70%"><p class="caption">
 Corresponds to Fig 2a of Huisman and Weissing (1999).
 </p>
-<p>These chaotic oscillations can in fact foster the coexistence of many more species than limiting resources. In the final example taken from Fig 4 of Husiman and Weissing (1999), 12 species persist on 5 resources.</p>
+<p>These chaotic oscillations can in fact foster the coexistence of many more species than limiting resources. In the final example taken from Fig 4 of Huisman and Weissing (1999), 12 species persist on 5 resources.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>
   spnum <span class="op">=</span> <span class="fl">12</span>,
@@ -277,13 +277,13 @@ Corresponds to Fig 2a of Huisman and Weissing (1999).
 <span class="co">#&gt;  * Some or all consumers introduced after timepoint 0</span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
-<p><img src="classic-results-HW1999-funcresp-4-1.png" title="plot of chunk HW1999-funcresp-4" alt="plot of chunk HW1999-funcresp-4" width="70%"></p>
+<p><img src="HW1999-funcresp-4-1.png" title="plot of chunk HW1999-funcresp-4" alt="plot of chunk HW1999-funcresp-4" width="70%"></p>
 <p>Be warned this simulation will take a relatively long time to run (~8 mins on a laptop with CPU 1.90GHz and 16GB of RAM).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, resources <span class="op">=</span> <span class="cn">FALSE</span>, lwd <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
-<img src="classic-results-HW1999-dynamics-4-1.png" title="plot of chunk HW1999-dynamics-4" alt="plot of chunk HW1999-dynamics-4" width="70%"><p class="caption">
+<img src="HW1999-dynamics-4-1.png" title="plot of chunk HW1999-dynamics-4" alt="plot of chunk HW1999-dynamics-4" width="70%"><p class="caption">
 Composite of Figs 4a and 4b from Huisman and Weissing (1999).
 </p>
 </div>
@@ -291,6 +291,8 @@ Composite of Figs 4a and 4b from Huisman and Weissing (1999).
 <h1 class="hasAnchor">
 <a href="#grover-1990" class="anchor"></a>Grover (1990)</h1>
 <p><a href="https://www.journals.uchicago.edu/doi/abs/10.1086/285131">Resource Competition in a Variable Environment: Phytoplankton Growing According to Monod’s Model</a>. <em>The American Naturalist</em>, 136(6), 771-789.</p>
+<p>Grover (1990) coined the term gleaner-opportunist trade-off to describe the trade-off between a consumer with a lower R* (minimum resource requirement) and a consumer with a higher maximal growth rate. Previous studies (including Armstrong and McGehee 1980) had already shown that these two phenotypes could coexist under endogenously generated resource cycling or sinusoidal variation in resource input. In this paper, Grover showed that coexistence via a gleaner-opportunist trade-off extended to periodically delivered resource pulses.</p>
+<p>The model comprises a two type two competitors consuming a single resource. When the resource is delivered continuously the gleaner (with a lower R*) predictably excludes the opportunist (with a higher maximum growth rate).</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>
   spnum <span class="op">=</span> <span class="fl">2</span>,
@@ -328,16 +330,17 @@ Composite of Figs 4a and 4b from Huisman and Weissing (1999).
 <span class="co">#&gt;  * Init state: consumer(s) = [1000, 1000], resource(s) = [2e-04]</span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">0.0001</span><span class="op">)</span></code></pre></div>
-<img src="classic-results-Grover1990-funcresp-4a-1.png" title="plot of chunk Grover1990-funcresp-4a" alt="plot of chunk Grover1990-funcresp-4a" width="70%"><p class="caption">
+<img src="Grover1990-funcresp-4a-1.png" title="plot of chunk Grover1990-funcresp-4a" alt="plot of chunk Grover1990-funcresp-4a" width="70%"><p class="caption">
 Reproduces Fig 1 from Grover (1990). Resource concentration in <span class="math inline">\(mu\)</span>mol per ml rather than per L.
 </p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mcons</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">mcons</span>, resources <span class="op">=</span> <span class="cn">FALSE</span>, logy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<img src="classic-results-Grover1990-dynamics-4a-1.png" title="plot of chunk Grover1990-dynamics-4a" alt="plot of chunk Grover1990-dynamics-4a" width="70%"><p class="caption">
+<img src="Grover1990-dynamics-4a-1.png" title="plot of chunk Grover1990-dynamics-4a" alt="plot of chunk Grover1990-dynamics-4a" width="70%"><p class="caption">
 Reproduces Fig 4A from Grover (1990).
 </p>
+<p>When the resource is pulsed with high frequency (whilst maintaining the same time averaged resource supply), the gleanerstill excludes the opportunist but at a slower rate.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">period</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="va">amp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="fl">0.0002</span><span class="op">*</span><span class="fl">0.25</span><span class="op">*</span><span class="va">period</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.25</span><span class="op">*</span><span class="va">period</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">0.0002</span><span class="op">)</span><span class="op">*</span><span class="fl">2</span>
@@ -359,9 +362,10 @@ Reproduces Fig 4A from Grover (1990).
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span>
 <span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span>, resource <span class="op">=</span> <span class="cn">FALSE</span>, logy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<img src="classic-results-Grover1990-dynamics-4b-1.png" title="plot of chunk Grover1990-dynamics-4b" alt="plot of chunk Grover1990-dynamics-4b" width="70%"><p class="caption">
+<img src="Grover1990-dynamics-4b-1.png" title="plot of chunk Grover1990-dynamics-4b" alt="plot of chunk Grover1990-dynamics-4b" width="70%"><p class="caption">
 Reproduces Fig 4B from Grover (1990).
 </p>
+<p>When the resource is pulsed at an intermediate frequency (again whilst maintaining the same time averaged resource supply), the gleaner and the opportunist coexist.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">period</span> <span class="op">&lt;-</span> <span class="fl">4</span>
 <span class="va">amp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="fl">0.0002</span><span class="op">*</span><span class="fl">0.25</span><span class="op">*</span><span class="va">period</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.25</span><span class="op">*</span><span class="va">period</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">0.0002</span><span class="op">)</span><span class="op">*</span><span class="fl">2</span>
@@ -382,9 +386,10 @@ Reproduces Fig 4B from Grover (1990).
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span>
 <span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m4</span>, resource <span class="op">=</span> <span class="cn">FALSE</span>, logy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<img src="classic-results-Grover1990-dynamics-4c-1.png" title="plot of chunk Grover1990-dynamics-4c" alt="plot of chunk Grover1990-dynamics-4c" width="70%"><p class="caption">
+<img src="Grover1990-dynamics-4c-1.png" title="plot of chunk Grover1990-dynamics-4c" alt="plot of chunk Grover1990-dynamics-4c" width="70%"><p class="caption">
 Reproduces Fig 4C from Grover (1990).
 </p>
+<p>Finally when the resource is pulsed at low frequency, the opportunist excludes the gleaner.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">period</span> <span class="op">&lt;-</span> <span class="fl">10</span>
 <span class="va">amp</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="fl">0.0002</span><span class="op">*</span><span class="fl">0.25</span><span class="op">*</span><span class="va">period</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.25</span><span class="op">*</span><span class="va">period</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">0.0002</span><span class="op">)</span><span class="op">*</span><span class="fl">2</span>
@@ -405,7 +410,7 @@ Reproduces Fig 4C from Grover (1990).
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m10</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span>
 <span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m10</span>, resource <span class="op">=</span> <span class="cn">FALSE</span>, logy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<img src="classic-results-Grover1990-dynamics-4d-1.png" title="plot of chunk Grover1990-dynamics-4d" alt="plot of chunk Grover1990-dynamics-4d" width="70%"><p class="caption">
+<img src="Grover1990-dynamics-4d-1.png" title="plot of chunk Grover1990-dynamics-4d" alt="plot of chunk Grover1990-dynamics-4d" width="70%"><p class="caption">
 Reproduces Fig 4D from Grover (1990).
 </p>
 </div>
@@ -453,14 +458,14 @@ Reproduces Fig 4D from Grover (1990).
 <code class="sourceCode R">
 <span class="co"># Using madj = TRUE standardizes the functional response by mortality.</span>
 <span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">200</span>, madj <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<img src="classic-results-AM1980-funcresp-2-1.png" title="plot of chunk AM1980-funcresp-2" alt="plot of chunk AM1980-funcresp-2" width="70%"><p class="caption">
+<img src="AM1980-funcresp-2-1.png" title="plot of chunk AM1980-funcresp-2" alt="plot of chunk AM1980-funcresp-2" width="70%"><p class="caption">
 Corresponds to Fig 2 from Armstrong and McGehee (1980).
 </p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
-<img src="classic-results-AM1980-dynamics-1-1.png" title="plot of chunk AM1980-dynamics-1" alt="plot of chunk AM1980-dynamics-1" width="70%"><p class="caption">
+<img src="AM1980-dynamics-1-1.png" title="plot of chunk AM1980-dynamics-1" alt="plot of chunk AM1980-dynamics-1" width="70%"><p class="caption">
 Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide a closer correspondence to the original figure.
 </p>
 <!-- # Hastings et al,. 2018. Transient phenomena in ecology. Science, 361(6406). -->

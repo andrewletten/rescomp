@@ -213,7 +213,7 @@
 <p>The model can then be simulated with <code><a href="../reference/sim_rescomp.html">rescomp::sim_rescomp</a></code>. <code>sim_rescomp</code> is a wrapper to <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html">deSolve::ode</a></code> that takes the output from <code>spec_rescomp</code> as its main argument.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
-<p><code>plot_cr_sim</code> plots the output dynamics.</p>
+<p><code>plot_rescomp</code> produces a plot of the output dynamics (both consumers and resources).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
 <p><img src="rescomp_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
@@ -384,7 +384,7 @@
 <div id="two-type-2-consumers-and-one-externally-pulsed-resource-continuous-mortality" class="section level2">
 <h2 class="hasAnchor">
 <a href="#two-type-2-consumers-and-one-externally-pulsed-resource-continuous-mortality" class="anchor"></a>Two type 2 consumers and one externally pulsed resource (continuous mortality)</h2>
-<p>External resource pulsing is handled using an event function, <code><a href="../reference/eventfun_respulse.html">rescomp::eventfun_respulse</a></code>, which is passed in a list to <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html">deSolve::ode</a></code>. The size of the resource pulse is specified as a numeric with the argument <code>respulse</code> in the call to <code>spec_rescomp</code>. To prevent any other mode of resource supply, <code>resspeed</code> should be set to zero. The frequency of pulsing is set with the <code>pulse</code> argument in <code><a href="../reference/time_vals.html">rescomp::time_vals</a></code>. The resultant vector of pusling intervals should be included in the same list containing the event function.</p>
+<p>External resource pulsing is handled using an event function, <code><a href="../reference/eventfun_respulse.html">rescomp::eventfun_respulse</a></code>, which is passed in a list to <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html">deSolve::ode</a></code>. The size of the resource pulse is specified as a numeric with the argument <code>respulse</code> in the call to <code>spec_rescomp</code>. To prevent any other mode of resource supply, <code>resspeed</code> should be set to zero. The frequency of pulsing is set with the <code>pulsefreq</code> argument.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>
   spnum <span class="op">=</span> <span class="fl">2</span>, 
@@ -493,8 +493,7 @@
 <h2 class="hasAnchor">
 <a href="#two-type-2-consumers-with-time-dependent-consumption-parameters-and-one-continuously-supplied-resource" class="anchor"></a>Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource</h2>
 <p>Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in <code>deSolve</code> with forcing functions. <code>rescomp</code> provides a convenient means of implementing forcing functions in the background. Two additional arguments are needed in <code>spec_rescomp</code>: <code>timepars</code> and <code>timeparfreq</code>. <code>timepars</code> should be set to <code>TRUE</code>; <code>timeparfreq</code> adjusts the frequency of switching between ‘environmental states’.</p>
-<p>In addition, if <code>time_pars = TRUE</code>, the mumatrix argument in <code>spec_rescomp</code> expects a list containing two matrices, reflecting two different environmental states. At this stage <code>rescomp</code> only handles two states with equal time allotted to each state.</p>
-<!-- or a linear transition between states -->
+<p>In addition, if <code>time_pars = TRUE</code>, the mumatrix argument in <code>spec_rescomp</code> expects a list containing two matrices, reflecting two different environmental states. At this stage <code>rescomp</code> only handles two states with the option of either equal time allotted to each state (default) or linear (<code>tpinterp = "lin"</code>) or sinusoidal (<code>tpinterp = "sine"</code>) interpolation between the states</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>
   spnum <span class="op">=</span> <span class="fl">2</span>, 
