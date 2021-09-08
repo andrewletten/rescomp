@@ -12,7 +12,8 @@ This vignette demonstrates the use of `rescomp` to reproduce several analyses of
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>", dev = "CairoPNG", dpi = 300, out.width = "70%"
+  comment = "#>", dev = "CairoPNG", dpi = 300, out.width = "70%",
+  fig.path = "vignettes/classic-results-"
 )
 
 knitr::knit_hooks$set(htmlcap = function(before, options, envir) {
@@ -221,7 +222,7 @@ plot_rescomp(m1, resources = FALSE, lwd = 0.1)
 
 Grover (1990) coined the term gleaner-opportunist trade-off to describe the trade-off between a consumer with a lower R* (minimum resource requirement) and a consumer with a higher maximal growth rate. Previous studies (including Armstrong and McGehee 1980) had already shown that these two phenotypes could coexist under endogenously generated resource cycling or sinusoidal variation in resource input. In this paper, Grover showed that coexistence via a gleaner-opportunist trade-off extended to periodically delivered resource pulses.
 
-The model comprises a two type two competitors consuming a single resource. When the resource is delivered continuously the gleaner (with a lower R*) predictably excludes the opportunist (with a higher maximum growth rate).  
+The model comprises a two type two competitors consuming a single resource. When the resource is delivered continuously the gleaner (with a lower R*) predictably excludes the opportunist (with a higher maximum growth rate).
 
 ```{r}
 pars <- spec_rescomp(
