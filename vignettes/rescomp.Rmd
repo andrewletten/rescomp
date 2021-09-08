@@ -158,7 +158,7 @@ The model can then be simulated with `rescomp::sim_rescomp`. `sim_rescomp` is a 
 m1 <- sim_rescomp(pars)
 ```
 
-`plot_cr_sim` plots the output dynamics.
+`plot_rescomp` produces a plot of the output dynamics (both consumers and resources).
 
 ```{r, fig.width = 6, fig.height = 3}
 plot_rescomp(m1)
@@ -319,7 +319,7 @@ plot_rescomp(m1)
 
 ## Two type 2 consumers and one externally pulsed resource (continuous mortality)
 
-External resource pulsing is handled using an event function, `rescomp::eventfun_respulse`, which is passed in a list to `deSolve::ode`. The size of the resource pulse is specified as a numeric with the argument `respulse` in the call to `spec_rescomp`. To prevent any other mode of resource supply, `resspeed` should be set to zero. The frequency of pulsing is set with the `pulse` argument in `rescomp::time_vals`. The resultant vector of pusling intervals should be included in the same list containing the event function.
+External resource pulsing is handled using an event function, `rescomp::eventfun_respulse`, which is passed in a list to `deSolve::ode`. The size of the resource pulse is specified as a numeric with the argument `respulse` in the call to `spec_rescomp`. To prevent any other mode of resource supply, `resspeed` should be set to zero. The frequency of pulsing is set with the `pulsefreq` argument.
 
 ```{r}
 pars <- spec_rescomp(
@@ -415,9 +415,8 @@ plot_rescomp(m1)
 
 Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in `deSolve` with forcing functions. `rescomp` provides a convenient means of implementing forcing functions in the background. Two additional arguments are needed in `spec_rescomp`: `timepars` and `timeparfreq`. `timepars` should be set to `TRUE`; `timeparfreq` adjusts the frequency of switching between 'environmental states'.
 
-In addition, if `time_pars = TRUE`, the mumatrix argument in `spec_rescomp` expects a list containing two matrices, reflecting two different environmental states. At this stage `rescomp` only handles two states with equal time allotted to each state. 
+In addition, if `time_pars = TRUE`, the mumatrix argument in `spec_rescomp` expects a list containing two matrices, reflecting two different environmental states. At this stage `rescomp` only handles two states with the option of either equal time allotted to each state (default) or linear (`tpinterp = "lin"`) or sinusoidal (`tpinterp = "sine"`) interpolation between the states
 
-<!-- or a linear transition between states -->
 
 ```{r}
 pars <- spec_rescomp(

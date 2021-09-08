@@ -12,8 +12,7 @@ This vignette demonstrates the use of `rescomp` to reproduce several analyses of
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>", dev = "CairoPNG", dpi = 300, out.width = "70%",
-  fig.path = "vignettes/classic-results-"
+  comment = "#>", dev = "CairoPNG", dpi = 300, out.width = "70%"
 )
 
 knitr::knit_hooks$set(htmlcap = function(before, options, envir) {
@@ -138,7 +137,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resources = FALSE, lwd = 1)
 ```
 
-These chaotic oscillations can in fact foster the coexistence of many more species than limiting resources. In the final example taken from Fig 4 of Husiman and Weissing (1999), 12 species persist on 5 resources.
+These chaotic oscillations can in fact foster the coexistence of many more species than limiting resources. In the final example taken from Fig 4 of Huisman and Weissing (1999), 12 species persist on 5 resources.
 
 
 ```{r}
@@ -220,6 +219,9 @@ plot_rescomp(m1, resources = FALSE, lwd = 0.1)
 
 [Resource Competition in a Variable Environment: Phytoplankton Growing According to Monod's Model](https://www.journals.uchicago.edu/doi/abs/10.1086/285131). *The American Naturalist*, 136(6), 771-789.
 
+Grover (1990) coined the term gleaner-opportunist trade-off to describe the trade-off between a consumer with a lower R* (minimum resource requirement) and a consumer with a higher maximal growth rate. Previous studies (including Armstrong and McGehee 1980) had already shown that these two phenotypes could coexist under endogenously generated resource cycling or sinusoidal variation in resource input. In this paper, Grover showed that coexistence via a gleaner-opportunist trade-off extended to periodically delivered resource pulses.
+
+The model comprises a two type two competitors consuming a single resource. When the resource is delivered continuously the gleaner (with a lower R*) predictably excludes the opportunist (with a higher maximum growth rate).  
 
 ```{r}
 pars <- spec_rescomp(
@@ -262,6 +264,7 @@ mcons <- sim_rescomp(pars)
 plot_rescomp(mcons, resources = FALSE, logy = TRUE)
 ```
 
+When the resource is pulsed with high frequency (whilst maintaining the same time averaged resource supply), the gleanerstill excludes the opportunist but at a slower rate.
 
 ```{r}
 period <- 1
@@ -278,6 +281,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resource = FALSE, logy = TRUE)
 ```
 
+When the resource is pulsed at an intermediate frequency (again whilst maintaining the same time averaged resource supply), the gleaner and the opportunist coexist.
 
 ```{r}
 period <- 4
@@ -293,6 +297,7 @@ m4 <- sim_rescomp(pars)
 plot_rescomp(m4, resource = FALSE, logy = TRUE)
 ```
 
+Finally when the resource is pulsed at low frequency, the opportunist excludes the gleaner.
 
 ```{r}
 period <- 10
