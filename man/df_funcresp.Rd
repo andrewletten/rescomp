@@ -2,7 +2,7 @@
 % Please edit documentation in R/df_funcresp.R
 \name{df_funcresp}
 \alias{df_funcresp}
-\title{Ge#' Generate ggplot friendly data frame for plotting functional responses}
+\title{Generate ggplot friendly data frame for plotting functional responses}
 \usage{
 df_funcresp(pars, maxx, madj = FALSE)
 }
@@ -18,7 +18,7 @@ df_funcresp(pars, maxx, madj = FALSE)
 data frame
 }
 \description{
-Ge#' Generate ggplot friendly data frame for plotting functional responses
+Generate ggplot friendly data frame for plotting functional responses
 }
 \examples{
 pars <- spec_rescomp()

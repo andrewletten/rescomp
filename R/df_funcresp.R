@@ -1,4 +1,4 @@
-#' Ge#' Generate ggplot friendly data frame for plotting functional responses
+#' Generate ggplot friendly data frame for plotting functional responses
 #'
 #' @param pars Parameter list from spec_rescomp()
 #' @param maxx Maximum resource value to get percapita growth rates across
