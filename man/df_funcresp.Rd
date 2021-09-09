@@ -9,7 +9,7 @@ df_funcresp(pars, maxx, madj = FALSE)
 \arguments{
 \item{pars}{Parameter list from spec_rescomp()}
 
-\item{maxx}{Maximum resource value to get percapita growth rates across
+\item{maxx}{Numeric. Maximum resource value to get percapita growth rates across
 (for plotting)}
 
 \item{madj}{Logical. Standardize by mortality. Default = FALSE.}
