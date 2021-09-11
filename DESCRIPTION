@@ -1,5 +1,5 @@
 Package: rescomp
-Title: Efficient modelling of resource competition
+Title: Efficient Modelling of Resource Competition
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Andrew",
@@ -8,7 +8,8 @@ Authors@R:
            email = "a.letten@uq.edu.au",
            comment = c(ORCID = "0000-0001-6436-7942"))
 URL: https://andrewletten.net/
-Description: This packages simulates canonical models of resource competition.
+Description: Generate, simulate and visualise ODE models of 
+    consumer-resource interactions.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

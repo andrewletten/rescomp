@@ -18,8 +18,8 @@ def_cr_ode <- function(Time, State, Pars) {
     mu_live_eachres <-  list()
 
     if(timepars == TRUE & length(mu) > 1){
-      for (i in 1:nrow(mu[[1]])) {
-        for (j in 1:ncol(mu[[1]])) {
+      for (i in seq_len(nrow(mu[[1]]))) {
+        for (j in seq_len(ncol(mu[[1]]))) {
           mu_live_eachres[j] <- mu_approx_fun[[i]][[j]](Time)
         }
         mu_list_live[[i]] <- mu_live_eachres
@@ -35,8 +35,8 @@ def_cr_ode <- function(Time, State, Pars) {
     Ks_live_eachres <-  list()
 
     if(timepars == TRUE & length(Ks) > 1){
-      for (i in 1:nrow(Ks[[1]])) {
-        for (j in 1:ncol(Ks[[1]])) {
+      for (i in seq_len(nrow(Ks[[1]]))) {
+        for (j in seq_len(ncol(Ks[[1]]))) {
           Ks_live_eachres[j] <- Ks_approx_fun[[i]][[j]](Time)
         }
         Ks_list_live[[i]] <- Ks_live_eachres
@@ -52,8 +52,8 @@ def_cr_ode <- function(Time, State, Pars) {
     Qs_live_eachres <-  list()
 
     if(timepars == TRUE & length(Qs) > 1){
-      for (i in 1:nrow(Qs[[1]])) {
-        for (j in 1:ncol(Qs[[1]])) {
+      for (i in seq_len(nrow(Qs[[1]]))) {
+        for (j in seq_len(ncol(Qs[[1]]))) {
           Qs_live_eachres[j] <- Qs_approx_fun[[i]][[j]](Time)
         }
         Qs_list_live[[i]] <- Qs_live_eachres
@@ -69,7 +69,7 @@ def_cr_ode <- function(Time, State, Pars) {
     mort_live_eachres <-  list()
 
     if(timepars == TRUE & length(all_d) > 1){
-      for (i in 1:length(all_d[[1]])) {
+      for (i in seq_along(all_d[[1]])) {
         mort_list_live[[i]] <- mort_approx_fun[[i]](Time)
         }
       all_d <- unlist(mort_list_live)
@@ -83,8 +83,8 @@ def_cr_ode <- function(Time, State, Pars) {
     # Consumer dynamics
     dN.perR <- mu # matrix(pars$mu[,1:length(R)])
     dN <- N
-    for (i in 1:length(N)) {
-      for (j in 1:length(R)) {
+    for (i in seq_along(N)) {
+      for (j in seq_along(R)) {
         dN.perR[i, j] <- (mu[i, j] * N[i] * (R[j])^(2 * type3[i, j])) /
           ((Ks[i, j])^(2 * type3[i, j]) + phi[i, j] * (R[j])^(2 * type3[i, j]))
       }
@@ -99,8 +99,8 @@ def_cr_ode <- function(Time, State, Pars) {
     dR.perN <- mu
     dR <- R
     if (Pars$essential == TRUE) {
-      for (j in 1:length(R)) {
-        for (i in 1:length(N)) {
+      for (j in seq_along(R)) {
+        for (i in seq_along(N)) {
           dR.perN[i, ] <- (min(dN.perR[i, ])) * Qs[i, ]
         }
         if (Pars$chemo == TRUE) {
@@ -112,8 +112,8 @@ def_cr_ode <- function(Time, State, Pars) {
         }
       }
     } else {
-      for (j in 1:length(R)) {
-        for (i in 1:length(N)) {
+      for (j in seq_along(R)) {
+        for (i in seq_along(N)) {
           dR.perN[i, j] <- dN.perR[i, j] * Qs[i, j]
         }
         if (Pars$chemo == TRUE) {
@@ -143,14 +143,14 @@ eventfun_respulse <- function(Time, State, Pars) {
   with(as.list(State), {
     R <- State[(1 + Pars$nconsumers):length(State)]
     N <- State[1:Pars$nconsumers]
-    for (j in 1:length(R)) {
+    for (j in seq_along(R)) {
       if (Pars$batchtrans == TRUE){
         R[j] <- R[j]*(1-Pars$mortpulse) + Pars$respulse*(Pars$mortpulse)
       } else {
         R[j] <- R[j] + Pars$respulse
       }
     }
-    for (i in 1:length(N)) {
+    for (i in seq_along(N)) {
       N[i] <- N[i]*(1-Pars$mortpulse)
     }
     return(c(N, R))
@@ -171,10 +171,10 @@ eventfun_starttime <- function(Time, State, Pars) {
   with(as.list(State), {
     R <- State[(1 + Pars$nconsumers):length(State)]
     N <- State[1:Pars$nconsumers]
-    for (j in 1:length(R)) {
+    for (j in seq_along(R)) {
       R[j] <- R[j]
       }
-    for (i in 1:length(N)) {
+    for (i in seq_along(N)) {
       if(Time %in% Pars$introseq[i]){
         N[i] <- Pars$cinit[i]
       } else {

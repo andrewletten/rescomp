@@ -134,18 +134,20 @@ spec_rescomp()
 
 # Two type II consumers and two substitutable resources in a chemostat
 pars <- spec_rescomp(
-    spnum = 2,
-    resnum = 2,
-    funcresp = "type2",
-    mumatrix = matrix(c(0.7,0.3,
-                        0.4,0.5),
-                        nrow = 2,
-                        ncol = 2,
-                        byrow = TRUE),
-    resspeed = 3,
-    resconc = 1,
-    chemo = TRUE,
-    essential = FALSE
+  spnum = 2,
+  resnum = 2,
+  funcresp = "type2",
+  mumatrix = matrix(c(
+    0.7, 0.3,
+    0.4, 0.5
+  ),
+  nrow = 2,
+  ncol = 2,
+  byrow = TRUE
+  ),
+  resspeed = 3,
+  resconc = 1,
+  chemo = TRUE,
+  essential = FALSE
 )
-
 }

@@ -23,5 +23,4 @@ Generate ggplot friendly data frame for plotting functional responses
 \examples{
 pars <- spec_rescomp()
 df_funcresp(pars)
-
 }

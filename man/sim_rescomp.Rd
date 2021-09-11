@@ -31,5 +31,4 @@ Simulate resource competition (a convenience wrapper for
 \examples{
 pars <- spec_rescomp()
 sim_rescomp(pars = pars)
-
 }
