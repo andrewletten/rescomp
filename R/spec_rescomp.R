@@ -331,11 +331,13 @@ spec_rescomp <- function(spnum = 1,
         pars$type3[i, ] <- pars$type3[i, ]
         if (length(pars$Ks) == 1) {
           pars$Ks[[1]][i, ] <- 1
-          if (any(kmatrix[i, ] != 1)) {
-            warning(
-              paste0(strwrap("Warning: half saturation constant ignored (set to 1) for
+          if (!missing(kmatrix)) {
+            if (any(kmatrix[i, ] != 1)) {
+              warning(
+                paste0(strwrap("Warning: half saturation constant ignored (set to 1) for
                   type 1 functional response", prefix = " ")), "\n\n"
-            )
+              )
+            }
           }
         } else {
           pars$Ks[[1]][i, ] <- 1

@@ -42,11 +42,11 @@ sim_rescomp <- function(pars,
       warning(strwrap("respulse or mortpulse parameters nonzero but no pulse
                       sequence provided. ", prefix = " "), immediate. = TRUE)
     }
-  } else if (pars$pulsefreq != 0 & !is.null(pars$introseq)) {
+  } else if (any(pars$pulsefreq != 0) & !is.null(pars$introseq)) {
     stop("Currently not possible to have delayed introductions with resource/mortality pulsing")
   } else if (!is.null(pars$introseq)) {
     events <- list(func = eventfun_starttime, time = times$introseq)
-  } else if (pars$pulsefreq != 0) {
+  } else if (any(pars$pulsefreq != 0)) {
     if (pars$respulse == 0 & pars$mortpulse == 0) {
       warning(strwrap("Pulse sequence provided but respulse and mortpulse both
                       set to zero. ", prefix = " "), immediate. = TRUE)

@@ -342,3 +342,33 @@
        * Simulation time: 1000 time steps
        * Init state: consumer(s) = [10], resource(s) = [1]
 
+---
+
+    Code
+      spec_rescomp(funcresp = "type3")
+    Message <simpleMessage>
+      Model properties 
+       * 1 consumer(s) and 1 resource(s)
+       * Consumers have type 3 functional responses
+       * Resource supply is continuous (e.g. chemostat)
+       * Mortality is continuous
+      
+      Simulation properties 
+       * Simulation time: 1000 time steps
+       * Init state: consumer(s) = [10], resource(s) = [1]
+
+---
+
+    Code
+      spec_rescomp(spnum = 2, funcresp = c("type1", "type3"))
+    Message <simpleMessage>
+      Model properties 
+       * 2 consumer(s) and 1 resource(s)
+       * Consumers have type 1 or type 3 functional responses
+       * Resource supply is continuous (e.g. chemostat)
+       * Mortality is continuous
+      
+      Simulation properties 
+       * Simulation time: 1000 time steps
+       * Init state: consumer(s) = [10, 10], resource(s) = [1]
+

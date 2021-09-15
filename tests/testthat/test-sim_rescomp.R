@@ -1,12 +1,10 @@
-library(deSolve)
-
 test_that("Sim corresponds to manual spec with deSolve", {
 
   # -------------------------------------------------------------------------
   pars <- suppressMessages(spec_rescomp(totaltime = 50))
   msim <- sim_rescomp(pars)
   # direct in deSolve
-  mcheck <- ode(
+  mcheck <- deSolve::ode(
     func = function(Time, State, Pars) {
       with(as.list(c(State, Pars)), {
         dN <- (N * 0.1 * R) - 0.03 * N
@@ -28,7 +26,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
                                 totaltime = 50))
   msim <- sim_rescomp(pars)
   # direct in deSolve
-  mcheck <- ode(
+  mcheck <- deSolve::ode(
     func = function(Time, State, Pars) {
       with(as.list(c(State, Pars)), {
         dN1 <- (N1 * 0.1 * R) - 0.03 * N1
@@ -51,7 +49,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
                                 totaltime = 50))
   msim <- sim_rescomp(pars)
   # direct in deSolve
-  mcheck <- ode(
+  mcheck <- deSolve::ode(
     func = function(Time, State, Pars) {
       with(as.list(c(State, Pars)), {
         dN <- (N1 * 0.1 * R1) + (N1 * 0.1 * R2) - 0.03 * N1
@@ -74,7 +72,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
                                 totaltime = 50))
   msim <- sim_rescomp(pars)
   # direct in deSolve
-  mcheck <- ode(
+  mcheck <- deSolve::ode(
     func = function(Time, State, Pars) {
       with(as.list(c(State, Pars)), {
         dN <- (N * 0.1 * R)/(1 + R) - 0.03 * N
@@ -96,7 +94,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
                                 totaltime = 50))
   msim <- sim_rescomp(pars)
   # direct in deSolve
-  mcheck <- ode(
+  mcheck <- deSolve::ode(
     func = function(Time, State, Pars) {
       with(as.list(c(State, Pars)), {
         dN <- (N * 0.1 * R) - 0.03 * N
@@ -119,7 +117,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
                                 totaltime = 50))
   msim <- sim_rescomp(pars)
   # direct in deSolve
-  mcheck <- ode(
+  mcheck <- deSolve::ode(
     func = function(Time, State, Pars) {
       with(as.list(c(State, Pars)), {
         dN <- (N * 0.1 * R) - 0.03 * N
@@ -143,7 +141,7 @@ test_that("Sim corresponds to manual spec with deSolve", {
                                totaltime = 50))
   msim <- sim_rescomp(pars)
   # direct in deSolve
-  mcheck <- ode(
+  mcheck <- deSolve::ode(
     func = function(Time, State, Pars) {
       with(as.list(c(State, Pars)), {
         dN <- (N * 0.1 * R) - 0.03 * N
@@ -168,6 +166,73 @@ test_that("Sim corresponds to manual spec with deSolve", {
   colnames(mcheck)[2:3] <- c("1", "2")
   expect_equal(msim[[1]], mcheck)
   # -------------------------------------------------------------------------
+
+  # -------------------------------------------------------------------------
+  pars <- suppressMessages(spec_rescomp(chemo = TRUE,
+                                        respulse = 1,
+                                        pulsefreq = c(10, 20),
+                                        totaltime = 50))
+  msim <- sim_rescomp(pars)
+  # direct in deSolve
+  mcheck <- deSolve::ode(
+    func = function(Time, State, Pars) {
+      with(as.list(c(State, Pars)), {
+        dN <- (N * 0.1 * R) - 0.03 * N
+        dR <- 0.03 * (1 - R) - (N * 0.1 * R * 0.001)
+        return(list(c(dN, dR)))
+      })
+    },
+    parms = NULL,
+    y = c(N = 10, R = 1),
+    times = round(seq(0, 50, 0.1), 1),
+    method = "lsoda",
+    events = list(
+      func = function(Time, State, Pars) {
+        with(as.list(State), {
+          N <- N
+          R <- R + 1
+          return(c(N, R))
+        })
+      },
+      time = c(10,20)
+    ))
+  colnames(mcheck)[2:3] <- c("1", "2")
+  expect_equal(msim[[1]], mcheck)
+  # -------------------------------------------------------------------------
+
+  # -------------------------------------------------------------------------
+  # Checking delayed introduction
+  pars <- suppressMessages(spec_rescomp(chemo = TRUE,
+                                        introseq = c(10),
+                                        totaltime = 50))
+  msim <- sim_rescomp(pars)
+  # direct in deSolve
+  mcheck <- deSolve::ode(
+    func = function(Time, State, Pars) {
+      with(as.list(c(State, Pars)), {
+        dN <- (N * 0.1 * R) - 0.03 * N
+        dR <- 0.03 * (1 - R) - (N * 0.1 * R * 0.001)
+        return(list(c(dN, dR)))
+      })
+    },
+    parms = NULL,
+    y = c(N = 0, R = 1),
+    times = round(seq(0, 50, 0.1), 1),
+    method = "lsoda",
+    events = list(
+      func = function(Time, State, Pars) {
+        with(as.list(State), {
+          N <- N + 10
+          R <- R
+          return(c(N, R))
+        })
+      },
+      time = c(10)
+    ))
+  colnames(mcheck)[2:3] <- c("1", "2")
+  expect_equal(msim[[1]], mcheck)
+  # -------------------------------------------------------------------------
+
 
   # -------------------------------------------------------------------------
 
@@ -211,5 +276,5 @@ test_that("Sim corresponds to manual spec with deSolve", {
 
   })
 
-test_that("Overide defaults raises correct warning", {
-})
+# test_that("Overide defaults raises correct warning", {
+# })
