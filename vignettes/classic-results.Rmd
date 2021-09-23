@@ -424,6 +424,10 @@ plot_rescomp(m10, resource = FALSE, logy = TRUE)
 
 [Competitive Exclusion](https://www.journals.uchicago.edu/doi/10.1086/283553). *The American Naturalist*, 115(2), 151-170.
 
+Armstrong and McGehee was one of the first papers to show more than $n$ species can coexist on $n$ resources via endogenously generated cycles in the consumer and resource dynamics. This mechanism for coexistence is indeed commonly referred to as the "Armstrong–McGehee mechanism".
+
+Unlike the previous examples, Armstrong and McGehee paramterised a two consumer - one resource model using conversion efficiencies in the consumer equations rather than quotas in the resource equations. In `spec_rescomp` this is implemented via the specification of an `effmatrix` rather than a `qmatrix`. The below code illustrates the model simulation presented by the authors in Figure 1 of their paper.
+
 
 ```r
 pars <- spec_rescomp(
@@ -463,15 +467,25 @@ pars <- spec_rescomp(
 #>  * Some or all consumers introduced after timepoint 0
 ```
 
+Because the two consumers were specified with slightly different density independent mortality rates, it is more informative to plot the functional responses using the `madj = TRUE` argument.
 
 
 ```r
-
-# Using madj = TRUE standardizes the functional response by mortality.
 plot_funcresp(pars, maxx = 200, madj = TRUE)
 ```
 
 <img src="classic-results-AM1980-funcresp-2-1.png" title="plot of chunk AM1980-funcresp-2" alt="plot of chunk AM1980-funcresp-2" width="70%" /><p class="caption">Corresponds to Fig 2 from Armstrong and McGehee (1980).</p>
+
+With the functional responses adjusted for species specific mortality rates it is clear that intersection of the functional responses lies above both species R*. As shown below, this is harder to interpret when using the default option for `plot_funcresp` where the two different mortality rates are plotted alongside their functional responses.   
+
+
+```r
+plot_funcresp(pars, maxx = 200)
+```
+
+<img src="classic-results-AM1980-funcresp-2-unadjusted-mortality-1.png" title="plot of chunk AM1980-funcresp-2-unadjusted-mortality" alt="plot of chunk AM1980-funcresp-2-unadjusted-mortality" width="70%" />
+
+Simulations show that the species with the nonlinear functional response generates limit cycles upon which the species with the linear functional response is able to persist.
 
 
 ```r
@@ -483,6 +497,6 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1)
 ```
 
-<img src="classic-results-AM1980-dynamics-1-1.png" title="plot of chunk AM1980-dynamics-1" alt="plot of chunk AM1980-dynamics-1" width="70%" /><p class="caption">Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide a closer correspondence to the original figure.</p>
+<img src="classic-results-AM1980-dynamics-1-1.png" title="plot of chunk AM1980-dynamics-1" alt="plot of chunk AM1980-dynamics-1" width="70%" /><p class="caption">Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide as close as possible correspondence to the original figure.</p>
 
 <!-- # Hastings et al,. 2018. Transient phenomena in ecology. Science, 361(6406). -->
