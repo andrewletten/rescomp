@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "a.letten@uq.edu.au",
            comment = c(ORCID = "0000-0001-6436-7942"))
-URL: https://github.com/andrewletten/rescomp, https://andrewletten.net/
+URL: https://andrewletten.net/
 Description: Generate, simulate and visualise ODE models of 
     consumer-resource interactions.
 License: MIT + file LICENSE
