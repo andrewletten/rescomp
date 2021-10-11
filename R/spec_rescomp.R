@@ -1,5 +1,5 @@
 #' Generate list of parameters for a consumer-resource model to be
-#'     passed to `sim_rescomp`
+#'     passed to `sim_rescomp()`
 #'
 #' @param spnum Integer vector of length 1 for the number of consumers
 #' @param resnum Integer vector of length 1 for the number of resources
@@ -66,7 +66,7 @@
 #' @param verbose If TRUE (default) prints model and simulation summary specs.
 #'
 #'
-#' @return List object of class 'rescomp'.
+#' @return S3 object of class `rescomp`.
 #' @export
 #'
 #' @importFrom stats approxfun

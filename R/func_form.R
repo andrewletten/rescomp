@@ -8,9 +8,10 @@
 #' @param type3 1 if type 3, 1/2 otherwise (default)
 #' @param eff Resource efficiency (under quota parameterisation ignored /
 #'     set to 1)
-#' @param mort Mortality rate (currently ignored / set to zero)
+#' @param mort Mortality rate. Set to zero if `madj = FALSE` (default) in
+#'     `plot_funcresp()`.
 #'
-#' @return vector
+#' @return Vector
 #' @export
 #'
 #' @examples

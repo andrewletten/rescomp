@@ -1,7 +1,7 @@
 #' Convert object of class deSolve to a data frame and name columns
 #'
 #' @param model List output from `sim_rescomp()`. First element is an object of
-#' class deSolve. Second element is an object of class rescomp.
+#' class deSolve. Second element is an S3 object of class `rescomp`.
 #'
 #' @return data frame
 #' @export

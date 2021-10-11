@@ -1,16 +1,18 @@
 #' Simulate resource competition (a convenience wrapper for
-#'     `deSolve::ode`)
+#'     `deSolve::ode()`)
 #'
-#' @param pars Parameter list returned by `rescomp::spec_rescomp`.
-#' @param y Vector of initial values for state variables. If provided,
-#'     overrides values given in pars.
-#' @param times List of up to 2 giving total simulation time and pulsing
-#'     sequence where relevant (use `rescomp::time_vals`). If provided,
+#' @param pars S3 object of class `rescomp` returned by
+#'     `rescomp::spec_rescomp()`.
+#' @param y Optional vector of initial values for state variables. If provided,
+#'     overrides values given in `pars`.
+#' @param times Optional list of up to two giving total simulation time and pulsing
+#'     sequence where relevant (use `rescomp::time_vals()`). If provided,
 #'     overrides values given in parms.
-#' @param events NULL (events specified in `spec_rescomp`)
-#' @param ... Other arguments passed to `deSolve::ode`
+#' @param events NULL (events specified in `spec_rescomp()`)
+#' @param ... Other arguments passed to `deSolve::ode()`
 #'
-#' @return An object of class deSolve
+#' @return A list of two comprising i) the model dynamics and ii) model
+#'     specifications.
 #' @export
 #'
 #' @examples

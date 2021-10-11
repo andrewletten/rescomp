@@ -1,6 +1,7 @@
 #' Generate ggplot friendly data frame for plotting functional responses
 #'
-#' @param pars Parameter list from spec_rescomp()
+#' @param pars S3 object of class `rescomp` detailing model parameters and
+#'     specifications.
 #' @param maxx Numeric. Maximum resource value to get percapita growth rates across
 #'     (for plotting)
 #' @param madj Logical. Standardize by mortality. Default = FALSE.

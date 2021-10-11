@@ -4,7 +4,7 @@
 #' @param State Vector of initial states
 #' @param Pars A list
 #'
-#' @return Model formula to pass to sim_rescomp
+#' @return Model formula to pass to `sim_rescomp()`
 #' @export
 #'
 # #' @examples
@@ -89,9 +89,9 @@ def_cr_ode <- function(Time, State, Pars) {
           ((Ks[i, j])^(2 * type3[i, j]) + phi[i, j] * (R[j])^(2 * type3[i, j]))
       }
       if (Pars$essential == TRUE) {
-        dN[i] <- (min(dN.perR[i, ]) * eff[i,j]) - (all_d[i] * N[i])
+        dN[i] <- (min(dN.perR[i, ] * eff[i,])) - (all_d[i] * N[i])
       } else {
-        dN[i] <- sum(dN.perR[i,] * eff[i,j]) - (all_d[i] * N[i])
+        dN[i] <- sum(dN.perR[i,] * eff[i,]) - (all_d[i] * N[i])
       }
     }
 
@@ -131,9 +131,9 @@ def_cr_ode <- function(Time, State, Pars) {
 
 #' Event for resource pulsing
 #'
-#' @param Time time to simulate over
-#' @param State vector of initial states
-#' @param Pars a list
+#' @param Time Time to simulate over
+#' @param State Vector of initial states
+#' @param Pars List
 #'
 # #' @return
 #' @export
@@ -159,9 +159,9 @@ eventfun_respulse <- function(Time, State, Pars) {
 
 #' Event for different consumer start times
 #'
-#' @param Time time to simulate over
-#' @param State vector of initial states
-#' @param Pars a list
+#' @param Time Time to simulate over
+#' @param State Vector of initial states
+#' @param Pars List
 #'
 # #' @return
 #' @export
@@ -193,7 +193,7 @@ eventfun_starttime <- function(Time, State, Pars) {
 #' @param doround Round time units (handles issues with numerical differences
 #'     that produce warning messages when pulsing resources and/or consumers).
 #' @param pulse Pulsing interval.
-#' @param introseq sequence as vector for consumer introductions.
+#' @param introseq Sequence as vector for consumer introductions.
 #'     Vector length must equal spnum.
 #'
 # #' @return
@@ -209,7 +209,7 @@ time_vals <- function(total = 1000,
                       introseq = NULL) {
   time_vals <- list()
   ifelse(doround,
-    time_vals$totaltime <- round(seq(0, total, by = step), 1), # sapply(step, nchar) - 2
+    time_vals$totaltime <- round(seq(0, total, by = step), 1),
     time_vals$totaltime <- seq(0, total, by = step)
   )
 
@@ -221,9 +221,7 @@ time_vals <- function(total = 1000,
     time_vals$pulseseq <- round(pulse, 1)
   }
 
-#  if (!is.null(introseq)){
-    time_vals$introseq <- introseq
-#  }
+  time_vals$introseq <- introseq
 
   return(time_vals)
 }
