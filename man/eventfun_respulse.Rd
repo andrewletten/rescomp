@@ -7,11 +7,11 @@
 eventfun_respulse(Time, State, Pars)
 }
 \arguments{
-\item{Time}{time to simulate over}
+\item{Time}{Time to simulate over}
 
-\item{State}{vector of initial states}
+\item{State}{Vector of initial states}
 
-\item{Pars}{a list}
+\item{Pars}{List}
 }
 \description{
 Event for resource pulsing

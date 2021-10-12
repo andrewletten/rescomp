@@ -16,7 +16,7 @@ that produce warning messages when pulsing resources and/or consumers).}
 
 \item{pulse}{Pulsing interval.}
 
-\item{introseq}{sequence as vector for consumer introductions.
+\item{introseq}{Sequence as vector for consumer introductions.
 Vector length must equal spnum.}
 }
 \description{

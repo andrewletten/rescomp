@@ -3,7 +3,7 @@
 \name{spec_rescomp}
 \alias{spec_rescomp}
 \title{Generate list of parameters for a consumer-resource model to be
-passed to \code{sim_rescomp}}
+passed to \code{sim_rescomp()}}
 \usage{
 spec_rescomp(
   spnum = 1,
@@ -121,11 +121,11 @@ Vector length must equal spnum.}
 \item{verbose}{If TRUE (default) prints model and simulation summary specs.}
 }
 \value{
-List object of class 'rescomp'.
+S3 object of class \code{rescomp}.
 }
 \description{
 Generate list of parameters for a consumer-resource model to be
-passed to \code{sim_rescomp}
+passed to \code{sim_rescomp()}
 }
 \examples{
 

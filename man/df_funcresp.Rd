@@ -7,7 +7,8 @@
 df_funcresp(pars, maxx, madj = FALSE)
 }
 \arguments{
-\item{pars}{Parameter list from spec_rescomp()}
+\item{pars}{S3 object of class \code{rescomp} detailing model parameters and
+specifications.}
 
 \item{maxx}{Numeric. Maximum resource value to get percapita growth rates across
 (for plotting)}

@@ -21,10 +21,11 @@ func_form(R, mu, Ks = 1, phi = 0, type3 = 1/2, eff = 1, mort = 0)
 \item{eff}{Resource efficiency (under quota parameterisation ignored /
 set to 1)}
 
-\item{mort}{Mortality rate (currently ignored / set to zero)}
+\item{mort}{Mortality rate. Set to zero if \code{madj = FALSE} (default) in
+\code{plot_funcresp()}.}
 }
 \value{
-vector
+Vector
 }
 \description{
 Generate type 1, 2 or 3 functional response

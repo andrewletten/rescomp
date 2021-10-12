@@ -32,28 +32,28 @@ $$
 \frac{dR_{j}}{dt} = \Psi_{j} (R_{j}) - \sum_{i = 1}^{n}Q_{ij} \mu_{ij}(R_j) N_i \,,
 $$
 
-where $N_{i}$ is the population density of consumer $i$, $R_{j}$ is the density/concentration of resource $j$, $\mu_{i}()$ is the per capita consumer functional response of consumer $i$, $m$ is the per capita mortality rate (constant or pulsed), $\Psi_{j}(R_j)$ is the resource supply function, and $Q_{ij}$ is the resource quota of consumer $i$ on resource $j$ (the amount of resource per unit consumer). 
+where $N_{i}$ is the population density of consumer $i$, $R_{j}$ is the density/concentration of resource $j$, $\mu_{i}()$ is the per capita consumer functional response of consumer $i$, $m$ is the per capita mortality rate (constant or pulsed), $\Psi_{j}(R_j)$ is the resource supply function, and $Q_{ij}$ is the resource quota of consumer $i$ on resource $j$ (the amount of resource per unit consumer).
 
 From this general form, different model formulations are distinguished by: i) the number of consumers/resources; ii) the form of the consumer functional response; iii) the mode of resource supply; iv) the type of resource; and v) any non-autonomous behaviour including time dependent model parameters and/or instantaneous changes in consumer/resource density (e.g. in batch transfer).
 
 ## Consumer equations
 
-The consumer growth function can take one of three forms: 
+The consumer growth function can take one of three forms:
 
-i) linear (type I), 
- 
+i)  linear (type I),
+
 $$
 \mu_{ij}(R_{j}) = a_{ij}R_{j} \,,
 $$
- 
-where $a_{ij}$ is a resource consumption constant. 
+
+where $a_{ij}$ is a resource consumption constant.
 
 ii) nonlinear type II (aka Monod)
- 
+
 $$
 \mu_{ij}(R_{j}) = \mu_{max_{ij}}\frac{R_{j}}{k_{ij} + R_{j}} \,,
 $$
- 
+
 where $\mu_{max_{ij}}$ is the maximum growth rate and $k_{ij}$ is the half saturation constant for consumer $i$ on resource $j$.
 
 iii) nonlinear type III (sigmoidal),
@@ -67,67 +67,73 @@ An alternative parameterisation to all three functional responses is to incorpor
 ## Resource equations
 
 The resource supply function, $\Psi_{j}(R_j)$, can also take several forms. Specifically, either the resources are biological and grow logistically,
- 
+
 $$
 \Psi_{j} (R_{j}) = r_{j}R_{j}\left(1-\frac{R_{j}}{K_{j}}\right) \,,
 $$
- 
-where $r_j$ is the resource intrinsic rate of increase and $K_j$ is the resource carrying capacity; 
+
+where $r_j$ is the resource intrinsic rate of increase and $K_j$ is the resource carrying capacity;
 
 Or the resources are supplied to the systems at a fixed concentration and rate (as in a chemostat),
- 
+
 $$
 \Psi_{j} (R_{j}) = d(S_{j} - R_{j}) \,,
 $$
- 
-where \textit{d} represents the flux of resources into and out of the system;
+
+where $d$ represents the flux of resources into and out of the system;
 
 Or the resources are pulsed intermittently (more examples).
 
 In the case of multiple resources, each resource is either treated as essential to consumer growth following Leibig's law of the minimum, in which case,
- 
+
 $$
 \mu_{i}(R_{1}, R_{2},...,R_{n}) = min(\mu_{i}(R_{1}), \mu_{i}(R_{2}),..., \mu_{i}(R_{n})) \,;
 $$
- 
+
 or substitutable such that:
- 
+
 $$
 \mu_{i}(R_{1}, R_{2},...,R_{n}) = \mu_{i}(R_{1}) + \mu_{i}(R_{2}) + ... + \mu_{i}(R_{n}) \,.
-$$ 
+$$
 
+# Using `rescomp`
 
-# Using `rescomp` 
+The main user function in `rescomp` is `spec_rescomp()`, which facilitates the definition and parameterisation of a consumer-resource model and the specification of simulation parameters. Function arguments include (but are not limited to):
 
-The main user function in `rescomp` is `spec_rescomp()`, which facilitates the definition and parameterisation of a consumer-resource model and the specification of simulation parameters. Function arguments include (but are not limited to): 
-
-- Number of consumers/resources
-- Consumer functional response (type I, II or II)
-- Resource dynamic (chemostat, logistic and/or pulsed)
-- Resource type (substitutable or essential)
-- Continuous or intermittent mortality (e.g. serial transfer)
-- Delayed consumer introduction times 
-- Time dependent growth and consumption parameters 
+-   Number of consumers/resources
+-   Consumer functional response (type I, II or II)
+-   Resource dynamic (chemostat, logistic and/or pulsed)
+-   Resource type (substitutable or essential)
+-   Continuous or intermittent mortality (e.g. serial transfer)
+-   Delayed consumer introduction times
+-   Time dependent growth and consumption parameters
 
 See `?spec_rescomp` for all argument options.
 
 **Examples demonstrated in this vignette include:**
 
-- One consumer (type 2) and one logistically growing resource
-- One consumer (type 2) and one continuously supplied resource (i.e. chemostat) 
-- Two consumers (type 1 and type 2) and one logistically growing resource
-- Two consumers (type 1) and two substitutable resources in a chemostat
-- Two consumers (type 1) and two essential resources in a chemostat
-- Two consumers (type 2) and one externally pulsed resource 
-    * Continuous mortality
-    * Serial transfer in batch culture (intermittent mortality)
-- Two consumers (type 2) with time dependent consumption parameters and one continuously supplied resource
-- Three consumers (type 1) on three essential resources generating an intransitive loop (i.e. rock paper scissors dynamics). 
+-   One consumer (type 2) and one logistically growing resource
 
-Additional examples illustrating other options and functionality can be found in the vignette "*Reproducing studies in resource competition with rescomp*", including delayed consumer introduction times and specifying a model with consumer resource efficiencies rather than resource quotas. 
+-   One consumer (type 2) and one continuously supplied resource (i.e. chemostat)
+
+-   Two consumers (type 1 and type 2) and one logistically growing resource
+
+-   Two consumers (type 1) and two substitutable resources in a chemostat
+
+-   Two consumers (type 1) and two essential resources in a chemostat
+
+-   Two consumers (type 2) and one externally pulsed resource
+
+    -   Continuous mortality
+    -   Serial transfer in batch culture (intermittent mortality)
+
+-   Two consumers (type 2) with time dependent consumption parameters and one continuously supplied resource
+
+-   Three consumers (type 1) on three essential resources generating an intransitive loop (i.e. rock paper scissors dynamics).
+
+Additional examples illustrating other options and functionality can be found in the vignette "*Reproducing studies in resource competition with rescomp*", including delayed consumer introduction times and specifying a model with consumer resource efficiencies rather than resource quotas.
 
 ## Type 2 consumer on a logistically growing resource
-
 
 ```{r setup}
 library(rescomp)
@@ -164,19 +170,17 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1)
 ```
 
-Note the total simulation time and initial state variables given by `parms` can be overidden in `sim_recomp` with the arguments `times` and `y`, respectively. This will nevertheless print a message to the console to check it is intentional. See `?rescomp::time_vals` for convenient specification of simulation time (and pulsing when used).    
+Note the total simulation time and initial state variables given by `parms` can be overidden in `sim_recomp` with the arguments `times` and `y`, respectively. This will nevertheless print a message to the console to check it is intentional. See `?rescomp::time_vals` for convenient specification of simulation time (and pulsing when used).
 
 ```{r}
 m1 <- sim_rescomp(pars, y = c(30000, 1), times = time_vals(200))
 ```
-
 
 ```{r, fig.width = 6, fig.height = 3}
 plot_rescomp(m1)
 ```
 
 <!-- The function `time_vals` is used for setting total simulation time (and is used to set the resource pulse interval when used in conjunction with an event function [see below]). The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources. -->
-
 
 ## Type 2 consumer on a continuously suppplied resource
 
@@ -268,7 +272,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1)
 ```
 
-Resource partitioning, where each consumer is a better competitor (lower R*) for a different resource, results in coexistence.
+Resource partitioning, where each consumer is a better competitor (lower R\*) for a different resource, results in coexistence.
 
 ## Two type 1 consumers and two essential resources in a chemostat
 
@@ -307,7 +311,6 @@ pars <- spec_rescomp(
 )
 ```
 
-
 ```{r}
 m1 <- sim_rescomp(pars)
 ```
@@ -315,7 +318,6 @@ m1 <- sim_rescomp(pars)
 ```{r, fig.width = 6, fig.height = 3}
 plot_rescomp(m1) 
 ```
-
 
 ## Two type 2 consumers and one externally pulsed resource (continuous mortality)
 
@@ -357,13 +359,13 @@ plot_rescomp(m1)
 
 Serial transfer in batch culture differs from the above scenario in that resource pulses are typically accompanied by large instantaneous changes in population density. For an example, in a serial transfer experiment with bacteria, an experimenter might sample a fraction (e.g. 10%) of the community every 24 hours and inoculate that fraction intro fresh media. As such, the consumer population density immediately following a transfer event will be equal to: $(1-M)N_{i}$, where $M$ is instantaneous mortality fraction given by `mortpulse`.
 
-Simulating serial transfer in batch culture is implemented by: 
+Simulating serial transfer in batch culture is implemented by:
 
-  1. Using `batchtrans = TRUE` in `rescomp::spec_rescomp`. 
-  2. Assigning a value from 0 to 1 for the argument `mortpulse`. This is the fraction of the consumer(s) population instantaneous 'killed' at set intervals. Note the transfer fraction = 1 - `mortpulse`.
-  3. Setting the serial transfer schedule with the `pulse` argument in `rescomp::time_vals` (coincident with resource pulse intervals).
-  
-Note that the effect of setting `batchtrans = TRUE` is to enforce  fractional sampling of the resource/media in addition to the consumers. As such, immediately after a transfer event the resource concentration will be equal to: $(1-M)R_{j} + MS_{j}$, where $R$ is the resource concentration prior to transfer, and $S$ is the resource pulse size given by `respulse`. To inhibit the behaviour, i.e. to stop fractional sampling of the resource but maintain intermittent mortality use `batchtrans = FALSE` but still assign a non-zero value for `mortpulse`.    
+1.  Using `batchtrans = TRUE` in `rescomp::spec_rescomp`.
+2.  Assigning a value from 0 to 1 for the argument `mortpulse`. This is the fraction of the consumer(s) population instantaneous 'killed' at set intervals. Note the transfer fraction = 1 - `mortpulse`.
+3.  Setting the serial transfer schedule with the `pulse` argument in `rescomp::time_vals` (coincident with resource pulse intervals).
+
+Note that the effect of setting `batchtrans = TRUE` is to enforce fractional sampling of the resource/media in addition to the consumers. As such, immediately after a transfer event the resource concentration will be equal to: $(1-M)R_{j} + MS_{j}$, where $R$ is the resource concentration prior to transfer, and $S$ is the resource pulse size given by `respulse`. To inhibit the behaviour, i.e. to stop fractional sampling of the resource but maintain intermittent mortality use `batchtrans = FALSE` but still assign a non-zero value for `mortpulse`.
 
 ```{r}
 pars <- spec_rescomp(
@@ -400,7 +402,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1)
 ```
 
-Note, to reproduce the dynamics of a single batch culture experiment (i.e. without serial transfer) as potentially measured via optical density in a plate reader (negligible or unobserved mortality), simply set both `resspeed` and `mort` to zero. 
+Note, to reproduce the dynamics of a single batch culture experiment (i.e. without serial transfer) as potentially measured via optical density in a plate reader (negligible or unobserved mortality), simply set both `resspeed` and `mort` to zero.
 
 ```{r}
 pars <- spec_rescomp(resspeed = 0, mort = 0, totaltime = 500)
@@ -416,7 +418,6 @@ plot_rescomp(m1)
 Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in `deSolve` with forcing functions. `rescomp` provides a convenient means of implementing forcing functions in the background. Two additional arguments are needed in `spec_rescomp`: `timepars` and `timeparfreq`. `timepars` should be set to `TRUE`; `timeparfreq` adjusts the frequency of switching between 'environmental states'.
 
 In addition, if `time_pars = TRUE`, the mumatrix argument in `spec_rescomp` expects a list containing two matrices, reflecting two different environmental states. At this stage `rescomp` only handles two states with the option of either equal time allotted to each state (default) or linear (`tpinterp = "lin"`) or sinusoidal (`tpinterp = "sine"`) interpolation between the states
-
 
 ```{r}
 pars <- spec_rescomp(
@@ -458,7 +459,6 @@ plot_rescomp(m1)
 ```
 
 The two consumers coexist due species-specific environmental responses leading to a temporal storage effect (formalization of temporal niche paritioning arising from density dependence in environment-competition covariance) (ref).
-
 
 ## Three type 1 consumers on three essential resources generating an intransitive loop (i.e. rock paper scissors dynamics).
 

@@ -8,7 +8,7 @@ frame_and_name(model)
 }
 \arguments{
 \item{model}{List output from \code{sim_rescomp()}. First element is an object of
-class deSolve. Second element is an object of class rescomp.}
+class deSolve. Second element is an S3 object of class \code{rescomp}.}
 }
 \value{
 data frame

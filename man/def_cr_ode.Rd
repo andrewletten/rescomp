@@ -14,7 +14,7 @@ def_cr_ode(Time, State, Pars)
 \item{Pars}{A list}
 }
 \value{
-Model formula to pass to sim_rescomp
+Model formula to pass to \code{sim_rescomp()}
 }
 \description{
 Define consumer resource ODE function
