@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Simulate resource competition (a convenience wrapper for
-deSolve::ode) — sim_rescomp • rescomp</title>
+deSolve::ode()) — sim_rescomp • rescomp</title>
 
 
 <!-- jquery -->
@@ -41,9 +41,9 @@ deSolve::ode) — sim_rescomp • rescomp</title>
 
 
 <meta property="og:title" content="Simulate resource competition (a convenience wrapper for
-deSolve::ode) — sim_rescomp" />
+deSolve::ode()) — sim_rescomp" />
 <meta property="og:description" content="Simulate resource competition (a convenience wrapper for
-deSolve::ode)" />
+deSolve::ode())" />
 
 
 
@@ -127,14 +127,14 @@ deSolve::ode)" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Simulate resource competition (a convenience wrapper for
-<code>deSolve::ode</code>)</h1>
+<code>deSolve::ode()</code>)</h1>
     <small class="dont-index">Source: <a href='https://github.com/andrewletten/rescomp/blob/master/R/sim_rescomp.R'><code>R/sim_rescomp.R</code></a></small>
     <div class="hidden name"><code>sim_rescomp.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Simulate resource competition (a convenience wrapper for
-<code><a href='https://rdrr.io/pkg/deSolve/man/ode.html'>deSolve::ode</a></code>)</p>
+<code><a href='https://rdrr.io/pkg/deSolve/man/ode.html'>deSolve::ode()</a></code>)</p>
     </div>
 
     <pre class="usage"><span class='fu'>sim_rescomp</span><span class='op'>(</span><span class='va'>pars</span>, <span class='va'>times</span>, <span class='va'>y</span>, events <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -144,32 +144,34 @@ deSolve::ode)" />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>pars</th>
-      <td><p>Parameter list returned by <code><a href='spec_rescomp.html'>rescomp::spec_rescomp</a></code>.</p></td>
+      <td><p>S3 object of class <code>rescomp</code> returned by
+<code><a href='spec_rescomp.html'>rescomp::spec_rescomp()</a></code>.</p></td>
     </tr>
     <tr>
       <th>times</th>
-      <td><p>List of up to 2 giving total simulation time and pulsing
-sequence where relevant (use <code><a href='time_vals.html'>rescomp::time_vals</a></code>). If provided,
+      <td><p>Optional list of up to two giving total simulation time and pulsing
+sequence where relevant (use <code><a href='time_vals.html'>rescomp::time_vals()</a></code>). If provided,
 overrides values given in parms.</p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p>Vector of initial values for state variables. If provided,
-overrides values given in pars.</p></td>
+      <td><p>Optional vector of initial values for state variables. If provided,
+overrides values given in <code>pars</code>.</p></td>
     </tr>
     <tr>
       <th>events</th>
-      <td><p>NULL (events specified in <code>spec_rescomp</code>)</p></td>
+      <td><p>NULL (events specified in <code><a href='spec_rescomp.html'>spec_rescomp()</a></code>)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed to <code><a href='https://rdrr.io/pkg/deSolve/man/ode.html'>deSolve::ode</a></code></p></td>
+      <td><p>Other arguments passed to <code><a href='https://rdrr.io/pkg/deSolve/man/ode.html'>deSolve::ode()</a></code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class deSolve</p>
+    <p>A list of two comprising i) the model dynamics and ii) model
+specifications.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>pars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='spec_rescomp.html'>spec_rescomp</a></span><span class='op'>(</span><span class='op'>)</span>
