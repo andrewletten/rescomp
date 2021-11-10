@@ -4,7 +4,14 @@
 \alias{plot_rescomp}
 \title{Plot consumer and resource dynamics from deSolve output}
 \usage{
-plot_rescomp(model, consumers = TRUE, resources = TRUE, logy = FALSE, lwd = 1)
+plot_rescomp(
+  model,
+  consumers = TRUE,
+  resources = TRUE,
+  logy = FALSE,
+  lwd = 1,
+  xlims = NULL
+)
 }
 \arguments{
 \item{model}{List output from \code{sim_rescomp()}. First element is an object of
@@ -17,6 +24,8 @@ class deSolve. Second element is an object of class rescomp.}
 \item{logy}{Log transfrom y-axis (default = FALSE).}
 
 \item{lwd}{Line width (default = 1)}
+
+\item{xlims}{Vector of length giving the time frame to plot.}
 }
 \value{
 ggplot object

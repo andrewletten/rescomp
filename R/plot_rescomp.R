@@ -6,6 +6,7 @@
 #' @param resources Plot resource dynamics? Default = TRUE.
 #' @param logy Log transfrom y-axis (default = FALSE).
 #' @param lwd Line width (default = 1)
+#' @param xlims Vector of length giving the time frame to plot.
 #'
 #' @return ggplot object
 #' @export
@@ -20,7 +21,8 @@ plot_rescomp <- function(model,
                          consumers = TRUE,
                          resources = TRUE,
                          logy = FALSE,
-                         lwd = 1){
+                         lwd = 1,
+                         xlims = NULL){
   plot.df <-  frame_and_name(model)
   comp.gg <- tidyr::pivot_longer(plot.df,
                                  cols = !c(.data$time),
@@ -68,6 +70,10 @@ plot_rescomp <- function(model,
       scales = "free") +
 
     scale_colour_manual(values=c(cbbPalette))
+
+  if (!is.null(xlims)){
+    p <- p + xlim(xlims)
+  }
 
   if(logy == TRUE) {
     p + scale_y_log10(limits = c(1, NA))

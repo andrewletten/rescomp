@@ -4,8 +4,6 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-
-
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -19,10 +17,10 @@ knitr::opts_chunk$set(
 # rescomp
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/andrewletten/rescomp/workflows/R-CMD-check/badge.svg)](https://github.com/andrewletten/rescomp/actions)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-<!-- badges: end -->
 
+[![R-CMD-check](https://github.com/andrewletten/rescomp/workflows/R-CMD-check/badge.svg)](https://github.com/andrewletten/rescomp/actions) [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
+<!-- badges: end -->
 
 *Disclaimer: `rescomp` is still in the early stages of development. Please use with caution and perform your own sanity checks. Feedback and pull requests very welcome.*
 
@@ -36,6 +34,7 @@ You can install `rescomp` from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("andrewletten/rescomp")
 ```
+
 ## Example
 
 ```{r}
@@ -68,22 +67,21 @@ Output dynamics can be visualised with `rescomp::plot_rescomp`.
 plot_rescomp(m1) 
 ```
 
-Note, the core `rescomp` functions are compatible with pipes. For example `spec_rescomp() |> sim_rescomp() |> plot_rescomp()` will output the plot above. 
+Note, the core `rescomp` functions are compatible with pipes. For example `spec_rescomp() |> sim_rescomp() |> plot_rescomp()` will output the plot above.
 
-The main utility of `rescomp` comes with specifying more elaborate models and simulation dynamics. Features/options include (but are not limited to): 
+The main utility of `rescomp` comes with specifying more elaborate models and simulation dynamics. Features/options include (but are not limited to):
 
-- Number of consumers/resources
-- Consumer functional response (type I, II or III)
-- Resource dynamic (chemostat, logistic and/or pulsed)
-- Resource type (substitutable or essential)
-- Continuous or intermittent mortality (e.g. serial transfer)
-- Time dependent growth and consumption parameters
-- Delayed consumer introduction times 
+-   Number of consumers/resources
+-   Consumer functional response (type I, II or III)
+-   Resource dynamic (chemostat, logistic and/or pulsed)
+-   Resource type (substitutable or essential)
+-   Continuous or intermittent mortality (e.g. serial transfer)
+-   Time dependent growth and consumption parameters
+-   Delayed consumer introduction times
 
+See `?spec_rescomp` for all argument options.
 
-See `?spec_rescomp` for all argument options. 
-
-The following two examples demonstrate how to build and simulate a model for: i) two consumers with type II functional responses on a single logistically growing resources; and ii) two consumers with type III functional responses with pulsed resources and time dependent growth parameters. A wide range of other examples can be found in the package vignettes. 
+The following two examples demonstrate how to build and simulate a model for: i) two consumers with type II functional responses on a single logistically growing resources; and ii) two consumers with type III functional responses with pulsed resources and time dependent growth parameters. A wide range of other examples can be found in the package vignettes.
 
 ### Example 1
 
