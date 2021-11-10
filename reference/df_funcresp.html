@@ -158,30 +158,32 @@ specifications.</p></td>
     <p>data frame</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>pars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='spec_rescomp.html'>spec_rescomp</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Model properties </span>
-#&gt; <span class='message'> * 1 consumer(s) and 1 resource(s)</span>
-#&gt; <span class='message'> * Consumers have type 1 functional responses</span>
-#&gt; <span class='message'> * Resource supply is continuous (e.g. chemostat)</span>
-#&gt; <span class='message'> * Mortality is continuous</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>Simulation properties </span>
-#&gt; <span class='message'> * Simulation time: 1000 time steps</span>
-#&gt; <span class='message'> * Init state: consumer(s) = [10], resource(s) = [1]</span></div><div class='input'><span class='fu'>df_funcresp</span><span class='op'>(</span><span class='va'>pars</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,000 × 5</span>
-#&gt;    resource.levels sp    paramstate  resource     growth
-#&gt;              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span>         0       N1    env-state-1 Resource a 0       
-#&gt; <span style='color: #BCBCBC;'> 2</span>         0.001<span style='text-decoration: underline;'>00</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>100</span>
-#&gt; <span style='color: #BCBCBC;'> 3</span>         0.002<span style='text-decoration: underline;'>00</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>200</span>
-#&gt; <span style='color: #BCBCBC;'> 4</span>         0.003<span style='text-decoration: underline;'>00</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>300</span>
-#&gt; <span style='color: #BCBCBC;'> 5</span>         0.004<span style='text-decoration: underline;'>00</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>400</span>
-#&gt; <span style='color: #BCBCBC;'> 6</span>         0.005<span style='text-decoration: underline;'>01</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>501</span>
-#&gt; <span style='color: #BCBCBC;'> 7</span>         0.006<span style='text-decoration: underline;'>01</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>601</span>
-#&gt; <span style='color: #BCBCBC;'> 8</span>         0.007<span style='text-decoration: underline;'>01</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>701</span>
-#&gt; <span style='color: #BCBCBC;'> 9</span>         0.008<span style='text-decoration: underline;'>01</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>801</span>
-#&gt; <span style='color: #BCBCBC;'>10</span>         0.009<span style='text-decoration: underline;'>01</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>901</span>
-#&gt; <span style='color: #949494;'># … with 990 more rows</span></div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>pars</span> <span class='op'>&lt;-</span> <span class='fu'><a href='spec_rescomp.html'>spec_rescomp</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Model properties </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * 1 consumer(s) and 1 resource(s)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Consumers have type 1 functional responses</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Resource supply is continuous (e.g. chemostat)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Mortality is continuous</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Simulation properties </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Simulation time: 1000 time steps</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Init state: consumer(s) = [10], resource(s) = [1]</span>
+<span class='r-in'><span class='fu'>df_funcresp</span><span class='op'>(</span><span class='va'>pars</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 1,000 × 5</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    resource.levels sp    paramstate  resource     growth</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>         0       N1    env-state-1 Resource a 0       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>         0.001<span style='text-decoration: underline;'>00</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>100</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>         0.002<span style='text-decoration: underline;'>00</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>200</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>         0.003<span style='text-decoration: underline;'>00</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>300</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>         0.004<span style='text-decoration: underline;'>00</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>400</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>         0.005<span style='text-decoration: underline;'>01</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>501</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>         0.006<span style='text-decoration: underline;'>01</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>601</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>         0.007<span style='text-decoration: underline;'>01</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>701</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>         0.008<span style='text-decoration: underline;'>01</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>801</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>         0.009<span style='text-decoration: underline;'>01</span> N1    env-state-1 Resource a 0.000<span style='text-decoration: underline;'>901</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 990 more rows</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

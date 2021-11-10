@@ -309,46 +309,48 @@ Vector length must equal spnum.</p></td>
     <p>S3 object of class <code>rescomp</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># Single type I consumer on a single logistically growing resource</span>
-<span class='fu'>spec_rescomp</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Model properties </span>
-#&gt; <span class='message'> * 1 consumer(s) and 1 resource(s)</span>
-#&gt; <span class='message'> * Consumers have type 1 functional responses</span>
-#&gt; <span class='message'> * Resource supply is continuous (e.g. chemostat)</span>
-#&gt; <span class='message'> * Mortality is continuous</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>Simulation properties </span>
-#&gt; <span class='message'> * Simulation time: 1000 time steps</span>
-#&gt; <span class='message'> * Init state: consumer(s) = [10], resource(s) = [1]</span></div><div class='input'>
-<span class='co'># Two type II consumers and two substitutable resources in a chemostat</span>
-<span class='va'>pars</span> <span class='op'>&lt;-</span> <span class='fu'>spec_rescomp</span><span class='op'>(</span>
-  spnum <span class='op'>=</span> <span class='fl'>2</span>,
-  resnum <span class='op'>=</span> <span class='fl'>2</span>,
-  funcresp <span class='op'>=</span> <span class='st'>"type2"</span>,
-  mumatrix <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-    <span class='fl'>0.7</span>, <span class='fl'>0.3</span>,
-    <span class='fl'>0.4</span>, <span class='fl'>0.5</span>
-  <span class='op'>)</span>,
-  nrow <span class='op'>=</span> <span class='fl'>2</span>,
-  ncol <span class='op'>=</span> <span class='fl'>2</span>,
-  byrow <span class='op'>=</span> <span class='cn'>TRUE</span>
-  <span class='op'>)</span>,
-  resspeed <span class='op'>=</span> <span class='fl'>3</span>,
-  resconc <span class='op'>=</span> <span class='fl'>1</span>,
-  chemo <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  essential <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Model properties </span>
-#&gt; <span class='message'> * 2 consumer(s) and 2 resource(s)</span>
-#&gt; <span class='message'> * Consumers have type 2 functional responses</span>
-#&gt; <span class='message'> * Resources are substitutable</span>
-#&gt; <span class='message'> * Resource supply is continuous (e.g. chemostat)</span>
-#&gt; <span class='message'> * Mortality is continuous</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>Simulation properties </span>
-#&gt; <span class='message'> * Simulation time: 1000 time steps</span>
-#&gt; <span class='message'> * Init state: consumer(s) = [10, 10], resource(s) = [1, 1]</span></div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'># Single type I consumer on a single logistically growing resource</span></span>
+<span class='r-in'><span class='fu'>spec_rescomp</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Model properties </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * 1 consumer(s) and 1 resource(s)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Consumers have type 1 functional responses</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Resource supply is continuous (e.g. chemostat)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Mortality is continuous</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Simulation properties </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Simulation time: 1000 time steps</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Init state: consumer(s) = [10], resource(s) = [1]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Two type II consumers and two substitutable resources in a chemostat</span></span>
+<span class='r-in'><span class='va'>pars</span> <span class='op'>&lt;-</span> <span class='fu'>spec_rescomp</span><span class='op'>(</span></span>
+<span class='r-in'>  spnum <span class='op'>=</span> <span class='fl'>2</span>,</span>
+<span class='r-in'>  resnum <span class='op'>=</span> <span class='fl'>2</span>,</span>
+<span class='r-in'>  funcresp <span class='op'>=</span> <span class='st'>"type2"</span>,</span>
+<span class='r-in'>  mumatrix <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'>    <span class='fl'>0.7</span>, <span class='fl'>0.3</span>,</span>
+<span class='r-in'>    <span class='fl'>0.4</span>, <span class='fl'>0.5</span></span>
+<span class='r-in'>  <span class='op'>)</span>,</span>
+<span class='r-in'>  nrow <span class='op'>=</span> <span class='fl'>2</span>,</span>
+<span class='r-in'>  ncol <span class='op'>=</span> <span class='fl'>2</span>,</span>
+<span class='r-in'>  byrow <span class='op'>=</span> <span class='cn'>TRUE</span></span>
+<span class='r-in'>  <span class='op'>)</span>,</span>
+<span class='r-in'>  resspeed <span class='op'>=</span> <span class='fl'>3</span>,</span>
+<span class='r-in'>  resconc <span class='op'>=</span> <span class='fl'>1</span>,</span>
+<span class='r-in'>  chemo <span class='op'>=</span> <span class='cn'>TRUE</span>,</span>
+<span class='r-in'>  essential <span class='op'>=</span> <span class='cn'>FALSE</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Model properties </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * 2 consumer(s) and 2 resource(s)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Consumers have type 2 functional responses</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Resources are substitutable</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Resource supply is continuous (e.g. chemostat)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Mortality is continuous</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Simulation properties </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Simulation time: 1000 time steps</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>  * Init state: consumer(s) = [10, 10], resource(s) = [1, 1]</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
