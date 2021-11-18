@@ -383,8 +383,8 @@ spec_rescomp <- function(spnum = 1,
   }
 
   # rinit
-  if (length(rinit) > 1 & resnum != length(rinit)) {
-    stop("Length of rinit must equal resnum if a vector (length > 1) of initial states provided")
+  if (!is.null(rinit) & resnum != length(rinit)) {
+    stop("Length of rinit must equal resnum if initial resource states provided")
   }
   if (is.null(rinit)) {
     pars$rinit <- pars$resconc

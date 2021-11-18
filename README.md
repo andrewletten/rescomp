@@ -6,8 +6,6 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/andrewletten/rescomp/workflows/R-CMD-check/badge.svg)](https://github.com/andrewletten/rescomp/actions)
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 
 <!-- badges: end -->
 
@@ -35,12 +33,12 @@ devtools::install_github("andrewletten/rescomp")
 library(rescomp)
 ```
 
-The primary user function in `rescomp` is `spec_rescomp`, which
+The primary user function in `rescomp` is `spec_rescomp()`, which
 facilitates: i) the definition and parameterisation of a desired
 consumer-resource model, and ii) the specification of simulation
-parameters. The default output from `spec_rescomp` is a list defining a
-model for a single type I consumer (linear functional response) and a
-single continuously supplied resource (e.g. in a chemostat).
+parameters. The default output from `spec_rescomp()` is a list defining
+a model for a single type I consumer (linear functional response) and a
+single continuously supplied resource (e.g., in a chemostat).
 
 ``` r
 pars <- spec_rescomp()
@@ -55,7 +53,7 @@ pars <- spec_rescomp()
 #>  * Init state: consumer(s) = [10], resource(s) = [1]
 ```
 
-`rescomp::funcresp` plots the functional response for easy visualistion
+`plot_funcresp()` plots the functional response for easy visualistion
 prior to running a simulation.
 
 ``` r
@@ -66,14 +64,14 @@ plot_funcresp(pars)
 
 <!-- `rescomp::time_vals` sets the simulation length (and other resource pulse frequency if required). The default simulation length is 1000. The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources.  -->
 
-The model is then simulated via `rescomp::sim_rescomp` (a wrapper for
-`deSolve::ode` with convenient defaults).
+The model is then simulated via `sim_rescomp()` (effectively a wrapper
+for `deSolve::ode` with convenient defaults).
 
 ``` r
 m1 <- sim_rescomp(pars)
 ```
 
-Output dynamics can be visualised with `rescomp::plot_rescomp`.
+Output dynamics can be visualised with `plot_rescomp()`.
 
 ``` r
 plot_rescomp(m1) 
@@ -89,7 +87,7 @@ The main utility of `rescomp` comes with specifying more elaborate
 models and simulation dynamics. Features/options include (but are not
 limited to):
 
--   Number of consumers/resources
+-   Unlimited number of consumers/resources
 -   Consumer functional response (type I, II or III)
 -   Resource dynamic (chemostat, logistic and/or pulsed)
 -   Resource type (substitutable or essential)
@@ -170,7 +168,7 @@ pars <- spec_rescomp(
                     ncol = 2,
                     byrow = TRUE)),
   resspeed = 0,
-  resconc = 1,
+  rinit = c(1, 1),
   respulse = 1,
   pulsefreq = 40,
   totaltime = 1000
@@ -204,5 +202,3 @@ plot_rescomp(m3)
 ```
 
 ![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
-
-<!-- Disclaimer: As a biologist with no formal training in software development, I cannot vouch that `rescomp` is 100% bug free, maximally efficient or entirely consistent with 'tidy' principles. I have done my best but please use with caution! -->
