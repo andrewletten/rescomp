@@ -13,14 +13,14 @@
 Please use with caution and perform your own sanity checks. Feedback and
 pull requests very welcome.*
 
-`rescomp` is an R package that supports the definition, simulation and
+*rescomp* is an R package that supports the definition, simulation and
 visualization of ODE models of ecological consumer-resource
 interactions. In essence, it is a consumer-resource modelling focused
-interface to the excellent `deSolve` package.
+interface to the excellent *deSolve* package.
 
 ## Installation
 
-You can install `rescomp` from [GitHub](https://github.com/) with:
+You can install *rescomp* from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -33,7 +33,7 @@ devtools::install_github("andrewletten/rescomp")
 library(rescomp)
 ```
 
-The primary user function in `rescomp` is `spec_rescomp()`, which
+The primary user function in *rescomp* is `spec_rescomp()`, which
 facilitates: i) the definition and parameterisation of a desired
 consumer-resource model, and ii) the specification of simulation
 parameters. The default output from `spec_rescomp()` is a list defining
@@ -62,10 +62,8 @@ plot_funcresp(pars)
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="60%" />
 
-<!-- `rescomp::time_vals` sets the simulation length (and other resource pulse frequency if required). The default simulation length is 1000. The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources.  -->
-
 The model is then simulated via `sim_rescomp()` (effectively a wrapper
-for `deSolve::ode` with convenient defaults).
+for `deSolve::ode()` with convenient defaults).
 
 ``` r
 m1 <- sim_rescomp(pars)
@@ -79,11 +77,11 @@ plot_rescomp(m1)
 
 ![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
-Note, the core `rescomp` functions are compatible with pipes. For
+Note, the core *rescomp* functions are compatible with pipes. For
 example `spec_rescomp() |> sim_rescomp() |> plot_rescomp()` will output
 the plot above.
 
-The main utility of `rescomp` comes with specifying more elaborate
+The main utility of *rescomp* comes with specifying more elaborate
 models and simulation dynamics. Features/options include (but are not
 limited to):
 
