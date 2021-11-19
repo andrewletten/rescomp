@@ -93,7 +93,7 @@
 
     
     
-<p><code>rescomp</code> is an R package for generating, simulating and visualising ODE models of consumer-resource interactions. In essence, it is a consumer-resource modelling focused interface to the canonical <code>deSolve</code> package.</p>
+<p><em>rescomp</em> is an R package for generating, simulating and visualising ODE models of consumer-resource interactions. In essence, it is a consumer-resource modelling focused interface to the canonical <em>deSolve</em> package.</p>
 <div id="model-formulation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#model-formulation" class="anchor"></a>Model formulation</h1>
@@ -104,7 +104,7 @@
 <p><span class="math display">\[
 \frac{dR_{j}}{dt} = \Psi_{j} (R_{j}) - \sum_{i = 1}^{n}Q_{ij} \mu_{ij}(R_j) N_i \,,
 \]</span></p>
-<p>where <span class="math inline">\(N_{i}\)</span> is the population density of consumer <span class="math inline">\(i\)</span>, <span class="math inline">\(R_{j}\)</span> is the density/concentration of resource <span class="math inline">\(j\)</span>, <span class="math inline">\(\mu_{i}()\)</span> is the per capita consumer functional response of consumer <span class="math inline">\(i\)</span>, <span class="math inline">\(m\)</span> is the per capita mortality rate (constant or pulsed), <span class="math inline">\(\Psi_{j}(R_j)\)</span> is the resource supply function, and <span class="math inline">\(Q_{ij}\)</span> is the resource quota of consumer <span class="math inline">\(i\)</span> on resource <span class="math inline">\(j\)</span> (the amount of resource per unit consumer).</p>
+<p>where <span class="math inline">\(N_{i}\)</span> is the population density of consumer <span class="math inline">\(i\)</span>, <span class="math inline">\(R_{j}\)</span> is the density/concentration of resource <span class="math inline">\(j\)</span>, <span class="math inline">\(\mu_{i}()\)</span> is the per capita consumer functional response of consumer <span class="math inline">\(i\)</span>, <span class="math inline">\(m\)</span> is the per capita mortality rate (constant or intermittent), <span class="math inline">\(\Psi_{j}(R_j)\)</span> is the resource supply function, and <span class="math inline">\(Q_{ij}\)</span> is the resource quota of consumer <span class="math inline">\(i\)</span> on resource <span class="math inline">\(j\)</span> (the amount of resource per unit consumer).</p>
 <p>From this general form, different model formulations are distinguished by: i) the number of consumers/resources; ii) the form of the consumer functional response; iii) the mode of resource supply; iv) the type of resource; and v) any non-autonomous behaviour including time dependent model parameters and/or instantaneous changes in consumer/resource density (e.g. in batch transfer).</p>
 <div id="consumer-equations" class="section level2">
 <h2 class="hasAnchor">
@@ -117,6 +117,7 @@
 \mu_{ij}(R_{j}) = a_{ij}R_{j} \,,
 \]</span></p>
 <p>where <span class="math inline">\(a_{ij}\)</span> is a resource consumption constant.</p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-3-1.png" width="384"></p>
 <ol start="2" style="list-style-type: lower-roman">
 <li>nonlinear type II (aka Monod)</li>
 </ol>
@@ -124,12 +125,13 @@
 \mu_{ij}(R_{j}) = \mu_{max_{ij}}\frac{R_{j}}{k_{ij} + R_{j}} \,,
 \]</span></p>
 <p>where <span class="math inline">\(\mu_{max_{ij}}\)</span> is the maximum growth rate and <span class="math inline">\(k_{ij}\)</span> is the half saturation constant for consumer <span class="math inline">\(i\)</span> on resource <span class="math inline">\(j\)</span>.</p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-4-1.png" width="384"></p>
 <ol start="3" style="list-style-type: lower-roman">
 <li>nonlinear type III (sigmoidal),</li>
 </ol>
 <p><span class="math display">\[
 \mu_{ij}(R_{j}) = \mu _{max_{ij}}\frac{R_{j}^2}{k_{ij}^2 + R_{j}^2} \,.
-\]</span></p>
+\]</span> <img src="rescomp_files/figure-html/unnamed-chunk-5-1.png" width="384"></p>
 <p>An alternative parameterisation to all three functional responses is to incorporate a consumption efficiency term, <span class="math inline">\(c_{ij}\)</span>. The type I model becomes <span class="math inline">\(\mu_{ij}(R_{j}) = a_{ij}c_{ij}R_{j}\)</span>, and for type II and III, <span class="math inline">\(a_{ij}c_{ij}\)</span> is substituted for <span class="math inline">\(\mu _{max_{ij}}\)</span>. NB. this functional form is mutually exclusive with the specification of resources quotas in the resource equations, i.e. the <span class="math inline">\(Q_{ij}\)</span>s are dropped from the resource equations.</p>
 </div>
 <div id="resource-equations" class="section level2">
@@ -145,7 +147,7 @@
 \Psi_{j} (R_{j}) = d(S_{j} - R_{j}) \,,
 \]</span></p>
 <p>where <span class="math inline">\(d\)</span> represents the flux of resources into and out of the system;</p>
-<p>Or the resources are pulsed intermittently (more examples).</p>
+<p>Or the resources are pulsed intermittently (e.g., in serial transfer - see examples below).</p>
 <p>In the case of multiple resources, each resource is either treated as essential to consumer growth following Leibig’s law of the minimum, in which case,</p>
 <p><span class="math display">\[
 \mu_{i}(R_{1}, R_{2},...,R_{n}) = min(\mu_{i}(R_{1}), \mu_{i}(R_{2}),..., \mu_{i}(R_{n})) \,;
@@ -160,13 +162,13 @@
 <h1 class="hasAnchor">
 <a href="#using-rescomp" class="anchor"></a>Using <code>rescomp</code>
 </h1>
-<p>The main user function in <code>rescomp</code> is <code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code>, which facilitates the definition and parameterisation of a consumer-resource model and the specification of simulation parameters. Function arguments include (but are not limited to):</p>
+<p>The main user function in <em>rescomp</em> is <code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code>, which facilitates the definition and parameterisation of a consumer-resource model and the specification of simulation parameters. Function arguments include (but are not limited to):</p>
 <ul>
 <li>Number of consumers/resources</li>
-<li>Consumer functional response (type I, II or II)</li>
+<li>Consumer functional response (type I, II or III)</li>
 <li>Resource dynamic (chemostat, logistic and/or pulsed)</li>
 <li>Resource type (substitutable or essential)</li>
-<li>Continuous or intermittent mortality (e.g. serial transfer)</li>
+<li>Continuous or intermittent mortality (e.g., serial transfer)</li>
 <li>Delayed consumer introduction times</li>
 <li>Time dependent growth and consumption parameters</li>
 </ul>
@@ -199,7 +201,7 @@
   spnum <span class="op">=</span> <span class="fl">1</span>, 
   resnum <span class="op">=</span> <span class="fl">1</span>,
   funcresp <span class="op">=</span> <span class="st">"type2"</span>,
-  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">0.12</span><span class="op">)</span><span class="op">)</span>,
+  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">0.12</span><span class="op">)</span>,
   chemo <span class="op">=</span> <span class="cn">FALSE</span>,
   resspeed <span class="op">=</span> <span class="fl">3</span>,
   resconc <span class="op">=</span> <span class="fl">2</span>,
@@ -214,26 +216,25 @@
 <span class="co">#&gt; Simulation properties </span>
 <span class="co">#&gt;  * Simulation time: 500 time steps</span>
 <span class="co">#&gt;  * Init state: consumer(s) = [10], resource(s) = [2]</span></code></pre></div>
-<p>Visualise functional responses with <code><a href="../reference/plot_funcresp.html">rescomp::plot_funcresp</a></code>. Faceted by resources and time dependent parameterisations (when relevant).</p>
+<p>Visualise functional responses with <code><a href="../reference/plot_funcresp.html">plot_funcresp()</a></code>. Faceted by resources and time dependent parameterisations (when relevant).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-3-1.png" width="384"></p>
-<p>The model can then be simulated with <code><a href="../reference/sim_rescomp.html">rescomp::sim_rescomp</a></code>. <code>sim_rescomp</code> is a wrapper to <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html">deSolve::ode</a></code> that takes the output from <code>spec_rescomp</code> as its main argument.</p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-8-1.png" width="384"></p>
+<p>The model can then be simulated with <code><a href="../reference/sim_rescomp.html">sim_rescomp()</a></code>. <code><a href="../reference/sim_rescomp.html">sim_rescomp()</a></code> is a wrapper to <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html">deSolve::ode()</a></code> that takes the output from <code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code> as its main argument.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
-<p><code>plot_rescomp</code> produces a plot of the output dynamics (both consumers and resources).</p>
+<p><code><a href="../reference/plot_rescomp.html">plot_rescomp()</a></code> produces a plot of the output dynamics (both consumers and resources).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
-<p>Note the total simulation time and initial state variables given by <code>parms</code> can be overidden in <code>sim_recomp</code> with the arguments <code>times</code> and <code>y</code>, respectively. This will nevertheless print a message to the console to check it is intentional. See <code><a href="../reference/time_vals.html">?rescomp::time_vals</a></code> for convenient specification of simulation time (and pulsing when used).</p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
+<p>Note the total simulation time and initial state variables specified with <code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code> can be overidden in <code>sim_recomp()</code> with the arguments <code>times</code> and <code>y</code>, respectively. This will nevertheless print a message to the console to check it is intentional. See <code>?time_vals()</code> for convenient specification of simulation time (and pulsing when used).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30000</span>, <span class="fl">1</span><span class="op">)</span>, times <span class="op">=</span> <span class="fu"><a href="../reference/time_vals.html">time_vals</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; totaltime in pars will be overidden</span>
 <span class="co">#&gt; cinit in pars will be overidden</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-7-1.png" width="576"></p>
-<!-- The function `time_vals` is used for setting total simulation time (and is used to set the resource pulse interval when used in conjunction with an event function [see below]). The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources. -->
+<p><img src="rescomp_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
 </div>
 <div id="type-2-consumer-on-a-continuously-suppplied-resource" class="section level2">
 <h2 class="hasAnchor">
@@ -243,7 +244,7 @@
   spnum <span class="op">=</span> <span class="fl">1</span>, 
   resnum <span class="op">=</span> <span class="fl">1</span>,
   funcresp <span class="op">=</span> <span class="st">"type2"</span>,
-  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">0.12</span><span class="op">)</span><span class="op">)</span>,
+  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">0.12</span><span class="op">)</span>,
   resspeed <span class="op">=</span> <span class="fl">0.03</span>,
   resconc <span class="op">=</span> <span class="fl">2</span>,
   totaltime <span class="op">=</span> <span class="fl">300</span>
@@ -261,7 +262,7 @@
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-15-1.png" width="576"></p>
 </div>
 <div id="two-consumers-type-1-and-type-2-on-a-logistically-growing-resource" class="section level2">
 <h2 class="hasAnchor">
@@ -271,10 +272,10 @@
   spnum <span class="op">=</span> <span class="fl">2</span>, 
   resnum <span class="op">=</span> <span class="fl">1</span>,
   funcresp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"type1"</span>, <span class="st">"type2"</span><span class="op">)</span>,
-  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.35</span>,<span class="fl">0.05</span><span class="op">)</span>, 
+  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.35</span>,<span class="fl">0.05</span><span class="op">)</span>, 
                     nrow <span class="op">=</span> <span class="fl">2</span>, 
                     ncol <span class="op">=</span> <span class="fl">1</span>,
-                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,
+                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
   kmatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.015</span><span class="op">)</span>, 
                    nrow <span class="op">=</span> <span class="fl">2</span>, 
                    ncol <span class="op">=</span> <span class="fl">1</span>, 
@@ -295,13 +296,13 @@
 <span class="co">#&gt;  * Init state: consumer(s) = [10, 10], resource(s) = [0.2]</span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-12-1.png" width="384"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-17-1.png" width="384"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-14-1.png" width="576"></p>
-<p>Owing to the trade-off in functional responses (gleaner-opportunist) and resource fluctuations generated by N2, the two consumers are able to coexist via the coexistence mechanism ‘relative nonlinearity of competition’.</p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
+<p>Owing to the trade-off in functional responses (gleaner-opportunist) and resource fluctuations generated by N2, the two consumers are able to coexist.</p>
 </div>
 <div id="two-type-1-consumers-and-two-substitutable-resources-in-a-chemostat" class="section level2">
 <h2 class="hasAnchor">
@@ -311,11 +312,11 @@
   spnum <span class="op">=</span> <span class="fl">2</span>, 
   resnum <span class="op">=</span> <span class="fl">2</span>,
   funcresp <span class="op">=</span> <span class="st">"type1"</span>,
-  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.09</span>,<span class="fl">0.04</span>,
+  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.09</span>,<span class="fl">0.04</span>,
                            <span class="fl">0.05</span>,<span class="fl">0.08</span><span class="op">)</span>, 
                     nrow <span class="op">=</span> <span class="fl">2</span>, 
                     ncol <span class="op">=</span> <span class="fl">2</span>,
-                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,
+                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
   resspeed <span class="op">=</span> <span class="fl">0.03</span>,
   resconc <span class="op">=</span> <span class="fl">1</span>,
   mort <span class="op">=</span> <span class="fl">0.03</span>,
@@ -334,12 +335,12 @@
 <span class="co">#&gt;  * Init state: consumer(s) = [10, 10], resource(s) = [1, 1]</span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-16-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-18-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
 <p>Resource partitioning, where each consumer is a better competitor (lower R*) for a different resource, results in coexistence.</p>
 </div>
 <div id="two-type-1-consumers-and-two-essential-resources-in-a-chemostat" class="section level2">
@@ -351,18 +352,18 @@
 <span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span> </code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-25-1.png" width="576"></p>
 <p>There is no coexistence now because each species needs to have a larger impact on the resource that is most limiting its growth. For ‘consumer 1’ it is ‘resource b’, whereas for ‘consumer 2’ it is ‘resource a’. We can adjust consumer resource impacts via the resource quota matrix.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>
   spnum <span class="op">=</span> <span class="fl">2</span>, 
   resnum <span class="op">=</span> <span class="fl">2</span>,
   funcresp <span class="op">=</span> <span class="st">"type1"</span>,
-  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.09</span>, <span class="fl">0.04</span>,
-                           <span class="fl">0.05</span>, <span class="fl">0.08</span><span class="op">)</span>, 
+  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.09</span>, <span class="fl">0.04</span>,
+                      <span class="fl">0.05</span>, <span class="fl">0.08</span><span class="op">)</span>, 
                     nrow <span class="op">=</span> <span class="fl">2</span>, 
                     ncol <span class="op">=</span> <span class="fl">2</span>,
-                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,
+                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
   qmatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.001</span>, <span class="fl">0.005</span>,
                      <span class="fl">0.005</span>, <span class="fl">0.001</span><span class="op">)</span>,
                    nrow <span class="op">=</span> <span class="fl">2</span>,
@@ -387,21 +388,21 @@
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span> </code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-28-1.png" width="576"></p>
 </div>
 <div id="two-type-2-consumers-and-one-externally-pulsed-resource-continuous-mortality" class="section level2">
 <h2 class="hasAnchor">
 <a href="#two-type-2-consumers-and-one-externally-pulsed-resource-continuous-mortality" class="anchor"></a>Two type 2 consumers and one externally pulsed resource (continuous mortality)</h2>
-<p>External resource pulsing is handled using an event function, <code><a href="../reference/eventfun_respulse.html">rescomp::eventfun_respulse</a></code>, which is passed in a list to <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html">deSolve::ode</a></code>. The size of the resource pulse is specified as a numeric with the argument <code>respulse</code> in the call to <code>spec_rescomp</code>. To prevent any other mode of resource supply, <code>resspeed</code> should be set to zero. The frequency of pulsing is set with the <code>pulsefreq</code> argument.</p>
+<p>External resource pulsing is handled using an auxiliary event function which is generated by the call to <code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code> and passed to <code><a href="../reference/sim_rescomp.html">sim_rescomp()</a></code>. The size of the resource pulse is specified as a numeric with the argument <code>respulse</code> in the call to <code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code>. To prevent any other mode of resource supply, <code>resspeed</code> should be set to zero. The frequency of pulsing is set with the <code>pulsefreq</code> argument.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>
   spnum <span class="op">=</span> <span class="fl">2</span>, 
   resnum <span class="op">=</span> <span class="fl">1</span>,
   funcresp <span class="op">=</span> <span class="st">"type2"</span>,
-  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.05</span><span class="op">)</span>, 
+  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.7</span>,<span class="fl">0.05</span><span class="op">)</span>, 
                     nrow <span class="op">=</span> <span class="fl">2</span>, 
                     ncol <span class="op">=</span> <span class="fl">1</span>,
-                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,
+                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
   kmatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">0.015</span><span class="op">)</span>, 
                    nrow <span class="op">=</span> <span class="fl">2</span>, 
                    ncol <span class="op">=</span> <span class="fl">1</span>, 
@@ -409,7 +410,7 @@
   resspeed <span class="op">=</span> <span class="fl">0</span>, <span class="co"># set to zero for no additional resource supply </span>
   resconc <span class="op">=</span> <span class="fl">0.2</span>,
   respulse <span class="op">=</span> <span class="fl">0.3</span>,
-  pulsefreq <span class="op">=</span> <span class="fl">100</span><span class="co"># resource pulse size</span>
+  pulsefreq <span class="op">=</span> <span class="fl">100</span> <span class="co"># resource pulse size</span>
 <span class="op">)</span>
 <span class="co">#&gt; Model properties </span>
 <span class="co">#&gt;  * 2 consumer(s) and 1 resource(s)</span>
@@ -423,38 +424,38 @@
 <span class="co">#&gt;  * Init state: consumer(s) = [10, 10], resource(s) = [0.2]</span></code></pre></div>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">pars</span><span class="op">$</span><span class="va">respulse</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-25-1.png" width="384"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-30-1.png" width="384"></p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-27-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-32-1.png" width="576"></p>
 </div>
 <div id="two-type-2-consumers-and-one-externally-pulsed-resource-serial-transfer-with-pulsed-mortality" class="section level2">
 <h2 class="hasAnchor">
 <a href="#two-type-2-consumers-and-one-externally-pulsed-resource-serial-transfer-with-pulsed-mortality" class="anchor"></a>Two type 2 consumers and one externally pulsed resource (serial transfer with pulsed mortality)</h2>
-<p>Serial transfer in batch culture differs from the above scenario in that resource pulses are typically accompanied by large instantaneous changes in population density. For an example, in a serial transfer experiment with bacteria, an experimenter might sample a fraction (e.g. 10%) of the community every 24 hours and inoculate that fraction intro fresh media. As such, the consumer population density immediately following a transfer event will be equal to: <span class="math inline">\((1-M)N_{i}\)</span>, where <span class="math inline">\(M\)</span> is instantaneous mortality fraction given by <code>mortpulse</code>.</p>
+<p>Serial transfer in batch culture differs from the above scenario in that resource pulses are typically accompanied by large instantaneous changes in population density. For example, in a serial transfer experiment with bacteria, an experimenter might sample a fraction (e.g. 10%) of the community every 24 hours and inoculate that fraction intro fresh media. As such, the consumer population density immediately following a transfer event will be equal to: <span class="math inline">\((1-M)N_{i}\)</span>, where <span class="math inline">\(M\)</span> is instantaneous mortality fraction given by <code>mortpulse</code>.</p>
 <p>Simulating serial transfer in batch culture is implemented by:</p>
 <ol style="list-style-type: decimal">
-<li>Using <code>batchtrans = TRUE</code> in <code><a href="../reference/spec_rescomp.html">rescomp::spec_rescomp</a></code>.</li>
+<li>Using <code>batchtrans = TRUE</code> in <code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code>.</li>
 <li>Assigning a value from 0 to 1 for the argument <code>mortpulse</code>. This is the fraction of the consumer(s) population instantaneous ‘killed’ at set intervals. Note the transfer fraction = 1 - <code>mortpulse</code>.</li>
-<li>Setting the serial transfer schedule with the <code>pulse</code> argument in <code><a href="../reference/time_vals.html">rescomp::time_vals</a></code> (coincident with resource pulse intervals).</li>
+<li>Setting the serial transfer schedule with the <code>pulsefreq</code> argument (coincident with resource pulse intervals).</li>
 </ol>
-<p>Note that the effect of setting <code>batchtrans = TRUE</code> is to enforce fractional sampling of the resource/media in addition to the consumers. As such, immediately after a transfer event the resource concentration will be equal to: <span class="math inline">\((1-M)R_{j} + MS_{j}\)</span>, where <span class="math inline">\(R\)</span> is the resource concentration prior to transfer, and <span class="math inline">\(S\)</span> is the resource pulse size given by <code>respulse</code>. To inhibit the behaviour, i.e. to stop fractional sampling of the resource but maintain intermittent mortality use <code>batchtrans = FALSE</code> but still assign a non-zero value for <code>mortpulse</code>.</p>
+<p>Note that the effect of setting <code>batchtrans = TRUE</code> is to enforce fractional sampling of the resource/media in addition to the consumers. As such, immediately after a transfer event the resource concentration will be equal to: <span class="math inline">\((1-M)R_{j} + MS_{j}\)</span>, where <span class="math inline">\(R\)</span> is the resource concentration prior to transfer, and <span class="math inline">\(S\)</span> is the resource pulse size given by <code>respulse</code>. To inhibit this behaviour, i.e. to stop fractional sampling of the resource but maintain intermittent mortality use <code>batchtrans = FALSE</code> but still assign a non-zero value for <code>mortpulse</code>.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>
   spnum <span class="op">=</span> <span class="fl">2</span>, 
   resnum <span class="op">=</span> <span class="fl">1</span>,
   funcresp <span class="op">=</span> <span class="st">"type2"</span>,
-  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>,<span class="fl">0.2</span><span class="op">)</span>, 
-                         nrow <span class="op">=</span> <span class="fl">2</span>, 
-                         ncol <span class="op">=</span> <span class="fl">1</span>,
-                         byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,
+  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>,<span class="fl">0.2</span><span class="op">)</span>,
+                    nrow <span class="op">=</span> <span class="fl">2</span>, 
+                    ncol <span class="op">=</span> <span class="fl">1</span>,
+                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
   kmatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.2</span><span class="op">)</span>, 
                    nrow <span class="op">=</span> <span class="fl">2</span>, 
                    ncol <span class="op">=</span> <span class="fl">1</span>, 
                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,  
-  resspeed <span class="op">=</span> <span class="fl">0</span>, <span class="co"># set to zero for no additional resource supply </span>
+  resspeed <span class="op">=</span> <span class="fl">0</span>, 
   resconc <span class="op">=</span> <span class="fl">0.6</span>,
   respulse <span class="op">=</span> <span class="fl">1</span>,
   mort <span class="op">=</span> <span class="fl">0</span>, <span class="co"># set to zero to make the transfer fraction the effective mortality rate</span>
@@ -474,12 +475,12 @@
 <span class="co">#&gt;  * Init state: consumer(s) = [10, 10], resource(s) = [0.6]</span></code></pre></div>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">pars</span><span class="op">$</span><span class="va">respulse</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-29-1.png" width="384"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-34-1.png" width="384"></p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-31-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-36-1.png" width="576"></p>
 <p>Note, to reproduce the dynamics of a single batch culture experiment (i.e. without serial transfer) as potentially measured via optical density in a plate reader (negligible or unobserved mortality), simply set both <code>resspeed</code> and <code>mort</code> to zero.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>resspeed <span class="op">=</span> <span class="fl">0</span>, mort <span class="op">=</span> <span class="fl">0</span>, totaltime <span class="op">=</span> <span class="fl">500</span><span class="op">)</span>
@@ -495,13 +496,13 @@
 <span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-33-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-38-1.png" width="576"></p>
 </div>
 <div id="two-type-2-consumers-with-time-dependent-consumption-parameters-and-one-continuously-supplied-resource" class="section level2">
 <h2 class="hasAnchor">
 <a href="#two-type-2-consumers-with-time-dependent-consumption-parameters-and-one-continuously-supplied-resource" class="anchor"></a>Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource</h2>
-<p>Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in <code>deSolve</code> with forcing functions. <code>rescomp</code> provides a convenient means of implementing forcing functions in the background. Two additional arguments are needed in <code>spec_rescomp</code>: <code>timepars</code> and <code>timeparfreq</code>. <code>timepars</code> should be set to <code>TRUE</code>; <code>timeparfreq</code> adjusts the frequency of switching between ‘environmental states’.</p>
-<p>In addition, if <code>time_pars = TRUE</code>, the mumatrix argument in <code>spec_rescomp</code> expects a list containing two matrices, reflecting two different environmental states. At this stage <code>rescomp</code> only handles two states with the option of either equal time allotted to each state (default) or linear (<code>tpinterp = "lin"</code>) or sinusoidal (<code>tpinterp = "sine"</code>) interpolation between the states</p>
+<p>Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in with forcing functions. <em>rescomp</em> provides a convenient means of implementing forcing functions in the background. Two additional arguments are needed in calls to <code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code>: <code>timepars</code> and <code>timeparfreq</code>. <code>timepars</code> should be set to <code>TRUE</code>; <code>timeparfreq</code> adjusts the frequency of switching between ‘environmental states’.</p>
+<p>In addition, if <code>time_pars = TRUE</code>, the mumatrix argument in <code>spec_rescomp</code> expects a list containing two matrices, reflecting two different environmental states. At this stage <code>rescomp</code> only handles two states with three interpolation options: i) equal time allotted to each state (default); ii) linear (<code>tpinterp = "lin"</code>) interpolation between the two states; iii) sinusoidal (<code>tpinterp = "sine"</code>) interpolation between states.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span>
   spnum <span class="op">=</span> <span class="fl">2</span>, 
@@ -539,13 +540,13 @@
 <span class="co">#&gt;  * Init state: consumer(s) = [10, 10], resource(s) = [0.1]</span></code></pre></div>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">pars</span><span class="op">$</span><span class="va">resconc</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-35-1.png" width="384"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-40-1.png" width="384"></p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-37-1.png" width="576"></p>
-<p>The two consumers coexist due species-specific environmental responses leading to a temporal storage effect (formalization of temporal niche paritioning arising from density dependence in environment-competition covariance) (ref).</p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-42-1.png" width="576"></p>
+<p>The two consumers coexist due species-specific environmental responses leading to a temporal storage effect.</p>
 </div>
 <div id="three-type-1-consumers-on-three-essential-resources-generating-an-intransitive-loop-i-e--rock-paper-scissors-dynamics-" class="section level2">
 <h2 class="hasAnchor">
@@ -555,22 +556,18 @@
   spnum <span class="op">=</span> <span class="fl">3</span>, 
   resnum <span class="op">=</span> <span class="fl">3</span>,
   funcresp <span class="op">=</span> <span class="st">"type1"</span>,
-  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-    <span class="fl">0.11</span>, <span class="fl">0.07</span>,  <span class="fl">0.045</span>,
-    <span class="fl">0.05</span>, <span class="fl">0.11</span>,  <span class="fl">0.07</span>,
-    <span class="fl">0.07</span>, <span class="fl">0.047</span>, <span class="fl">0.1</span>
-    <span class="op">)</span>, 
-    nrow <span class="op">=</span> <span class="fl">3</span>,
-    ncol <span class="op">=</span> <span class="fl">3</span>,
-    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,
-  qmatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-    <span class="fl">0.2</span>, <span class="fl">0.7</span>, <span class="fl">0.4</span>,
-    <span class="fl">0.4</span>, <span class="fl">0.2</span>, <span class="fl">0.7</span>,
-    <span class="fl">0.7</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span>
-    <span class="op">)</span>, 
-    nrow <span class="op">=</span> <span class="fl">3</span>,
-    ncol <span class="op">=</span> <span class="fl">3</span>,
-    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.11</span>, <span class="fl">0.07</span>,  <span class="fl">0.045</span>,
+                      <span class="fl">0.05</span>, <span class="fl">0.11</span>,  <span class="fl">0.07</span>,
+                      <span class="fl">0.07</span>, <span class="fl">0.047</span>, <span class="fl">0.1</span><span class="op">)</span>, 
+                    nrow <span class="op">=</span> <span class="fl">3</span>,
+                    ncol <span class="op">=</span> <span class="fl">3</span>,
+                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+  qmatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.7</span>, <span class="fl">0.4</span>,
+                     <span class="fl">0.4</span>, <span class="fl">0.2</span>, <span class="fl">0.7</span>,
+                     <span class="fl">0.7</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span><span class="op">)</span>, 
+                   nrow <span class="op">=</span> <span class="fl">3</span>,
+                   ncol <span class="op">=</span> <span class="fl">3</span>,
+                   byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
   essential <span class="op">=</span> <span class="cn">TRUE</span>,  
   chemo <span class="op">=</span> <span class="cn">FALSE</span>,
   mort <span class="op">=</span> <span class="fl">0.015</span>, 
@@ -590,12 +587,12 @@
 <span class="co">#&gt;  * Init state: consumer(s) = [10, 10, 10], resource(s) = [0.5, 0.5, 0.5]</span></code></pre></div>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">pars</span><span class="op">$</span><span class="va">resconc</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-39-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-44-1.png" width="576"></p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-41-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-46-1.png" width="576"></p>
 </div>
 </div>
   </div>
