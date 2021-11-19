@@ -18,7 +18,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-`rescomp` is an R package for generating, simulating and visualising ODE models of consumer-resource interactions. In essence, it is a consumer-resource modelling focused interface to the canonical `deSolve` package.
+```{r, include = FALSE}
+library(rescomp)
+```
+
+*rescomp* is an R package for generating, simulating and visualising ODE models of consumer-resource interactions. In essence, it is a consumer-resource modelling focused interface to the canonical *deSolve* package.
 
 # Model formulation
 
@@ -32,7 +36,7 @@ $$
 \frac{dR_{j}}{dt} = \Psi_{j} (R_{j}) - \sum_{i = 1}^{n}Q_{ij} \mu_{ij}(R_j) N_i \,,
 $$
 
-where $N_{i}$ is the population density of consumer $i$, $R_{j}$ is the density/concentration of resource $j$, $\mu_{i}()$ is the per capita consumer functional response of consumer $i$, $m$ is the per capita mortality rate (constant or pulsed), $\Psi_{j}(R_j)$ is the resource supply function, and $Q_{ij}$ is the resource quota of consumer $i$ on resource $j$ (the amount of resource per unit consumer).
+where $N_{i}$ is the population density of consumer $i$, $R_{j}$ is the density/concentration of resource $j$, $\mu_{i}()$ is the per capita consumer functional response of consumer $i$, $m$ is the per capita mortality rate (constant or intermittent), $\Psi_{j}(R_j)$ is the resource supply function, and $Q_{ij}$ is the resource quota of consumer $i$ on resource $j$ (the amount of resource per unit consumer).
 
 From this general form, different model formulations are distinguished by: i) the number of consumers/resources; ii) the form of the consumer functional response; iii) the mode of resource supply; iv) the type of resource; and v) any non-autonomous behaviour including time dependent model parameters and/or instantaneous changes in consumer/resource density (e.g. in batch transfer).
 
@@ -48,6 +52,11 @@ $$
 
 where $a_{ij}$ is a resource consumption constant.
 
+```{r echo=FALSE, fig.width = 4, fig.height = 3}
+plot_funcresp(spec_rescomp(funcresp = "type1", verbose = FALSE))
+```
+
+
 ii) nonlinear type II (aka Monod)
 
 $$
@@ -56,11 +65,20 @@ $$
 
 where $\mu_{max_{ij}}$ is the maximum growth rate and $k_{ij}$ is the half saturation constant for consumer $i$ on resource $j$.
 
+```{r echo=FALSE, fig.width = 4, fig.height = 3}
+plot_funcresp(spec_rescomp(funcresp = "type2", 
+              kmatrix = matrix(0.3), verbose = FALSE))
+```
+
 iii) nonlinear type III (sigmoidal),
 
 $$
 \mu_{ij}(R_{j}) = \mu _{max_{ij}}\frac{R_{j}^2}{k_{ij}^2 + R_{j}^2} \,.
 $$
+```{r echo=FALSE, fig.width = 4, fig.height = 3}
+plot_funcresp(spec_rescomp(funcresp = "type3", 
+              kmatrix = matrix(0.3), verbose = FALSE))
+```
 
 An alternative parameterisation to all three functional responses is to incorporate a consumption efficiency term, $c_{ij}$. The type I model becomes $\mu_{ij}(R_{j}) = a_{ij}c_{ij}R_{j}$, and for type II and III, $a_{ij}c_{ij}$ is substituted for $\mu _{max_{ij}}$. NB. this functional form is mutually exclusive with the specification of resources quotas in the resource equations, i.e. the $Q_{ij}$s are dropped from the resource equations.
 
@@ -82,7 +100,7 @@ $$
 
 where $d$ represents the flux of resources into and out of the system;
 
-Or the resources are pulsed intermittently (more examples).
+Or the resources are pulsed intermittently (e.g., in serial transfer - see examples below).
 
 In the case of multiple resources, each resource is either treated as essential to consumer growth following Leibig's law of the minimum, in which case,
 
@@ -98,13 +116,13 @@ $$
 
 # Using `rescomp`
 
-The main user function in `rescomp` is `spec_rescomp()`, which facilitates the definition and parameterisation of a consumer-resource model and the specification of simulation parameters. Function arguments include (but are not limited to):
+The main user function in *rescomp* is `spec_rescomp()`, which facilitates the definition and parameterisation of a consumer-resource model and the specification of simulation parameters. Function arguments include (but are not limited to):
 
 -   Number of consumers/resources
--   Consumer functional response (type I, II or II)
+-   Consumer functional response (type I, II or III)
 -   Resource dynamic (chemostat, logistic and/or pulsed)
 -   Resource type (substitutable or essential)
--   Continuous or intermittent mortality (e.g. serial transfer)
+-   Continuous or intermittent mortality (e.g., serial transfer)
 -   Delayed consumer introduction times
 -   Time dependent growth and consumption parameters
 
@@ -135,7 +153,7 @@ Additional examples illustrating other options and functionality can be found in
 
 ## Type 2 consumer on a logistically growing resource
 
-```{r setup}
+```{r, eval=FALSE}
 library(rescomp)
 ```
 
@@ -144,7 +162,7 @@ pars <- spec_rescomp(
   spnum = 1, 
   resnum = 1,
   funcresp = "type2",
-  mumatrix = list(matrix(0.12)),
+  mumatrix = matrix(0.12),
   chemo = FALSE,
   resspeed = 3,
   resconc = 2,
@@ -152,25 +170,25 @@ pars <- spec_rescomp(
 )
 ```
 
-Visualise functional responses with `rescomp::plot_funcresp`. Faceted by resources and time dependent parameterisations (when relevant).
+Visualise functional responses with `plot_funcresp()`. Faceted by resources and time dependent parameterisations (when relevant).
 
 ```{r, fig.width = 4, fig.height = 3}
 plot_funcresp(pars, maxx = 2)
 ```
 
-The model can then be simulated with `rescomp::sim_rescomp`. `sim_rescomp` is a wrapper to `deSolve::ode` that takes the output from `spec_rescomp` as its main argument.
+The model can then be simulated with `sim_rescomp()`. `sim_rescomp()` is a wrapper to `deSolve::ode()` that takes the output from `spec_rescomp()` as its main argument.
 
 ```{r}
 m1 <- sim_rescomp(pars)
 ```
 
-`plot_rescomp` produces a plot of the output dynamics (both consumers and resources).
+`plot_rescomp()` produces a plot of the output dynamics (both consumers and resources).
 
 ```{r, fig.width = 6, fig.height = 3}
 plot_rescomp(m1)
 ```
 
-Note the total simulation time and initial state variables given by `parms` can be overidden in `sim_recomp` with the arguments `times` and `y`, respectively. This will nevertheless print a message to the console to check it is intentional. See `?rescomp::time_vals` for convenient specification of simulation time (and pulsing when used).
+Note the total simulation time and initial state variables specified with `spec_rescomp()` can be overidden in `sim_recomp()` with the arguments `times` and `y`, respectively. This will nevertheless print a message to the console to check it is intentional. See `?time_vals()` for convenient specification of simulation time (and pulsing when used).
 
 ```{r}
 m1 <- sim_rescomp(pars, y = c(30000, 1), times = time_vals(200))
@@ -180,8 +198,6 @@ m1 <- sim_rescomp(pars, y = c(30000, 1), times = time_vals(200))
 plot_rescomp(m1)
 ```
 
-<!-- The function `time_vals` is used for setting total simulation time (and is used to set the resource pulse interval when used in conjunction with an event function [see below]). The function `initiate_state` sets the starting values of state variables defaulting to 10 for consumers and the resource supply concentration for resources. -->
-
 ## Type 2 consumer on a continuously suppplied resource
 
 ```{r}
@@ -189,7 +205,7 @@ pars <- spec_rescomp(
   spnum = 1, 
   resnum = 1,
   funcresp = "type2",
-  mumatrix = list(matrix(0.12)),
+  mumatrix = matrix(0.12),
   resspeed = 0.03,
   resconc = 2,
   totaltime = 300
@@ -211,10 +227,10 @@ pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
   funcresp = c("type1", "type2"),
-  mumatrix = list(matrix(c(0.35,0.05), 
+  mumatrix = matrix(c(0.35,0.05), 
                     nrow = 2, 
                     ncol = 1,
-                    byrow = TRUE)),
+                    byrow = TRUE),
   kmatrix = matrix(c(1, 0.015), 
                    nrow = 2, 
                    ncol = 1, 
@@ -238,7 +254,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1)
 ```
 
-Owing to the trade-off in functional responses (gleaner-opportunist) and resource fluctuations generated by N2, the two consumers are able to coexist via the coexistence mechanism 'relative nonlinearity of competition'.
+Owing to the trade-off in functional responses (gleaner-opportunist) and resource fluctuations generated by N2, the two consumers are able to coexist.
 
 ## Two type 1 consumers and two substitutable resources in a chemostat
 
@@ -247,11 +263,11 @@ pars <- spec_rescomp(
   spnum = 2, 
   resnum = 2,
   funcresp = "type1",
-  mumatrix = list(matrix(c(0.09,0.04,
+  mumatrix = matrix(c(0.09,0.04,
                            0.05,0.08), 
                     nrow = 2, 
                     ncol = 2,
-                    byrow = TRUE)),
+                    byrow = TRUE),
   resspeed = 0.03,
   resconc = 1,
   mort = 0.03,
@@ -294,11 +310,11 @@ pars <- spec_rescomp(
   spnum = 2, 
   resnum = 2,
   funcresp = "type1",
-  mumatrix = list(matrix(c(0.09, 0.04,
-                           0.05, 0.08), 
+  mumatrix = matrix(c(0.09, 0.04,
+                      0.05, 0.08), 
                     nrow = 2, 
                     ncol = 2,
-                    byrow = TRUE)),
+                    byrow = TRUE),
   qmatrix = matrix(c(0.001, 0.005,
                      0.005, 0.001),
                    nrow = 2,
@@ -321,17 +337,17 @@ plot_rescomp(m1)
 
 ## Two type 2 consumers and one externally pulsed resource (continuous mortality)
 
-External resource pulsing is handled using an event function, `rescomp::eventfun_respulse`, which is passed in a list to `deSolve::ode`. The size of the resource pulse is specified as a numeric with the argument `respulse` in the call to `spec_rescomp`. To prevent any other mode of resource supply, `resspeed` should be set to zero. The frequency of pulsing is set with the `pulsefreq` argument.
+External resource pulsing is handled using an auxiliary event function which is generated by the call to `spec_rescomp()` and passed to `sim_rescomp()`. The size of the resource pulse is specified as a numeric with the argument `respulse` in the call to `spec_rescomp()`. To prevent any other mode of resource supply, `resspeed` should be set to zero. The frequency of pulsing is set with the `pulsefreq` argument.
 
 ```{r}
 pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
   funcresp = "type2",
-  mumatrix = list(matrix(c(0.7,0.05), 
+  mumatrix = matrix(c(0.7,0.05), 
                     nrow = 2, 
                     ncol = 1,
-                    byrow = TRUE)),
+                    byrow = TRUE),
   kmatrix = matrix(c(2, 0.015), 
                    nrow = 2, 
                    ncol = 1, 
@@ -339,7 +355,7 @@ pars <- spec_rescomp(
   resspeed = 0, # set to zero for no additional resource supply 
   resconc = 0.2,
   respulse = 0.3,
-  pulsefreq = 100# resource pulse size
+  pulsefreq = 100 # resource pulse size
 )
 ```
 
@@ -357,30 +373,30 @@ plot_rescomp(m1)
 
 ## Two type 2 consumers and one externally pulsed resource (serial transfer with pulsed mortality)
 
-Serial transfer in batch culture differs from the above scenario in that resource pulses are typically accompanied by large instantaneous changes in population density. For an example, in a serial transfer experiment with bacteria, an experimenter might sample a fraction (e.g. 10%) of the community every 24 hours and inoculate that fraction intro fresh media. As such, the consumer population density immediately following a transfer event will be equal to: $(1-M)N_{i}$, where $M$ is instantaneous mortality fraction given by `mortpulse`.
+Serial transfer in batch culture differs from the above scenario in that resource pulses are typically accompanied by large instantaneous changes in population density. For example, in a serial transfer experiment with bacteria, an experimenter might sample a fraction (e.g. 10%) of the community every 24 hours and inoculate that fraction intro fresh media. As such, the consumer population density immediately following a transfer event will be equal to: $(1-M)N_{i}$, where $M$ is instantaneous mortality fraction given by `mortpulse`.
 
 Simulating serial transfer in batch culture is implemented by:
 
-1.  Using `batchtrans = TRUE` in `rescomp::spec_rescomp`.
+1.  Using `batchtrans = TRUE` in `spec_rescomp()`.
 2.  Assigning a value from 0 to 1 for the argument `mortpulse`. This is the fraction of the consumer(s) population instantaneous 'killed' at set intervals. Note the transfer fraction = 1 - `mortpulse`.
-3.  Setting the serial transfer schedule with the `pulse` argument in `rescomp::time_vals` (coincident with resource pulse intervals).
+3.  Setting the serial transfer schedule with the `pulsefreq` argument (coincident with resource pulse intervals).
 
-Note that the effect of setting `batchtrans = TRUE` is to enforce fractional sampling of the resource/media in addition to the consumers. As such, immediately after a transfer event the resource concentration will be equal to: $(1-M)R_{j} + MS_{j}$, where $R$ is the resource concentration prior to transfer, and $S$ is the resource pulse size given by `respulse`. To inhibit the behaviour, i.e. to stop fractional sampling of the resource but maintain intermittent mortality use `batchtrans = FALSE` but still assign a non-zero value for `mortpulse`.
+Note that the effect of setting `batchtrans = TRUE` is to enforce fractional sampling of the resource/media in addition to the consumers. As such, immediately after a transfer event the resource concentration will be equal to: $(1-M)R_{j} + MS_{j}$, where $R$ is the resource concentration prior to transfer, and $S$ is the resource pulse size given by `respulse`. To inhibit this behaviour, i.e. to stop fractional sampling of the resource but maintain intermittent mortality use `batchtrans = FALSE` but still assign a non-zero value for `mortpulse`.
 
 ```{r}
 pars <- spec_rescomp(
   spnum = 2, 
   resnum = 1,
   funcresp = "type2",
-  mumatrix = list(matrix(c(0.2,0.2), 
-                         nrow = 2, 
-                         ncol = 1,
-                         byrow = TRUE)),
+  mumatrix = matrix(c(0.2,0.2),
+                    nrow = 2, 
+                    ncol = 1,
+                    byrow = TRUE),
   kmatrix = matrix(c(0.3, 0.2), 
                    nrow = 2, 
                    ncol = 1, 
                    byrow = TRUE),  
-  resspeed = 0, # set to zero for no additional resource supply 
+  resspeed = 0, 
   resconc = 0.6,
   respulse = 1,
   mort = 0, # set to zero to make the transfer fraction the effective mortality rate
@@ -415,9 +431,9 @@ plot_rescomp(m1)
 
 ## Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource
 
-Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in `deSolve` with forcing functions. `rescomp` provides a convenient means of implementing forcing functions in the background. Two additional arguments are needed in `spec_rescomp`: `timepars` and `timeparfreq`. `timepars` should be set to `TRUE`; `timeparfreq` adjusts the frequency of switching between 'environmental states'.
+Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in with forcing functions. *rescomp* provides a convenient means of implementing forcing functions in the background. Two additional arguments are needed in calls to `spec_rescomp()`: `timepars` and `timeparfreq`. `timepars` should be set to `TRUE`; `timeparfreq` adjusts the frequency of switching between 'environmental states'.
 
-In addition, if `time_pars = TRUE`, the mumatrix argument in `spec_rescomp` expects a list containing two matrices, reflecting two different environmental states. At this stage `rescomp` only handles two states with the option of either equal time allotted to each state (default) or linear (`tpinterp = "lin"`) or sinusoidal (`tpinterp = "sine"`) interpolation between the states
+In addition, if `time_pars = TRUE`, the mumatrix argument in `spec_rescomp` expects a list containing two matrices, reflecting two different environmental states. At this stage `rescomp` only handles two states with three interpolation options: i) equal time allotted to each state (default); ii) linear (`tpinterp = "lin"`) interpolation between the two states; iii) sinusoidal (`tpinterp = "sine"`) interpolation between states.
 
 ```{r}
 pars <- spec_rescomp(
@@ -458,7 +474,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1)
 ```
 
-The two consumers coexist due species-specific environmental responses leading to a temporal storage effect (formalization of temporal niche paritioning arising from density dependence in environment-competition covariance) (ref).
+The two consumers coexist due species-specific environmental responses leading to a temporal storage effect.
 
 ## Three type 1 consumers on three essential resources generating an intransitive loop (i.e. rock paper scissors dynamics).
 
@@ -467,22 +483,18 @@ pars <- spec_rescomp(
   spnum = 3, 
   resnum = 3,
   funcresp = "type1",
-  mumatrix = list(matrix(c(
-    0.11, 0.07,  0.045,
-    0.05, 0.11,  0.07,
-    0.07, 0.047, 0.1
-    ), 
-    nrow = 3,
-    ncol = 3,
-    byrow = TRUE)),
-  qmatrix = matrix(c(
-    0.2, 0.7, 0.4,
-    0.4, 0.2, 0.7,
-    0.7, 0.4, 0.2
-    ), 
-    nrow = 3,
-    ncol = 3,
-    byrow = TRUE),
+  mumatrix = matrix(c(0.11, 0.07,  0.045,
+                      0.05, 0.11,  0.07,
+                      0.07, 0.047, 0.1), 
+                    nrow = 3,
+                    ncol = 3,
+                    byrow = TRUE),
+  qmatrix = matrix(c(0.2, 0.7, 0.4,
+                     0.4, 0.2, 0.7,
+                     0.7, 0.4, 0.2), 
+                   nrow = 3,
+                   ncol = 3,
+                   byrow = TRUE),
   essential = TRUE,  
   chemo = FALSE,
   mort = 0.015, 
