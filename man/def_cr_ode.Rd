@@ -11,7 +11,7 @@ def_cr_ode(Time, State, Pars)
 
 \item{State}{Vector of initial states}
 
-\item{Pars}{A list}
+\item{Pars}{A list of model parameters}
 }
 \value{
 Model formula to pass to \code{sim_rescomp()}

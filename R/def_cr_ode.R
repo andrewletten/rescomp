@@ -2,7 +2,7 @@
 #'
 #' @param Time Time to simulate over
 #' @param State Vector of initial states
-#' @param Pars A list
+#' @param Pars A list of model parameters
 #'
 #' @return Model formula to pass to `sim_rescomp()`
 #' @export
@@ -78,6 +78,16 @@ def_cr_ode <- function(Time, State, Pars) {
     }
 
     # --------------------------------------------------------------------
+    # Predator dynamics
+    # dP.perN <- mu_p
+    # dP <- P
+    # for (i in seq_along(P)) {
+    #   for (j in seq_along(N)) {
+    #     dP.perN[i, j] <- (mu_p[i, j] * P[i] * (N[j])^(2 * type3_p[i, j])) /
+    #       ((Ks_p[i, j])^(2 * type3_p[i, j]) + phi_p[i, j] * (N[j])^(2 * type3_p[i, j]))
+    #   }
+    #   dP[i] <- sum(dP.perN[i,] * eff_p[i,]) - (all_d_p[i] * P[i])
+    # }
 
 
     # Consumer dynamics
