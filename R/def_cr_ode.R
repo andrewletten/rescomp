@@ -112,6 +112,8 @@ def_cr_ode <- function(Time, State, Pars) {
       for (j in seq_along(R)) {
         for (i in seq_along(N)) {
           dR.perN[i, ] <- (min(dN.perR[i, ])) * Qs[i, ]
+          dR.perN[i, ] <- (min(dN.perR[i, ] * eff[i,])/eff[i,]) * Qs[i, ]
+
         }
         if (Pars$chemo == TRUE) {
           dR[j] <- resspeed[j] * (resconc[j] - R[j]) -
