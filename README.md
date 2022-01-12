@@ -9,10 +9,6 @@
 
 <!-- badges: end -->
 
-*Disclaimer: `rescomp` is still in the early stages of development.
-Please use with caution and perform your own sanity checks. Feedback and
-pull requests very welcome.*
-
 *rescomp* is an R package that supports the definition, simulation and
 visualization of ODE models of ecological consumer-resource
 interactions. In essence, it is a consumer-resource modelling focused
