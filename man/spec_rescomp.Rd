@@ -46,7 +46,7 @@ and \code{resnum} respectively. For time dependent parameters
 (with \code{timepars} = TRUE), expects a list of length 2.}
 
 \item{kmatrix}{Numeric matrix or list of matrices, the elements of which
-give the of half saturation constants (type 2 or type 3, ignored if
+give the half saturation constants (type 2 or type 3, ignored if
 funcresp = "type1"). The number of rows and columns should be equal to
 \code{spnum} and \code{resnum} respectively. For time dependent parameters
 (with \code{timepars} = TRUE), expects a list of length 2.}
