@@ -354,8 +354,8 @@ pars <- spec_rescomp(
                    byrow = TRUE),  
   resspeed = 0, # set to zero for no additional resource supply 
   resconc = 0.2,
-  respulse = 0.3,
-  pulsefreq = 100 # resource pulse size
+  respulse = 0.3, # resource pulse size
+  pulsefreq = 100
 )
 ```
 
