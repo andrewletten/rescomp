@@ -92,7 +92,8 @@ supply concentration}
 
 \item{pulsefreq}{Frequency of resource pulsing and/or intermittent mortality.}
 
-\item{batchtrans}{If TRUE, both resource is also fractionally sampled
+\item{batchtrans}{If TRUE, resources are also fractionally sampled during pulses,
+and respulse represents the resource concentration in the new medium
 (see vignette).}
 
 \item{timepars}{If TRUE, time dependent parameters required.}

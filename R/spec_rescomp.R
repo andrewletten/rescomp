@@ -45,7 +45,8 @@
 #' @param mortpulse Consumer mortality fraction if non-constant mortality
 #'     (e.g. serial-batch transfer).
 #' @param pulsefreq Frequency of resource pulsing and/or intermittent mortality.
-#' @param batchtrans If TRUE, both resource is also fractionally sampled
+#' @param batchtrans If TRUE, resources are also fractionally sampled during pulses,
+#'     and respulse represents the resource concentration in the new medium
 #'     (see vignette).
 #' @param timepars If TRUE, time dependent parameters required.
 #' @param timeparfreq Frequency of parameter switching if timepars = TRUE.
