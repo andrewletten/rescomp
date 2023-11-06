@@ -10,6 +10,8 @@ vignette: >
 This vignette demonstrates the use of *rescomp* to reproduce several analyses of resource competition from the literature.
 
 
+
+
 ```r
 library(rescomp)
 ```
@@ -82,7 +84,10 @@ pars <- spec_rescomp(
 plot_funcresp(pars)
 ```
 
-<img src="classic-results-HW1999-funcresps-1c-1.png" title="plot of chunk HW1999-funcresps-1c" alt="plot of chunk HW1999-funcresps-1c" width="70%" />
+<div class="figure">
+<img src="vignettes/classic-results-HW1999-funcresps-1c-1.png" alt="plot of chunk HW1999-funcresps-1c" width="70%" />
+<p class="caption">plot of chunk HW1999-funcresps-1c</p>
+</div>
 
 Be warned the full simulation with 15000 time steps may take a while to run (~2 mins on a laptop with CPU 1.90GHz and 16GB of RAM).
 
@@ -96,7 +101,10 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resources = FALSE)
 ```
 
-<img src="classic-results-HW1999-dynamics-1c-1.png" title="plot of chunk HW1999-dynamics-1c" alt="plot of chunk HW1999-dynamics-1c" width="70%" /><p class="caption">Reproduces Fig 1c from Huisman and Weissing (1999).</p>
+<div class="figure">
+<img src="vignettes/classic-results-HW1999-dynamics-1c-1.png" alt="plot of chunk HW1999-dynamics-1c" width="70%" />
+<p class="caption">plot of chunk HW1999-dynamics-1c</p>
+</div><p class="caption">Reproduces Fig 1c from Huisman and Weissing (1999).</p>
 
 Huisman and Weissing (1999) next showed that chaotic dynamics are common when each consumes has a relatively larger impact on the resource for which it is an intermediate competitor. For example in the model specification below, consumer 1 is an intermediate competitor for resource 4 ($k_{1,4} = 0.30$) but has a larger impact (resource quota) on resource 4 relative to the other four consumers ($Q_{1,4} = 0.05$,  $Q_{i\neq1,4} = 0.03$)
 
@@ -148,7 +156,10 @@ pars <- spec_rescomp(
 plot_funcresp(pars)
 ```
 
-<img src="classic-results-HW1999-funcresp-2-1.png" title="plot of chunk HW1999-funcresp-2" alt="plot of chunk HW1999-funcresp-2" width="70%" />
+<div class="figure">
+<img src="vignettes/classic-results-HW1999-funcresp-2-1.png" alt="plot of chunk HW1999-funcresp-2" width="70%" />
+<p class="caption">plot of chunk HW1999-funcresp-2</p>
+</div>
 
 
 ```r
@@ -160,7 +171,10 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resources = FALSE, lwd = 1)
 ```
 
-<img src="classic-results-HW1999-dynamics-2a-1.png" title="plot of chunk HW1999-dynamics-2a" alt="plot of chunk HW1999-dynamics-2a" width="70%" /><p class="caption">Corresponds to Fig 2a of Huisman and Weissing (1999).</p>
+<div class="figure">
+<img src="vignettes/classic-results-HW1999-dynamics-2a-1.png" alt="plot of chunk HW1999-dynamics-2a" width="70%" />
+<p class="caption">plot of chunk HW1999-dynamics-2a</p>
+</div><p class="caption">Corresponds to Fig 2a of Huisman and Weissing (1999).</p>
 
 These chaotic oscillations can in fact foster the coexistence of many more species than limiting resources. In the final example taken from Fig 4 of Huisman and Weissing (1999), 12 species persist on 5 resources.
 
@@ -243,7 +257,10 @@ pars <- spec_rescomp(
 plot_funcresp(pars)
 ```
 
-<img src="classic-results-HW1999-funcresp-4-1.png" title="plot of chunk HW1999-funcresp-4" alt="plot of chunk HW1999-funcresp-4" width="70%" />
+<div class="figure">
+<img src="vignettes/classic-results-HW1999-funcresp-4-1.png" alt="plot of chunk HW1999-funcresp-4" width="70%" />
+<p class="caption">plot of chunk HW1999-funcresp-4</p>
+</div>
 
 Be warned this simulation will take a relatively long time to run (~8 mins on a laptop with CPU 1.90GHz and 16GB of RAM).
 
@@ -258,7 +275,10 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resources = FALSE, lwd = 0.1)
 ```
 
-<img src="classic-results-HW1999-dynamics-4-1.png" title="plot of chunk HW1999-dynamics-4" alt="plot of chunk HW1999-dynamics-4" width="70%" /><p class="caption">Composite of Figs 4a and 4b from Huisman and Weissing (1999).</p>
+<div class="figure">
+<img src="vignettes/classic-results-HW1999-dynamics-4-1.png" alt="plot of chunk HW1999-dynamics-4" width="70%" />
+<p class="caption">plot of chunk HW1999-dynamics-4</p>
+</div><p class="caption">Composite of Figs 4a and 4b from Huisman and Weissing (1999).</p>
 
 
 # Grover (1990)
@@ -312,7 +332,10 @@ pars <- spec_rescomp(
 plot_funcresp(pars, maxx = 0.0001)
 ```
 
-<img src="classic-results-Grover1990-funcresp-4a-1.png" title="plot of chunk Grover1990-funcresp-4a" alt="plot of chunk Grover1990-funcresp-4a" width="70%" /><p class="caption">Reproduces Fig 1 from Grover (1990). Resource concentration in $mu$mol per ml rather than  per L.</p>
+<div class="figure">
+<img src="vignettes/classic-results-Grover1990-funcresp-4a-1.png" alt="plot of chunk Grover1990-funcresp-4a" width="70%" />
+<p class="caption">plot of chunk Grover1990-funcresp-4a</p>
+</div><p class="caption">Reproduces Fig 1 from Grover (1990). Resource concentration in $mu$mol per ml rather than  per L.</p>
 
 
 ```r
@@ -325,7 +348,10 @@ mcons <- sim_rescomp(pars)
 plot_rescomp(mcons, resources = FALSE, logy = TRUE)
 ```
 
-<img src="classic-results-Grover1990-dynamics-4a-1.png" title="plot of chunk Grover1990-dynamics-4a" alt="plot of chunk Grover1990-dynamics-4a" width="70%" /><p class="caption">Reproduces Fig 4A from Grover (1990).</p>
+<div class="figure">
+<img src="vignettes/classic-results-Grover1990-dynamics-4a-1.png" alt="plot of chunk Grover1990-dynamics-4a" width="70%" />
+<p class="caption">plot of chunk Grover1990-dynamics-4a</p>
+</div><p class="caption">Reproduces Fig 4A from Grover (1990).</p>
 
 When the resource is pulsed with high frequency (whilst maintaining the same time averaged resource supply), the gleanerstill excludes the opportunist but at a slower rate.
 
@@ -356,7 +382,10 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resource = FALSE, logy = TRUE)
 ```
 
-<img src="classic-results-Grover1990-dynamics-4b-1.png" title="plot of chunk Grover1990-dynamics-4b" alt="plot of chunk Grover1990-dynamics-4b" width="70%" /><p class="caption">Reproduces Fig 4B from Grover (1990).</p>
+<div class="figure">
+<img src="vignettes/classic-results-Grover1990-dynamics-4b-1.png" alt="plot of chunk Grover1990-dynamics-4b" width="70%" />
+<p class="caption">plot of chunk Grover1990-dynamics-4b</p>
+</div><p class="caption">Reproduces Fig 4B from Grover (1990).</p>
 
 When the resource is pulsed at an intermediate frequency (again whilst maintaining the same time averaged resource supply), the gleaner and the opportunist coexist.
 
@@ -386,7 +415,10 @@ m4 <- sim_rescomp(pars)
 plot_rescomp(m4, resource = FALSE, logy = TRUE)
 ```
 
-<img src="classic-results-Grover1990-dynamics-4c-1.png" title="plot of chunk Grover1990-dynamics-4c" alt="plot of chunk Grover1990-dynamics-4c" width="70%" /><p class="caption">Reproduces Fig 4C from Grover (1990).</p>
+<div class="figure">
+<img src="vignettes/classic-results-Grover1990-dynamics-4c-1.png" alt="plot of chunk Grover1990-dynamics-4c" width="70%" />
+<p class="caption">plot of chunk Grover1990-dynamics-4c</p>
+</div><p class="caption">Reproduces Fig 4C from Grover (1990).</p>
 
 Finally when the resource is pulsed at low frequency, the opportunist excludes the gleaner.
 
@@ -416,7 +448,10 @@ m10 <- sim_rescomp(pars)
 plot_rescomp(m10, resource = FALSE, logy = TRUE)
 ```
 
-<img src="classic-results-Grover1990-dynamics-4d-1.png" title="plot of chunk Grover1990-dynamics-4d" alt="plot of chunk Grover1990-dynamics-4d" width="70%" /><p class="caption">Reproduces Fig 4D from Grover (1990).</p>
+<div class="figure">
+<img src="vignettes/classic-results-Grover1990-dynamics-4d-1.png" alt="plot of chunk Grover1990-dynamics-4d" width="70%" />
+<p class="caption">plot of chunk Grover1990-dynamics-4d</p>
+</div><p class="caption">Reproduces Fig 4D from Grover (1990).</p>
 
 
 
@@ -474,7 +509,10 @@ Because the two consumers were specified with slightly different density indepen
 plot_funcresp(pars, maxx = 200, madj = TRUE)
 ```
 
-<img src="classic-results-AM1980-funcresp-2-1.png" title="plot of chunk AM1980-funcresp-2" alt="plot of chunk AM1980-funcresp-2" width="70%" /><p class="caption">Corresponds to Fig 2 from Armstrong and McGehee (1980).</p>
+<div class="figure">
+<img src="vignettes/classic-results-AM1980-funcresp-2-1.png" alt="plot of chunk AM1980-funcresp-2" width="70%" />
+<p class="caption">plot of chunk AM1980-funcresp-2</p>
+</div><p class="caption">Corresponds to Fig 2 from Armstrong and McGehee (1980).</p>
 
 With the functional responses adjusted for species specific mortality rates it is clear that intersection of the functional responses lies above both species R*. As shown below, this is harder to interpret when using the default option for `plot_funcresp` where the two different mortality rates are plotted alongside their functional responses.
 
@@ -483,7 +521,10 @@ With the functional responses adjusted for species specific mortality rates it i
 plot_funcresp(pars, maxx = 200)
 ```
 
-<img src="classic-results-AM1980-funcresp-2-unadjusted-mortality-1.png" title="plot of chunk AM1980-funcresp-2-unadjusted-mortality" alt="plot of chunk AM1980-funcresp-2-unadjusted-mortality" width="70%" />
+<div class="figure">
+<img src="vignettes/classic-results-AM1980-funcresp-2-unadjusted-mortality-1.png" alt="plot of chunk AM1980-funcresp-2-unadjusted-mortality" width="70%" />
+<p class="caption">plot of chunk AM1980-funcresp-2-unadjusted-mortality</p>
+</div>
 
 Simulations show that the species with the nonlinear functional response generates limit cycles upon which the species with the linear functional response is able to persist.
 
@@ -497,6 +538,9 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1)
 ```
 
-<img src="classic-results-AM1980-dynamics-1-1.png" title="plot of chunk AM1980-dynamics-1" alt="plot of chunk AM1980-dynamics-1" width="70%" /><p class="caption">Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide as close as possible correspondence to the original figure.</p>
+<div class="figure">
+<img src="vignettes/classic-results-AM1980-dynamics-1-1.png" alt="plot of chunk AM1980-dynamics-1" width="70%" />
+<p class="caption">plot of chunk AM1980-dynamics-1</p>
+</div><p class="caption">Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide as close as possible correspondence to the original figure.</p>
 
 <!-- # Hastings et al,. 2018. Transient phenomena in ecology. Science, 361(6406). -->
