@@ -81,13 +81,13 @@ The main utility of *rescomp* comes with specifying more elaborate
 models and simulation dynamics. Features/options include (but are not
 limited to):
 
--   Unlimited number of consumers/resources
--   Consumer functional response (type I, II or III)
--   Resource dynamic (chemostat, logistic and/or pulsed)
--   Resource type (substitutable or essential)
--   Continuous or intermittent mortality (e.g. serial transfer)
--   Time dependent growth and consumption parameters
--   Delayed consumer introduction times
+  - Unlimited number of consumers/resources
+  - Consumer functional response (type I, II or III)
+  - Resource dynamic (chemostat, logistic and/or pulsed)
+  - Resource type (substitutable or essential)
+  - Continuous or intermittent mortality (e.g. serial transfer)
+  - Time dependent growth and consumption parameters
+  - Delayed consumer introduction times
 
 See `?spec_rescomp` for all argument options.
 
