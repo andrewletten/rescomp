@@ -85,7 +85,7 @@ plot_funcresp(pars)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-HW1999-funcresps-1c-1.png" alt="plot of chunk HW1999-funcresps-1c" width="70%" />
+<img src="classic-results-HW1999-funcresps-1c-1.png" alt="plot of chunk HW1999-funcresps-1c" width="70%" />
 <p class="caption">plot of chunk HW1999-funcresps-1c</p>
 </div>
 
@@ -102,7 +102,7 @@ plot_rescomp(m1, resources = FALSE)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-HW1999-dynamics-1c-1.png" alt="plot of chunk HW1999-dynamics-1c" width="70%" />
+<img src="classic-results-HW1999-dynamics-1c-1.png" alt="plot of chunk HW1999-dynamics-1c" width="70%" />
 <p class="caption">plot of chunk HW1999-dynamics-1c</p>
 </div><p class="caption">Reproduces Fig 1c from Huisman and Weissing (1999).</p>
 
@@ -157,7 +157,7 @@ plot_funcresp(pars)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-HW1999-funcresp-2-1.png" alt="plot of chunk HW1999-funcresp-2" width="70%" />
+<img src="classic-results-HW1999-funcresp-2-1.png" alt="plot of chunk HW1999-funcresp-2" width="70%" />
 <p class="caption">plot of chunk HW1999-funcresp-2</p>
 </div>
 
@@ -172,7 +172,7 @@ plot_rescomp(m1, resources = FALSE, lwd = 1)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-HW1999-dynamics-2a-1.png" alt="plot of chunk HW1999-dynamics-2a" width="70%" />
+<img src="classic-results-HW1999-dynamics-2a-1.png" alt="plot of chunk HW1999-dynamics-2a" width="70%" />
 <p class="caption">plot of chunk HW1999-dynamics-2a</p>
 </div><p class="caption">Corresponds to Fig 2a of Huisman and Weissing (1999).</p>
 
@@ -258,7 +258,7 @@ plot_funcresp(pars)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-HW1999-funcresp-4-1.png" alt="plot of chunk HW1999-funcresp-4" width="70%" />
+<img src="classic-results-HW1999-funcresp-4-1.png" alt="plot of chunk HW1999-funcresp-4" width="70%" />
 <p class="caption">plot of chunk HW1999-funcresp-4</p>
 </div>
 
@@ -276,7 +276,7 @@ plot_rescomp(m1, resources = FALSE, lwd = 0.1)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-HW1999-dynamics-4-1.png" alt="plot of chunk HW1999-dynamics-4" width="70%" />
+<img src="classic-results-HW1999-dynamics-4-1.png" alt="plot of chunk HW1999-dynamics-4" width="70%" />
 <p class="caption">plot of chunk HW1999-dynamics-4</p>
 </div><p class="caption">Composite of Figs 4a and 4b from Huisman and Weissing (1999).</p>
 
@@ -333,7 +333,7 @@ plot_funcresp(pars, maxx = 0.0001)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-Grover1990-funcresp-4a-1.png" alt="plot of chunk Grover1990-funcresp-4a" width="70%" />
+<img src="classic-results-Grover1990-funcresp-4a-1.png" alt="plot of chunk Grover1990-funcresp-4a" width="70%" />
 <p class="caption">plot of chunk Grover1990-funcresp-4a</p>
 </div><p class="caption">Reproduces Fig 1 from Grover (1990). Resource concentration in $mu$mol per ml rather than  per L.</p>
 
@@ -349,7 +349,7 @@ plot_rescomp(mcons, resources = FALSE, logy = TRUE)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-Grover1990-dynamics-4a-1.png" alt="plot of chunk Grover1990-dynamics-4a" width="70%" />
+<img src="classic-results-Grover1990-dynamics-4a-1.png" alt="plot of chunk Grover1990-dynamics-4a" width="70%" />
 <p class="caption">plot of chunk Grover1990-dynamics-4a</p>
 </div><p class="caption">Reproduces Fig 4A from Grover (1990).</p>
 
@@ -383,7 +383,7 @@ plot_rescomp(m1, resource = FALSE, logy = TRUE)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-Grover1990-dynamics-4b-1.png" alt="plot of chunk Grover1990-dynamics-4b" width="70%" />
+<img src="classic-results-Grover1990-dynamics-4b-1.png" alt="plot of chunk Grover1990-dynamics-4b" width="70%" />
 <p class="caption">plot of chunk Grover1990-dynamics-4b</p>
 </div><p class="caption">Reproduces Fig 4B from Grover (1990).</p>
 
@@ -416,7 +416,7 @@ plot_rescomp(m4, resource = FALSE, logy = TRUE)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-Grover1990-dynamics-4c-1.png" alt="plot of chunk Grover1990-dynamics-4c" width="70%" />
+<img src="classic-results-Grover1990-dynamics-4c-1.png" alt="plot of chunk Grover1990-dynamics-4c" width="70%" />
 <p class="caption">plot of chunk Grover1990-dynamics-4c</p>
 </div><p class="caption">Reproduces Fig 4C from Grover (1990).</p>
 
@@ -449,7 +449,7 @@ plot_rescomp(m10, resource = FALSE, logy = TRUE)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-Grover1990-dynamics-4d-1.png" alt="plot of chunk Grover1990-dynamics-4d" width="70%" />
+<img src="classic-results-Grover1990-dynamics-4d-1.png" alt="plot of chunk Grover1990-dynamics-4d" width="70%" />
 <p class="caption">plot of chunk Grover1990-dynamics-4d</p>
 </div><p class="caption">Reproduces Fig 4D from Grover (1990).</p>
 
@@ -510,7 +510,7 @@ plot_funcresp(pars, maxx = 200, madj = TRUE)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-AM1980-funcresp-2-1.png" alt="plot of chunk AM1980-funcresp-2" width="70%" />
+<img src="classic-results-AM1980-funcresp-2-1.png" alt="plot of chunk AM1980-funcresp-2" width="70%" />
 <p class="caption">plot of chunk AM1980-funcresp-2</p>
 </div><p class="caption">Corresponds to Fig 2 from Armstrong and McGehee (1980).</p>
 
@@ -522,7 +522,7 @@ plot_funcresp(pars, maxx = 200)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-AM1980-funcresp-2-unadjusted-mortality-1.png" alt="plot of chunk AM1980-funcresp-2-unadjusted-mortality" width="70%" />
+<img src="classic-results-AM1980-funcresp-2-unadjusted-mortality-1.png" alt="plot of chunk AM1980-funcresp-2-unadjusted-mortality" width="70%" />
 <p class="caption">plot of chunk AM1980-funcresp-2-unadjusted-mortality</p>
 </div>
 
@@ -539,7 +539,7 @@ plot_rescomp(m1)
 ```
 
 <div class="figure">
-<img src="vignettes/classic-results-AM1980-dynamics-1-1.png" alt="plot of chunk AM1980-dynamics-1" width="70%" />
+<img src="classic-results-AM1980-dynamics-1-1.png" alt="plot of chunk AM1980-dynamics-1" width="70%" />
 <p class="caption">plot of chunk AM1980-dynamics-1</p>
 </div><p class="caption">Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide as close as possible correspondence to the original figure.</p>
 

@@ -13,7 +13,7 @@ This vignette demonstrates the use of *rescomp* to reproduce several analyses of
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", dev = "CairoPNG", dpi = 200, out.width = "70%",
-  fig.path = "vignettes/classic-results-"
+  fig.path = "classic-results-"
 )
 
 knitr::knit_hooks$set(htmlcap = function(before, options, envir) {
