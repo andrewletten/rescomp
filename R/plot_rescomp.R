@@ -50,7 +50,7 @@ plot_rescomp <- function(model,
                        aes(y = .data$count, x = .data$time)) +
 
     geom_line(aes(group = .data$state.var, col = .data$state.var),
-              size = lwd,
+              linewidth = lwd,
               alpha=0.9) +
 
     # theme(legend.position="none") +

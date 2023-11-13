@@ -58,7 +58,7 @@ plot_funcresp <- function(pars, maxx, madj = FALSE){
     )
 
   p <- ggplot2::ggplot(df, aes(y = .data$growth, x = .data$resource.levels)) +
-    geom_line(aes(col = .data$sp), size = 1, alpha=0.8) +
+    geom_line(aes(col = .data$sp), linewidth = 1, alpha=0.8) +
     theme_bw() +
     theme(legend.title = element_blank(),
           strip.background = element_blank(),) +
