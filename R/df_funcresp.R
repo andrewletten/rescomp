@@ -84,9 +84,9 @@ df_funcresp <- function(pars, maxx, madj = FALSE) {
   resp.all <- do.call("rbind", resp.list.TDP)
   tidyr::pivot_longer(resp.all,
     cols = !c(
-      .data$resource.levels,
-      .data$sp,
-      .data$paramstate
+      "resource.levels",
+      "sp",
+      "paramstate"
     ),
     names_to = "resource", values_to = "growth"
   )

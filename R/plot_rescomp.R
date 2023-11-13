@@ -25,7 +25,7 @@ plot_rescomp <- function(model,
                          xlims = NULL){
   plot.df <-  frame_and_name(model)
   comp.gg <- tidyr::pivot_longer(plot.df,
-                                 cols = !c(.data$time),
+                                 cols = !c("time"),
                                  names_to = "state.var",
                                  values_to = "count")
   comp.gg$state.var.type <- "Consumers"
