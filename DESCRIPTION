@@ -23,7 +23,9 @@ Imports:
     tidyr,
     deSolve,
     rlang,
-    stats
+    stats,
+    cli,
+    glue
 Suggests: 
     rmarkdown,
     knitr,
