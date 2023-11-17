@@ -28,3 +28,41 @@ spec_funcresp_custom <- function(func, spnum = NULL, resnum = NULL) {
   class(funcresp) <- c("rescomp_funcresp_custom", "rescomp_funcresp")
   return(funcresp)
 }
+
+#' Get growth rates from a `rescomp_funcresp` object
+#'
+#' Gets the growth rates of each species on each resource, given resource concentrations.
+#' These must be combined, according to whether the resouces are essential or substitutable, to get the overall growth rate for each species.
+#'
+#' @param funcresp_obj An object of class `rescomp_funcresp`.
+#' @param spnum The number of species.
+#' @param resources A vector of resource concentrations.
+#' @param params A list of time-dependent parameters.
+#'
+#' @returns A matrix of species growth rates on each resource, with `spnum` rows and `length(resources)` columns.
+#' @noRd
+get_funcresp <- function(funcresp_obj, spnum, resources, params) {
+  UseMethod("get_funcresp")
+}
+
+#' @export
+get_funcresp.rescomp_funcresp_custom <- function(funcresp_obj, spnum, resources, params) {
+  mat <- funcresp_obj$func(resources, params)
+
+  if (!is.matrix(mat)) {
+    cli::cli_abort(c(
+      "`func` of `funcresp_custom` must return a matrix.",
+      "x" = glue::glue("`func` returned a {class(mat)[[1]]}.")
+    ))
+  }
+  model_dims <- as.integer(c(spnum, length(resources)))
+  if (!identical(dim(mat), model_dims)) {
+    cli::cli_abort(c(
+      glue::glue("`func` of `funcresp_custom` must return a matrix matching dimensions of model."),
+      "i" = glue::glue("`func` returned matrix with dimensions {toString(dim(mat))}."),
+      "i" = glue::glue("Model has dimensions {toString(model_dims)} (i.e. `spnum` by `resnum`).")
+    ))
+  }
+
+  return(mat)
+}
