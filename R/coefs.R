@@ -48,3 +48,63 @@ rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
   class(coefs) <- c("rescomp_coefs_matrix_custom", "rescomp_coefs_matrix")
   return(coefs)
 }
+
+#' Get coefficients from a vector or `rescomp_coefs_vector` object
+#'
+#' Provides a generic interface to a vector or a `rescomp_coefs_vector` object.
+#' Called on a numeric vector, this will just return the vector.
+#' Called on a `rescomp_coefs_vector`, this allows time-dependence via `parameters`.
+#'
+#' @param coefs_obj A numeric vector or an object of class `rescomp_coefs_vector`.
+#' @param params A list of time-dependent parameters.
+#'
+#' @returns A vector of coefficients.
+#' @noRd
+get_coefs_vector <- function(coefs_obj, params) {
+  UseMethod("get_coefs_vector")
+}
+
+#' Get coefficients from a matrix or `rescomp_coefs_matrix` object
+#'
+#' Provides a generic interface to a matrix or a `rescomp_coefs_matrix` object.
+#' Called on a numeric matrix, this will just return the matrix.
+#' Called on a `rescomp_coefs_matrix`, this allows time-dependence via `parameters`.
+#'
+#' @param coefs_obj A numeric matrix or an object of class `rescomp_coefs_matrix`.
+#' @param params A list of time-dependent parameters.
+#'
+#' @returns A matrix of coefficients.
+#' @noRd
+get_coefs_matrix <- function(coefs_obj, params) {
+  UseMethod("get_coefs_matrix")
+}
+
+#' Get length of a vector or `rescomp_coefs_vector` object
+#'
+#' Provides a generic implementation of length() for a vector or a `rescomp_coefs_vector` object.
+#'
+#' @param coefs_obj A numeric vector or an object of class `rescomp_coefs_vector`.
+#'
+#' @returns An integer; the length of the vector.
+#' @noRd
+get_coefs_length <- function(coefs_obj) {
+  UseMethod("get_coefs_length")
+}
+
+#' Get number of rows or columns in a matrix or `rescomp_coefs_matrix` object
+#'
+#' Provides generic implementations of nrow() and ncol() for a matrix or a `rescomp_coefs_matrix` object.
+#'
+#' @param coefs_obj A numeric matrix or an object of class `rescomp_coefs_matrix`.
+#'
+#' @returns An integer; the number of rows or columns.
+#' @noRd
+get_coefs_nrow <- function(coefs_obj) {
+  UseMethod("get_coefs_nrow")
+}
+
+#' @rdname get_coefs_nrow
+#' @noRd
+get_coefs_ncol <- function(coefs_obj) {
+  UseMethod("get_coefs_ncol")
+}
