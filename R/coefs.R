@@ -279,3 +279,51 @@ check_coefs <- function(obj, dims, func_name, dims_desc = NULL, call = rlang::ca
 
   return(invisible(NULL))
 }
+
+#' Check that two vectors/matrices or `rescomp_coefs_vector`/`rescomp_coefs_matrix` objects have the same dimensions
+#'
+#' By default, checks that both objects are of the same type (both vectors/`rescomp_coefs_vector` or both matrices/`rescomp_coefs_matrix`) and that both have identical dimensions.
+#' If `check_dims` is provided, it can be made to only check that they are of equal size in certain dimensions.
+#' Throws a user-readable error if necessary.
+#'
+#' @param obj1,obj2 Vectors, matrices, or objects of class `rescomp_coefs_vector` or `rescomp_coefs_matrix` to be checked against one another.
+#' @param check_dims A vector of the indices of dimensions to check. For vectors, only dimension 1 is valid. For matrices, dimensions 1 and 2 are valid.
+#'
+#' @returns NULL; this function is called for its side effects (throwing an error if necessary).
+#' @noRd
+#'
+#' @examples
+#'
+#' check_coefs_coordinate(1:4, 2:5)
+#' try(check_coefs_coordinate(1:4, 1:9))
+#' try(check_coefs_coordinate(1:4, matrix(1:9, nrow = 3, ncol = 3)))
+#' try(check_coefs_coordinate(matrix(1:4, nrow = 2, ncol = 2), matrix(1:9, nrow = 3, ncol = 3)))
+#' check_coefs_coordinate(matrix(1:4, nrow = 2), matrix(1:8, nrow = 2), check_dims = 1)
+#' try(check_coefs_coordinate(matrix(1:4, nrow = 2), matrix(1:8, nrow = 2), check_dims = 2))
+check_coefs_coordinate <- function(obj1, obj2, check_dims = NULL, arg1 = rlang::caller_arg(obj1), arg2 = rlang::caller_arg(obj2), call = rlang::caller_env()) {
+  if (!((is_coefs_vector(obj1) && is_coefs_vector(obj2)) || (is_coefs_matrix(obj1) && is_coefs_matrix(obj2)))) {
+    cli::cli_abort(c(
+      "{.arg {arg1}} and {.arg {arg2}} must either both be vectors, or both be matrices."
+    ), call = call)
+  }
+
+  dims1 <- get_coefs_dim(obj1)
+  dims2 <- get_coefs_dim(obj2)
+  dim_indices <- 1:length(dims1)
+  if (is.null(check_dims)) {
+    check_dims <- dim_indices
+  } else if (!all(check_dims %in% dim_indices)) {
+    cli::cli_abort(c(
+      "Indices in {.arg check_dims} must be among {toString(dim_indices)}."
+    ))
+  }
+
+  if (!identical(dims1[check_dims], dims2[check_dims])) {
+    # TODO: In the event that check_dims != NULL, this error message ought to be far more explicit about which dimensions are being checked, in a user-friendly way.
+    cli::cli_abort(c(
+      "Dimensions of {.arg {arg1}} and {.arg {arg2}} must match."
+    ), call = call)
+  }
+
+  return(invisible(NULL))
+}
