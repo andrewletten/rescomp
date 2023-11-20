@@ -49,31 +49,22 @@ rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
   return(coefs)
 }
 
-#' Get coefficients from a vector or `rescomp_coefs_vector` object
+#' Get coefficients from a vector/matrix or `rescomp_coefs_vector`/`rescomp_coefs_matrix` object
 #'
-#' Provides a generic interface to a vector or a `rescomp_coefs_vector` object.
-#' Called on a numeric vector, this will just return the vector.
-#' Called on a `rescomp_coefs_vector`, this allows time-dependence via `parameters`.
+#' Provides a generic interface to a vector/matrix or a `rescomp_coefs_vector`/`rescomp_coefs_matrix` object.
+#' Called on a numeric vector/matrix (as appropriate to the function used), this will just return the vector/matrix.
+#' Called on a `rescomp_coefs_vector`/`rescomp_coefs_matrix`, this allows time-dependence via `parameters`.
 #'
-#' @param coefs_obj A numeric vector or an object of class `rescomp_coefs_vector`.
+#' @param coefs_obj A numeric vector/matrix or an object of class `rescomp_coefs_vector`/`rescomp_coefs_matrix`.
 #' @param params A list of time-dependent parameters.
 #'
-#' @returns A vector of coefficients.
+#' @returns A vector/matrix of coefficients.
 #' @noRd
 get_coefs_vector <- function(coefs_obj, params) {
   UseMethod("get_coefs_vector")
 }
 
-#' Get coefficients from a matrix or `rescomp_coefs_matrix` object
-#'
-#' Provides a generic interface to a matrix or a `rescomp_coefs_matrix` object.
-#' Called on a numeric matrix, this will just return the matrix.
-#' Called on a `rescomp_coefs_matrix`, this allows time-dependence via `parameters`.
-#'
-#' @param coefs_obj A numeric matrix or an object of class `rescomp_coefs_matrix`.
-#' @param params A list of time-dependent parameters.
-#'
-#' @returns A matrix of coefficients.
+#' @rdname get_coefs_vector
 #' @noRd
 get_coefs_matrix <- function(coefs_obj, params) {
   UseMethod("get_coefs_matrix")
