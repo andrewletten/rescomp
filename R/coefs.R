@@ -127,6 +127,39 @@ get_coefs_matrix.rescomp_coefs_matrix_custom <- function(coefs_obj, params) {
   return(coefs)
 }
 
+#' @export
+get_coefs_length.numeric <- function(coefs_obj) {
+  return(length(coefs_obj))
+}
+
+#' @export
+get_coefs_length.integer <- get_coefs_length.numeric
+
+#' @export
+get_coefs_nrow.matrix <- function(coefs_obj) {
+  return(nrow(coefs_obj))
+}
+
+#' @export
+get_coefs_ncol.matrix <- function(coefs_obj) {
+  return(ncol(coefs_obj))
+}
+
+#' @export
+get_coefs_length.rescomp_coefs_vector <- function(coefs_obj) {
+  return(coefs_obj$length)
+}
+
+#' @export
+get_coefs_nrow.rescomp_coefs_matrix <- function(coefs_obj) {
+  return(coefs_obj$nrow)
+}
+
+#' @export
+get_coefs_ncol.rescomp_coefs_matrix <- function(coefs_obj) {
+  return(coefs_obj$ncol)
+}
+
 #' Verify the class, type, and dimensions of coefficients
 #'
 #' Checks that a vector/matrix/array returned by a user-provided function is returning an object of the appropriate type, numeric mode, and with the expected dimensions.
