@@ -68,13 +68,23 @@ get_coefs <- function(coefs_obj, params) {
 #' @rdname get_coefs
 #' @noRd
 get_coefs_vector <- function(coefs_obj, params) {
-  UseMethod("get_coefs_vector")
+  if (!is_coefs_vector(coefs_obj)) {
+    cli::cli_abort(c(
+      "{.arg coefs_obj} must be a vector or `rescomp_coefs_vector`."
+    ))
+  }
+  UseMethod("get_coefs")
 }
 
 #' @rdname get_coefs
 #' @noRd
 get_coefs_matrix <- function(coefs_obj, params) {
-  UseMethod("get_coefs_matrix")
+  if (!is_coefs_matrix(coefs_obj)) {
+    cli::cli_abort(c(
+      "{.arg coefs_obj} must be a matrix or `rescomp_coefs_matrix`."
+    ))
+  }
+  UseMethod("get_coefs")
 }
 
 #' Get dimensions of a vector, matrix, `rescomp_coefs_vector` object or  `rescomp_coefs_matrix` object
@@ -122,26 +132,11 @@ get_coefs.integer <- get_coefs.numeric
 get_coefs.matrix <- get_coefs.numeric
 
 #' @export
-get_coefs_vector.numeric <- get_coefs.numeric
-
-#' @export
-get_coefs_vector.integer <- get_coefs.integer
-
-#' @export
-get_coefs_matrix.matrix <- get_coefs.matrix
-
-#' @export
 get_coefs.rescomp_coefs_custom <- function(coefs_obj, params) {
   coefs <- coefs_obj$func(params)
   check_coefs(coefs, get_coefs_dim(coefs_obj), glue::glue("`func` of `{class(coefs_obj)[[1]]}`"))
   return(coefs)
 }
-
-#' @export
-get_coefs_vector.rescomp_coefs_vector_custom <- get_coefs.rescomp_coefs_custom
-
-#' @export
-get_coefs_matrix.rescomp_coefs_matrix_custom <- get_coefs.rescomp_coefs_custom
 
 #' @export
 get_coefs_length.numeric <- function(coefs_obj) {
