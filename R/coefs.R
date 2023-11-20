@@ -100,6 +100,20 @@ get_coefs_ncol <- function(coefs_obj) {
   UseMethod("get_coefs_ncol")
 }
 
+#' @export
+get_coefs_vector.rescomp_coefs_vector_custom <- function(coefs_obj, params) {
+  coefs <- coefs_obj$func(params)
+  check_coefs(coefs, coefs_obj$length, "`func` of `rescomp_coefs_vector_custom`")
+  return(coefs)
+}
+
+#' @export
+get_coefs_matrix.rescomp_coefs_matrix_custom <- function(coefs_obj, params) {
+  coefs <- coefs_obj$func(params)
+  check_coefs(coefs, c(coefs_obj$nrow, coefs_obj$ncol), "`func` of `rescomp_coefs_matrix_custom`")
+  return(coefs)
+}
+
 #' Verify the class, type, and dimensions of coefficients
 #'
 #' Checks that a vector/matrix/array returned by a user-provided function is returning an object of the appropriate type, numeric mode, and with the expected dimensions.
