@@ -61,12 +61,11 @@ get_funcresp.rescomp_funcresp_custom <- function(funcresp_obj, spnum, resources,
       "x" = glue::glue("`func` returned a {mode(mat)} matrix.")
     ))
   }
-  model_dims <- as.integer(c(spnum, length(resources)))
-  if (!identical(dim(mat), model_dims)) {
+  expected_dims <- as.integer(c(spnum, length(resources)))
+  if (!identical(dim(mat), expected_dims)) {
     cli::cli_abort(c(
-      glue::glue("`func` of `funcresp_custom` must return a matrix matching dimensions of model."),
+      glue::glue("`func` of `funcresp_custom` must return a matrix matching expected dimensions."),
       "i" = glue::glue("`func` returned matrix with dimensions {toString(dim(mat))}."),
-      "i" = glue::glue("Model has dimensions {toString(model_dims)} (i.e. `spnum` by `resnum`).")
     ))
   }
 
