@@ -245,16 +245,6 @@ check_coefs <- function(obj, dims, func_name, dims_desc = NULL, call = rlang::ca
     ))
   }
 
-  if (length(dims) == 1) {
-    dims_func <- length
-    dims_noun <- "length"
-    dims_verb <- "was"
-  } else {
-    dims_func <- dim
-    dims_noun <- "dimensions"
-    dims_verb <- "were"
-  }
-
   if (!check_func(obj)) {
     cli::cli_abort(c(
       "{func_name} must return {type_article} {expected_type}.",
@@ -267,15 +257,22 @@ check_coefs <- function(obj, dims, func_name, dims_desc = NULL, call = rlang::ca
       "x" = glue::glue("It returned a {mode(obj)} {expected_type}.")
     ), call = call)
   }
-  if (!identical(dims_func(obj), as.integer(dims))) {
+  if (!identical(get_coefs_dim(obj), as.integer(dims))) {
     if (is.null(dims_desc)) {
       dims_desc <- ""
     } else {
       dims_desc <- glue::glue(" (i.e. {paste('`', dims_desc, '`', sep = '', collapse = ' by ')})")
     }
+    if (length(dims) == 1) {
+      dims_noun <- "length"
+      dims_verb <- "was"
+    } else {
+      dims_noun <- "dimensions"
+      dims_verb <- "were"
+    }
     cli::cli_abort(c(
       glue::glue("{func_name} must return a {expected_type} matching expected {dims_noun}."),
-      "x" = glue::glue("It returned a {expected_type} with {dims_noun} {toString(dims_func(obj))}."),
+      "x" = glue::glue("It returned a {expected_type} with {dims_noun} {toString(get_coefs_dim(obj))}."),
       "i" = glue::glue("Expected {dims_noun} {dims_verb} {toString(dims)}{dims_desc}.")
     ), call = call)
   }
