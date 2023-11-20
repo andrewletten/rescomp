@@ -18,8 +18,8 @@
 #'   length = 4
 #' )
 rescomp_coefs_vector_custom <- function(func, length) {
-  coefs <- list(func = func, length = length)
-  class(coefs) <- c("rescomp_coefs_vector_custom", "rescomp_coefs_custom", "rescomp_coefs_vector")
+  coefs <- list(func = func, dim = length)
+  class(coefs) <- c("rescomp_coefs_vector_custom", "rescomp_coefs_custom", "rescomp_coefs_vector", "rescomp_coefs")
   return(coefs)
 }
 
@@ -44,8 +44,8 @@ rescomp_coefs_vector_custom <- function(func, length) {
 #'   nrow = 2, ncol = 2
 #' )
 rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
-  coefs <- list(func = func, nrow = nrow, ncol = ncol)
-  class(coefs) <- c("rescomp_coefs_matrix_custom", "rescomp_coefs_custom", "rescomp_coefs_matrix")
+  coefs <- list(func = func, dim = c(nrow, ncol))
+  class(coefs) <- c("rescomp_coefs_matrix_custom", "rescomp_coefs_custom", "rescomp_coefs_matrix", "rescomp_coefs")
   return(coefs)
 }
 
@@ -92,21 +92,21 @@ get_coefs_matrix <- function(coefs_obj, params) {
 #' @noRd
 get_coefs_length <- function(coefs_obj) {
   check_coefs_vector(coefs_obj)
-  UseMethod("get_coefs_length")
+  return(get_coefs_dim(coefs_obj))
 }
 
 #' @rdname get_coefs_length
 #' @noRd
 get_coefs_nrow <- function(coefs_obj) {
   check_coefs_matrix(coefs_obj)
-  UseMethod("get_coefs_nrow")
+  return(get_coefs_dim(coefs_obj)[1])
 }
 
 #' @rdname get_coefs_length
 #' @noRd
 get_coefs_ncol <- function(coefs_obj) {
   check_coefs_matrix(coefs_obj)
-  UseMethod("get_coefs_ncol")
+  return(get_coefs_dim(coefs_obj)[2])
 }
 
 #' @rdname get_coefs_length
@@ -134,56 +134,22 @@ get_coefs.rescomp_coefs_custom <- function(coefs_obj, params) {
 }
 
 #' @export
-get_coefs_length.numeric <- function(coefs_obj) {
-  return(length(coefs_obj))
-}
-
-#' @export
-get_coefs_length.integer <- get_coefs_length.numeric
-
-#' @export
-get_coefs_nrow.matrix <- function(coefs_obj) {
-  return(nrow(coefs_obj))
-}
-
-#' @export
-get_coefs_ncol.matrix <- function(coefs_obj) {
-  return(ncol(coefs_obj))
-}
-
-#' @export
-get_coefs_length.rescomp_coefs_vector <- function(coefs_obj) {
-  return(coefs_obj$length)
-}
-
-#' @export
-get_coefs_nrow.rescomp_coefs_matrix <- function(coefs_obj) {
-  return(coefs_obj$nrow)
-}
-
-#' @export
-get_coefs_ncol.rescomp_coefs_matrix <- function(coefs_obj) {
-  return(coefs_obj$ncol)
-}
-
-#' @export
 get_coefs_dim.numeric <- function(coefs_obj) {
-  return(get_coefs_length(coefs_obj))
+  return(length(coefs_obj))
 }
 
 #' @export
 get_coefs_dim.integer <- get_coefs_dim.numeric
 
 #' @export
-get_coefs_dim.rescomp_coefs_vector <- get_coefs_dim.numeric
-
-#' @export
 get_coefs_dim.matrix <- function(coefs_obj) {
-  return(c(get_coefs_nrow(coefs_obj), get_coefs_ncol(coefs_obj)))
+  return(dim(coefs_obj))
 }
 
 #' @export
-get_coefs_dim.rescomp_coefs_matrix <- get_coefs_dim.matrix
+get_coefs_dim.rescomp_coefs <- function(coefs_obj) {
+  return(coefs_obj$dim)
+}
 
 #' Check whether an object is a valid argument to `get_coefs_vector()`/`get_coefs_matrix()`
 #'
