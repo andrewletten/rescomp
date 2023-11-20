@@ -203,7 +203,7 @@ is_coefs_matrix <- function(coefs_obj) {
 #' try(check_coefs(letters, 26, "`letter_getter()`"))
 #' try(check_coefs(1:6, 5, "`func` of `func_wrapper()`", c("spnum", "resnum")))
 #' try(check_coefs(matrix(1:6, nrow = 2, ncol = 3), c(3, 2), "A functional response function", c("spnum", "resnum")))
-check_coefs <- function(obj, dims, func_name, dims_desc = NULL) {
+check_coefs <- function(obj, dims, func_name, dims_desc = NULL, call = rlang::caller_env()) {
   if (length(dims) == 1) {
     check_func <- is.vector
     expected_type <- "vector"
@@ -237,13 +237,13 @@ check_coefs <- function(obj, dims, func_name, dims_desc = NULL) {
     cli::cli_abort(c(
       "{func_name} must return {type_article} {expected_type}.",
       "x" = glue::glue("It returned a {class(obj)[[1]]}.")
-    ))
+    ), call = call)
   }
   if (!is.numeric(obj)) {
     cli::cli_abort(c(
       "{func_name} must return a numeric {expected_type}.",
       "x" = glue::glue("It returned a {mode(obj)} {expected_type}.")
-    ))
+    ), call = call)
   }
   if (!identical(dims_func(obj), as.integer(dims))) {
     if (is.null(dims_desc)) {
@@ -255,7 +255,7 @@ check_coefs <- function(obj, dims, func_name, dims_desc = NULL) {
       glue::glue("{func_name} must return a {expected_type} matching expected {dims_noun}."),
       "x" = glue::glue("It returned a {expected_type} with {dims_noun} {toString(dims_func(obj))}."),
       "i" = glue::glue("Expected {dims_noun} {dims_verb} {toString(dims)}{dims_desc}.")
-    ))
+    ), call = call)
   }
 
   return(invisible(NULL))
