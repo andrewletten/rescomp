@@ -119,16 +119,12 @@ get_coefs_matrix.matrix <- function(coefs_obj, params) {
 #' @export
 get_coefs_vector.rescomp_coefs_vector_custom <- function(coefs_obj, params) {
   coefs <- coefs_obj$func(params)
-  check_coefs(coefs, get_coefs_dim(coefs_obj), "`func` of `rescomp_coefs_vector_custom`")
+  check_coefs(coefs, get_coefs_dim(coefs_obj), glue::glue("`func` of `{class(coefs_obj)[[1]]}`"))
   return(coefs)
 }
 
 #' @export
-get_coefs_matrix.rescomp_coefs_matrix_custom <- function(coefs_obj, params) {
-  coefs <- coefs_obj$func(params)
-  check_coefs(coefs, get_coefs_dim(coefs_obj), "`func` of `rescomp_coefs_matrix_custom`")
-  return(coefs)
-}
+get_coefs_matrix.rescomp_coefs_matrix_custom <- get_coefs_vector.rescomp_coefs_vector_custom
 
 #' @export
 get_coefs_length.numeric <- function(coefs_obj) {
