@@ -91,18 +91,21 @@ get_coefs_matrix <- function(coefs_obj, params) {
 #' @returns An integer vector, of length 1 for `length()`, `nrow()`, or `ncol()`, or of length 1 or 2 (for vectors or matrices) for `dim()`.
 #' @noRd
 get_coefs_length <- function(coefs_obj) {
+  check_coefs_vector(coefs_obj)
   UseMethod("get_coefs_length")
 }
 
 #' @rdname get_coefs_length
 #' @noRd
 get_coefs_nrow <- function(coefs_obj) {
+  check_coefs_matrix(coefs_obj)
   UseMethod("get_coefs_nrow")
 }
 
 #' @rdname get_coefs_length
 #' @noRd
 get_coefs_ncol <- function(coefs_obj) {
+  check_coefs_matrix(coefs_obj)
   UseMethod("get_coefs_ncol")
 }
 
