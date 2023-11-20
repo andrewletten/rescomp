@@ -55,6 +55,12 @@ get_funcresp.rescomp_funcresp_custom <- function(funcresp_obj, spnum, resources,
       "x" = glue::glue("`func` returned a {class(mat)[[1]]}.")
     ))
   }
+  if (!is.numeric(mat)) {
+    cli::cli_abort(c(
+      "`func` of `funcresp_custom` must return a numeric matrix.",
+      "x" = glue::glue("`func` returned a {mode(mat)} matrix.")
+    ))
+  }
   model_dims <- as.integer(c(spnum, length(resources)))
   if (!identical(dim(mat), model_dims)) {
     cli::cli_abort(c(
