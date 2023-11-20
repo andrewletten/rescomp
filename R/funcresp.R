@@ -48,26 +48,6 @@ get_funcresp <- function(funcresp_obj, spnum, resources, params) {
 #' @export
 get_funcresp.rescomp_funcresp_custom <- function(funcresp_obj, spnum, resources, params) {
   mat <- funcresp_obj$func(resources, params)
-
-  if (!is.matrix(mat)) {
-    cli::cli_abort(c(
-      "`func` of `funcresp_custom` must return a matrix.",
-      "x" = glue::glue("`func` returned a {class(mat)[[1]]}.")
-    ))
-  }
-  if (!is.numeric(mat)) {
-    cli::cli_abort(c(
-      "`func` of `funcresp_custom` must return a numeric matrix.",
-      "x" = glue::glue("`func` returned a {mode(mat)} matrix.")
-    ))
-  }
-  expected_dims <- as.integer(c(spnum, length(resources)))
-  if (!identical(dim(mat), expected_dims)) {
-    cli::cli_abort(c(
-      glue::glue("`func` of `funcresp_custom` must return a matrix matching expected dimensions."),
-      "i" = glue::glue("`func` returned matrix with dimensions {toString(dim(mat))}."),
-    ))
-  }
-
+  check_coefs(mat, c(spnum, length(resources)), "`func` of `funcresp_custom`", c("spnum", "resnum"))
   return(mat)
 }
