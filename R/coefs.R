@@ -160,6 +160,25 @@ get_coefs_ncol.rescomp_coefs_matrix <- function(coefs_obj) {
   return(coefs_obj$ncol)
 }
 
+#' Check whether an object is a valid argument to `get_coefs_vector()`/`get_coefs_matrix()`
+#'
+#' `get_coefs_vector()`/`get_coefs_matrix()` can take either a raw numeric vector/matrix, or a `rescomp_coefs_vector`/`rescomp_coefs_matrix`.
+#' These functions check whether an object is a valid argument to `get_coefs_vector()`/`get_coefs_matrix()` respectively.
+#'
+#' @param coefs_obj An object to check.
+#'
+#' @returns A logical.
+#' @noRd
+is_coefs_vector <- function(coefs_obj) {
+  return((is.vector(coefs_obj) & is.numeric(coefs_obj)) | "rescomp_coefs_vector" %in% class(coefs_obj))
+}
+
+#' @rdname is_coefs_vector
+#' @noRd
+is_coefs_matrix <- function(coefs_obj) {
+  return((is.matrix(coefs_obj) & is.numeric(coefs_obj)) | "rescomp_coefs_matrix" %in% class(coefs_obj))
+}
+
 #' Verify the class, type, and dimensions of coefficients
 #'
 #' Checks that a vector/matrix/array returned by a user-provided function is returning an object of the appropriate type, numeric mode, and with the expected dimensions.
