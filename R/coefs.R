@@ -70,34 +70,37 @@ get_coefs_matrix <- function(coefs_obj, params) {
   UseMethod("get_coefs_matrix")
 }
 
-#' Get length of a vector or `rescomp_coefs_vector` object
+#' Get dimensions of a vector, matrix, `rescomp_coefs_vector` object or  `rescomp_coefs_matrix` object
 #'
-#' Provides a generic implementation of length() for a vector or a `rescomp_coefs_vector` object.
+#' Provides generic implementations of `length()`/`nrow()`/`ncol()`/`dim()` for objects which can be used as coefficients by `rescomp`.
+#' `length()` is only valid on vectors.
+#' `nrow()` and `ncol()` are only valid on matrices.
+#' `dim()` is valid on either.
 #'
-#' @param coefs_obj A numeric vector or an object of class `rescomp_coefs_vector`.
+#' @param coefs_obj A numeric vector, numeric matrix, or an object of class `rescomp_coefs_vector` or `rescomp_coefs_matrix`.
 #'
-#' @returns An integer; the length of the vector.
+#' @returns An integer vector, of length 1 for `length()`, `nrow()`, or `ncol()`, or of length 1 or 2 (for vectors or matrices) for `dim()`.
 #' @noRd
 get_coefs_length <- function(coefs_obj) {
   UseMethod("get_coefs_length")
 }
 
-#' Get number of rows or columns in a matrix or `rescomp_coefs_matrix` object
-#'
-#' Provides generic implementations of nrow() and ncol() for a matrix or a `rescomp_coefs_matrix` object.
-#'
-#' @param coefs_obj A numeric matrix or an object of class `rescomp_coefs_matrix`.
-#'
-#' @returns An integer; the number of rows or columns.
+#' @rdname get_coefs_length
 #' @noRd
 get_coefs_nrow <- function(coefs_obj) {
   UseMethod("get_coefs_nrow")
 }
 
-#' @rdname get_coefs_nrow
+#' @rdname get_coefs_length
 #' @noRd
 get_coefs_ncol <- function(coefs_obj) {
   UseMethod("get_coefs_ncol")
+}
+
+#' @rdname get_coefs_length
+#' @noRd
+get_coefs_dim <- function(coefs_obj) {
+  UseMethod("get_coefs_dim")
 }
 
 #' @export
@@ -159,6 +162,25 @@ get_coefs_nrow.rescomp_coefs_matrix <- function(coefs_obj) {
 get_coefs_ncol.rescomp_coefs_matrix <- function(coefs_obj) {
   return(coefs_obj$ncol)
 }
+
+#' @export
+get_coefs_dim.numeric <- function(coefs_obj) {
+  return(get_coefs_length(coefs_obj))
+}
+
+#' @export
+get_coefs_dim.integer <- get_coefs_dim.numeric
+
+#' @export
+get_coefs_dim.rescomp_coefs_vector <- get_coefs_dim.numeric
+
+#' @export
+get_coefs_dim.matrix <- function(coefs_obj) {
+  return(c(get_coefs_nrow(coefs_obj), get_coefs_ncol(coefs_obj)))
+}
+
+#' @export
+get_coefs_dim.rescomp_coefs_matrix <- get_coefs_dim.matrix
 
 #' Check whether an object is a valid argument to `get_coefs_vector()`/`get_coefs_matrix()`
 #'
