@@ -101,6 +101,19 @@ get_coefs_ncol <- function(coefs_obj) {
 }
 
 #' @export
+get_coefs_vector.numeric <- function(coefs_obj, params) {
+  return(coefs_obj)
+}
+
+#' @export
+get_coefs_vector.integer <- get_coefs_vector.numeric
+
+#' @export
+get_coefs_matrix.matrix <- function(coefs_obj, params) {
+  return(coefs_obj)
+}
+
+#' @export
 get_coefs_vector.rescomp_coefs_vector_custom <- function(coefs_obj, params) {
   coefs <- coefs_obj$func(params)
   check_coefs(coefs, coefs_obj$length, "`func` of `rescomp_coefs_vector_custom`")
