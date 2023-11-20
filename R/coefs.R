@@ -241,20 +241,20 @@ check_coefs <- function(obj, dims, func_name, dims_desc = NULL, call = rlang::ca
   } else {
     cli::cli_abort(c(
       "`length(dims)` must be greater than 0.",
-      "x" = glue::glue("`length(dims)` was {length(dims)}.")
+      "x" = "`length(dims)` was {length(dims)}."
     ))
   }
 
   if (!check_func(obj)) {
     cli::cli_abort(c(
       "{func_name} must return {type_article} {expected_type}.",
-      "x" = glue::glue("It returned a {class(obj)[[1]]}.")
+      "x" = "It returned a {class(obj)[[1]]}."
     ), call = call)
   }
   if (!is.numeric(obj)) {
     cli::cli_abort(c(
       "{func_name} must return a numeric {expected_type}.",
-      "x" = glue::glue("It returned a {mode(obj)} {expected_type}.")
+      "x" = "It returned a {mode(obj)} {expected_type}."
     ), call = call)
   }
   if (!identical(get_coefs_dim(obj), as.integer(dims))) {
@@ -271,9 +271,9 @@ check_coefs <- function(obj, dims, func_name, dims_desc = NULL, call = rlang::ca
       dims_verb <- "were"
     }
     cli::cli_abort(c(
-      glue::glue("{func_name} must return a {expected_type} matching expected {dims_noun}."),
-      "x" = glue::glue("It returned a {expected_type} with {dims_noun} {toString(get_coefs_dim(obj))}."),
-      "i" = glue::glue("Expected {dims_noun} {dims_verb} {toString(dims)}{dims_desc}.")
+      "{func_name} must return a {expected_type} matching expected {dims_noun}.",
+      "x" = "It returned a {expected_type} with {dims_noun} {toString(get_coefs_dim(obj))}.",
+      "i" = "Expected {dims_noun} {dims_verb} {toString(dims)}{dims_desc}."
     ), call = call)
   }
 
