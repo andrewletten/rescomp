@@ -19,7 +19,7 @@
 #' )
 rescomp_coefs_vector_custom <- function(func, length) {
   coefs <- list(func = func, length = length)
-  class(coefs) <- c("rescomp_coefs_vector_custom", "rescomp_coefs_vector")
+  class(coefs) <- c("rescomp_coefs_vector_custom", "rescomp_coefs_custom", "rescomp_coefs_vector")
   return(coefs)
 }
 
@@ -45,7 +45,7 @@ rescomp_coefs_vector_custom <- function(func, length) {
 #' )
 rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
   coefs <- list(func = func, nrow = nrow, ncol = ncol)
-  class(coefs) <- c("rescomp_coefs_matrix_custom", "rescomp_coefs_matrix")
+  class(coefs) <- c("rescomp_coefs_matrix_custom", "rescomp_coefs_custom", "rescomp_coefs_matrix")
   return(coefs)
 }
 
@@ -54,17 +54,24 @@ rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
 #' Provides a generic interface to a vector/matrix or a `rescomp_coefs_vector`/`rescomp_coefs_matrix` object.
 #' Called on a numeric vector/matrix (as appropriate to the function used), this will just return the vector/matrix.
 #' Called on a `rescomp_coefs_vector`/`rescomp_coefs_matrix`, this allows time-dependence via `parameters`.
+#' `get_coefs()` works on vector- or matrix-type objects, while the others work only on their specific types.
 #'
 #' @param coefs_obj A numeric vector/matrix or an object of class `rescomp_coefs_vector`/`rescomp_coefs_matrix`.
 #' @param params A list of time-dependent parameters.
 #'
 #' @returns A vector/matrix of coefficients.
 #' @noRd
+get_coefs <- function(coefs_obj, params) {
+  UseMethod("get_coefs")
+}
+
+#' @rdname get_coefs
+#' @noRd
 get_coefs_vector <- function(coefs_obj, params) {
   UseMethod("get_coefs_vector")
 }
 
-#' @rdname get_coefs_vector
+#' @rdname get_coefs
 #' @noRd
 get_coefs_matrix <- function(coefs_obj, params) {
   UseMethod("get_coefs_matrix")
@@ -104,27 +111,37 @@ get_coefs_dim <- function(coefs_obj) {
 }
 
 #' @export
-get_coefs_vector.numeric <- function(coefs_obj, params) {
+get_coefs.numeric <- function(coefs_obj, params) {
   return(coefs_obj)
 }
 
 #' @export
-get_coefs_vector.integer <- get_coefs_vector.numeric
+get_coefs.integer <- get_coefs.numeric
 
 #' @export
-get_coefs_matrix.matrix <- function(coefs_obj, params) {
-  return(coefs_obj)
-}
+get_coefs.matrix <- get_coefs.numeric
 
 #' @export
-get_coefs_vector.rescomp_coefs_vector_custom <- function(coefs_obj, params) {
+get_coefs_vector.numeric <- get_coefs.numeric
+
+#' @export
+get_coefs_vector.integer <- get_coefs.integer
+
+#' @export
+get_coefs_matrix.matrix <- get_coefs.matrix
+
+#' @export
+get_coefs.rescomp_coefs_custom <- function(coefs_obj, params) {
   coefs <- coefs_obj$func(params)
   check_coefs(coefs, get_coefs_dim(coefs_obj), glue::glue("`func` of `{class(coefs_obj)[[1]]}`"))
   return(coefs)
 }
 
 #' @export
-get_coefs_matrix.rescomp_coefs_matrix_custom <- get_coefs_vector.rescomp_coefs_vector_custom
+get_coefs_vector.rescomp_coefs_vector_custom <- get_coefs.rescomp_coefs_custom
+
+#' @export
+get_coefs_matrix.rescomp_coefs_matrix_custom <- get_coefs.rescomp_coefs_custom
 
 #' @export
 get_coefs_length.numeric <- function(coefs_obj) {
