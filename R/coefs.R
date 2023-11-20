@@ -68,22 +68,14 @@ get_coefs <- function(coefs_obj, params) {
 #' @rdname get_coefs
 #' @noRd
 get_coefs_vector <- function(coefs_obj, params) {
-  if (!is_coefs_vector(coefs_obj)) {
-    cli::cli_abort(c(
-      "{.arg coefs_obj} must be a vector or `rescomp_coefs_vector`."
-    ))
-  }
+  check_coefs_vector(coefs_obj)
   UseMethod("get_coefs")
 }
 
 #' @rdname get_coefs
 #' @noRd
 get_coefs_matrix <- function(coefs_obj, params) {
-  if (!is_coefs_matrix(coefs_obj)) {
-    cli::cli_abort(c(
-      "{.arg coefs_obj} must be a matrix or `rescomp_coefs_matrix`."
-    ))
-  }
+  check_coefs_matrix(coefs_obj)
   UseMethod("get_coefs")
 }
 
@@ -207,6 +199,36 @@ is_coefs_vector <- function(coefs_obj) {
 #' @noRd
 is_coefs_matrix <- function(coefs_obj) {
   return((is.matrix(coefs_obj) & is.numeric(coefs_obj)) | "rescomp_coefs_matrix" %in% class(coefs_obj))
+}
+
+#' Verify that an object is a valid argument to `get_coefs_vector()`/`get_coefs_matrix()`
+#'
+#' `get_coefs_vector()`/`get_coefs_matrix()` can take either a raw numeric vector/matrix, or a `rescomp_coefs_vector`/`rescomp_coefs_matrix`.
+#' These functions verify that an object is a valid argument to `get_coefs_vector()`/`get_coefs_matrix()` respectively.
+#' Throws a user-readable error if necessary.
+#'
+#' @param coefs_obj An object to check.
+#'
+#' @returns NULL; this function is called for its side effects (throwing an error if necessary).
+#' @noRd
+check_coefs_vector <- function(coefs_obj, arg = rlang::caller_arg(coefs_obj), call = rlang::caller_env()) {
+  if (!is_coefs_vector(coefs_obj)) {
+    cli::cli_abort(c(
+      "{.arg {arg}} must be a vector or `rescomp_coefs_vector`."
+    ), call = call)
+  }
+  return(invisible(NULL))
+}
+
+#' @rdname check_coefs_vector
+#' @noRd
+check_coefs_matrix <- function(coefs_obj, arg = rlang::caller_arg(coefs_obj), call = rlang::caller_env()) {
+  if (!is_coefs_matrix(coefs_obj)) {
+    cli::cli_abort(c(
+      "{.arg {arg}} must be a matrix or `rescomp_coefs_matrix`."
+    ), call = call)
+  }
+  return(invisible(NULL))
 }
 
 #' Verify the class, type, and dimensions of coefficients
