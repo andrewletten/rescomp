@@ -29,6 +29,43 @@ spec_funcresp_custom <- function(func, spnum = NULL, resnum = NULL) {
   return(funcresp)
 }
 
+#' Define a linear functional response
+#'
+#' Produces an object suitable to pass as the `funcresp` to `spec_rescomp()`.
+#' Creates a linear or type 1 functional response with attack rate `a`.
+#' mu_ij(R_j) = a_ij * R_j
+#'
+#' @param a A matrix or `rescomp_coefs_matrix`, with one row per species and one column per species. The attack rate of each species on each resource.
+#'
+#' @returns S3 object of class `rescomp_funcresp`.
+#' @export
+#'
+#' @examples
+#'
+#' funcresp1 <- spec_funcresp_type1(
+#'   matrix(c(0.2, 0.4, 0.3, 0.2), nrow = 2)
+#' )
+#' get_funcresp(funcresp1, 2, c(10, 20), list())
+#'
+#' funcresp2 <- spec_funcresp_type1(
+#'   rescomp_coefs_lerp(
+#'     matrix(c(0.2, 0.4, 0.3, 0.2), nrow = 2),
+#'     matrix(c(0.2, 0.1, 0.3, 0.1), nrow = 2),
+#'     "antibiotic_concentration"
+#'   )
+#' )
+#' get_funcresp(funcresp2, 2, c(10, 20), list(antibiotic_concentration = 0.5))
+spec_funcresp_type1 <- function(a) {
+  check_coefs_matrix(a)
+  nrow <- get_coefs_nrow(a)
+  ncol <- get_coefs_ncol(a)
+  funcresp <- list(func = function(resources, params) {
+    return(get_coefs(a, params) * matrix(resources, nrow = nrow, ncol = ncol, byrow = TRUE)) # TODO: Check for cache-thrashing.
+  }, spnum = nrow, resnum = ncol)
+  class(funcresp) <- c("rescomp_funcresp_type1", "rescomp_funcresp")
+  return(funcresp)
+}
+
 #' Get growth rates from a `rescomp_funcresp` object
 #'
 #' Gets the growth rates of each species on each resource, given resource concentrations.
