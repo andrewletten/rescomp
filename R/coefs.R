@@ -49,6 +49,69 @@ rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
   return(coefs)
 }
 
+#' Create a set of coefficients by linear interpolation
+#'
+#' Produces an object that may be used in place of a vector or matrix in the creation of arguments to `spec_rescomp()`.
+#' Linearly interpolates between two sets of coefficients according to the value of a time-dependent parameter.
+#'
+#' Coefficients are taken to have the values in `coef0` at `param = param0`, and the values in `coef1` at `param = param1`, and are linearly interpolated between.
+#' Each parameter in the vector/matrix is interpolated independently.
+#'
+#' @param coefs0,coefs1 Vectors, matrices, or objects of class `rescomp_coefs_vector` or `rescomp_coefs_matrix` to be interpolated between. Either both must be vectors, or both must be matrices.
+#' @param param_name A character vector of length 1; the name of the parameter to be interpolated according to.
+#' @param param0,param1 The values of the parameter to take as the fixed points for interpolation.
+#'
+#' @returns S3 object of class `rescomp_coefs_vector` or `rescomp_coefs_matrix`, according to the types of `coefs0` and `coefs1`.
+#' @export
+#'
+#' @examples
+#'
+#' coefs_vec <- rescomp_coefs_lerp(
+#'   c(0, 0, 0),
+#'   c(2, 3, 5),
+#'   "scale"
+#' )
+#' get_coefs(coefs_vec, list(scale = 0))
+#' get_coefs(coefs_vec, list(scale = 0.5))
+#' get_coefs(coefs_vec, list(scale = 1))
+#' get_coefs(coefs_vec, list(scale = 1.5))
+#'
+#' coefs_mat1 <- rescomp_coefs_lerp(
+#'   matrix(c(0.2, 0.4, 0.3, 0.2), nrow = 2),
+#'   matrix(c(0.2, 0.1, 0.3, 0.1), nrow = 2),
+#'   "antibiotic1_concentration",
+#'   param0 = 0,
+#'   param1 = 200
+#' )
+#' get_coefs(coefs_mat1, list(antibiotic1_concentration = 0))
+#' get_coefs(coefs_mat1, list(antibiotic1_concentration = 100))
+#' get_coefs(coefs_mat1, list(antibiotic1_concentration = 200))
+#'
+#' coefs_mat2 <- rescomp_coefs_lerp(
+#'   coefs_mat1,
+#'   matrix(c(0.0, 0.0, 0.0, 0.0), nrow = 2),
+#'   "antibiotic2_concentration",
+#'   param0 = 0,
+#'   param1 = 100
+#' )
+#' get_coefs(coefs_mat2, list(antibiotic1_concentration = 100, antibiotic2_concentration = 50))
+rescomp_coefs_lerp <- function(coefs0, coefs1, param_name, param0 = 0, param1 = 1) {
+  check_coefs_coordinate(coefs0, coefs1)
+  coefs <- list(
+    func = function(params) {
+      param <- params[[param_name]] # TODO: Verify param exists.
+      return((get_coefs(coefs0, params) * (param1 - param) + get_coefs(coefs1, params) * (param - param0)) / (param1 - param0))
+    },
+    dim = get_coefs_dim(coefs0)
+  )
+  if (is_coefs_vector(coefs0)) {
+    class(coefs) <- c("rescomp_coefs_lerp_vector", "rescomp_coefs_lerp", "rescomp_coefs_vector", "rescomp_coefs")
+  } else {
+    class(coefs) <- c("rescomp_coefs_lerp_matrix", "rescomp_coefs_lerp", "rescomp_coefs_matrix", "rescomp_coefs")
+  }
+  return(coefs)
+}
+
 #' Get coefficients from a vector/matrix or `rescomp_coefs_vector`/`rescomp_coefs_matrix` object
 #'
 #' Provides a generic interface to a vector/matrix or a `rescomp_coefs_vector`/`rescomp_coefs_matrix` object.
