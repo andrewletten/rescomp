@@ -128,6 +128,11 @@ get_coefs.rescomp_coefs_custom <- function(coefs_obj, params) {
 }
 
 #' @export
+get_coefs.rescomp_coefs <- function(coefs_obj, params) {
+  return(coefs_obj$func(params))
+}
+
+#' @export
 get_coefs_dim.numeric <- function(coefs_obj) {
   return(length(coefs_obj))
 }

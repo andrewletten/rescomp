@@ -51,3 +51,9 @@ get_funcresp.rescomp_funcresp_custom <- function(funcresp_obj, spnum, resources,
   check_coefs(mat, c(spnum, length(resources)), "`func` of `funcresp_custom`", c("spnum", "resnum"))
   return(mat)
 }
+
+#' @export
+get_funcresp.rescomp_funcresp <- function(funcresp_obj, spnum, resources, params) {
+  mat <- funcresp_obj$func(resources, params)
+  return(mat)
+}
