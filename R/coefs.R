@@ -56,24 +56,40 @@ rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
 #' Called on a `rescomp_coefs_vector`/`rescomp_coefs_matrix`, this allows time-dependence via `parameters`.
 #' `get_coefs()` works on vector- or matrix-type objects, while the others work only on their specific types.
 #'
+#' This function is normally only for internal use, but is exported to aid in debugging created `rescomp_coefs` objects.
+#'
 #' @param coefs_obj A numeric vector/matrix or an object of class `rescomp_coefs_vector`/`rescomp_coefs_matrix`.
 #' @param params A list of time-dependent parameters.
 #'
 #' @returns A vector/matrix of coefficients.
-#' @noRd
+#' @export
+#'
+#' @examples
+#' get_coefs(c(0.2, 0.3, 0.4), list())
+#' get_coefs(matrix(c(0.2, 0.3, 0.4, 0.2), nrow = 2), list())
+#' get_coefs_vector(c(0.2, 0.3, 0.4), list())
+#' try(get_coefs_matrix(c(0.2, 0.3, 0.4), list()))
+#'
+#' coefs <- rescomp_coefs_matrix_custom(
+#'   function(params) {
+#'     matrix(c(0.2, 0.3, 0.4, params$fourth_coeff), nrow = 2, ncol = 2)
+#'   },
+#'   nrow = 2, ncol = 2
+#' )
+#' get_coefs(coefs, list(fourth_coeff = 0.5))
 get_coefs <- function(coefs_obj, params) {
   UseMethod("get_coefs")
 }
 
 #' @rdname get_coefs
-#' @noRd
+#' @export
 get_coefs_vector <- function(coefs_obj, params) {
   check_coefs_vector(coefs_obj)
   UseMethod("get_coefs")
 }
 
 #' @rdname get_coefs
-#' @noRd
+#' @export
 get_coefs_matrix <- function(coefs_obj, params) {
   check_coefs_matrix(coefs_obj)
   UseMethod("get_coefs")

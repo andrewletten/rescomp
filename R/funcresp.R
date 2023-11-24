@@ -34,13 +34,27 @@ spec_funcresp_custom <- function(func, spnum = NULL, resnum = NULL) {
 #' Gets the growth rates of each species on each resource, given resource concentrations.
 #' These must be combined, according to whether the resouces are essential or substitutable, to get the overall growth rate for each species.
 #'
+#' This function is normally only for internal use, but is exported to aid in debugging created `rescomp_funcresp` objects.
+#'
 #' @param funcresp_obj An object of class `rescomp_funcresp`.
 #' @param spnum The number of species.
 #' @param resources A vector of resource concentrations.
 #' @param params A list of time-dependent parameters.
 #'
 #' @returns A matrix of species growth rates on each resource, with `spnum` rows and `length(resources)` columns.
-#' @noRd
+#' @export
+#'
+#' @examples
+#' funcresp <- spec_funcresp_custom(
+#'   function(resources, params) {
+#'     growth_rates <- params$scale * c(0.2, 0.3)
+#'     outer(growth_rates, resources)
+#'   },
+#'   spnum = 2
+#' )
+#' get_funcresp(funcresp, 2, c(1, 4, 5, 6), list(scale = 2))
+#' get_funcresp(funcresp, 2, 0.7, list(scale = 0.5))
+#' try(get_funcresp(funcresp, 3, 0.7, list(scale = 0.5)))
 get_funcresp <- function(funcresp_obj, spnum, resources, params) {
   UseMethod("get_funcresp")
 }
