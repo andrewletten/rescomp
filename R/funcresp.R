@@ -71,7 +71,7 @@ spec_funcresp_type1 <- function(a) {
 #' Gets the growth rates of each species on each resource, given resource concentrations.
 #' These must be combined, according to whether the resouces are essential or substitutable, to get the overall growth rate for each species.
 #'
-#' This function is normally only for internal use, but is exported to aid in debugging created `rescomp_funcresp` objects.
+#' This function is normally only for internal use, but is exported to aid users in debugging their created `rescomp_funcresp` objects.
 #'
 #' @param funcresp_obj An object of class `rescomp_funcresp`.
 #' @param spnum The number of species.

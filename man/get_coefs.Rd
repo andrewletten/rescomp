@@ -27,7 +27,7 @@ Called on a \code{rescomp_coefs_vector}/\code{rescomp_coefs_matrix}, this allows
 \code{get_coefs()} works on vector- or matrix-type objects, while the others work only on their specific types.
 }
 \details{
-This function is normally only for internal use, but is exported to aid in debugging created \code{rescomp_coefs} objects.
+This function is normally only for internal use, but is exported to aid users in debugging their created \code{rescomp_coefs} objects.
 }
 \examples{
 get_coefs(c(0.2, 0.3, 0.4), list())

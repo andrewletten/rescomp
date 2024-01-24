@@ -119,7 +119,7 @@ rescomp_coefs_lerp <- function(coefs0, coefs1, param_name, param0 = 0, param1 = 
 #' Called on a `rescomp_coefs_vector`/`rescomp_coefs_matrix`, this allows time-dependence via `parameters`.
 #' `get_coefs()` works on vector- or matrix-type objects, while the others work only on their specific types.
 #'
-#' This function is normally only for internal use, but is exported to aid in debugging created `rescomp_coefs` objects.
+#' This function is normally only for internal use, but is exported to aid users in debugging their created `rescomp_coefs` objects.
 #'
 #' @param coefs_obj A numeric vector/matrix or an object of class `rescomp_coefs_vector`/`rescomp_coefs_matrix`.
 #' @param params A list of time-dependent parameters.

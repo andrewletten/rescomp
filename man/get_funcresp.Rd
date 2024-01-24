@@ -23,7 +23,7 @@ Gets the growth rates of each species on each resource, given resource concentra
 These must be combined, according to whether the resouces are essential or substitutable, to get the overall growth rate for each species.
 }
 \details{
-This function is normally only for internal use, but is exported to aid in debugging created \code{rescomp_funcresp} objects.
+This function is normally only for internal use, but is exported to aid users in debugging their created \code{rescomp_funcresp} objects.
 }
 \examples{
 funcresp <- spec_funcresp_custom(
