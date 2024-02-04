@@ -277,14 +277,13 @@ check_coefs_matrix <- function(coefs_obj, arg = rlang::caller_arg(coefs_obj), ca
 
 #' Verify the class, type, and dimensions of coefficients
 #'
-#' Checks that a vector/matrix/array returned by a user-provided function is returning an object of the appropriate type, numeric mode, and with the expected dimensions.
+#' Checks that a vector/matrix returned by a user-provided function is returning an object of the appropriate type, numeric mode, and with the expected dimensions.
 #' Throws a user-readable error if necessary.
 #'
 #' If `length(dims) = 1`, expects a vector.
 #' If `length(dims) = 2`, expects a matrix.
-#' If `length(dims) > 2`, expects an array.
 #'
-#' @param obj A vector/matrix/array to check, which is required to be numeric.
+#' @param obj A vector/matrix to check, which is required to be numeric.
 #' @param dims The expected dimensions; the length of this is used to determine the appropriate type.
 #' @param func_name A character vector of length 1 giving the name of the function whose return value is being tested (for diagnostic printing).
 #' @param dims_desc A character vector of length equal to the length of dims describing the dimensions (for diagnostic printing).
@@ -303,25 +302,19 @@ check_coefs <- function(obj, dims, func_name, dims_desc = NULL, call = rlang::ca
   if (length(dims) == 1) {
     check_func <- is.vector
     expected_type <- "vector"
-    type_article <- "a"
   } else if (length(dims) == 2) {
     check_func <- is.matrix
     expected_type <- "matrix"
-    type_article <- "a"
-  } else if (length(dims) > 2) {
-    check_func <- is.array
-    expected_type <- "array"
-    type_article <- "an"
   } else {
     cli::cli_abort(c(
-      "`length(dims)` must be greater than 0.",
+      "`length(dims)` must be 1 (a vector) or 2 (a matrix).",
       "x" = "`length(dims)` was {length(dims)}."
     ))
   }
 
   if (!check_func(obj)) {
     cli::cli_abort(c(
-      "{func_name} must return {type_article} {expected_type}.",
+      "{func_name} must return a {expected_type}.",
       "x" = "It returned a {class(obj)[[1]]}."
     ), call = call)
   }
