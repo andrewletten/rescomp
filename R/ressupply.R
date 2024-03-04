@@ -27,3 +27,38 @@ spec_ressupply_custom <- function(func, resnum = NULL) {
   class(ressupply) <- c("rescomp_ressupply_custom", "rescomp_ressupply")
   return(ressupply)
 }
+
+#' Get resource supply rates from a `rescomp_ressupply` object
+#'
+#' Gets the resource supply rates of each resource, given the current resource concentrations.
+#'
+#' This function is normally only for internal use, but is exported to aid users in debugging their created `rescomp_ressupply` objects.
+#'
+#' @param ressupply_obj An object of class `rescomp_funcresp`.
+#' @param resources A vector of resource concentrations.
+#' @param params A list of time-dependent parameters.
+#'
+#' @returns A vector of rates of change of resource concentrations, of the same length as `resources`.
+#' @export
+#'
+#' @examples
+#' # Two resources, A and B, with constant supply of A, and A spontaneously converting to B
+#' ressupply <- spec_ressupply_custom(
+#'   function(resources, params) {
+#'     conversion <- params$conversion * resources[1]
+#'     return(c(params$supply - conversion, conversion))
+#'   },
+#'   resnum = 2
+#' )
+#' get_ressupply(ressupply, c(10, 20), list(supply = 3, conversion = 0.2))
+#' try(get_ressupply(ressupply, c(10, 20, 30), list(supply = 3, conversion = 0.2)))
+get_ressupply <- function(ressupply_obj, resources, params) {
+  UseMethod("get_ressupply")
+}
+
+#' @export
+get_ressupply.rescomp_ressupply_custom <- function(ressupply_obj, resources, params) {
+  vec <- ressupply_obj$func(resources, params)
+  check_coefs(vec, length(resources), "`func` of `ressupply_custom`", "resnum")
+  return(vec)
+}
