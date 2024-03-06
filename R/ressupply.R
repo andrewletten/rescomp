@@ -28,6 +28,30 @@ spec_ressupply_custom <- function(func, resnum = NULL) {
   return(ressupply)
 }
 
+#' Create a resource supply rate using a constant rate resource supply
+#'
+#' Produces an object suitable to pass as the `ressupply` to `spec_rescomp()`.
+#'
+#' @param rate A vector or `rescomp_coefs_vector`, with one number per resource. The supply rate of each resource.
+#'
+#' @returns S3 object of class `rescomp_ressupply`.
+#' @export
+#'
+#' @examples
+#' ressupply <- spec_ressupply_constant(c(0.2, 0.3))
+#' get_ressupply(ressupply, c(2, 10), list())
+#' get_ressupply(ressupply, c(5, 20), list()) # The same as above; constant supply doesn't depend on existing concentration.
+#'
+#' ressupply <- spec_ressupply_constant(rescomp_coefs_lerp(c(0.2, 0.3), c(0.4, 0.6), "extra_supply"))
+#' get_ressupply(ressupply, c(2, 10), list(extra_supply = 0.2))
+#' get_ressupply(ressupply, c(2, 10), list(extra_supply = 0.8))
+spec_ressupply_constant <- function(rate) {
+  check_coefs_vector(rate)
+  ressupply <- list(rate = rate, resnum = get_coefs_length(rate))
+  class(ressupply) <- c("rescomp_ressupply_constant", "rescomp_ressupply")
+  return(ressupply)
+}
+
 #' Get resource supply rates from a `rescomp_ressupply` object
 #'
 #' Gets the resource supply rates of each resource, given the current resource concentrations.
@@ -61,4 +85,9 @@ get_ressupply.rescomp_ressupply_custom <- function(ressupply_obj, resources, par
   vec <- ressupply_obj$func(resources, params)
   check_coefs(vec, length(resources), "`func` of `ressupply_custom`", "resnum")
   return(vec)
+}
+
+#' @export
+get_ressupply.rescomp_ressupply_constant <- function(ressupply_obj, resources, params) {
+  return(get_coefs_vector(ressupply_obj$rate, params))
 }
