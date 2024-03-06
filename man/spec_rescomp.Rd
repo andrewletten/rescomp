@@ -129,7 +129,6 @@ Generate list of parameters for a consumer-resource model to be
 passed to \code{sim_rescomp()}
 }
 \examples{
-
 # Single type I consumer on a single logistically growing resource
 spec_rescomp()
 

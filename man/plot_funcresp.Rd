@@ -22,7 +22,6 @@ ggplot object
 Plot functional responses
 }
 \examples{
-
 pars <- spec_rescomp()
 plot_funcresp(pars)
 

@@ -12,7 +12,6 @@
 #' @export
 #'
 #' @examples
-#'
 #' pars <- spec_rescomp()
 #' plot_funcresp(pars)
 #'

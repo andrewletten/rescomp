@@ -212,7 +212,6 @@ eventfun_starttime <- function(Time, State, Pars) {
 #' @export
 #'
 #' @examples
-#'
 #' time_vals(1000, pulse = 100)
 time_vals <- function(total = 1000,
                       step = 0.1,

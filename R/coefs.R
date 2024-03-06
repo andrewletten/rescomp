@@ -9,7 +9,6 @@
 #' @export
 #'
 #' @examples
-#'
 #' # Vector with one time-varying coefficient
 #' rescomp_coefs_vector_custom(
 #'   function(params) {
@@ -35,7 +34,6 @@ rescomp_coefs_vector_custom <- function(func, length) {
 #' @export
 #'
 #' @examples
-#'
 #' # Matrix with one time-varying coefficient
 #' rescomp_coefs_matrix_custom(
 #'   function(params) {
@@ -65,7 +63,6 @@ rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
 #' @export
 #'
 #' @examples
-#'
 #' coefs_vec <- rescomp_coefs_lerp(
 #'   c(0, 0, 0),
 #'   c(2, 3, 5),
@@ -292,7 +289,6 @@ check_coefs_matrix <- function(coefs_obj, arg = rlang::caller_arg(coefs_obj), ca
 #' @noRd
 #'
 #' @examples
-#'
 #' check_coefs(3:6, 4, "An example function")
 #' try(check_coefs(1:4, c(1, 4), "An example function"))
 #' try(check_coefs(letters, 26, "`letter_getter()`"))
@@ -360,7 +356,6 @@ check_coefs <- function(obj, dims, func_name, dims_desc = NULL, call = rlang::ca
 #' @noRd
 #'
 #' @examples
-#'
 #' check_coefs_coordinate(1:4, 2:5)
 #' try(check_coefs_coordinate(1:4, 1:9))
 #' try(check_coefs_coordinate(1:4, matrix(1:9, nrow = 3, ncol = 3)))

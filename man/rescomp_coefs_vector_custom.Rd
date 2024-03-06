@@ -18,7 +18,6 @@ S3 object of class \code{rescomp_coefs_vector}.
 Produces an object that may be used in place of a vector in the creation of arguments to \code{spec_rescomp()}.
 }
 \examples{
-
 # Vector with one time-varying coefficient
 rescomp_coefs_vector_custom(
   function(params) {

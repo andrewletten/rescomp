@@ -14,7 +14,6 @@
 #' @export
 #'
 #' @examples
-#'
 #' # Type 1 functional response with fixed growth rates
 #' spec_funcresp_custom(
 #'   function(resources, params) {
@@ -41,7 +40,6 @@ spec_funcresp_custom <- function(func, spnum = NULL, resnum = NULL) {
 #' @export
 #'
 #' @examples
-#'
 #' funcresp1 <- spec_funcresp_type1(
 #'   matrix(c(0.2, 0.4, 0.3, 0.2), nrow = 2)
 #' )

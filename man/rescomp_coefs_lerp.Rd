@@ -25,7 +25,6 @@ Coefficients are taken to have the values in \code{coef0} at \code{param = param
 Each parameter in the vector/matrix is interpolated independently.
 }
 \examples{
-
 coefs_vec <- rescomp_coefs_lerp(
   c(0, 0, 0),
   c(2, 3, 5),

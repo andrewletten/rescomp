@@ -73,7 +73,6 @@
 #' @importFrom stats approxfun
 #'
 #' @examples
-#'
 #' # Single type I consumer on a single logistically growing resource
 #' spec_rescomp()
 #'

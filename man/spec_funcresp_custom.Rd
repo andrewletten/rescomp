@@ -24,7 +24,6 @@ If \code{spnum} or \code{resnum} are NULL, \code{spec_rescomp()} will attempt to
 This is fine if the result is passed directly to \code{spec_rescomp()}, but may fail if the result must be combined with other \code{rescomp_funcresp} first.
 }
 \examples{
-
 # Type 1 functional response with fixed growth rates
 spec_funcresp_custom(
   function(resources, params) {

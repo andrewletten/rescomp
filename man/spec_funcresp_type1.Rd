@@ -18,7 +18,6 @@ Creates a linear or type 1 functional response with attack rate \code{a}.
 mu_ij(R_j) = a_ij * R_j
 }
 \examples{
-
 funcresp1 <- spec_funcresp_type1(
   matrix(c(0.2, 0.4, 0.3, 0.2), nrow = 2)
 )

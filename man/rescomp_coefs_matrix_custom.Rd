@@ -20,7 +20,6 @@ S3 object of class \code{rescomp_coefs_matrix}.
 Produces an object that may be used in place of a matrix in the creation of arguments to \code{spec_rescomp()}.
 }
 \examples{
-
 # Matrix with one time-varying coefficient
 rescomp_coefs_matrix_custom(
   function(params) {

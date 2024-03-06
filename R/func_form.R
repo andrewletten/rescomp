@@ -15,7 +15,6 @@
 #' @export
 #'
 #' @examples
-#'
 #' # Linear (type I) functional response.
 #' func_form(R = seq(0, 1, length.out = 1000),
 #'           mu = 1,

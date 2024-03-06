@@ -23,6 +23,5 @@ Vector length must equal spnum.}
 Timings of happenings
 }
 \examples{
-
 time_vals(1000, pulse = 100)
 }
