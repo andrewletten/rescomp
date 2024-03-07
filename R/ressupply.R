@@ -52,6 +52,30 @@ spec_ressupply_constant <- function(rate) {
   return(ressupply)
 }
 
+#' Create a resource supply rate using logistic resource growth
+#'
+#' Produces an object suitable to pass as the `ressupply` to `spec_rescomp()`.
+#'
+#' @param r A vector or `rescomp_coefs_vector`, with one number per resource. The intrinsic growth rate of each resource.
+#' @param k A vector or `rescomp_coefs_vector`, with one number per resource. The carrying capacity of each resource.
+#'
+#' @returns S3 object of class `rescomp_ressupply`.
+#' @export
+#'
+#' @examples
+#' ressupply <- spec_ressupply_logistic(r = rescomp_coefs_lerp(c(0.2, 0.3), c(0, 0), "growth_inhibition"), k = c(10, 20))
+#' get_ressupply(ressupply, c(2, 10), list(growth_inhibition = 0))
+#' get_ressupply(ressupply, c(20, 0), list(growth_inhibition = 0))
+#' get_ressupply(ressupply, c(2, 10), list(growth_inhibition = 0.8))
+spec_ressupply_logistic <- function(r, k) {
+  check_coefs_vector(r)
+  check_coefs_vector(k)
+  check_coefs_coordinate(r, k)
+  ressupply <- list(r = r, k = k, resnum = get_coefs_length(r))
+  class(ressupply) <- c("rescomp_ressupply_logistic", "rescomp_ressupply")
+  return(ressupply)
+}
+
 #' Get resource supply rates from a `rescomp_ressupply` object
 #'
 #' Gets the resource supply rates of each resource, given the current resource concentrations.
@@ -90,4 +114,11 @@ get_ressupply.rescomp_ressupply_custom <- function(ressupply_obj, resources, par
 #' @export
 get_ressupply.rescomp_ressupply_constant <- function(ressupply_obj, resources, params) {
   return(get_coefs_vector(ressupply_obj$rate, params))
+}
+
+#' @export
+get_ressupply.rescomp_ressupply_logistic <- function(ressupply_obj, resources, params) {
+  r <- get_coefs_vector(ressupply_obj$r, params)
+  k <- get_coefs_vector(ressupply_obj$k, params)
+  return(r * resources * (1 - resources / k))
 }
