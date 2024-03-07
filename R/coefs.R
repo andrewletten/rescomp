@@ -242,20 +242,29 @@ is_coefs_matrix <- function(coefs_obj) {
   return((is.matrix(coefs_obj) & is.numeric(coefs_obj)) | "rescomp_coefs_matrix" %in% class(coefs_obj))
 }
 
-#' Verify that an object is a valid argument to `get_coefs_vector()`/`get_coefs_matrix()`
+#' Verify that an object is a valid argument to `get_coefs_vector()`/`get_coefs_matrix()`, possibly of specified dimensions
 #'
 #' `get_coefs_vector()`/`get_coefs_matrix()` can take either a raw numeric vector/matrix, or a `rescomp_coefs_vector`/`rescomp_coefs_matrix`.
 #' These functions verify that an object is a valid argument to `get_coefs_vector()`/`get_coefs_matrix()` respectively.
 #' Throws a user-readable error if necessary.
 #'
 #' @param coefs_obj An object to check.
+#' @param length The required length, or NULL to accept any length.
+#' @param nrow The required number of rows, or NULL to accept any number.
+#' @param ncol The required number of columns, or NULL to accept any number.
 #'
 #' @returns NULL; this function is called for its side effects (throwing an error if necessary).
 #' @noRd
-check_coefs_vector <- function(coefs_obj, arg = rlang::caller_arg(coefs_obj), call = rlang::caller_env()) {
+check_coefs_vector <- function(coefs_obj, length = NULL, arg = rlang::caller_arg(coefs_obj), call = rlang::caller_env()) {
   if (!is_coefs_vector(coefs_obj)) {
     cli::cli_abort(c(
       "{.arg {arg}} must be a vector or `rescomp_coefs_vector`."
+    ), call = call)
+  }
+  if (!is.null(length) && get_coefs_length(coefs_obj) != length) {
+    cli::cli_abort(c(
+      "{.arg {arg}} must be of length {length}.",
+      "x" = "It was length {get_coefs_length(coefs_obj)}."
     ), call = call)
   }
   return(invisible(NULL))
@@ -263,10 +272,22 @@ check_coefs_vector <- function(coefs_obj, arg = rlang::caller_arg(coefs_obj), ca
 
 #' @rdname check_coefs_vector
 #' @noRd
-check_coefs_matrix <- function(coefs_obj, arg = rlang::caller_arg(coefs_obj), call = rlang::caller_env()) {
+check_coefs_matrix <- function(coefs_obj, nrow = NULL, ncol = NULL, arg = rlang::caller_arg(coefs_obj), call = rlang::caller_env()) {
   if (!is_coefs_matrix(coefs_obj)) {
     cli::cli_abort(c(
       "{.arg {arg}} must be a matrix or `rescomp_coefs_matrix`."
+    ), call = call)
+  }
+  if (!is.null(nrow) && get_coefs_nrow(coefs_obj) != nrow) {
+    cli::cli_abort(c(
+      "{.arg {arg}} must have {nrow} rows.",
+      "x" = "It had {get_coefs_nrow(coefs_obj)} rows."
+    ), call = call)
+  }
+  if (!is.null(ncol) && get_coefs_ncol(coefs_obj) != ncol) {
+    cli::cli_abort(c(
+      "{.arg {arg}} must have {ncol} columns.",
+      "x" = "It had {get_coefs_ncol(coefs_obj)} columns."
     ), call = call)
   }
   return(invisible(NULL))
