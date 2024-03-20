@@ -76,6 +76,28 @@ spec_ressupply_logistic <- function(r, k) {
   return(ressupply)
 }
 
+#' Create a resource supply rate using chemostat dynamics
+#'
+#' Produces an object suitable to pass as the `ressupply` to `spec_rescomp()`.
+#'
+#' @param dilution A numeric vector or `rescomp_coefs_vector`, of length one.
+#' @param concentration A vector or `rescomp_coefs_vector`, with one number per resource. The concentration of each resource in the incoming medium.
+#'
+#' @returns S3 object of class `rescomp_ressupply`.
+#' @export
+#'
+#' @examples
+#' ressupply <- spec_ressupply_chemostat(dilution = 0.01, concentration = rescomp_coefs_lerp(c(0, 0, 0), c(2, 3, 4), "ressupply_scaling"))
+#' get_ressupply(ressupply, c(2, 4, 10), list(ressupply_scaling = 0))
+#' get_ressupply(ressupply, c(3, 3, 3), list(ressupply_scaling = 1))
+spec_ressupply_chemostat <- function(dilution, concentration) {
+  check_coefs_vector(dilution, length = 1)
+  check_coefs_vector(concentration)
+  ressupply <- list(dilution = dilution, concentration = concentration, resnum = get_coefs_length(concentration))
+  class(ressupply) <- c("rescomp_ressupply_chemostat", "rescomp_ressupply")
+  return(ressupply)
+}
+
 #' Get resource supply rates from a `rescomp_ressupply` object
 #'
 #' Gets the resource supply rates of each resource, given the current resource concentrations.
@@ -121,4 +143,11 @@ get_ressupply.rescomp_ressupply_logistic <- function(ressupply_obj, resources, p
   r <- get_coefs_vector(ressupply_obj$r, params)
   k <- get_coefs_vector(ressupply_obj$k, params)
   return(r * resources * (1 - resources / k))
+}
+
+#' @export
+get_ressupply.rescomp_ressupply_chemostat <- function(ressupply_obj, resources, params) {
+  dilution <- get_coefs_vector(ressupply_obj$dilution, params)
+  concentration <- get_coefs_vector(ressupply_obj$concentration, params)
+  return(dilution * (concentration - resources))
 }
