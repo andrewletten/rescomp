@@ -25,4 +25,7 @@ antibiotic_conc <- rescomp_param_custom(function(t) {
 get_params(antibiotic_conc, 0)
 get_params(antibiotic_conc, 0.5)
 get_params(antibiotic_conc, 1)
+
+params <- rescomp_param_list(r = 0.2, antibiotic_conc = antibiotic_conc)
+get_params(params, 0.5)
 }
