@@ -34,7 +34,7 @@ spec_funcresp_custom <- function(func, spnum = NULL, resnum = NULL) {
 #' Creates a linear or type 1 functional response with attack rate `a`.
 #' mu_ij(R_j) = a_ij * R_j
 #'
-#' @param a A matrix or `rescomp_coefs_matrix`, with one row per species and one column per species. The attack rate of each species on each resource.
+#' @param a A matrix or `rescomp_coefs_matrix`, with one row per species and one column per resource. The attack rate of each species on each resource.
 #'
 #' @returns S3 object of class `rescomp_funcresp`.
 #' @export
