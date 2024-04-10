@@ -5,6 +5,9 @@ test_that("get_coefs() and associated functions work on a bare vector", {
   expect_no_error(check_coefs_vector(obj))
   expect_error(check_coefs_matrix(obj))
 
+  expect_no_error(check_coefs_vector(obj, n))
+  expect_error(check_coefs_vector(obj, n + 1))
+
   expect_no_error(check_coefs(obj, n))
   expect_error(check_coefs(obj, n + 1))
   expect_error(check_coefs(obj, c(n, 1)))
@@ -28,6 +31,15 @@ test_that("get_coefs() and associated functions work on a bare matrix", {
 
   expect_error(check_coefs_vector(obj))
   expect_no_error(check_coefs_matrix(obj))
+
+  expect_no_error(check_coefs_matrix(obj, n, m))
+  expect_no_error(check_coefs_matrix(obj, n, NULL))
+  expect_no_error(check_coefs_matrix(obj, NULL, m))
+  expect_error(check_coefs_matrix(obj, n + 1, NULL))
+  expect_error(check_coefs_matrix(obj, NULL, m + 1))
+  expect_error(check_coefs_matrix(obj, n + 1, m))
+  expect_error(check_coefs_matrix(obj, n, m + 1))
+  expect_error(check_coefs_matrix(obj, n + 1, m + 1))
 
   expect_no_error(check_coefs(obj, c(n, m)))
   expect_error(check_coefs(obj, c(n + 1, m)))
