@@ -313,7 +313,7 @@ check_coefs_matrix <- function(coefs_obj, nrow = NULL, ncol = NULL, arg = rlang:
 #' check_coefs(3:6, 4, "An example function")
 #' try(check_coefs(1:4, c(1, 4), "An example function"))
 #' try(check_coefs(letters, 26, "`letter_getter()`"))
-#' try(check_coefs(1:6, 5, "`func` of `func_wrapper()`", c("spnum", "resnum")))
+#' try(check_coefs(1:6, 5, "`func` of `func_wrapper()`", "spnum"))
 #' try(check_coefs(matrix(1:6, nrow = 2, ncol = 3), c(3, 2), "A functional response function", c("spnum", "resnum")))
 check_coefs <- function(obj, dims, func_name, dims_desc = NULL, call = rlang::caller_env()) {
   if (length(dims) == 1) {
