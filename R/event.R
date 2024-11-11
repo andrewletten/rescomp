@@ -44,6 +44,27 @@ spec_event_res_custom <- function(func, spnum = NULL, resnum = NULL) {
   return(event)
 }
 
+#' Define an event in which the species and resources are diluted by addition of new medium
+#'
+#' Produces an event object representing a batch transfer by dilution with new medium.
+#' First, all existing species and resource concentrations are multiplied by `dilution`.
+#' Then, the resource concentrations listed in `resources`, mutlipled by 1 - `dilution`, are added.
+#'
+#' @param dilution A number (which should be between 0 and 1) representing the proportion of the original medium retained.
+#' @param resources A numeric vector or `rescomp_coefs_vector` of resource concentrations.
+#'
+#'
+#' @returns S3 object of class `rescomp_event`.
+#' @export
+#'
+#' @examples
+#' # TODO
+spec_event_batch_transfer <- function(dilution, resources) {
+  event <- list(dilution = dilution, resources = resources, resnum = length(resources))
+  class(event) <- c("rescomp_event_batch_transfer", "rescomp_event")
+  return(event)
+}
+
 #' Applies a `rescomp_event` object to modify state variables
 #'
 #' Applies the instantaneous changes specified by a `rescomp_event` object to the full set of state variables (species and resources).
@@ -76,4 +97,11 @@ apply_event.rescomp_event_res_custom <- function(event_obj, species, resources, 
   new_resources <- event_obj$func(resources, params)
   check_coefs(new_resources, length(resources), "`func` of `rescomp_event_sp_custom`", "resnum")
   return(c(species, new_resources))
+}
+
+#' @export
+apply_event.rescomp_event_batch_transfer <- function(event_obj, species, resources, params) {
+  species <- species * event_obj$dilution
+  resources <- resources * event_obj$dilution + event_obj$resources * (1 - event_obj$dilution)
+  return(c(species, resources))
 }
