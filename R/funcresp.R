@@ -8,7 +8,7 @@
 #'
 #' @details
 #' If `spnum` or `resnum` are NULL, `spec_rescomp()` will attempt to infer them.
-#' This is fine if the result is passed directly to `spec_rescomp()`, but may fail if the result must be combined with other `rescomp_funcresp` first.
+#' This is fine if the result is passed directly to `spec_rescomp()`, but may fail if the result must be combined with other `rescomp_funcresp`s first.
 #'
 #' @returns S3 object of class `rescomp_funcresp`.
 #' @export

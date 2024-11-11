@@ -21,7 +21,7 @@ Produces an object suitable to pass as the \code{funcresp} to \code{spec_rescomp
 }
 \details{
 If \code{spnum} or \code{resnum} are NULL, \code{spec_rescomp()} will attempt to infer them.
-This is fine if the result is passed directly to \code{spec_rescomp()}, but may fail if the result must be combined with other \code{rescomp_funcresp} first.
+This is fine if the result is passed directly to \code{spec_rescomp()}, but may fail if the result must be combined with other \code{rescomp_funcresp}s first.
 }
 \examples{
 # Type 1 functional response with fixed growth rates
