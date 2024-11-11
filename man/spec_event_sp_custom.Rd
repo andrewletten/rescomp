@@ -9,7 +9,7 @@ spec_event_sp_custom(func, spnum = NULL, resnum = NULL)
 \arguments{
 \item{func}{A function that takes \code{species} (a numeric vector of species concentrations) and \code{params} (a list of parameters) and returns a numeric vector of species concentrations.}
 
-\item{spnum}{The number of species}
+\item{spnum}{The number of species.}
 }
 \value{
 S3 object of class \code{rescomp_event}.

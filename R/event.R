@@ -3,7 +3,7 @@
 #' Produces an event object suitable for building event schedules to pass `spec_rescomp()`.
 #'
 #' @param func A function that takes `species` (a numeric vector of species concentrations) and `params` (a list of parameters) and returns a numeric vector of species concentrations.
-#' @param spnum The number of species
+#' @param spnum The number of species.
 #'
 #' @details
 #'
@@ -26,7 +26,7 @@ spec_event_sp_custom <- function(func, spnum = NULL, resnum = NULL) {
 #' Produces an event object suitable for building event schedules to pass `spec_rescomp()`.
 #'
 #' @param func A function that takes `resources` (a numeric vector of resource concentrations) and `params` (a list of parameters) and returns a numeric vector of resource concentrations.
-#' @param resnum The number of resources
+#' @param resnum The number of resources.
 #'
 #' @details
 #'

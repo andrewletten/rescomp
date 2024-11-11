@@ -9,7 +9,7 @@ spec_event_res_custom(func, spnum = NULL, resnum = NULL)
 \arguments{
 \item{func}{A function that takes \code{resources} (a numeric vector of resource concentrations) and \code{params} (a list of parameters) and returns a numeric vector of resource concentrations.}
 
-\item{resnum}{The number of resources}
+\item{resnum}{The number of resources.}
 }
 \value{
 S3 object of class \code{rescomp_event}.
