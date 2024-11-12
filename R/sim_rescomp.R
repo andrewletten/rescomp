@@ -16,15 +16,21 @@ sim_rescomp <- function(pars, ...) {
   times <- time_vals(pars$totaltime)
   y <- c(pars$cinit, pars$rinit)
 
+  if (nrow(pars$event_schedule_df) > 0) {
+    events <- list(
+      func = ode_event_func,
+      time = pars$event_schedule_df$time
+    )
+  } else {
+    events <- list()
+  }
+
   mod <- deSolve::ode(
     func = def_cr_ode,
     y = y,
     parms = pars,
     times = times$totaltime,
-    events = list(
-      func = ode_event_func,
-      time = pars$event_schedule_df$time
-    ),
+    events = events,
     ...
   )
 
