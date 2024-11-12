@@ -50,9 +50,9 @@ spec_event_res_custom <- function(func, spnum = NULL, resnum = NULL) {
 #' First, all existing species and resource concentrations are multiplied by `dilution`.
 #' Then, the resource concentrations listed in `resources`, mutlipled by 1 - `dilution`, are added.
 #'
-#' @param dilution A number (which should be between 0 and 1) representing the proportion of the original medium retained.
+#' @param dilution A numeric vector of `rescomp_coefs_vector` of length 1 (whose value should be
+#'     between 0 and 1) representing the proportion of the original medium retained.
 #' @param resources A numeric vector or `rescomp_coefs_vector` of resource concentrations.
-#'
 #'
 #' @returns S3 object of class `rescomp_event`.
 #' @export
@@ -101,7 +101,9 @@ apply_event.rescomp_event_res_custom <- function(event_obj, species, resources, 
 
 #' @export
 apply_event.rescomp_event_batch_transfer <- function(event_obj, species, resources, params) {
-  species <- species * event_obj$dilution
-  resources <- resources * event_obj$dilution + event_obj$resources * (1 - event_obj$dilution)
+  dilution <- get_coefs(event_obj$dilution)
+  incoming_resources <- get_coefs(event_obj$resources)
+  species <- species * dilution
+  resources <- resources * dilution + incoming_resources * (1 - dilution)
   return(c(species, resources))
 }
