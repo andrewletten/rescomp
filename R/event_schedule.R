@@ -62,3 +62,30 @@ get_event_times.rescomp_event_schedule_fixed <- function(event_schedule_obj, tot
 get_event_times.rescomp_event_schedule_periodic <- function(event_schedule_obj, totaltime) {
   return(seq(from = event_schedule_obj$start_time, to = totaltime, by = event_schedule_obj$period))
 }
+
+#' Prepares a sorted data frame of times of events
+#'
+#' Produces a data frame to be used by the event function passed to deSolve
+#'
+#' @param event_schedule_list A list of `rescomp_event_schedule` objects as passed to `spec_rescomp()`.
+#' @param totaltime The total time which the simulation will run for.
+#'
+#' @returns A data frame with three columns: time, priority, and event_index.
+#'     `time` is the time at which the events should occur,
+#'     `priority` breaks ties (lower priority first) in time, and
+#'     `event_index` is the index in the original event schedule list of the corresponding event.
+#'     The data frame will be sorted by ascending time, with ties broken by ascending priority.
+#' @noRd
+prepare_event_schedule_df <- function(event_schedule_list, totaltime) {
+  dat <- data.frame(time = c(), priority = c(), event_index = c())
+  for (i in 1:length(event_schedule_list)) {
+    dat <- rbind(dat, data.frame(
+      time = get_event_times(event_schedule_list[[i]], totaltime),
+      priority = event_schedule_list[[i]]$priority,
+      event_index = i
+    ))
+  }
+  dat <- dat[order(dat$time, dat$priority), ]
+  # TODO: Warn of colliding time & priority.
+  return(dat)
+}
