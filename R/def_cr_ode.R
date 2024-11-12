@@ -238,3 +238,21 @@ time_vals <- function(total = 1000,
 
   return(time_vals)
 }
+
+#' The event function for `sim_rescomp()` to pass to `deSolve::ode()`
+#'
+#' @param t The current time of the simulation.
+#' @param y The vector of current estimates of consumers and resources in the simulation.
+#' @param pars The `rescomp` object passed to `sim_rescomp()`.
+#'
+#' @returns `y`, as modified by events at the current time.
+#' @noRd
+ode_event_func <- function(t, y, pars) {
+  params <- get_params(pars$params, t)
+
+  # TODO: Improve the below with a binary search for the correct times.
+  for (event_index in pars$event_schedule_df$event_index[pars$event_schedule_df$time == t]) {
+    y <- apply_event(pars$events[[event_index]]$event_obj, y[1:pars$spnum], y[-(1:pars$spnum)], params)
+  }
+  return(y)
+}
