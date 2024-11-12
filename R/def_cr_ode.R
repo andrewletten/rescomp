@@ -14,10 +14,10 @@ def_cr_ode <- function(Time, State, Pars) {
     R <- State[(1 + nconsumers):length(State)]
 
     # Time dependent parameters ------------------------------------------
-    mu_list_live <-  list()
-    mu_live_eachres <-  list()
+    mu_list_live <- list()
+    mu_live_eachres <- list()
 
-    if(timepars == TRUE & length(mu) > 1){
+    if (timepars == TRUE & length(mu) > 1) {
       for (i in seq_len(nrow(mu[[1]]))) {
         for (j in seq_len(ncol(mu[[1]]))) {
           mu_live_eachres[j] <- mu_approx_fun[[i]][[j]](Time)
@@ -25,16 +25,17 @@ def_cr_ode <- function(Time, State, Pars) {
         mu_list_live[[i]] <- mu_live_eachres
       }
       mu <- matrix(unlist(mu_list_live),
-                   nrow = nrow(mu[[1]]),
-                   byrow = TRUE)
-    } else{
+        nrow = nrow(mu[[1]]),
+        byrow = TRUE
+      )
+    } else {
       mu <- mu[[1]]
     }
 
-    Ks_list_live <-  list()
-    Ks_live_eachres <-  list()
+    Ks_list_live <- list()
+    Ks_live_eachres <- list()
 
-    if(timepars == TRUE & length(Ks) > 1){
+    if (timepars == TRUE & length(Ks) > 1) {
       for (i in seq_len(nrow(Ks[[1]]))) {
         for (j in seq_len(ncol(Ks[[1]]))) {
           Ks_live_eachres[j] <- Ks_approx_fun[[i]][[j]](Time)
@@ -42,16 +43,17 @@ def_cr_ode <- function(Time, State, Pars) {
         Ks_list_live[[i]] <- Ks_live_eachres
       }
       Ks <- matrix(unlist(Ks_list_live),
-                   nrow = nrow(Ks[[1]]),
-                   byrow = TRUE)
-    } else{
+        nrow = nrow(Ks[[1]]),
+        byrow = TRUE
+      )
+    } else {
       Ks <- Ks[[1]]
     }
 
-    Qs_list_live <-  list()
-    Qs_live_eachres <-  list()
+    Qs_list_live <- list()
+    Qs_live_eachres <- list()
 
-    if(timepars == TRUE & length(Qs) > 1){
+    if (timepars == TRUE & length(Qs) > 1) {
       for (i in seq_len(nrow(Qs[[1]]))) {
         for (j in seq_len(ncol(Qs[[1]]))) {
           Qs_live_eachres[j] <- Qs_approx_fun[[i]][[j]](Time)
@@ -59,21 +61,22 @@ def_cr_ode <- function(Time, State, Pars) {
         Qs_list_live[[i]] <- Qs_live_eachres
       }
       Qs <- matrix(unlist(Qs_list_live),
-                   nrow = nrow(Qs[[1]]),
-                   byrow = TRUE)
-    } else{
+        nrow = nrow(Qs[[1]]),
+        byrow = TRUE
+      )
+    } else {
       Qs <- Qs[[1]]
     }
 
-    mort_list_live <-  list()
-    mort_live_eachres <-  list()
+    mort_list_live <- list()
+    mort_live_eachres <- list()
 
-    if(timepars == TRUE & length(all_d) > 1){
+    if (timepars == TRUE & length(all_d) > 1) {
       for (i in seq_along(all_d[[1]])) {
         mort_list_live[[i]] <- mort_approx_fun[[i]](Time)
-        }
+      }
       all_d <- unlist(mort_list_live)
-    } else{
+    } else {
       all_d <- all_d[[1]]
     }
 
@@ -99,9 +102,9 @@ def_cr_ode <- function(Time, State, Pars) {
           ((Ks[i, j])^(2 * type3[i, j]) + phi[i, j] * (R[j])^(2 * type3[i, j]))
       }
       if (Pars$essential == TRUE) {
-        dN[i] <- (min(dN.perR[i, ] * eff[i,])) - (all_d[i] * N[i])
+        dN[i] <- (min(dN.perR[i, ] * eff[i, ])) - (all_d[i] * N[i])
       } else {
-        dN[i] <- sum(dN.perR[i,] * eff[i,]) - (all_d[i] * N[i])
+        dN[i] <- sum(dN.perR[i, ] * eff[i, ]) - (all_d[i] * N[i])
       }
     }
 
@@ -112,8 +115,7 @@ def_cr_ode <- function(Time, State, Pars) {
       for (j in seq_along(R)) {
         for (i in seq_along(N)) {
           dR.perN[i, ] <- (min(dN.perR[i, ])) * Qs[i, ]
-          dR.perN[i, ] <- (min(dN.perR[i, ] * eff[i,])/eff[i,]) * Qs[i, ]
-
+          dR.perN[i, ] <- (min(dN.perR[i, ] * eff[i, ]) / eff[i, ]) * Qs[i, ]
         }
         if (Pars$chemo == TRUE) {
           dR[j] <- resspeed[j] * (resconc[j] - R[j]) -
@@ -156,14 +158,14 @@ eventfun_respulse <- function(Time, State, Pars) {
     R <- State[(1 + Pars$nconsumers):length(State)]
     N <- State[1:Pars$nconsumers]
     for (j in seq_along(R)) {
-      if (Pars$batchtrans == TRUE){
-        R[j] <- R[j]*(1-Pars$mortpulse) + Pars$respulse*(Pars$mortpulse)
+      if (Pars$batchtrans == TRUE) {
+        R[j] <- R[j] * (1 - Pars$mortpulse) + Pars$respulse * (Pars$mortpulse)
       } else {
         R[j] <- R[j] + Pars$respulse
       }
     }
     for (i in seq_along(N)) {
-      N[i] <- N[i]*(1-Pars$mortpulse)
+      N[i] <- N[i] * (1 - Pars$mortpulse)
     }
     return(c(N, R))
   })
@@ -185,14 +187,14 @@ eventfun_starttime <- function(Time, State, Pars) {
     N <- State[1:Pars$nconsumers]
     for (j in seq_along(R)) {
       R[j] <- R[j]
-      }
+    }
     for (i in seq_along(N)) {
-      if(Time %in% Pars$introseq[i]){
+      if (Time %in% Pars$introseq[i]) {
         N[i] <- Pars$cinit[i]
       } else {
         N[i] <- N[i]
       }
-      }
+    }
     return(c(N, R))
   })
 }
@@ -226,7 +228,7 @@ time_vals <- function(total = 1000,
 
   if (missing(pulse)) {
     time_vals$pulseseq <- NULL
-  } else if (length(pulse) == 1){
+  } else if (length(pulse) == 1) {
     time_vals$pulseseq <- round(seq(pulse, total, by = pulse), 1)
   } else {
     time_vals$pulseseq <- round(pulse, 1)
