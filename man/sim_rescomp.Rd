@@ -5,20 +5,11 @@
 \title{Simulate resource competition (a convenience wrapper for
 \code{deSolve::ode()})}
 \usage{
-sim_rescomp(pars, times, y, events = NULL, ...)
+sim_rescomp(pars, ...)
 }
 \arguments{
 \item{pars}{S3 object of class \code{rescomp} returned by
 \code{rescomp::spec_rescomp()}.}
-
-\item{times}{Optional list of up to two giving total simulation time and pulsing
-sequence where relevant (use \code{rescomp::time_vals()}). If provided,
-overrides values given in parms.}
-
-\item{y}{Optional vector of initial values for state variables. If provided,
-overrides values given in \code{pars}.}
-
-\item{events}{NULL (events specified in \code{spec_rescomp()})}
 
 \item{...}{Other arguments passed to \code{deSolve::ode()}}
 }

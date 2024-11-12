@@ -20,11 +20,11 @@ frame_and_name <- function(model) {
   names(frameddf)[-1] <- c(
     paste0(
       "N",
-      1:pars$nconsumers
+      1:pars$spnum
     ),
     paste0(
       "R",
-      letters[c(1:((ncol(frameddf)) - (pars$nconsumers + 1)))]
+      letters[c(1:((ncol(frameddf)) - (pars$spnum + 1)))]
     )
   )
   return(frameddf)

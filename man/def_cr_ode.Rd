@@ -4,18 +4,21 @@
 \alias{def_cr_ode}
 \title{Define consumer resource ODE function}
 \usage{
-def_cr_ode(Time, State, Pars)
+def_cr_ode(t, y, pars)
 }
 \arguments{
-\item{Time}{Time to simulate over}
+\item{t}{Time to simulate over}
 
-\item{State}{Vector of initial states}
+\item{y}{Vector of initial states}
 
-\item{Pars}{A list of model parameters}
+\item{pars}{A list of model parameters}
 }
 \value{
 Model formula to pass to \code{sim_rescomp()}
 }
 \description{
 Define consumer resource ODE function
+}
+\examples{
+# TODO
 }

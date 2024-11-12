@@ -1,204 +1,39 @@
 #' Define consumer resource ODE function
 #'
-#' @param Time Time to simulate over
-#' @param State Vector of initial states
-#' @param Pars A list of model parameters
+#' @param t Time to simulate over
+#' @param y Vector of initial states
+#' @param pars A list of model parameters
 #'
 #' @return Model formula to pass to `sim_rescomp()`
 #' @export
 #'
-# #' @examples
-def_cr_ode <- function(Time, State, Pars) {
-  with(as.list(c(State, Pars)), {
-    N <- State[1:nconsumers]
-    R <- State[(1 + nconsumers):length(State)]
+#' @examples
+#' # TODO
+def_cr_ode <- function(t, y, pars) {
+  N <- y[1:pars$spnum]
+  R <- y[-(1:pars$spnum)]
+  params <- get_params(pars$params, t)
 
-    # Time dependent parameters ------------------------------------------
-    mu_list_live <- list()
-    mu_live_eachres <- list()
+  mu <- get_funcresp(pars$funcresp, pars$spnum, R, params)
+  ressupply <- get_ressupply(pars$ressupply, R, params)
+  quota <- get_coefs_matrix(pars$quota, params)
+  mort <- get_coefs_vector(pars$mort, params)
 
-    if (timepars == TRUE & length(mu) > 1) {
-      for (i in seq_len(nrow(mu[[1]]))) {
-        for (j in seq_len(ncol(mu[[1]]))) {
-          mu_live_eachres[j] <- mu_approx_fun[[i]][[j]](Time)
-        }
-        mu_list_live[[i]] <- mu_live_eachres
-      }
-      mu <- matrix(unlist(mu_list_live),
-        nrow = nrow(mu[[1]]),
-        byrow = TRUE
-      )
-    } else {
-      mu <- mu[[1]]
-    }
+  growth_rates <- mu * N
+  death_rates <- mort * N
+  if (pars$essential) {
+    total_growth_rates <- apply(growth_rates, 1, min)
+    consumption <- colSums(pars$quota * total_growth_rates)
+  } else {
+    total_growth_rates <- rowSums(growth_rates)
+    consumption <- colSums(pars$quota * growth_rates)
+  }
 
-    Ks_list_live <- list()
-    Ks_live_eachres <- list()
+  dN <- total_growth_rates - death_rates
+  dR <- ressupply - consumption
 
-    if (timepars == TRUE & length(Ks) > 1) {
-      for (i in seq_len(nrow(Ks[[1]]))) {
-        for (j in seq_len(ncol(Ks[[1]]))) {
-          Ks_live_eachres[j] <- Ks_approx_fun[[i]][[j]](Time)
-        }
-        Ks_list_live[[i]] <- Ks_live_eachres
-      }
-      Ks <- matrix(unlist(Ks_list_live),
-        nrow = nrow(Ks[[1]]),
-        byrow = TRUE
-      )
-    } else {
-      Ks <- Ks[[1]]
-    }
-
-    Qs_list_live <- list()
-    Qs_live_eachres <- list()
-
-    if (timepars == TRUE & length(Qs) > 1) {
-      for (i in seq_len(nrow(Qs[[1]]))) {
-        for (j in seq_len(ncol(Qs[[1]]))) {
-          Qs_live_eachres[j] <- Qs_approx_fun[[i]][[j]](Time)
-        }
-        Qs_list_live[[i]] <- Qs_live_eachres
-      }
-      Qs <- matrix(unlist(Qs_list_live),
-        nrow = nrow(Qs[[1]]),
-        byrow = TRUE
-      )
-    } else {
-      Qs <- Qs[[1]]
-    }
-
-    mort_list_live <- list()
-    mort_live_eachres <- list()
-
-    if (timepars == TRUE & length(all_d) > 1) {
-      for (i in seq_along(all_d[[1]])) {
-        mort_list_live[[i]] <- mort_approx_fun[[i]](Time)
-      }
-      all_d <- unlist(mort_list_live)
-    } else {
-      all_d <- all_d[[1]]
-    }
-
-    # --------------------------------------------------------------------
-    # Predator dynamics
-    # dP.perN <- mu_p
-    # dP <- P
-    # for (i in seq_along(P)) {
-    #   for (j in seq_along(N)) {
-    #     dP.perN[i, j] <- (mu_p[i, j] * P[i] * (N[j])^(2 * type3_p[i, j])) /
-    #       ((Ks_p[i, j])^(2 * type3_p[i, j]) + phi_p[i, j] * (N[j])^(2 * type3_p[i, j]))
-    #   }
-    #   dP[i] <- sum(dP.perN[i,] * eff_p[i,]) - (all_d_p[i] * P[i])
-    # }
-
-
-    # Consumer dynamics
-    dN.perR <- mu # matrix(pars$mu[,1:length(R)])
-    dN <- N
-    for (i in seq_along(N)) {
-      for (j in seq_along(R)) {
-        dN.perR[i, j] <- (mu[i, j] * N[i] * (R[j])^(2 * type3[i, j])) /
-          ((Ks[i, j])^(2 * type3[i, j]) + phi[i, j] * (R[j])^(2 * type3[i, j]))
-      }
-      if (Pars$essential == TRUE) {
-        dN[i] <- (min(dN.perR[i, ] * eff[i, ])) - (all_d[i] * N[i])
-      } else {
-        dN[i] <- sum(dN.perR[i, ] * eff[i, ]) - (all_d[i] * N[i])
-      }
-    }
-
-    # Resource dynamics
-    dR.perN <- mu
-    dR <- R
-    if (Pars$essential == TRUE) {
-      for (j in seq_along(R)) {
-        for (i in seq_along(N)) {
-          dR.perN[i, ] <- (min(dN.perR[i, ])) * Qs[i, ]
-          dR.perN[i, ] <- (min(dN.perR[i, ] * eff[i, ]) / eff[i, ]) * Qs[i, ]
-        }
-        if (Pars$chemo == TRUE) {
-          dR[j] <- resspeed[j] * (resconc[j] - R[j]) -
-            sum(dR.perN[, j])
-        } else {
-          dR[j] <- (resspeed[j] * R[j] * (1 - (R[j] / resconc[j]))) -
-            sum(dR.perN[, j])
-        }
-      }
-    } else {
-      for (j in seq_along(R)) {
-        for (i in seq_along(N)) {
-          dR.perN[i, j] <- dN.perR[i, j] * Qs[i, j]
-        }
-        if (Pars$chemo == TRUE) {
-          dR[j] <- resspeed[j] * (resconc[j] - R[j]) - sum(dR.perN[, j])
-        } else {
-          dR[j] <- (resspeed[j] * R[j] * (1 - (R[j] / resconc[j]))) -
-            sum(dR.perN[, j])
-        }
-      }
-    }
-    return(list(c(dN, dR)))
-  })
+  return(list(c(dN, dR)))
 }
-
-
-#' Event for resource pulsing
-#'
-#' @param Time Time to simulate over
-#' @param State Vector of initial states
-#' @param Pars List
-#'
-# #' @return
-#' @export
-#'
-# #' @examples
-eventfun_respulse <- function(Time, State, Pars) {
-  with(as.list(State), {
-    R <- State[(1 + Pars$nconsumers):length(State)]
-    N <- State[1:Pars$nconsumers]
-    for (j in seq_along(R)) {
-      if (Pars$batchtrans == TRUE) {
-        R[j] <- R[j] * (1 - Pars$mortpulse) + Pars$respulse * (Pars$mortpulse)
-      } else {
-        R[j] <- R[j] + Pars$respulse
-      }
-    }
-    for (i in seq_along(N)) {
-      N[i] <- N[i] * (1 - Pars$mortpulse)
-    }
-    return(c(N, R))
-  })
-}
-
-#' Event for different consumer start times
-#'
-#' @param Time Time to simulate over
-#' @param State Vector of initial states
-#' @param Pars List
-#'
-# #' @return
-#' @export
-#'
-# #' @examples
-eventfun_starttime <- function(Time, State, Pars) {
-  with(as.list(State), {
-    R <- State[(1 + Pars$nconsumers):length(State)]
-    N <- State[1:Pars$nconsumers]
-    for (j in seq_along(R)) {
-      R[j] <- R[j]
-    }
-    for (i in seq_along(N)) {
-      if (Time %in% Pars$introseq[i]) {
-        N[i] <- Pars$cinit[i]
-      } else {
-        N[i] <- N[i]
-      }
-    }
-    return(c(N, R))
-  })
-}
-
 
 #' Timings of happenings
 #'

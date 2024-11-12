@@ -8,116 +8,50 @@ passed to \code{sim_rescomp()}}
 spec_rescomp(
   spnum = 1,
   resnum = 1,
-  mumatrix,
-  kmatrix,
-  qmatrix,
-  effmatrix = NULL,
-  funcresp = "type1",
+  funcresp,
+  quota,
   essential = FALSE,
-  chemo = TRUE,
   mort = 0.03,
-  resspeed = 0.03,
-  resconc = 1,
-  respulse = 0,
-  mortpulse = 0,
-  pulsefreq = 0,
-  batchtrans = FALSE,
-  timepars = FALSE,
+  ressupply,
+  params = rescomp_param_list(),
+  events = list(),
   totaltime = 1000,
-  timeparfreq = 0,
-  tpinterp = "inst",
   cinit = 10,
-  rinit = NULL,
-  introseq = NULL,
+  rinit = 10,
   verbose = TRUE
 )
 }
 \arguments{
-\item{spnum}{Integer vector of length 1 for the number of consumers}
+\item{spnum}{Integer vector of length 1: the number of consumers.}
 
-\item{resnum}{Integer vector of length 1 for the number of resources}
+\item{resnum}{Integer vector of length 1: the number of resources.}
 
-\item{mumatrix}{Numeric matrix or list of matrices, the elements of which
-give the maximum growth rates (type 2 or 3) or resource consumption rate
-constants (type 1, or type 2 when parameterised using conversion
-efficiencies with \code{effmatrix} as opposed to resource quotas with
-\code{qmatrix}). The number of rows and columns should be equal to \code{spnum}
-and \code{resnum} respectively. For time dependent parameters
-(with \code{timepars} = TRUE), expects a list of length 2.}
+\item{funcresp}{An object of class \code{rescomp_funcresp} specifying the functional response.}
 
-\item{kmatrix}{Numeric matrix or list of matrices, the elements of which
-give the half saturation constants (type 2 or type 3, ignored if
-funcresp = "type1"). The number of rows and columns should be equal to
-\code{spnum} and \code{resnum} respectively. For time dependent parameters
-(with \code{timepars} = TRUE), expects a list of length 2.}
-
-\item{qmatrix}{Numeric matrix or list of matrices, the elements of which
+\item{quota}{Numeric matrix or \code{rescomp_coefs_matrix}, the elements of which
 give the resource quotas. The number of rows and columns should be equal to
-\code{spnum} and \code{resnum} respectively. For time dependent parameters
-(with \code{timepars} = TRUE), expects a list of length 2.
-Default = 0.001 for all consumers.}
-
-\item{effmatrix}{Numeric matrix of resource conversion efficiencies.
-The number of rows should be equal to \code{spnum} and \code{resnum} respectively.
-NB. Incompatible with specification of resource quotas. Function will
-throw an error if both specified.}
-
-\item{funcresp}{Character vector of length 1 or length equal to \code{spnum}.
-Options include "type1", 'type2", or "type3".}
+\code{spnum} and \code{resnum} respectively.}
 
 \item{essential}{Logical vector of length 1. If FALSE resources are substitutable.}
 
-\item{chemo}{Logical. Default is resources supplied continuously (chemostat).
-If FALSE resources grow logistically.}
+\item{mort}{Numeric vector or \code{rescomp_coefs_vector} of length \code{spnum},
+specifying density independent mortality rates.}
 
-\item{mort}{Numeric vector or list of vectors of length 1 or
-length = \code{spnum}, specifying density independent mortality rates.
-For time dependent parameters
-(with \code{timepars} = TRUE), expects a list of length 2.}
+\item{ressupply}{An object of class \code{rescomp_ressupply} specifying the resource supply.}
 
-\item{resspeed}{Numeric vector of length 1 specifying resource intrinsic
-rate of increase (if chemo = FALSE), or otherwise chemostat dilution
-rate. Set to zero for pulsing only. For continuous dilution of resource
-without resource supply, \code{resspeed} should be non-zero with \code{resconc}
-set to zero.}
+\item{params}{An object of class \code{rescomp_param_list} specifying a set of parameters which vary
+with time, on which other parameters of the model (e.g. funcresp, ressupply) may depend.}
 
-\item{resconc}{Numeric vector of length 1 or length = \code{resnum} specifying
-resource carrying capacity (if chemo = FALSE), or otherwise chemostat
-supply concentration}
+\item{events}{A list of objects of class \code{rescomp_event_schedule}, specifying events that
+instantaneously change consumer or resource densities.}
 
-\item{respulse}{Resource pulse size.}
+\item{totaltime}{Numeric vector of length 1: the total simulation time.}
 
-\item{mortpulse}{Consumer mortality fraction if non-constant mortality
-(e.g. serial-batch transfer).}
+\item{cinit}{Numeric vector of length 1 or length \code{spnum} specifying
+initial consumer state values (densities).}
 
-\item{pulsefreq}{Frequency of resource pulsing and/or intermittent mortality.}
-
-\item{batchtrans}{If TRUE, resources are also fractionally sampled during pulses,
-and respulse represents the resource concentration in the new medium
-(see vignette).}
-
-\item{timepars}{If TRUE, time dependent parameters required.}
-
-\item{totaltime}{Total simulation time}
-
-\item{timeparfreq}{Frequency of parameter switching if timepars = TRUE.}
-
-\item{tpinterp}{Either "inst" (default), "lin" or "sine" interpolation of
-time dependent parameters. If "inst", parameters switch instantaneously
-with frequency given by \code{timeparfreq}. If "lin" or "sine", parameters
-are interpolated linearly or sinusoidaly, respectively, with period 2x
-\code{timeparfreq}.}
-
-\item{cinit}{Numeric vector of length 1 or length = \code{spnum} specifying
-initialconsumer state values (densities). Defaults to 10 for all
-consumers.}
-
-\item{rinit}{Numeric vector of length 1 or length = \code{resnum} specifying
-initial resource state values (concentrations). Defaults to value given
-in \code{resconc}.}
-
-\item{introseq}{Time sequence as a vector for consumer introductions.
-Vector length must equal spnum.}
+\item{rinit}{Numeric vector of length 1 or length \code{resnum} specifying
+initial resource state values (concentrations).}
 
 \item{verbose}{If TRUE (default) prints model and simulation summary specs.}
 }
@@ -129,25 +63,5 @@ Generate list of parameters for a consumer-resource model to be
 passed to \code{sim_rescomp()}
 }
 \examples{
-# Single type I consumer on a single logistically growing resource
-spec_rescomp()
-
-# Two type II consumers and two substitutable resources in a chemostat
-pars <- spec_rescomp(
-  spnum = 2,
-  resnum = 2,
-  funcresp = "type2",
-  mumatrix = matrix(c(
-    0.7, 0.3,
-    0.4, 0.5
-  ),
-  nrow = 2,
-  ncol = 2,
-  byrow = TRUE
-  ),
-  resspeed = 3,
-  resconc = 1,
-  chemo = TRUE,
-  essential = FALSE
-)
+# TODO
 }
