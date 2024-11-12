@@ -77,17 +77,16 @@ get_event_times.rescomp_event_schedule_periodic <- function(event_schedule_obj, 
 #'     The data frame will be sorted by ascending time, with ties broken by ascending priority.
 #' @noRd
 prepare_event_schedule_df <- function(event_schedule_list, totaltime) {
-  dat <- data.frame(time = c(), priority = c(), event_index = c())
   if (length(event_schedule_list) == 0) {
-    return(dat)
+    return(data.frame(time = c(), priority = c(), event_index = c()))
   }
-  for (i in 1:length(event_schedule_list)) {
-    dat <- rbind(dat, data.frame(
+  dat <- plyr::ldply(1:length(event_schedule_list), function(i) {
+    data.frame(
       time = get_event_times(event_schedule_list[[i]], totaltime),
       priority = event_schedule_list[[i]]$priority,
       event_index = i
-    ))
-  }
+    )
+  })
   dat <- dat[order(dat$time, dat$priority), ]
   # TODO: Warn of colliding time & priority.
   return(dat)
