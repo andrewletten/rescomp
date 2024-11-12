@@ -38,7 +38,7 @@ spec_rescomp <- function(spnum = 1,
                          events = list(),
                          totaltime = 1000,
                          cinit = 10,
-                         rinit = 10,
+                         rinit = 1,
                          verbose = TRUE) {
   pars <- list(
     spnum = spnum,

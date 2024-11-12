@@ -17,7 +17,7 @@ spec_rescomp(
   events = list(),
   totaltime = 1000,
   cinit = 10,
-  rinit = 10,
+  rinit = 1,
   verbose = TRUE
 )
 }
