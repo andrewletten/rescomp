@@ -50,6 +50,26 @@ rescomp_param_custom <- function(func) {
   return(param)
 }
 
+#' Create a rescomp parameter using a sine wave
+#'
+#' Produces an object suitable to include in a `rescomp_param_list`.
+#'
+#' @param period The period of the sine wave.
+#' @param min The minimum value of the parameter; the mean minus the amplitude.
+#' @param min The maximum value of the parameter; the mean plus the amplitude.
+#' @param offset The phase shift of the sine wave; the time at which its value is equal to the mean.
+#'
+#' @returns S3 object of class `rescomp_param`.
+#' @export
+#'
+#' @examples
+#' # TODO
+rescomp_param_sine <- function(period = 1, min = 0, max = 1, offset = 0) {
+  param <- list(period = period, mean = (min + max) / 2, amplitude = (max - min) / 2, offset = offset)
+  class(param) <- c("rescomp_param_sine", "rescomp_param")
+  return(param)
+}
+
 #' Get params at an instant in time from a `rescomp_param` object
 #'
 #' This function is normally only for internal use, but is exported to aid users in debugging their created `rescomp_param` objects.
@@ -90,4 +110,9 @@ get_params.rescomp_param_list <- function(param_obj, t) {
 #' @export
 get_params.rescomp_param_custom <- function(param_obj, t) {
   return(param_obj$func(t))
+}
+
+#' @export
+get_params.rescomp_param_sine <- function(param_obj, t) {
+  return(param_obj$mean + param_obj$amplitude * sin(2 * pi * (t - param_obj$offset) / param_obj$period))
 }
