@@ -7,7 +7,7 @@
 funcresp_type1(a)
 }
 \arguments{
-\item{a}{A matrix or \code{rescomp_coefs_matrix}, with one row per species and one column per resource. The attack rate of each species on each resource.}
+\item{a}{A matrix or \code{rescomp_coefs_matrix}, with one row per species and one column per resource. The attack rate (if using efficiency) or growth rate (if using quota) of each species on each resource.}
 }
 \value{
 S3 object of class \code{rescomp_funcresp}.
