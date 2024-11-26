@@ -4,7 +4,7 @@
 \alias{event_sp_custom}
 \title{Define an event which instantaneously changes species concentrations using an arbitrary function}
 \usage{
-event_sp_custom(func, spnum = NULL, resnum = NULL)
+event_sp_custom(func, spnum = NULL)
 }
 \arguments{
 \item{func}{A function that takes \code{species} (a numeric vector of species concentrations) and \code{params} (a list of parameters) and returns a numeric vector of species concentrations.}

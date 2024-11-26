@@ -4,7 +4,7 @@
 \alias{event_res_custom}
 \title{Define an event which instantaneously changes resource concentrations using an arbitrary function}
 \usage{
-event_res_custom(func, spnum = NULL, resnum = NULL)
+event_res_custom(func, resnum = NULL)
 }
 \arguments{
 \item{func}{A function that takes \code{resources} (a numeric vector of resource concentrations) and \code{params} (a list of parameters) and returns a numeric vector of resource concentrations.}

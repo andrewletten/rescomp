@@ -15,7 +15,7 @@
 #'
 #' @examples
 #' # TODO
-event_sp_custom <- function(func, spnum = NULL, resnum = NULL) {
+event_sp_custom <- function(func, spnum = NULL) {
   event <- list(func = func, spnum = spnum)
   class(event) <- c("rescomp_event_sp_custom", "rescomp_event")
   return(event)
@@ -38,7 +38,7 @@ event_sp_custom <- function(func, spnum = NULL, resnum = NULL) {
 #'
 #' @examples
 #' # TODO
-event_res_custom <- function(func, spnum = NULL, resnum = NULL) {
+event_res_custom <- function(func, resnum = NULL) {
   event <- list(func = func, resnum = resnum)
   class(event) <- c("rescomp_event_res_custom", "rescomp_event")
   return(event)
