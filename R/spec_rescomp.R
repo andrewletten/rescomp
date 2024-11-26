@@ -40,6 +40,16 @@ spec_rescomp <- function(spnum = 1,
                          cinit = 10,
                          rinit = 1,
                          verbose = TRUE) {
+  funcresp <- propagate_crnum(funcresp, spnum, resnum)
+  quota <- propagate_crnum(quota, spnum, resnum)
+  mort <- propagate_crnum(mort, spnum, resnum)
+  ressupply <- propagate_crnum(ressupply, spnum, resnum)
+  for (i in seq_along(events)) {
+    events[[i]] <- propagate_crnum(events[[i]], spnum, resnum)
+  }
+  cinit <- propagate_crnum(cinit, spnum, resnum)
+  rinit <- propagate_crnum(rinit, spnum, resnum)
+
   pars <- list(
     spnum = spnum,
     resnum = resnum,
