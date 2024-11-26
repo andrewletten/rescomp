@@ -47,6 +47,25 @@ rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
   return(coefs)
 }
 
+#' Shorthand to create a matrix with `spnum` rows and `resnum` columns
+#'
+#' This produces an object that, when passed through `rescomp` functions such as `funcresp_type1()`, and ultimately provided to `spec_rescomp()`, inherits `spnum` and `resnum` from the arguments to `spec_rescomp()`.
+#' Thus, it is shorthand for `matrix(c(...), nrow = spnum, ncol = resnum, byrow = TRUE)`.
+#'
+#' @param ... One or more numeric vectors that, concatenated by `c()`, produce a vector of length `spnum * resnum`.
+#' @param byrow A logical vector of length 1, equivalent to `byrow` of `matrix()`.
+#'
+#' @returns S3 object of class `rescomp_crmatrix`.
+#' @export
+#'
+#' @examples
+#' # TODO
+crmatrix <- function(..., byrow = TRUE) {
+  coefs <- list(raw = c(...), byrow = byrow)
+  class(coefs) <- c("rescomp_crmatrix", "rescomp_coefs_matrix", "rescomp_coefs")
+  return(coefs)
+}
+
 #' Create a set of coefficients by linear interpolation
 #'
 #' Produces an object that may be used in place of a vector or matrix in the creation of arguments to `spec_rescomp()`.
@@ -202,6 +221,12 @@ get_coefs.rescomp_coefs_custom <- function(coefs_obj, params) {
   coefs <- coefs_obj$func(params)
   check_coefs(coefs, get_coefs_dim(coefs_obj), glue::glue("`func` of `{class(coefs_obj)[[1]]}`"))
   return(coefs)
+}
+
+#' @export
+get_coefs.rescomp_crmatrix <- function(coefs_obj, params) {
+  # TODO: Error checking in case propagate_crnum() has not been called yet.
+  return(coefs_obj$matrix)
 }
 
 #' @export
@@ -411,6 +436,13 @@ check_coefs_coordinate <- function(obj1, obj2, check_dims = NULL, arg1 = rlang::
   }
 
   return(invisible(NULL))
+}
+
+propagate_crnum.rescomp_crmatrix <- function(obj, spnum, resnum) {
+  obj$dim <- c(spnum, resnum)
+  obj$matrix <- matrix(obj$raw, nrow = spnum, ncol = resnum, byrow = obj$byrow)
+  # TODO: Error checking.
+  return(obj)
 }
 
 propagate_crnum.rescomp_coefs_lerp <- function(obj, spnum, resnum) {
