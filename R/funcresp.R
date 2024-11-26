@@ -15,14 +15,14 @@
 #'
 #' @examples
 #' # Type 1 functional response with fixed growth rates
-#' spec_funcresp_custom(
+#' funcresp_custom(
 #'   function(resources, params) {
 #'     growth_rates <- c(0.2, 0.3)
 #'     outer(growth_rates, resources)
 #'   },
 #'   spnum = 2
 #' )
-spec_funcresp_custom <- function(func, spnum = NULL, resnum = NULL) {
+funcresp_custom <- function(func, spnum = NULL, resnum = NULL) {
   funcresp <- list(func = func, spnum = spnum, resnum = resnum)
   class(funcresp) <- c("rescomp_funcresp_custom", "rescomp_funcresp")
   return(funcresp)
@@ -40,12 +40,12 @@ spec_funcresp_custom <- function(func, spnum = NULL, resnum = NULL) {
 #' @export
 #'
 #' @examples
-#' funcresp1 <- spec_funcresp_type1(
+#' funcresp1 <- funcresp_type1(
 #'   matrix(c(0.2, 0.4, 0.3, 0.2), nrow = 2)
 #' )
 #' get_funcresp(funcresp1, 2, c(10, 20), list())
 #'
-#' funcresp2 <- spec_funcresp_type1(
+#' funcresp2 <- funcresp_type1(
 #'   rescomp_coefs_lerp(
 #'     matrix(c(0.2, 0.4, 0.3, 0.2), nrow = 2),
 #'     matrix(c(0.2, 0.1, 0.3, 0.1), nrow = 2),
@@ -53,7 +53,7 @@ spec_funcresp_custom <- function(func, spnum = NULL, resnum = NULL) {
 #'   )
 #' )
 #' get_funcresp(funcresp2, 2, c(10, 20), list(antibiotic_concentration = 0.5))
-spec_funcresp_type1 <- function(a) {
+funcresp_type1 <- function(a) {
   check_coefs_matrix(a)
   nrow <- get_coefs_nrow(a)
   ncol <- get_coefs_ncol(a)
@@ -80,7 +80,7 @@ spec_funcresp_type1 <- function(a) {
 #' @export
 #'
 #' @examples
-#' funcresp <- spec_funcresp_custom(
+#' funcresp <- funcresp_custom(
 #'   function(resources, params) {
 #'     growth_rates <- params$scale * c(0.2, 0.3)
 #'     outer(growth_rates, resources)

@@ -24,7 +24,7 @@ This function is normally only for internal use, but is exported to aid users in
 }
 \examples{
 # Two resources, A and B, with constant supply of A, and A spontaneously converting to B
-ressupply <- spec_ressupply_custom(
+ressupply <- ressupply_custom(
   function(resources, params) {
     conversion <- params$conversion * resources[1]
     return(c(params$supply - conversion, conversion))

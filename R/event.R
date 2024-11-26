@@ -15,7 +15,7 @@
 #'
 #' @examples
 #' # TODO
-spec_event_sp_custom <- function(func, spnum = NULL, resnum = NULL) {
+event_sp_custom <- function(func, spnum = NULL, resnum = NULL) {
   event <- list(func = func, spnum = spnum)
   class(event) <- c("rescomp_event_sp_custom", "rescomp_event")
   return(event)
@@ -38,7 +38,7 @@ spec_event_sp_custom <- function(func, spnum = NULL, resnum = NULL) {
 #'
 #' @examples
 #' # TODO
-spec_event_res_custom <- function(func, spnum = NULL, resnum = NULL) {
+event_res_custom <- function(func, spnum = NULL, resnum = NULL) {
   event <- list(func = func, resnum = resnum)
   class(event) <- c("rescomp_event_res_custom", "rescomp_event")
   return(event)
@@ -59,7 +59,7 @@ spec_event_res_custom <- function(func, spnum = NULL, resnum = NULL) {
 #'
 #' @examples
 #' # TODO
-spec_event_batch_transfer <- function(dilution, resources) {
+event_batch_transfer <- function(dilution, resources) {
   event <- list(dilution = dilution, resources = resources, resnum = length(resources))
   class(event) <- c("rescomp_event_batch_transfer", "rescomp_event")
   return(event)

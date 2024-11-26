@@ -29,11 +29,11 @@
 #' # TODO
 spec_rescomp <- function(spnum = 1,
                          resnum = 1,
-                         funcresp = spec_funcresp_type1(matrix(0.1, nrow = spnum, ncol = resnum)),
+                         funcresp = funcresp_type1(matrix(0.1, nrow = spnum, ncol = resnum)),
                          quota = matrix(0.001, nrow = spnum, ncol = resnum),
                          essential = FALSE,
                          mort = 0.03,
-                         ressupply = spec_ressupply_chemostat(0.03, 1),
+                         ressupply = ressupply_chemostat(0.03, 1),
                          params = rescomp_param_list(),
                          events = list(),
                          totaltime = 1000,

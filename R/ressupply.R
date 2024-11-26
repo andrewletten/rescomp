@@ -14,7 +14,7 @@
 #'
 #' @examples
 #' # Two resources, A and B, with constant supply of A, and A spontaneously converting to B
-#' ressupply <- spec_ressupply_custom(
+#' ressupply <- ressupply_custom(
 #'   function(resources, params) {
 #'     conversion <- params$conversion * resources[1]
 #'     return(c(params$supply - conversion, conversion))
@@ -22,7 +22,7 @@
 #'   resnum = 2
 #' )
 #' get_ressupply(ressupply, c(10, 20), list(supply = 3, conversion = 0.2))
-spec_ressupply_custom <- function(func, resnum = NULL) {
+ressupply_custom <- function(func, resnum = NULL) {
   ressupply <- list(func = func, resnum = resnum)
   class(ressupply) <- c("rescomp_ressupply_custom", "rescomp_ressupply")
   return(ressupply)
@@ -38,14 +38,14 @@ spec_ressupply_custom <- function(func, resnum = NULL) {
 #' @export
 #'
 #' @examples
-#' ressupply <- spec_ressupply_constant(c(0.2, 0.3))
+#' ressupply <- ressupply_constant(c(0.2, 0.3))
 #' get_ressupply(ressupply, c(2, 10), list())
 #' get_ressupply(ressupply, c(5, 20), list()) # The same as above; constant supply doesn't depend on existing concentration.
 #'
-#' ressupply <- spec_ressupply_constant(rescomp_coefs_lerp(c(0.2, 0.3), c(0.4, 0.6), "extra_supply"))
+#' ressupply <- ressupply_constant(rescomp_coefs_lerp(c(0.2, 0.3), c(0.4, 0.6), "extra_supply"))
 #' get_ressupply(ressupply, c(2, 10), list(extra_supply = 0.2))
 #' get_ressupply(ressupply, c(2, 10), list(extra_supply = 0.8))
-spec_ressupply_constant <- function(rate) {
+ressupply_constant <- function(rate) {
   check_coefs_vector(rate)
   ressupply <- list(rate = rate, resnum = get_coefs_length(rate))
   class(ressupply) <- c("rescomp_ressupply_constant", "rescomp_ressupply")
@@ -63,11 +63,11 @@ spec_ressupply_constant <- function(rate) {
 #' @export
 #'
 #' @examples
-#' ressupply <- spec_ressupply_logistic(r = rescomp_coefs_lerp(c(0.2, 0.3), c(0, 0), "growth_inhibition"), k = c(10, 20))
+#' ressupply <- ressupply_logistic(r = rescomp_coefs_lerp(c(0.2, 0.3), c(0, 0), "growth_inhibition"), k = c(10, 20))
 #' get_ressupply(ressupply, c(2, 10), list(growth_inhibition = 0))
 #' get_ressupply(ressupply, c(20, 0), list(growth_inhibition = 0))
 #' get_ressupply(ressupply, c(2, 10), list(growth_inhibition = 0.8))
-spec_ressupply_logistic <- function(r, k) {
+ressupply_logistic <- function(r, k) {
   check_coefs_vector(r)
   check_coefs_vector(k)
   check_coefs_coordinate(r, k)
@@ -87,10 +87,10 @@ spec_ressupply_logistic <- function(r, k) {
 #' @export
 #'
 #' @examples
-#' ressupply <- spec_ressupply_chemostat(dilution = 0.01, concentration = rescomp_coefs_lerp(c(0, 0, 0), c(2, 3, 4), "ressupply_scaling"))
+#' ressupply <- ressupply_chemostat(dilution = 0.01, concentration = rescomp_coefs_lerp(c(0, 0, 0), c(2, 3, 4), "ressupply_scaling"))
 #' get_ressupply(ressupply, c(2, 4, 10), list(ressupply_scaling = 0))
 #' get_ressupply(ressupply, c(3, 3, 3), list(ressupply_scaling = 1))
-spec_ressupply_chemostat <- function(dilution, concentration) {
+ressupply_chemostat <- function(dilution, concentration) {
   check_coefs_vector(dilution, length = 1)
   check_coefs_vector(concentration)
   ressupply <- list(dilution = dilution, concentration = concentration, resnum = get_coefs_length(concentration))
@@ -113,7 +113,7 @@ spec_ressupply_chemostat <- function(dilution, concentration) {
 #'
 #' @examples
 #' # Two resources, A and B, with constant supply of A, and A spontaneously converting to B
-#' ressupply <- spec_ressupply_custom(
+#' ressupply <- ressupply_custom(
 #'   function(resources, params) {
 #'     conversion <- params$conversion * resources[1]
 #'     return(c(params$supply - conversion, conversion))

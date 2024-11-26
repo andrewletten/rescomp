@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' # TODO
-spec_event_schedule_fixed <- function(event_obj, times, priority = 0) {
+event_schedule_fixed <- function(event_obj, times, priority = 0) {
   schedule <- list(event_obj = event_obj, times = times, priority = priority)
   class(schedule) <- c("rescomp_event_schedule_fixed", "rescomp_event_schedule")
   return(schedule)
@@ -31,7 +31,7 @@ spec_event_schedule_fixed <- function(event_obj, times, priority = 0) {
 #'
 #' @examples
 #' # TODO
-spec_event_schedule_periodic <- function(event_obj, period, start_time = period, priority = 0) {
+event_schedule_periodic <- function(event_obj, period, start_time = period, priority = 0) {
   schedule <- list(event_obj = event_obj, period = period, start_time = start_time, priority = priority)
   class(schedule) <- c("rescomp_event_schedule_periodic", "rescomp_event_schedule")
   return(schedule)

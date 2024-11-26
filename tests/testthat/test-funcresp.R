@@ -1,5 +1,5 @@
-test_that("spec_funcresp_custom() works", {
-  t1 <- spec_funcresp_custom(function(resources, params) { # A type 1 functional response implemented manually.
+test_that("funcresp_custom() works", {
+  t1 <- funcresp_custom(function(resources, params) { # A type 1 functional response implemented manually.
     params$attack_rate * matrix(rep(resources, each = 2), nrow = 2)
   }, spnum = 2, resnum = 2)
 

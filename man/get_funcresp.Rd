@@ -26,7 +26,7 @@ These must be combined, according to whether the resouces are essential or subst
 This function is normally only for internal use, but is exported to aid users in debugging their created \code{rescomp_funcresp} objects.
 }
 \examples{
-funcresp <- spec_funcresp_custom(
+funcresp <- funcresp_custom(
   function(resources, params) {
     growth_rates <- params$scale * c(0.2, 0.3)
     outer(growth_rates, resources)
