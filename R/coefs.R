@@ -61,7 +61,7 @@ rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
 #' @examples
 #' # TODO
 crmatrix <- function(..., byrow = TRUE) {
-  coefs <- list(raw = c(...), byrow = byrow)
+  coefs <- list(matrix = matrix(nrow = 0, ncol = 0), dim = c(NA, NA), raw = c(...), byrow = byrow)
   class(coefs) <- c("rescomp_crmatrix", "rescomp_coefs_matrix", "rescomp_coefs")
   return(coefs)
 }
@@ -428,7 +428,10 @@ check_coefs_coordinate <- function(obj1, obj2, check_dims = NULL, arg1 = rlang::
     ))
   }
 
-  if (!identical(dims1[check_dims], dims2[check_dims])) {
+  # Ignore NA dims, for the purposes of crmatrix.
+  check_dims <- check_dims[!is.na(dims1[check_dims]) & !is.na(dims2[check_dims])]
+
+  if (length(check_dims) > 0 && !identical(dims1[check_dims], dims2[check_dims])) {
     # TODO: In the event that check_dims != NULL, this error message ought to be far more explicit about which dimensions are being checked, in a user-friendly way.
     cli::cli_abort(c(
       "Dimensions of {.arg {arg1}} and {.arg {arg2}} must match."
