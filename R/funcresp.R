@@ -55,11 +55,7 @@ funcresp_custom <- function(func, spnum = NULL, resnum = NULL) {
 #' get_funcresp(funcresp2, 2, c(10, 20), list(antibiotic_concentration = 0.5))
 funcresp_type1 <- function(a) {
   check_coefs_matrix(a)
-  nrow <- get_coefs_nrow(a)
-  ncol <- get_coefs_ncol(a)
-  funcresp <- list(func = function(resources, params) {
-    return(get_coefs(a, params) * matrix(resources, nrow = nrow, ncol = ncol, byrow = TRUE)) # TODO: Check for cache-thrashing.
-  }, spnum = nrow, resnum = ncol)
+  funcresp <- list(a = a)
   class(funcresp) <- c("rescomp_funcresp_type1", "rescomp_funcresp")
   return(funcresp)
 }
@@ -102,7 +98,6 @@ get_funcresp.rescomp_funcresp_custom <- function(funcresp_obj, spnum, resources,
 }
 
 #' @export
-get_funcresp.rescomp_funcresp <- function(funcresp_obj, spnum, resources, params) {
-  mat <- funcresp_obj$func(resources, params)
-  return(mat)
+get_funcresp.rescomp_funcresp_type1 <- function(funcresp_obj, spnum, resources, params) {
+  return(get_coefs(funcresp_obj$a, params) * matrix(resources, nrow = spnum, ncol = length(resources), byrow = TRUE)) # TODO: Check for cache-thrashing.
 }
