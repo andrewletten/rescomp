@@ -107,3 +107,17 @@ apply_event.rescomp_event_batch_transfer <- function(event_obj, species, resourc
   resources <- resources * dilution + incoming_resources * (1 - dilution)
   return(c(species, resources))
 }
+
+propagate_crnum.rescomp_event_sp_custom <- function(obj, spnum, resnum) {
+  if (is.null(obj$spnum)) {
+    obj$spnum <- spnum
+  }
+  return(obj)
+}
+
+propagate_crnum.rescomp_event_res_custom <- function(obj, spnum, resnum) {
+  if (is.null(obj$resnum)) {
+    obj$resnum <- resnum
+  }
+  return(obj)
+}

@@ -151,3 +151,10 @@ get_ressupply.rescomp_ressupply_chemostat <- function(ressupply_obj, resources, 
   concentration <- get_coefs_vector(ressupply_obj$concentration, params)
   return(dilution * (concentration - resources))
 }
+
+propagate_crnum.rescomp_ressupply_custom <- function(obj, spnum, resnum) {
+  if (is.null(obj$resnum)) {
+    obj$resnum <- resnum
+  }
+  return(obj)
+}

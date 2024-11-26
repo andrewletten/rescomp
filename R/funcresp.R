@@ -101,3 +101,13 @@ get_funcresp.rescomp_funcresp_custom <- function(funcresp_obj, spnum, resources,
 get_funcresp.rescomp_funcresp_type1 <- function(funcresp_obj, spnum, resources, params) {
   return(get_coefs(funcresp_obj$a, params) * matrix(resources, nrow = spnum, ncol = length(resources), byrow = TRUE)) # TODO: Check for cache-thrashing.
 }
+
+propagate_crnum.rescomp_funcresp_custom <- function(obj, spnum, resnum) {
+  if (is.null(obj$spnum)) {
+    obj$spnum <- spnum
+  }
+  if (is.null(obj$resnum)) {
+    obj$resnum <- resnum
+  }
+  return(obj)
+}
