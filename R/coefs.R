@@ -412,3 +412,10 @@ check_coefs_coordinate <- function(obj1, obj2, check_dims = NULL, arg1 = rlang::
 
   return(invisible(NULL))
 }
+
+propagate_crnum.rescomp_coefs_lerp <- function(obj, spnum, resnum) {
+  obj$coefs0 <- propagate_crnum(obj$coefs0, spnum, resnum)
+  obj$coefs1 <- propagate_crnum(obj$coefs1, spnum, resnum)
+  # TODO: Run check_coefs_coordinate after propagating.
+  return(obj)
+}

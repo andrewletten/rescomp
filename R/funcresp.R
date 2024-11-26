@@ -111,3 +111,8 @@ propagate_crnum.rescomp_funcresp_custom <- function(obj, spnum, resnum) {
   }
   return(obj)
 }
+
+propagate_crnum.rescomp_funcresp_type1 <- function(obj, spnum, resnum) {
+  obj$a <- propagate_crnum(obj$a, spnum, resnum)
+  return(obj)
+}

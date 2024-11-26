@@ -121,3 +121,8 @@ propagate_crnum.rescomp_event_res_custom <- function(obj, spnum, resnum) {
   }
   return(obj)
 }
+
+propagate_crnum.rescomp_event_batch_transfer <- function(obj, spnum, resnum) {
+  obj$resources <- propagate_crnum(obj$resources, spnum, resnum)
+  return(obj)
+}
