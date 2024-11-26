@@ -7,7 +7,7 @@
 event_batch_transfer(dilution, resources)
 }
 \arguments{
-\item{dilution}{A numeric vector of \code{rescomp_coefs_vector} of length 1 (whose value should be
+\item{dilution}{A numeric vector or \code{rescomp_coefs_vector} of length 1 (whose value should be
 between 0 and 1) representing the proportion of the original medium retained.}
 
 \item{resources}{A numeric vector or \code{rescomp_coefs_vector} of resource concentrations.}

@@ -50,7 +50,7 @@ event_res_custom <- function(func, spnum = NULL, resnum = NULL) {
 #' First, all existing species and resource concentrations are multiplied by `dilution`.
 #' Then, the resource concentrations listed in `resources`, mutlipled by 1 - `dilution`, are added.
 #'
-#' @param dilution A numeric vector of `rescomp_coefs_vector` of length 1 (whose value should be
+#' @param dilution A numeric vector or `rescomp_coefs_vector` of length 1 (whose value should be
 #'     between 0 and 1) representing the proportion of the original medium retained.
 #' @param resources A numeric vector or `rescomp_coefs_vector` of resource concentrations.
 #'
