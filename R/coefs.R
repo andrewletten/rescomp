@@ -95,10 +95,11 @@ rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
 rescomp_coefs_lerp <- function(coefs0, coefs1, param_name, param0 = 0, param1 = 1) {
   check_coefs_coordinate(coefs0, coefs1)
   coefs <- list(
-    func = function(params) {
-      param <- params[[param_name]] # TODO: Verify param exists.
-      return((get_coefs(coefs0, params) * (param1 - param) + get_coefs(coefs1, params) * (param - param0)) / (param1 - param0))
-    },
+    coefs0 = coefs0,
+    coefs1 = coefs1,
+    param_name = param_name,
+    param0 = param0,
+    param1 = param1,
     dim = get_coefs_dim(coefs0)
   )
   if (is_coefs_vector(coefs0)) {
@@ -204,8 +205,9 @@ get_coefs.rescomp_coefs_custom <- function(coefs_obj, params) {
 }
 
 #' @export
-get_coefs.rescomp_coefs <- function(coefs_obj, params) {
-  return(coefs_obj$func(params))
+get_coefs.rescomp_coefs_lerp <- function(coefs_obj, params) {
+  param <- params[[coefs_obj$param_name]] # TODO: Verify param exists.
+  return((get_coefs(coefs_obj$coefs0, params) * (coefs_obj$param1 - param) + get_coefs(coefs_obj$coefs1, params) * (param - coefs_obj$param0)) / (coefs_obj$param1 - coefs_obj$param0))
 }
 
 #' @export
