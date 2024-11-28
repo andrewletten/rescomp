@@ -23,10 +23,10 @@ def_cr_ode <- function(t, y, pars) {
   death_rates <- mort * N
   if (pars$essential) {
     total_growth_rates <- apply(growth_rates, 1, min)
-    consumption <- colSums(pars$quota * total_growth_rates)
+    consumption <- colSums(quota * total_growth_rates)
   } else {
     total_growth_rates <- rowSums(growth_rates)
-    consumption <- colSums(pars$quota * growth_rates)
+    consumption <- colSums(quota * growth_rates)
   }
 
   dN <- total_growth_rates - death_rates
