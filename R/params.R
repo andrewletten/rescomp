@@ -56,7 +56,7 @@ rescomp_param_custom <- function(func) {
 #'
 #' @param period The period of the sine wave.
 #' @param min The minimum value of the parameter; the mean minus the amplitude.
-#' @param min The maximum value of the parameter; the mean plus the amplitude.
+#' @param max The maximum value of the parameter; the mean plus the amplitude.
 #' @param offset The phase shift of the sine wave; the time at which its value is equal to the mean.
 #'
 #' @returns S3 object of class `rescomp_param`.

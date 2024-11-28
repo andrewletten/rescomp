@@ -9,7 +9,9 @@ rescomp_param_sine(period = 1, min = 0, max = 1, offset = 0)
 \arguments{
 \item{period}{The period of the sine wave.}
 
-\item{min}{The maximum value of the parameter; the mean plus the amplitude.}
+\item{min}{The minimum value of the parameter; the mean minus the amplitude.}
+
+\item{max}{The maximum value of the parameter; the mean plus the amplitude.}
 
 \item{offset}{The phase shift of the sine wave; the time at which its value is equal to the mean.}
 }
