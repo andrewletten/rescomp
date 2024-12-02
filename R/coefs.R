@@ -54,7 +54,7 @@ rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
 #' Inheritance only works when passed directly through `rescomp` functions; it will fail if used in the `func` provided to a function such as `funcresp_custom()`.
 #'
 #' @param ... One or more numeric vectors that, concatenated by `c()`, produce a vector of length `spnum * resnum`.
-#' @param byrow A logical vector of length 1, equivalent to `byrow` of `matrix()`.
+#' @param byrow A logical vector of length 1, equivalent to `byrow` of `matrix()`. Defaults to TRUE, unlike the `byrow` argument of `matrix()`.
 #'
 #' @returns S3 object of class `rescomp_crmatrix`.
 #' @export

@@ -9,7 +9,7 @@ crmatrix(..., byrow = TRUE)
 \arguments{
 \item{...}{One or more numeric vectors that, concatenated by \code{c()}, produce a vector of length \code{spnum * resnum}.}
 
-\item{byrow}{A logical vector of length 1, equivalent to \code{byrow} of \code{matrix()}.}
+\item{byrow}{A logical vector of length 1, equivalent to \code{byrow} of \code{matrix()}. Defaults to TRUE, unlike the \code{byrow} argument of \code{matrix()}.}
 }
 \value{
 S3 object of class \code{rescomp_crmatrix}.
