@@ -51,6 +51,7 @@ rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
 #'
 #' This produces an object that, when passed through `rescomp` functions such as `funcresp_type1()`, and ultimately provided to `spec_rescomp()`, inherits `spnum` and `resnum` from the arguments to `spec_rescomp()`.
 #' Thus, it is shorthand for `matrix(c(...), nrow = spnum, ncol = resnum, byrow = TRUE)`.
+#' Inheritance only works when passed directly through `rescomp` functions; it will fail if used in the `func` provided to a function such as `funcresp_custom()`.
 #'
 #' @param ... One or more numeric vectors that, concatenated by `c()`, produce a vector of length `spnum * resnum`.
 #' @param byrow A logical vector of length 1, equivalent to `byrow` of `matrix()`.

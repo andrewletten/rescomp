@@ -17,6 +17,7 @@ S3 object of class \code{rescomp_crmatrix}.
 \description{
 This produces an object that, when passed through \code{rescomp} functions such as \code{funcresp_type1()}, and ultimately provided to \code{spec_rescomp()}, inherits \code{spnum} and \code{resnum} from the arguments to \code{spec_rescomp()}.
 Thus, it is shorthand for \code{matrix(c(...), nrow = spnum, ncol = resnum, byrow = TRUE)}.
+Inheritance only works when passed directly through \code{rescomp} functions; it will fail if used in the \code{func} provided to a function such as \code{funcresp_custom()}.
 }
 \examples{
 # TODO
