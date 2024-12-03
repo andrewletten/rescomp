@@ -50,14 +50,15 @@ rescomp_param_custom <- function(func) {
   return(param)
 }
 
-#' Create a rescomp parameter using a sine wave
+#' Create a rescomp parameter using a sine/square/triangle wave
 #'
 #' Produces an object suitable to include in a `rescomp_param_list`.
+#' Triangle and square waves are phase-shifted to be similiar in shape to a sine wave with the same period and offset, such that the peaks and troughs occur in the same places.
 #'
-#' @param period The period of the sine wave.
+#' @param period The period of the wave.
 #' @param min The minimum value of the parameter; the mean minus the amplitude.
 #' @param max The maximum value of the parameter; the mean plus the amplitude.
-#' @param offset The phase shift of the sine wave; the time at which its value is equal to the mean.
+#' @param offset The phase shift of the wave. For a sine or triangle wave the time at which its value is equal to the mean. For a square wave, the time at which it increases to the maximum value.
 #'
 #' @returns S3 object of class `rescomp_param`.
 #' @export
@@ -67,6 +68,22 @@ rescomp_param_custom <- function(func) {
 rescomp_param_sine <- function(period = 1, min = 0, max = 1, offset = 0) {
   param <- list(period = period, mean = (min + max) / 2, amplitude = (max - min) / 2, offset = offset)
   class(param) <- c("rescomp_param_sine", "rescomp_param")
+  return(param)
+}
+
+#' @rdname rescomp_param_sine
+#' @export
+rescomp_param_triangle <- function(period = 1, min = 0, max = 1, offset = 0) {
+  param <- list(period = period, min = min, max = max, offset = offset)
+  class(param) <- c("rescomp_param_triangle", "rescomp_param")
+  return(param)
+}
+
+#' @rdname rescomp_param_sine
+#' @export
+rescomp_param_square <- function(period = 1, min = 0, max = 1, offset = 0) {
+  param <- list(period = period, min = min, max = max, offset = offset)
+  class(param) <- c("rescomp_param_square", "rescomp_param")
   return(param)
 }
 
@@ -114,5 +131,29 @@ get_params.rescomp_param_custom <- function(param_obj, t) {
 
 #' @export
 get_params.rescomp_param_sine <- function(param_obj, t) {
-  return(param_obj$mean + param_obj$amplitude * sin(2 * pi * (t - param_obj$offset) / param_obj$period))
+  t_scaled <- (t - param_obj$offset) / param_obj$period
+  return(param_obj$mean + param_obj$amplitude * sin(2 * pi * t_scaled))
+}
+
+#' @export
+get_params.rescomp_param_square <- function(param_obj, t) {
+  t_scaled <- (t - param_obj$offset) / param_obj$period
+  if (t_scaled %% 1 < 0.5) {
+    return(param_obj$max)
+  } else {
+    return(param_obj$min)
+  }
+}
+
+#' @export
+get_params.rescomp_param_triangle <- function(param_obj, t) {
+  t_scaled <- (t - param_obj$offset) / param_obj$period
+  t_scaled <- (t_scaled + 0.25) %% 1
+  if (t_scaled < 0.5) {
+    # Rising segment
+    return(param_obj$min + (param_obj$max - param_obj$min) * t_scaled * 2)
+  } else {
+    # Falling segment
+    return(param_obj$max - (param_obj$max - param_obj$min) * (t_scaled - 0.5) * 2)
+  }
 }

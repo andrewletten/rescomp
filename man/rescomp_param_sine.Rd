@@ -2,24 +2,31 @@
 % Please edit documentation in R/params.R
 \name{rescomp_param_sine}
 \alias{rescomp_param_sine}
-\title{Create a rescomp parameter using a sine wave}
+\alias{rescomp_param_triangle}
+\alias{rescomp_param_square}
+\title{Create a rescomp parameter using a sine/square/triangle wave}
 \usage{
 rescomp_param_sine(period = 1, min = 0, max = 1, offset = 0)
+
+rescomp_param_triangle(period = 1, min = 0, max = 1, offset = 0)
+
+rescomp_param_square(period = 1, min = 0, max = 1, offset = 0)
 }
 \arguments{
-\item{period}{The period of the sine wave.}
+\item{period}{The period of the wave.}
 
 \item{min}{The minimum value of the parameter; the mean minus the amplitude.}
 
 \item{max}{The maximum value of the parameter; the mean plus the amplitude.}
 
-\item{offset}{The phase shift of the sine wave; the time at which its value is equal to the mean.}
+\item{offset}{The phase shift of the wave. For a sine or triangle wave the time at which its value is equal to the mean. For a square wave, the time at which it increases to the maximum value.}
 }
 \value{
 S3 object of class \code{rescomp_param}.
 }
 \description{
 Produces an object suitable to include in a \code{rescomp_param_list}.
+Triangle and square waves are phase-shifted to be similiar in shape to a sine wave with the same period and offset, such that the peaks and troughs occur in the same places.
 }
 \examples{
 # TODO
