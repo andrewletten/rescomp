@@ -7,7 +7,7 @@
 rescomp_param_custom(func)
 }
 \arguments{
-\item{func}{A function that takes \code{t} (time) and returns a an object to use a parameter.}
+\item{func}{A function that takes \code{t} (time) and returns an object to use as a parameter.}
 }
 \value{
 S3 object of class \code{rescomp_param}.

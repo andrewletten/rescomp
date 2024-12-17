@@ -31,7 +31,7 @@ rescomp_param_list <- function(...) {
 #'
 #' Produces an object suitable to include in a `rescomp_param_list`.
 #'
-#' @param func A function that takes `t` (time) and returns a an object to use a parameter.
+#' @param func A function that takes `t` (time) and returns an object to use as a parameter.
 #'
 #' @returns S3 object of class `rescomp_param`.
 #' @export
