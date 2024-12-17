@@ -4,10 +4,13 @@
 \alias{rescomp_param_custom}
 \title{Create a rescomp parameter using an arbitrary function}
 \usage{
-rescomp_param_custom(func)
+rescomp_param_custom(func, display_values = NULL)
 }
 \arguments{
 \item{func}{A function that takes \code{t} (time) and returns a number to use as a parameter.}
+
+\item{display_values}{A numeric vector of values of the parameter to use in \code{plot_funcresp()}.
+If not specified here, must be specified in \code{plot_funcresp()}.}
 }
 \value{
 S3 object of class \code{rescomp_param}.

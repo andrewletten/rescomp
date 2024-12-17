@@ -32,6 +32,8 @@ rescomp_param_list <- function(...) {
 #' Produces an object suitable to include in a `rescomp_param_list`.
 #'
 #' @param func A function that takes `t` (time) and returns a number to use as a parameter.
+#' @param display_values A numeric vector of values of the parameter to use in `plot_funcresp()`.
+#'     If not specified here, must be specified in `plot_funcresp()`.
 #'
 #' @returns S3 object of class `rescomp_param`.
 #' @export
@@ -44,8 +46,8 @@ rescomp_param_list <- function(...) {
 #' get_params(antibiotic_conc, 0)
 #' get_params(antibiotic_conc, 0.5)
 #' get_params(antibiotic_conc, 1)
-rescomp_param_custom <- function(func) {
-  param <- list(func = func)
+rescomp_param_custom <- function(func, display_values = NULL) {
+  param <- list(func = func, display_values = display_values)
   class(param) <- c("rescomp_param_custom", "rescomp_param")
   return(param)
 }
@@ -59,6 +61,7 @@ rescomp_param_custom <- function(func) {
 #' @param min The minimum value of the parameter; the mean minus the amplitude.
 #' @param max The maximum value of the parameter; the mean plus the amplitude.
 #' @param offset The phase shift of the wave. For a sine or triangle wave the time at which its value is equal to the mean. For a square wave, the time at which it increases to the maximum value.
+#' @param display_values A numeric vector of values of the parameter to use in `plot_funcresp()`.
 #'
 #' @returns S3 object of class `rescomp_param`.
 #' @export
@@ -66,7 +69,7 @@ rescomp_param_custom <- function(func) {
 #' @examples
 #' # TODO
 rescomp_param_sine <- function(period = 1, min = 0, max = 1, offset = 0) {
-  param <- list(period = period, mean = (min + max) / 2, amplitude = (max - min) / 2, offset = offset)
+  param <- list(period = period, mean = (min + max) / 2, amplitude = (max - min) / 2, offset = offset, display_values = c(min, max))
   class(param) <- c("rescomp_param_sine", "rescomp_param")
   return(param)
 }
@@ -74,7 +77,7 @@ rescomp_param_sine <- function(period = 1, min = 0, max = 1, offset = 0) {
 #' @rdname rescomp_param_sine
 #' @export
 rescomp_param_triangle <- function(period = 1, min = 0, max = 1, offset = 0) {
-  param <- list(period = period, min = min, max = max, offset = offset)
+  param <- list(period = period, min = min, max = max, offset = offset, display_values = c(min, max))
   class(param) <- c("rescomp_param_triangle", "rescomp_param")
   return(param)
 }
@@ -82,7 +85,7 @@ rescomp_param_triangle <- function(period = 1, min = 0, max = 1, offset = 0) {
 #' @rdname rescomp_param_sine
 #' @export
 rescomp_param_square <- function(period = 1, min = 0, max = 1, offset = 0) {
-  param <- list(period = period, min = min, max = max, offset = offset)
+  param <- list(period = period, min = min, max = max, offset = offset, display_values = c(min, max))
   class(param) <- c("rescomp_param_square", "rescomp_param")
   return(param)
 }

@@ -20,6 +20,8 @@ rescomp_param_square(period = 1, min = 0, max = 1, offset = 0)
 \item{max}{The maximum value of the parameter; the mean plus the amplitude.}
 
 \item{offset}{The phase shift of the wave. For a sine or triangle wave the time at which its value is equal to the mean. For a square wave, the time at which it increases to the maximum value.}
+
+\item{display_values}{A numeric vector of values of the parameter to use in \code{plot_funcresp()}.}
 }
 \value{
 S3 object of class \code{rescomp_param}.
