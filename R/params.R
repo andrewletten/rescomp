@@ -160,3 +160,23 @@ get_params.rescomp_param_triangle <- function(param_obj, t) {
     return(param_obj$max - (param_obj$max - param_obj$min) * (t_scaled - 0.5) * 2)
   }
 }
+
+#' Get the display values for `plot_funcresp()` from a `rescomp_param` object
+#'
+#' `plot_funcresp()` should produce facet plots, such that the functional responses are shown with the parameter fixed at each of its display values.
+#'
+#' @param param_obj An object of class `rescomp_param`.
+#'
+#' @returns A numeric vector of values of the parameter to use for plotting.
+#' @noRd
+#'
+#' @examples
+#' # TODO
+get_display_values <- function(param_obj) {
+  UseMethod("get_display_values")
+}
+
+#' @export
+get_display_values.rescomp_param <- function(param_obj) {
+  return(param_obj$display_values)
+}
