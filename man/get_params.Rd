@@ -12,7 +12,7 @@ get_params(param_obj, t)
 \item{t}{The time at which to get the parameters.}
 }
 \value{
-The parameters; various objects depending on the type of \code{param_obj}.
+A numeric vector of length 1; the parameter value.
 }
 \description{
 This function is normally only for internal use, but is exported to aid users in debugging their created \code{rescomp_param} objects.

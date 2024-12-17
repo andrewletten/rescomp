@@ -31,7 +31,7 @@ rescomp_param_list <- function(...) {
 #'
 #' Produces an object suitable to include in a `rescomp_param_list`.
 #'
-#' @param func A function that takes `t` (time) and returns an object to use as a parameter.
+#' @param func A function that takes `t` (time) and returns a number to use as a parameter.
 #'
 #' @returns S3 object of class `rescomp_param`.
 #' @export
@@ -94,7 +94,7 @@ rescomp_param_square <- function(period = 1, min = 0, max = 1, offset = 0) {
 #' @param param_obj An object of class `rescomp_param`.
 #' @param t The time at which to get the parameters.
 #'
-#' @returns The parameters; various objects depending on the type of `param_obj`.
+#' @returns A numeric vector of length 1; the parameter value.
 #' @export
 #'
 #' @examples
