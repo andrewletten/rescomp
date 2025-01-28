@@ -31,7 +31,6 @@ process_display_values <- function(pars, display_values, call = rlang::caller_en
   param_display_values <- lapply(pars$params, get_display_values)
 
   if (!missing(display_values) && length(display_values) > 0) {
-    # TODO: Check all display_values names match pars$params names.
     if (length(names(display_values)) == 0 || any(names(display_values) == "")) {
       cli::cli_abort(c(
         "All elements of {.arg display_values} must be named."
