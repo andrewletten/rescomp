@@ -4,38 +4,52 @@
 \alias{plot_funcresp}
 \title{Plot functional responses}
 \usage{
-plot_funcresp(pars, maxx, madj = FALSE)
+plot_funcresp(pars, maxx = 1, display_values, madj = FALSE)
 }
 \arguments{
-\item{pars}{Parameter list from spec_rescomp()}
+\item{pars}{S3 object of class \code{rescomp} detailing model parameters and
+specifications.}
 
 \item{maxx}{Numeric vector of length 1.
 Resource value to calculate per-capita growth rates up to (xlim).}
 
-\item{madj}{Logical vector of length 1. Whether to standardize per capita
-growth rates by mortality.}
+\item{display_values}{Named list of vectors, with names matching names of pars$params.
+Each vector gives the values of the respective model parameters at which to plot the functional responses.
+Defaults are automatically inferred for most \code{rescomp_param} objects, but may be overwritten.
+\code{rescomp_param_custom} parameters must have their display values specified here if they were not defined at definition.}
+
+\item{madj}{Logical vector of length 1. Whether to standardise per capita growth rates by mortality.}
 }
 \value{
-ggplot object
+A ggplot object.
 }
 \description{
 Plot functional responses
+}
+\details{
+It is assumed that the \code{funcresp} of \code{pars} is constructed such that the growth rate of a species on a given resource depends only on the concentration of that resource, and not on other resources.
+This is the case for all built-in functional responses, but is not necessary the case if using \code{funcresp_custom()}.
+Plots are likely to be nonsensical or incorrect if this assumption is violated.
 }
 \examples{
 pars <- spec_rescomp()
 plot_funcresp(pars)
 
 pars <- spec_rescomp(
-    spnum = 2,
-    resnum = 2,
-    funcresp = "type2",
-    mumatrix = list(matrix(c(0.7,0.3,
-                             0.4,0.5),
-                           nrow = 2,
-                           ncol = 2,
-                           byrow = TRUE))
+  spnum = 2,
+  resnum = 2,
+  funcresp = "type2",
+  mumatrix = list(matrix(
+    c(
+      0.7, 0.3,
+      0.4, 0.5
+    ),
+    nrow = 2,
+    ncol = 2,
+    byrow = TRUE
+  ))
 )
 plot_funcresp(pars)
 plot_funcresp(pars, madj = TRUE)
-
+# TODO: An example with display_values.
 }

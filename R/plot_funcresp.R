@@ -1,104 +1,82 @@
 #' Plot functional responses
 #'
-#' @param pars Parameter list from spec_rescomp()
+#' @param pars S3 object of class `rescomp` detailing model parameters and
+#'     specifications.
 #' @param maxx Numeric vector of length 1.
 #'     Resource value to calculate per-capita growth rates up to (xlim).
-#' @param madj Logical vector of length 1. Whether to standardize per capita
-#'      growth rates by mortality.
+#' @param display_values Named list of vectors, with names matching names of pars$params.
+#'    Each vector gives the values of the respective model parameters at which to plot the functional responses.
+#'    Defaults are automatically inferred for most `rescomp_param` objects, but may be overwritten.
+#'    `rescomp_param_custom` parameters must have their display values specified here if they were not defined at definition.
+#' @param madj Logical vector of length 1. Whether to standardise per capita growth rates by mortality.
 #'
 #' @import ggplot2
 #'
-#' @return ggplot object
+#' @return A ggplot object.
 #' @export
+#' @importFrom rlang .data
+#'
+#' @details
+#' It is assumed that the `funcresp` of `pars` is constructed such that the growth rate of a species on a given resource depends only on the concentration of that resource, and not on other resources.
+#' This is the case for all built-in functional responses, but is not necessary the case if using `funcresp_custom()`.
+#' Plots are likely to be nonsensical or incorrect if this assumption is violated.
 #'
 #' @examples
 #' pars <- spec_rescomp()
 #' plot_funcresp(pars)
 #'
 #' pars <- spec_rescomp(
-#'     spnum = 2,
-#'     resnum = 2,
-#'     funcresp = "type2",
-#'     mumatrix = list(matrix(c(0.7,0.3,
-#'                              0.4,0.5),
-#'                            nrow = 2,
-#'                            ncol = 2,
-#'                            byrow = TRUE))
+#'   spnum = 2,
+#'   resnum = 2,
+#'   funcresp = "type2",
+#'   mumatrix = list(matrix(
+#'     c(
+#'       0.7, 0.3,
+#'       0.4, 0.5
+#'     ),
+#'     nrow = 2,
+#'     ncol = 2,
+#'     byrow = TRUE
+#'   ))
 #' )
 #' plot_funcresp(pars)
 #' plot_funcresp(pars, madj = TRUE)
-#'
-plot_funcresp <- function(pars, maxx, madj = FALSE){
-
+#' # TODO: An example with display_values.
+plot_funcresp <- function(pars, maxx = 1, display_values, madj = FALSE) {
   cbbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
   resSet1 <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33", "#A65628")
 
-  df <- df_funcresp(pars, maxx, madj)
-  df$sp <- factor(df$sp, levels = unique(df$sp))
-  mortdf <- data.frame(
+  df <- df_funcresp(pars, maxx, display_values, madj)
+  mortdf <- df_mort(pars, display_values)
 
-    paramstate = rep(
-      rep(unique(df$paramstate),
-          each = length(unique(df$sp))),
-      times = length(unique(df$resource))),
+  df$sp <- get_species_names(df$sp)
+  df$res <- get_resource_names(df$res)
+  mortdf$sp <- get_species_names(mortdf$sp)
 
-    sp = rep(
-      rep(unique(df$sp),
-          times = length(unique(df$paramstate))),
-      times = length(unique(df$resource))),
+  facet_vars <- names(df)[!names(df) %in% c("sp", "x", "y")]
 
-    resource = rep(
-      unique(df$resource),
-          each = length(unique(df$paramstate)) * length(unique(df$sp))),
-
-    mort = rep(
-      unlist(pars$all_d),
-      times = length(unique(df$resource)))
-    )
-
-  p <- ggplot2::ggplot(df, aes(y = .data$growth, x = .data$resource.levels)) +
-    geom_line(aes(col = .data$sp), linewidth = 1, alpha=0.8) +
+  p <- ggplot2::ggplot(df, aes(x = .data$x, y = .data$y)) +
+    geom_line(aes(col = .data$sp), linewidth = 1, alpha = 0.8) +
+    facet_wrap(facet_vars, labeller = label_both) +
     theme_bw() +
-    theme(legend.title = element_blank(),
-          strip.background = element_blank(),) +
+    theme(
+      legend.title = element_blank(),
+      strip.background = element_blank(),
+    ) +
     xlab("Resource concentration") +
-    ylab("Per capita growth rate") +
-    theme(axis.text = element_text(size = 8),
-          axis.title= element_text(size = 10)) +
+    ylab("Per capita growth rate") + # TODO: Adjust this for essential = TRUE/FALSE.
+    theme(
+      axis.text = element_text(size = 8),
+      axis.title = element_text(size = 10)
+    ) +
     coord_cartesian(expand = FALSE) +
-    scale_colour_manual(values=c(cbbPalette, resSet1))
+    scale_colour_manual(values = c(cbbPalette, resSet1))
 
-  if(length(unique(df$paramstate)) > 1 & length(unique(df$resource)) > 1){
-    p <- p + facet_grid(.data$paramstate ~ .data$resource)
-  } else if(length(unique(df$paramstate)) > 1 & length(unique(df$resource)) == 1){
-    p <- p + facet_grid(rows = vars(.data$paramstate))
-  } else if(length(unique(df$paramstate)) == 1 & length(unique(df$resource)) > 1){
-    p <- p + facet_grid(cols = vars(.data$resource))
-  } else{
-    p <- p
-  }
-
-  if(madj == TRUE){
-    p + geom_hline(yintercept = 0, col = "grey")
+  if (madj == TRUE) {
+    p <- p + geom_hline(yintercept = 0, col = "grey")
   } else {
-    if (length(pars$all_d) == 1){
-      if (length(unique(unlist(pars$all_d))) > 1){
-        p + geom_hline(data = mortdf, aes(yintercept = .data$mort,
-                                          col = .data$sp), linetype = "dashed")
-      } else {
-        p + geom_hline(data = mortdf, aes(yintercept = .data$mort),
-                       linetype = "dashed")
-      }
-    } else if (length(pars$all_d) > 1){
-      if (length(unique(unlist(pars$all_d[[1]]))) > 1 |
-          length(unique(unlist(pars$all_d[[2]]))) > 1){
-        p + geom_hline(data = mortdf, aes(yintercept = .data$mort,
-                                          col = .data$sp), linetype = "dashed")
-      } else {
-        p + geom_hline(data = mortdf, aes(yintercept = .data$mort),
-                       linetype = "dashed")
-      }
-    }
-
+    p <- p + geom_hline(data = mortdf, aes(yintercept = .data$mort, col = .data$sp), linetype = "dashed")
   }
+
+  return(p)
 }
