@@ -11,10 +11,10 @@
 #' @param madj Logical vector of length 1. Whether to standardise per capita growth rates by mortality.
 #'
 #' @import ggplot2
+#' @importFrom rlang .data
 #'
 #' @return A ggplot object.
 #' @export
-#' @importFrom rlang .data
 #'
 #' @details
 #' It is assumed that the `funcresp` of `pars` is constructed such that the growth rate of a species on a given resource depends only on the concentration of that resource, and not on other resources.
