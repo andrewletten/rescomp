@@ -26,8 +26,7 @@ get_resource_names <- function(indices) {
 #' @noRd
 #'
 #' @examples
-#' pars <- spec_rescomp()
-#' df_funcresp(pars)
+#' # TODO
 process_display_values <- function(pars, display_values, call = rlang::caller_env()) {
   param_display_values <- lapply(pars$params, get_display_values)
 
