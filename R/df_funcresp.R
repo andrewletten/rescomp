@@ -95,8 +95,9 @@ df_funcresp <- function(pars, maxx = 1, display_values, madj = FALSE, call = rla
 
   if (madj) {
     mortdf <- df_mort(pars, display_values)
-    mergedf <- merge(df, mortdf)
-    df$y <- df$y - mergedf$mort
+    df <- merge(df, mortdf)
+    df$y <- df$y - df$mort
+    df$mort <- NULL
   }
 
   return(df)
