@@ -60,6 +60,28 @@ funcresp_type1 <- function(a) {
   return(funcresp)
 }
 
+#' Define a Holling type 2 functional response
+#'
+#' Produces an object suitable to pass as the `funcresp` to `spec_rescomp()`.
+#' Creates a Holling type 2 functional response with attack rate `a` and handling time `h`.
+#' mu_ij(R_j) = (a_ij * R_j) / (1 + a_ij * h_ij * R_j)
+#'
+#' @param a A matrix or `rescomp_coefs_matrix`, with one row per species and one column per resource. The maximum attack rate (if using efficiency) or growth rate (if using quota) of each species on each resource, when the resource is rare.
+#' @param h A matrix or `rescomp_coefs_matrix`, with one row per species and one column per resource. The handling time of each species for each resource, which reduces attack/growth rate when the resource becomes abundant. With h = 0, this is equivalent to a type 1 function response.
+#'
+#' @returns S3 object of class `rescomp_funcresp`.
+#' @export
+#'
+#' @examples
+#' # TODO
+funcresp_type2 <- function(a, h) {
+  check_coefs_matrix(a)
+  check_coefs_matrix(h)
+  funcresp <- list(a = a, h = h)
+  class(funcresp) <- c("rescomp_funcresp_type2", "rescomp_funcresp")
+  return(funcresp)
+}
+
 #' Get growth rates from a `rescomp_funcresp` object
 #'
 #' Gets the growth rates of each species on each resource, given resource concentrations.
@@ -102,6 +124,13 @@ get_funcresp.rescomp_funcresp_type1 <- function(funcresp_obj, spnum, resources, 
   return(get_coefs(funcresp_obj$a, params) * matrix(resources, nrow = spnum, ncol = length(resources), byrow = TRUE)) # TODO: Check for cache-thrashing.
 }
 
+#' @export
+get_funcresp.rescomp_funcresp_type2 <- function(funcresp_obj, spnum, resources, params) {
+  aR <- get_coefs(funcresp_obj$a, params) * matrix(resources, nrow = spnum, ncol = length(resources), byrow = TRUE) # TODO: Check for cache-thrashing.
+  h <- get_coefs(funcresp_obj$h, params)
+  return(aR / (1 + aR * h))
+}
+
 propagate_crnum.rescomp_funcresp_custom <- function(obj, spnum, resnum) {
   if (is.null(obj$spnum)) {
     obj$spnum <- spnum
@@ -114,5 +143,11 @@ propagate_crnum.rescomp_funcresp_custom <- function(obj, spnum, resnum) {
 
 propagate_crnum.rescomp_funcresp_type1 <- function(obj, spnum, resnum) {
   obj$a <- propagate_crnum(obj$a, spnum, resnum)
+  return(obj)
+}
+
+propagate_crnum.rescomp_funcresp_type2 <- function(obj, spnum, resnum) {
+  obj$a <- propagate_crnum(obj$a, spnum, resnum)
+  obj$h <- propagate_crnum(obj$h, spnum, resnum)
   return(obj)
 }
