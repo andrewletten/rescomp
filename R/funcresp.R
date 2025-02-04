@@ -106,6 +106,29 @@ funcresp_type3 <- function(a, h, k) {
   return(funcresp)
 }
 
+#' Define a Monod functional response
+#'
+#' Produces an object suitable to pass as the `funcresp` to `spec_rescomp()`.
+#' Creates a Monod functional response with maximum growth rate `mumax` and half saturation constant `ks`.
+#' mu_ij(R_j) = mumax_ij * R_j / (ks_ij + R_j)
+#' This an alternative parameterisation of a type 2 functional response, typically used with quota rather than efficiency.
+#'
+#' @param mumax A matrix or `rescomp_coefs_matrix`, with one row per species and one column per resource. The maximum growth rate (if using quota) or maximum consumption rate (if using efficiency) of each species on each resource.
+#' @param ks A matrix or `rescomp_coefs_matrix`, with one row per species and one column per resource. The half saturation constant of each species for each resource; the resource concentration at which growth/consumption rate is half of mumax.
+#'
+#' @returns S3 object of class `rescomp_funcresp`.
+#' @export
+#'
+#' @examples
+#' # TODO
+funcresp_monod <- function(mumax, ks) {
+  check_coefs_matrix(mumax)
+  check_coefs_matrix(ks)
+  funcresp <- list(mumax = mumax, ks = ks)
+  class(funcresp) <- c("rescomp_funcresp_monod", "rescomp_funcresp")
+  return(funcresp)
+}
+
 #' Convert a resource vector into a matrix.
 #'
 #' Takes a resource vector and replicates it into a matrix with `spnum` identical rows.
@@ -177,6 +200,14 @@ get_funcresp.rescomp_funcresp_type3 <- function(funcresp_obj, spnum, resources, 
   return(aR / (1 + aR * h))
 }
 
+#' @export
+get_funcresp.rescomp_funcresp_monod <- function(funcresp_obj, spnum, resources, params) {
+  resources <- get_resources_matrix(spnum, resources)
+  mumax <- get_coefs(funcresp_obj$mumax, params)
+  ks <- get_coefs(funcresp_obj$ks, params)
+  return(mumax * resources / (resources + ks))
+}
+
 propagate_crnum.rescomp_funcresp_custom <- function(obj, spnum, resnum) {
   if (is.null(obj$spnum)) {
     obj$spnum <- spnum
@@ -202,5 +233,11 @@ propagate_crnum.rescomp_funcresp_type3 <- function(obj, spnum, resnum) {
   obj$a <- propagate_crnum(obj$a, spnum, resnum)
   obj$h <- propagate_crnum(obj$h, spnum, resnum)
   obj$k <- propagate_crnum(obj$k, spnum, resnum)
+  return(obj)
+}
+
+propagate_crnum.rescomp_funcresp_monod <- function(obj, spnum, resnum) {
+  obj$mumax <- propagate_crnum(obj$mumax, spnum, resnum)
+  obj$ks <- propagate_crnum(obj$ks, spnum, resnum)
   return(obj)
 }
