@@ -29,8 +29,8 @@
 #' # TODO
 spec_rescomp <- function(spnum = 1,
                          resnum = 1,
-                         funcresp = funcresp_type1(matrix(0.1, nrow = spnum, ncol = resnum)),
-                         quota = matrix(0.001, nrow = spnum, ncol = resnum),
+                         funcresp = funcresp_type1(crmatrix(0.1)),
+                         quota = crmatrix(0.001),
                          essential = FALSE,
                          mort = 0.03,
                          ressupply = ressupply_chemostat(0.03, 1),
