@@ -116,7 +116,11 @@ df_funcresp <- function(pars, maxx = 1, display_values, madj = FALSE, call = rla
 df_mort <- function(pars, display_values, call = rlang::caller_env()) {
   param_display_values <- process_display_values(pars, display_values)
 
-  df <- expand.grid(param_display_values)
+  if (length(param_display_values) > 0) {
+    df <- expand.grid(param_display_values)
+  } else {
+    df <- data.frame(matrix(ncol = 0, nrow = 1))
+  }
 
   morts <- data.frame(
     sp = rep(seq_len(pars$spnum), times = nrow(df)),
