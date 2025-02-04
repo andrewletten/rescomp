@@ -106,6 +106,20 @@ funcresp_type3 <- function(a, h, k) {
   return(funcresp)
 }
 
+#' Convert a resource vector into a matrix.
+#'
+#' Takes a resource vector and replicates it into a matrix with `spnum` identical rows.
+#'
+#' @param resources A vector of resource concentrations.
+#' @param spnum The number of species.
+#'
+#' @returns A matrix with `spnum` rows and a number of columns equal to `length(resource)`, where each row is a copy of `resources`.
+#' @noRd
+get_resources_matrix <- function(spnum, resources) {
+  # TODO: Check for cache-thrashing when using this in the multiplications in the functional responses.
+  return(matrix(resources, nrow = spnum, ncol = length(resources), byrow = TRUE))
+}
+
 #' Get growth rates from a `rescomp_funcresp` object
 #'
 #' Gets the growth rates of each species on each resource, given resource concentrations.
@@ -145,19 +159,20 @@ get_funcresp.rescomp_funcresp_custom <- function(funcresp_obj, spnum, resources,
 
 #' @export
 get_funcresp.rescomp_funcresp_type1 <- function(funcresp_obj, spnum, resources, params) {
-  return(get_coefs(funcresp_obj$a, params) * matrix(resources, nrow = spnum, ncol = length(resources), byrow = TRUE)) # TODO: Check for cache-thrashing.
+  aR <- get_coefs(funcresp_obj$a, params) * get_resources_matrix(spnum, resources)
+  return(aR)
 }
 
 #' @export
 get_funcresp.rescomp_funcresp_type2 <- function(funcresp_obj, spnum, resources, params) {
-  aR <- get_coefs(funcresp_obj$a, params) * matrix(resources, nrow = spnum, ncol = length(resources), byrow = TRUE) # TODO: Check for cache-thrashing.
+  aR <- get_coefs(funcresp_obj$a, params) * get_resources_matrix(spnum, resources)
   h <- get_coefs(funcresp_obj$h, params)
   return(aR / (1 + aR * h))
 }
 
 #' @export
 get_funcresp.rescomp_funcresp_type3 <- function(funcresp_obj, spnum, resources, params) {
-  aR <- get_coefs(funcresp_obj$a, params) * matrix(resources, nrow = spnum, ncol = length(resources), byrow = TRUE)^get_coefs(funcresp_obj$k, params) # TODO: Check for cache-thrashing.
+  aR <- get_coefs(funcresp_obj$a, params) * get_resources_matrix(spnum, resources)^get_coefs(funcresp_obj$k, params)
   h <- get_coefs(funcresp_obj$h, params)
   return(aR / (1 + aR * h))
 }
