@@ -129,6 +129,31 @@ funcresp_monod <- function(mumax, ks) {
   return(funcresp)
 }
 
+#' Define a Hill functional response
+#'
+#' Produces an object suitable to pass as the `funcresp` to `spec_rescomp()`.
+#' Creates a Hill functional response with maximum growth rate `mumax`, half saturation constant `ks`, and Hill coefficient n.
+#' mu_ij(R_j) = mumax_ij * (R_j)^n_ij / (ks_ij + (R_j)^n_ij)
+#' This an alternative parameterisation of a type 3 functional response, typically used with quota rather than efficiency.
+#'
+#' @param mumax A matrix or `rescomp_coefs_matrix`, with one row per species and one column per resource. The maximum growth rate (if using quota) or maximum consumption rate (if using efficiency) of each species on each resource.
+#' @param ks A matrix or `rescomp_coefs_matrix`, with one row per species and one column per resource. The half saturation constant of each species for each resource; the resource concentration at which growth/consumption rate is half of mumax.
+#' @param n A matrix or `rescomp_coefs_matrix`, with one row per species and one column per resource. The Hill coefficient for each species on each resource. With n = 1, this is equivalent to a Monod functional response.
+#'
+#' @returns S3 object of class `rescomp_funcresp`.
+#' @export
+#'
+#' @examples
+#' # TODO
+funcresp_hill <- function(mumax, ks, n) {
+  check_coefs_matrix(mumax)
+  check_coefs_matrix(ks)
+  check_coefs_matrix(n)
+  funcresp <- list(mumax = mumax, ks = ks, n = n)
+  class(funcresp) <- c("rescomp_funcresp_hill", "rescomp_funcresp")
+  return(funcresp)
+}
+
 #' Convert a resource vector into a matrix.
 #'
 #' Takes a resource vector and replicates it into a matrix with `spnum` identical rows.
@@ -208,6 +233,14 @@ get_funcresp.rescomp_funcresp_monod <- function(funcresp_obj, spnum, resources, 
   return(mumax * resources / (resources + ks))
 }
 
+#' @export
+get_funcresp.rescomp_funcresp_hill <- function(funcresp_obj, spnum, resources, params) {
+  resources <- get_resources_matrix(spnum, resources)^get_coefs(funcresp_obj$n, params)
+  mumax <- get_coefs(funcresp_obj$mumax, params)
+  ks <- get_coefs(funcresp_obj$ks, params)
+  return(mumax * resources / (resources + ks))
+}
+
 propagate_crnum.rescomp_funcresp_custom <- function(obj, spnum, resnum) {
   if (is.null(obj$spnum)) {
     obj$spnum <- spnum
@@ -239,5 +272,12 @@ propagate_crnum.rescomp_funcresp_type3 <- function(obj, spnum, resnum) {
 propagate_crnum.rescomp_funcresp_monod <- function(obj, spnum, resnum) {
   obj$mumax <- propagate_crnum(obj$mumax, spnum, resnum)
   obj$ks <- propagate_crnum(obj$ks, spnum, resnum)
+  return(obj)
+}
+
+propagate_crnum.rescomp_funcresp_hill <- function(obj, spnum, resnum) {
+  obj$mumax <- propagate_crnum(obj$mumax, spnum, resnum)
+  obj$ks <- propagate_crnum(obj$ks, spnum, resnum)
+  obj$n <- propagate_crnum(obj$n, spnum, resnum)
   return(obj)
 }
