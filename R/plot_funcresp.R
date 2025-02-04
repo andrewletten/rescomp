@@ -72,7 +72,7 @@ plot_funcresp <- function(pars, maxx = 1, display_values, madj = FALSE) {
       strip.background = element_blank(),
     ) +
     xlab("Resource concentration") +
-    ylab("Per capita growth rate") + # TODO: Adjust this for essential = TRUE/FALSE.
+    ylab(ifelse(is.null(pars$efficiency), "Per capita growth rate", "Attack rate")) +
     theme(
       axis.text = element_text(size = 8),
       axis.title = element_text(size = 10)

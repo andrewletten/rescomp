@@ -7,6 +7,11 @@
 #' @param quota Numeric matrix or `rescomp_coefs_matrix`, the elements of which
 #'     give the resource quotas. The number of rows and columns should be equal to
 #'     `spnum` and `resnum` respectively.
+#'     Mutually exclusive with `efficiency`.
+#' @param efficiency Numeric matrix or `rescomp_coefs_matrix`, the elements of which
+#'     give the efficiency of each consumer on each resource. The number of rows
+#'     and columns should be equal to `spnum` and `resnum` respectively.
+#'     Mutually exclusive with `quota`.
 #' @param essential Logical vector of length 1. If FALSE resources are substitutable.
 #' @param mort Numeric vector or `rescomp_coefs_vector` of length `spnum`,
 #'     specifying density independent mortality rates.
@@ -22,6 +27,12 @@
 #'     initial resource state values (concentrations).
 #' @param verbose If TRUE (default) prints model and simulation summary specs.
 #'
+#' @details
+#' Only one of `efficiency` and `quota` should be specified. Specifying both is an error.
+#' The default, if neither is specified, is to use `quota`.
+#' If using `quota`, the functional responses are taken to give per capita growth rates.
+#' If using `efficiency`, the functional responses are taken to give attack rates.
+#'
 #' @return S3 object of class `rescomp`.
 #' @export
 #'
@@ -31,6 +42,7 @@ spec_rescomp <- function(spnum = 1,
                          resnum = 1,
                          funcresp = funcresp_type1(crmatrix(0.1)),
                          quota = crmatrix(0.001),
+                         efficiency,
                          essential = FALSE,
                          mort = 0.03,
                          ressupply = ressupply_chemostat(0.03, 1),
@@ -41,7 +53,12 @@ spec_rescomp <- function(spnum = 1,
                          rinit = 1,
                          verbose = TRUE) {
   funcresp <- propagate_crnum(funcresp, spnum, resnum)
-  quota <- propagate_crnum(quota, spnum, resnum)
+  if (!missing(quota) || missing(efficiency)) {
+    quota <- propagate_crnum(quota, spnum, resnum)
+  }
+  if (!missing(efficiency)) {
+    efficiency <- propagate_crnum(efficiency, spnum, resnum)
+  }
   mort <- propagate_crnum(mort, spnum, resnum)
   ressupply <- propagate_crnum(ressupply, spnum, resnum)
   for (i in seq_along(events)) {
@@ -54,7 +71,6 @@ spec_rescomp <- function(spnum = 1,
     spnum = spnum,
     resnum = resnum,
     funcresp = funcresp,
-    quota = quota,
     essential = essential,
     mort = mort,
     ressupply = ressupply,
@@ -65,6 +81,16 @@ spec_rescomp <- function(spnum = 1,
     cinit = cinit,
     rinit = rinit
   )
+
+  if (!missing(quota) && !missing(efficiency)) {
+    cli::cli_abort(c(
+      "Must not specify both {.arg quota} and {.arg efficiency}."
+    ))
+  } else if (!missing(efficiency)) {
+    pars$efficiency <- efficiency
+  } else {
+    pars$quota <- quota
+  }
 
   class(pars) <- "rescomp"
   if (verbose == TRUE) {

@@ -16,10 +16,16 @@ def_cr_ode <- function(t, y, pars) {
 
   mu <- get_funcresp(pars$funcresp, pars$spnum, R, params)
   ressupply <- get_ressupply(pars$ressupply, R, params)
-  quota <- get_coefs_matrix(pars$quota, params)
+  if (is.null(pars$efficiency)) {
+    quota <- get_coefs_matrix(pars$quota, params)
+    efficiency <- 1
+  } else {
+    efficiency <- get_coefs_matrix(pars$efficiency, params)
+    quota <- 1 / efficiency
+  }
   mort <- get_coefs_vector(pars$mort, params)
 
-  growth_rates <- mu * N
+  growth_rates <- mu * N * efficiency
   death_rates <- mort * N
   if (pars$essential) {
     total_growth_rates <- apply(growth_rates, 1, min)

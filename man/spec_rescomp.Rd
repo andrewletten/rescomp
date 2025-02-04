@@ -10,6 +10,7 @@ spec_rescomp(
   resnum = 1,
   funcresp = funcresp_type1(crmatrix(0.1)),
   quota = crmatrix(0.001),
+  efficiency,
   essential = FALSE,
   mort = 0.03,
   ressupply = ressupply_chemostat(0.03, 1),
@@ -30,7 +31,13 @@ spec_rescomp(
 
 \item{quota}{Numeric matrix or \code{rescomp_coefs_matrix}, the elements of which
 give the resource quotas. The number of rows and columns should be equal to
-\code{spnum} and \code{resnum} respectively.}
+\code{spnum} and \code{resnum} respectively.
+Mutually exclusive with \code{efficiency}.}
+
+\item{efficiency}{Numeric matrix or \code{rescomp_coefs_matrix}, the elements of which
+give the efficiency of each consumer on each resource. The number of rows
+and columns should be equal to \code{spnum} and \code{resnum} respectively.
+Mutually exclusive with \code{quota}.}
 
 \item{essential}{Logical vector of length 1. If FALSE resources are substitutable.}
 
@@ -61,6 +68,12 @@ S3 object of class \code{rescomp}.
 \description{
 Generate list of parameters for a consumer-resource model to be
 passed to \code{sim_rescomp()}
+}
+\details{
+Only one of \code{efficiency} and \code{quota} should be specified. Specifying both is an error.
+The default, if neither is specified, is to use \code{quota}.
+If using \code{quota}, the functional responses are taken to give per capita growth rates.
+If using \code{efficiency}, the functional responses are taken to give attack rates.
 }
 \examples{
 # TODO
