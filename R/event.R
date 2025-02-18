@@ -48,7 +48,7 @@ event_res_custom <- function(func, resnum = NULL) {
 #'
 #' Produces an event object representing a batch transfer by dilution with new medium.
 #' First, all existing species and resource concentrations are multiplied by `dilution`.
-#' Then, the resource concentrations listed in `resources`, mutlipled by 1 - `dilution`, are added.
+#' Then, the resource concentrations listed in `resources`, multiplied by 1 - `dilution`, are added.
 #'
 #' @param dilution A numeric vector or `rescomp_coefs_vector` of length 1 (whose value should be
 #'     between 0 and 1) representing the proportion of the original medium retained.

@@ -18,7 +18,7 @@ S3 object of class \code{rescomp_event}.
 \description{
 Produces an event object representing a batch transfer by dilution with new medium.
 First, all existing species and resource concentrations are multiplied by \code{dilution}.
-Then, the resource concentrations listed in \code{resources}, mutlipled by 1 - \code{dilution}, are added.
+Then, the resource concentrations listed in \code{resources}, multiplied by 1 - \code{dilution}, are added.
 }
 \examples{
 # TODO
