@@ -286,7 +286,7 @@ is_coefs_matrix <- function(coefs_obj) {
 check_coefs_vector <- function(coefs_obj, length = NULL, arg = rlang::caller_arg(coefs_obj), call = rlang::caller_env()) {
   if (!is_coefs_vector(coefs_obj)) {
     cli::cli_abort(c(
-      "{.arg {arg}} must be a vector or `rescomp_coefs_vector`."
+      "{.arg {arg}} must be a {.cls vector} or {.cls rescomp_coefs_vector}."
     ), call = call)
   }
   if (!is.null(length) && get_coefs_length(coefs_obj) != length) {
@@ -303,7 +303,7 @@ check_coefs_vector <- function(coefs_obj, length = NULL, arg = rlang::caller_arg
 check_coefs_matrix <- function(coefs_obj, nrow = NULL, ncol = NULL, arg = rlang::caller_arg(coefs_obj), call = rlang::caller_env()) {
   if (!is_coefs_matrix(coefs_obj)) {
     cli::cli_abort(c(
-      "{.arg {arg}} must be a matrix or `rescomp_coefs_matrix`."
+      "{.arg {arg}} must be a {.cls matrix} or {.cls rescomp_coefs_matrix}."
     ), call = call)
   }
   if (!is.null(nrow) && get_coefs_nrow(coefs_obj) != nrow) {
@@ -352,8 +352,8 @@ check_coefs <- function(obj, dims, func_name, dims_desc = NULL, call = rlang::ca
     expected_type <- "matrix"
   } else {
     cli::cli_abort(c(
-      "`length(dims)` must be 1 (a vector) or 2 (a matrix).",
-      "x" = "`length(dims)` was {length(dims)}."
+      "{.code length(dims)} must be 1 (a vector) or 2 (a matrix).",
+      "x" = "{.code length(dims)} was {length(dims)}."
     ))
   }
 
@@ -373,7 +373,7 @@ check_coefs <- function(obj, dims, func_name, dims_desc = NULL, call = rlang::ca
     if (is.null(dims_desc)) {
       dims_desc <- ""
     } else {
-      dims_desc <- glue::glue(" (i.e. {paste('`', dims_desc, '`', sep = '', collapse = ' by ')})")
+      dims_desc <- glue::glue(" (i.e. {paste('{.arg ', dims_desc, '}', sep = '', collapse = ' by ')})") # TODO: Find some more elegant way to do this.
     }
     if (length(dims) == 1) {
       dims_noun <- "length"
@@ -383,9 +383,9 @@ check_coefs <- function(obj, dims, func_name, dims_desc = NULL, call = rlang::ca
       dims_verb <- "were"
     }
     cli::cli_abort(c(
-      "{func_name} must return a {expected_type} matching expected {dims_noun}.",
-      "x" = "It returned a {expected_type} with {dims_noun} {toString(get_coefs_dim(obj))}.",
-      "i" = "Expected {dims_noun} {dims_verb} {toString(dims)}{dims_desc}."
+      "{func_name} must return a {expected_type} matching expected {dims_noun}.", # TODO: Format func_name and expected_type correctly.
+      "x" = "It returned a {expected_type} with {dims_noun} {toString(get_coefs_dim(obj))}.", # TODO: Format expected_type correctly.
+      "i" = paste0("Expected {dims_noun} {dims_verb} {toString(dims)}", dims_desc, ".")
     ), call = call)
   }
 
