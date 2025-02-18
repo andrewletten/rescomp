@@ -65,11 +65,11 @@ event_batch_transfer <- function(dilution, resources) {
   return(event)
 }
 
-#' Define an event in which a constant amount of some resources is added to the system
+#' Define an event in which a constant amount of some resources is added to (or removed from) the system
 #'
-#' Produces an event object representing a pulse of added resource.
+#' Produces an event object representing a pulse of added/removed resources.
 #'
-#' @param resources A numeric vector or `rescomp_coefs_vector` of resource concentrations, by which the current resource concentrations are increased.
+#' @param resources A numeric vector or `rescomp_coefs_vector` of resource concentrations, by which the current resource concentrations are increased. Can be negative, to decrease resource concentrations, though care should be taken that this does not make their concentrations negative.
 #'
 #' @returns S3 object of class `rescomp_event`.
 #' @export

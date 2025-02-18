@@ -2,18 +2,18 @@
 % Please edit documentation in R/event.R
 \name{event_res_add}
 \alias{event_res_add}
-\title{Define an event in which a constant amount of some resources is added to the system}
+\title{Define an event in which a constant amount of some resources is added to (or removed from) the system}
 \usage{
 event_res_add(resources)
 }
 \arguments{
-\item{resources}{A numeric vector or \code{rescomp_coefs_vector} of resource concentrations, by which the current resource concentrations are increased.}
+\item{resources}{A numeric vector or \code{rescomp_coefs_vector} of resource concentrations, by which the current resource concentrations are increased. Can be negative, to decrease resource concentrations, though care should be taken that this does not make their concentrations negative.}
 }
 \value{
 S3 object of class \code{rescomp_event}.
 }
 \description{
-Produces an event object representing a pulse of added resource.
+Produces an event object representing a pulse of added/removed resources.
 }
 \examples{
 # TODO
