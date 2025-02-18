@@ -65,6 +65,24 @@ event_batch_transfer <- function(dilution, resources) {
   return(event)
 }
 
+#' Define an event in which a constant amount of some consumers is added to (or removed from) the system
+#'
+#' Produces an event object representing a pulse of added/removed consumers, e.g. a species introduction.
+#'
+#' @param species A numeric vector or `rescomp_coefs_vector` of species concentrations, by which the current species concentrations are increased. Can be negative, to decrease species concentrations.
+#' @param min_zero If this is TRUE, resulting species concentrations are clamped to a minimum of zero. If this is FALSE, negative values of `species` may reduce species concentrations below zero.
+#'
+#' @returns S3 object of class `rescomp_event`.
+#' @export
+#'
+#' @examples
+#' # TODO
+event_sp_add <- function(species, min_zero = TRUE) {
+  event <- list(species = species, min_zero = min_zero)
+  class(event) <- c("rescomp_event_sp_add", "rescomp_event")
+  return(event)
+}
+
 #' Define an event in which a constant amount of some resources is added to (or removed from) the system
 #'
 #' Produces an event object representing a pulse of added/removed resources.
@@ -127,6 +145,15 @@ apply_event.rescomp_event_batch_transfer <- function(event_obj, species, resourc
 }
 
 #' @export
+apply_event.rescomp_event_sp_add <- function(event_obj, species, resources, params) {
+  species <- species + get_coefs(event_obj$species)
+  if (event_obj$min_zero) {
+    species[which(species < 0)] <- 0
+  }
+  return(c(species, resources))
+}
+
+#' @export
 apply_event.rescomp_event_res_add <- function(event_obj, species, resources, params) {
   resources <- resources + get_coefs(event_obj$resources)
   if (event_obj$min_zero) {
@@ -151,6 +178,11 @@ propagate_crnum.rescomp_event_res_custom <- function(obj, spnum, resnum) {
 
 propagate_crnum.rescomp_event_batch_transfer <- function(obj, spnum, resnum) {
   obj$resources <- propagate_crnum(obj$resources, spnum, resnum)
+  return(obj)
+}
+
+propagate_crnum.rescomp_event_sp_add <- function(obj, spnum, resnum) {
+  obj$species <- propagate_crnum(obj$species, spnum, resnum)
   return(obj)
 }
 
