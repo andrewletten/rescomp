@@ -101,6 +101,40 @@ event_res_add <- function(resources, min_zero = TRUE) {
   return(event)
 }
 
+#' Define an event in which the consumer populations are multiplied by some factor
+#'
+#' Produces an event object a pulse of multiplicatively increased/decreased consumer populations, e.g. a density-independent disturbance which kills consumer species.
+#'
+#' @param species_mult A numeric vector or `rescomp_coefs_vector` by which to multiply the current species concentrations. Should be greater than 1 for an increase, or less than 1 for a decrease. Should not be negative.
+#'
+#' @returns S3 object of class `rescomp_event`.
+#' @export
+#'
+#' @examples
+#' # TODO
+event_sp_mult <- function(species_mult) {
+  event <- list(species_mult = species_mult)
+  class(event) <- c("rescomp_event_sp_mult", "rescomp_event")
+  return(event)
+}
+
+#' Define an event in which the resource populations are multiplied by some factor
+#'
+#' Produces an event object a pulse of multiplicatively increased/decreased resource populations, e.g. a density-independent disturbance which kills prey species.
+#'
+#' @param resources_mult A numeric vector or `rescomp_coefs_vector` by which to multiply the current resource concentrations. Should be greater than 1 for an increase, or less than 1 for a decrease. Should not be negative.
+#'
+#' @returns S3 object of class `rescomp_event`.
+#' @export
+#'
+#' @examples
+#' # TODO
+event_res_mult <- function(resources_mult) {
+  event <- list(resources_mult = resources_mult)
+  class(event) <- c("rescomp_event_res_mult", "rescomp_event")
+  return(event)
+}
+
 #' Applies a `rescomp_event` object to modify state variables
 #'
 #' Applies the instantaneous changes specified by a `rescomp_event` object to the full set of state variables (species and resources).
@@ -162,6 +196,18 @@ apply_event.rescomp_event_res_add <- function(event_obj, species, resources, par
   return(c(species, resources))
 }
 
+#' @export
+apply_event.rescomp_event_sp_mult <- function(event_obj, species, resources, params) {
+  species <- species * get_coefs(event_obj$species_mult)
+  return(c(species, resources))
+}
+
+#' @export
+apply_event.rescomp_event_res_mult <- function(event_obj, species, resources, params) {
+  resources <- resources * get_coefs(event_obj$resources_mult)
+  return(c(species, resources))
+}
+
 propagate_crnum.rescomp_event_sp_custom <- function(obj, spnum, resnum) {
   if (is.null(obj$spnum)) {
     obj$spnum <- spnum
@@ -188,5 +234,15 @@ propagate_crnum.rescomp_event_sp_add <- function(obj, spnum, resnum) {
 
 propagate_crnum.rescomp_event_res_add <- function(obj, spnum, resnum) {
   obj$resources <- propagate_crnum(obj$resources, spnum, resnum)
+  return(obj)
+}
+
+propagate_crnum.rescomp_event_sp_mult <- function(obj, spnum, resnum) {
+  obj$species_mult <- propagate_crnum(obj$species, spnum, resnum)
+  return(obj)
+}
+
+propagate_crnum.rescomp_event_res_mult <- function(obj, spnum, resnum) {
+  obj$resources_mult <- propagate_crnum(obj$resources, spnum, resnum)
   return(obj)
 }
