@@ -60,7 +60,7 @@ event_res_custom <- function(func, resnum = NULL) {
 #' @examples
 #' # TODO
 event_batch_transfer <- function(dilution, resources) {
-  event <- list(dilution = dilution, resources = resources, resnum = length(resources))
+  event <- list(dilution = dilution, resources = resources)
   class(event) <- c("rescomp_event_batch_transfer", "rescomp_event")
   return(event)
 }
@@ -77,7 +77,7 @@ event_batch_transfer <- function(dilution, resources) {
 #' @examples
 #' # TODO
 event_res_pulse <- function(resources) {
-  event <- list(resources = resources, resnum = length(resources))
+  event <- list(resources = resources)
   class(event) <- c("rescomp_event_res_pulse", "rescomp_event")
   return(event)
 }
