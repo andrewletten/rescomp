@@ -4,10 +4,12 @@
 \alias{event_res_add}
 \title{Define an event in which a constant amount of some resources is added to (or removed from) the system}
 \usage{
-event_res_add(resources)
+event_res_add(resources, min_zero = TRUE)
 }
 \arguments{
-\item{resources}{A numeric vector or \code{rescomp_coefs_vector} of resource concentrations, by which the current resource concentrations are increased. Can be negative, to decrease resource concentrations, though care should be taken that this does not make their concentrations negative.}
+\item{resources}{A numeric vector or \code{rescomp_coefs_vector} of resource concentrations, by which the current resource concentrations are increased. Can be negative, to decrease resource concentrations.}
+
+\item{min_zero}{If this is TRUE, resulting resource concentrations are clamped to a minimum of zero. If this is FALSE, negative values of \code{resources} may reduce resource concentrations below zero.}
 }
 \value{
 S3 object of class \code{rescomp_event}.

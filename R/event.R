@@ -69,15 +69,16 @@ event_batch_transfer <- function(dilution, resources) {
 #'
 #' Produces an event object representing a pulse of added/removed resources.
 #'
-#' @param resources A numeric vector or `rescomp_coefs_vector` of resource concentrations, by which the current resource concentrations are increased. Can be negative, to decrease resource concentrations, though care should be taken that this does not make their concentrations negative.
+#' @param resources A numeric vector or `rescomp_coefs_vector` of resource concentrations, by which the current resource concentrations are increased. Can be negative, to decrease resource concentrations.
+#' @param min_zero If this is TRUE, resulting resource concentrations are clamped to a minimum of zero. If this is FALSE, negative values of `resources` may reduce resource concentrations below zero.
 #'
 #' @returns S3 object of class `rescomp_event`.
 #' @export
 #'
 #' @examples
 #' # TODO
-event_res_add <- function(resources) {
-  event <- list(resources = resources)
+event_res_add <- function(resources, min_zero = TRUE) {
+  event <- list(resources = resources, min_zero = min_zero)
   class(event) <- c("rescomp_event_res_add", "rescomp_event")
   return(event)
 }
@@ -128,6 +129,9 @@ apply_event.rescomp_event_batch_transfer <- function(event_obj, species, resourc
 #' @export
 apply_event.rescomp_event_res_add <- function(event_obj, species, resources, params) {
   resources <- resources + get_coefs(event_obj$resources)
+  if (event_obj$min_zero) {
+    resources[which(resources < 0)] <- 0
+  }
   return(c(species, resources))
 }
 
