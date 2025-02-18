@@ -67,7 +67,7 @@ event_batch_transfer <- function(dilution, resources) {
 
 #' Define an event in which a constant amount of some resources is added to the system
 #'
-#' Produces an event object representing a resource pulse.
+#' Produces an event object representing a pulse of added resource.
 #'
 #' @param resources A numeric vector or `rescomp_coefs_vector` of resource concentrations, by which the current resource concentrations are increased.
 #'
@@ -76,9 +76,9 @@ event_batch_transfer <- function(dilution, resources) {
 #'
 #' @examples
 #' # TODO
-event_res_pulse <- function(resources) {
+event_res_add <- function(resources) {
   event <- list(resources = resources)
-  class(event) <- c("rescomp_event_res_pulse", "rescomp_event")
+  class(event) <- c("rescomp_event_res_add", "rescomp_event")
   return(event)
 }
 
@@ -126,7 +126,7 @@ apply_event.rescomp_event_batch_transfer <- function(event_obj, species, resourc
 }
 
 #' @export
-apply_event.rescomp_event_res_pulse <- function(event_obj, species, resources, params) {
+apply_event.rescomp_event_res_add <- function(event_obj, species, resources, params) {
   resources <- resources + get_coefs(event_obj$resources)
   return(c(species, resources))
 }
@@ -150,7 +150,7 @@ propagate_crnum.rescomp_event_batch_transfer <- function(obj, spnum, resnum) {
   return(obj)
 }
 
-propagate_crnum.rescomp_event_res_pulse <- function(obj, spnum, resnum) {
+propagate_crnum.rescomp_event_res_add <- function(obj, spnum, resnum) {
   obj$resources <- propagate_crnum(obj$resources, spnum, resnum)
   return(obj)
 }
