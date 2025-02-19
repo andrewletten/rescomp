@@ -51,7 +51,7 @@ spec_rescomp <- function(spnum = 1,
                          totaltime = 1000,
                          cinit = 10,
                          rinit = 1,
-                         verbose = TRUE) {
+                         verbose = FALSE) {
   funcresp <- propagate_crnum(funcresp, spnum, resnum)
   if (!missing(quota) || missing(efficiency)) {
     quota <- propagate_crnum(quota, spnum, resnum)

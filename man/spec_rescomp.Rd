@@ -19,7 +19,7 @@ spec_rescomp(
   totaltime = 1000,
   cinit = 10,
   rinit = 1,
-  verbose = TRUE
+  verbose = FALSE
 )
 }
 \arguments{
