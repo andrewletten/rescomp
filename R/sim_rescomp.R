@@ -13,7 +13,7 @@
 #' pars <- spec_rescomp()
 #' sim_rescomp(pars = pars)
 sim_rescomp <- function(pars, ...) {
-  times <- time_vals(pars$totaltime)
+  times <- seq(0, pars$totaltime, by = 0.1) # TODO: Make step size customisable.
   y <- c(pars$cinit, pars$rinit)
 
   if (nrow(pars$event_schedule_df) > 0) {
@@ -29,7 +29,7 @@ sim_rescomp <- function(pars, ...) {
     func = def_cr_ode,
     y = y,
     parms = pars,
-    times = times$totaltime,
+    times = times,
     events = events,
     ...
   )

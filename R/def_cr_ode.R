@@ -41,45 +41,6 @@ def_cr_ode <- function(t, y, pars) {
   return(list(c(dN, dR)))
 }
 
-#' Timings of happenings
-#'
-#' @param total Total time.
-#' @param step Step size.
-#' @param doround Round time units (handles issues with numerical differences
-#'     that produce warning messages when pulsing resources and/or consumers).
-#' @param pulse Pulsing interval.
-#' @param introseq Sequence as vector for consumer introductions.
-#'     Vector length must equal spnum.
-#'
-# #' @return
-#' @export
-#'
-#' @examples
-#' time_vals(1000, pulse = 100)
-time_vals <- function(total = 1000,
-                      step = 0.1,
-                      doround = TRUE,
-                      pulse,
-                      introseq = NULL) {
-  time_vals <- list()
-  ifelse(doround,
-    time_vals$totaltime <- round(seq(0, total, by = step), 1),
-    time_vals$totaltime <- seq(0, total, by = step)
-  )
-
-  if (missing(pulse)) {
-    time_vals$pulseseq <- NULL
-  } else if (length(pulse) == 1) {
-    time_vals$pulseseq <- round(seq(pulse, total, by = pulse), 1)
-  } else {
-    time_vals$pulseseq <- round(pulse, 1)
-  }
-
-  time_vals$introseq <- introseq
-
-  return(time_vals)
-}
-
 #' The event function for `sim_rescomp()` to pass to `deSolve::ode()`
 #'
 #' @param t The current time of the simulation.
