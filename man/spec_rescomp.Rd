@@ -12,13 +12,13 @@ spec_rescomp(
   quota = crmatrix(0.001),
   efficiency,
   essential = FALSE,
-  mort = 0.03,
-  ressupply = ressupply_chemostat(0.03, 1),
+  mort = rep(0.03, spnum),
+  ressupply = ressupply_chemostat(0.03, rep(1, resnum)),
   params = rescomp_param_list(),
   events = list(),
   totaltime = 1000,
-  cinit = 10,
-  rinit = 1,
+  cinit = rep(10, spnum),
+  rinit = rep(1, resnum),
   verbose = FALSE
 )
 }
