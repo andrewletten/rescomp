@@ -198,7 +198,7 @@ m1 <- sim_rescomp(pars, y = c(30000, 1), times = time_vals(200))
 plot_rescomp(m1)
 ```
 
-## Type 2 consumer on a continuously suppplied resource
+## Type 2 consumer on a continuously supplied resource
 
 ```{r}
 pars <- spec_rescomp(
