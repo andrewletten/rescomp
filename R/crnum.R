@@ -16,3 +16,23 @@ propagate_crnum <- function(obj, spnum, resnum) {
 propagate_crnum.default <- function(obj, spnum, resnum) {
   return(obj)
 }
+
+#' @rdname propagate_crnum
+#' @noRd
+propagate_cnum <- function(obj, spnum) {
+  UseMethod("propagate_cnum")
+}
+
+propagate_cnum.default <- function(obj, spnum) {
+  return(obj)
+}
+
+#' @rdname propagate_crnum
+#' @noRd
+propagate_rnum <- function(obj, resnum) {
+  UseMethod("propagate_rnum")
+}
+
+propagate_rnum.default <- function(obj, resnum) {
+  return(obj)
+}
