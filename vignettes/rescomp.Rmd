@@ -210,8 +210,9 @@ pars <- spec_rescomp(
   spnum = 1,
   resnum = 1,
   funcresp = funcresp_monod(mumax = crmatrix(0.12), ks = crmatrix(1)),
-  ressupply = ressupply_chemostat(dilution = 0.03, concentration = 2),
   mort = 0.03,
+  ressupply = ressupply_chemostat(dilution = 0.03, concentration = 2),
+  rinit = 2,
   totaltime = 300
 )
 ```
