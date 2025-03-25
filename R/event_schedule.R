@@ -80,13 +80,13 @@ prepare_event_schedule_df <- function(event_schedule_list, totaltime) {
   if (length(event_schedule_list) == 0) {
     return(data.frame(time = c(), priority = c(), event_index = c()))
   }
-  dat <- plyr::ldply(seq_along(event_schedule_list), function(i) {
+  dat <- do.call(rbind, lapply(seq_along(event_schedule_list), function(i) {
     data.frame(
       time = get_event_times(event_schedule_list[[i]], totaltime),
       priority = event_schedule_list[[i]]$priority,
       event_index = i
     )
-  })
+  }))
   dat <- dat[order(dat$time, dat$priority), ]
   # TODO: Warn of colliding time & priority.
   return(dat)
