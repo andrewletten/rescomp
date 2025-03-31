@@ -2,6 +2,11 @@ Package: rescomp
 Title: Efficient Modelling of Resource Competition
 Version: 0.1.0
 Authors@R: 
+    person(given = c("Christopher", "R", "P"),
+           family = "Brown",
+           role = c("aut", "cre"),
+           email = "c.r.brown@uq.edu.au",
+           comment = c(ORCID = "0000-0002-0393-3477"))
     person(given = "Andrew",
            family = "Letten",
            role = c("aut", "cre"),
