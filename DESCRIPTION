@@ -9,7 +9,7 @@ Authors@R:
            comment = c(ORCID = "0000-0002-0393-3477"))
     person(given = "Andrew",
            family = "Letten",
-           role = c("aut", "cre"),
+           role = c("aut"),
            email = "a.letten@uq.edu.au",
            comment = c(ORCID = "0000-0001-6436-7942"))
 URL: https://github.com/andrewletten/rescomp, https://andrewletten.net/
