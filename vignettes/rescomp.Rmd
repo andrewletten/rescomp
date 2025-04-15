@@ -1,6 +1,6 @@
 ---
 title: "rescomp: An R package for efficient ODE modelling of resource competition"
-author: "Christopher R. P. Brown and Andrew D. Letten"
+author: "Christopher R. P. Brown, Jan Engelstaedter, and Andrew D. Letten"
 output:
     html_document: default
 #    rmarkdown::pdf_document: default
