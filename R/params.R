@@ -1,3 +1,5 @@
+# TODO: Remove rescomp_params_list, and just use a regular list.
+
 #' Create a list of named rescomp parameters
 #'
 #' Produces an object suitable to pass as the `params` to `spec_rescomp`.
