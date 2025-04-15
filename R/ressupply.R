@@ -160,17 +160,17 @@ propagate_crnum.rescomp_ressupply_custom <- function(obj, spnum, resnum) {
 }
 
 propagate_crnum.rescomp_ressupply_constant <- function(obj, spnum, resnum) {
-  obj$rate <- propagate_crnum(obj$rate, spnum, resnum)
+  obj$rate <- propagate_rnum(obj$rate, resnum)
   return(obj)
 }
 
 propagate_crnum.rescomp_ressupply_logistic <- function(obj, spnum, resnum) {
-  obj$r <- propagate_crnum(obj$r, spnum, resnum)
-  obj$k <- propagate_crnum(obj$k, spnum, resnum)
+  obj$r <- propagate_rnum(obj$r, resnum)
+  obj$k <- propagate_rnum(obj$k, resnum)
   return(obj)
 }
 
 propagate_crnum.rescomp_ressupply_chemostat <- function(obj, spnum, resnum) {
-  obj$concentration <- propagate_crnum(obj$concentration, spnum, resnum)
+  obj$concentration <- propagate_rnum(obj$concentration, resnum)
   return(obj)
 }

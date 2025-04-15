@@ -223,26 +223,26 @@ propagate_crnum.rescomp_event_res_custom <- function(obj, spnum, resnum) {
 }
 
 propagate_crnum.rescomp_event_batch_transfer <- function(obj, spnum, resnum) {
-  obj$resources <- propagate_crnum(obj$resources, spnum, resnum)
+  obj$resources <- propagate_rnum(obj$resources, resnum)
   return(obj)
 }
 
 propagate_crnum.rescomp_event_sp_add <- function(obj, spnum, resnum) {
-  obj$species <- propagate_crnum(obj$species, spnum, resnum)
+  obj$species <- propagate_cnum(obj$species, spnum)
   return(obj)
 }
 
 propagate_crnum.rescomp_event_res_add <- function(obj, spnum, resnum) {
-  obj$resources <- propagate_crnum(obj$resources, spnum, resnum)
+  obj$resources <- propagate_rnum(obj$resources, resnum)
   return(obj)
 }
 
 propagate_crnum.rescomp_event_sp_mult <- function(obj, spnum, resnum) {
-  obj$species_mult <- propagate_crnum(obj$species, spnum, resnum)
+  obj$species_mult <- propagate_cnum(obj$species, spnum)
   return(obj)
 }
 
 propagate_crnum.rescomp_event_res_mult <- function(obj, spnum, resnum) {
-  obj$resources_mult <- propagate_crnum(obj$resources, spnum, resnum)
+  obj$resources_mult <- propagate_rnum(obj$resources, resnum)
   return(obj)
 }
