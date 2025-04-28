@@ -60,7 +60,7 @@ m1 <- sim_rescomp(pars)
 Output dynamics can be visualised with `plot_rescomp()`.
 
 ```{r, fig.width = 6, fig.height = 3}
-plot_rescomp(m1) 
+plot_rescomp(m1)
 ```
 
 Note, the core *rescomp* functions are compatible with pipes. For example `spec_rescomp() |> sim_rescomp() |> plot_rescomp()` will output the plot above.
@@ -83,17 +83,17 @@ The following two examples demonstrate how to build and simulate a model for: i)
 
 ```{r}
 pars <- spec_rescomp(
-  spnum = 2, 
+  spnum = 2,
   resnum = 1,
   funcresp = "type2",
-  mumatrix = matrix(c(0.7,0.05), 
-                    nrow = 2, 
+  mumatrix = matrix(c(0.7,0.05),
+                    nrow = 2,
                     ncol = 1,
                     byrow = TRUE),
-  kmatrix = matrix(c(2, 0.015), 
-                   nrow = 2, 
-                   ncol = 1, 
-                   byrow = TRUE),  
+  kmatrix = matrix(c(2, 0.015),
+                   nrow = 2,
+                   ncol = 1,
+                   byrow = TRUE),
   chemo = FALSE,
   resspeed = 3,
   resconc = 0.2,
@@ -107,26 +107,26 @@ plot_funcresp(pars, maxx = 0.2)
 
 ```{r, fig.width = 6, fig.height = 3}
 m2 <- sim_rescomp(pars)
-plot_rescomp(m2) 
+plot_rescomp(m2)
 ```
 
 ### Example 2
 
 ```{r}
 pars <- spec_rescomp(
-  spnum = 2, 
+  spnum = 2,
   resnum = 2,
   funcresp = "type3",
   timepars = TRUE,
   timeparfreq = 40,
   mumatrix = list(matrix(c(0.4,0.1,
-                           0.05, 0.02), 
-                    nrow = 2, 
+                           0.05, 0.02),
+                    nrow = 2,
                     ncol = 2,
                     byrow = TRUE),
                   matrix(c(0.2, 0.1,
-                           0.5, 0.3), 
-                    nrow = 2, 
+                           0.5, 0.3),
+                    nrow = 2,
                     ncol = 2,
                     byrow = TRUE)),
   resspeed = 0,
@@ -146,6 +146,6 @@ m3 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 6, fig.height = 3}
-plot_rescomp(m3) 
+plot_rescomp(m3)
 ```
 
