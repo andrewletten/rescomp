@@ -6,12 +6,12 @@ Authors@R:
            family = "Brown",
            role = c("aut", "cre"),
            email = "c.r.brown@uq.edu.au",
-           comment = c(ORCID = "0000-0002-0393-3477"))
+           comment = c(ORCID = "0000-0002-0393-3477")),
     person(given = "Jan",
            family = "Engelstaedter",
            role = c("aut"),
            email = "j.engelstaedter@uq.edu.au",
-           comment = c(ORCID = "0000-0003-3340-918X"))
+           comment = c(ORCID = "0000-0003-3340-918X")),
     person(given = "Andrew",
            family = "Letten",
            role = c("aut"),
