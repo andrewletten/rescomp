@@ -2,7 +2,7 @@ Package: rescomp
 Title: Efficient Modelling of Resource Competition
 Version: 0.1.0
 Authors@R: 
-    person(given = c("Christopher", "R", "P"),
+    c(person(given = c("Christopher", "R", "P"),
            family = "Brown",
            role = c("aut", "cre"),
            email = "c.r.brown@uq.edu.au",
@@ -16,7 +16,7 @@ Authors@R:
            family = "Letten",
            role = c("aut"),
            email = "a.letten@uq.edu.au",
-           comment = c(ORCID = "0000-0001-6436-7942"))
+           comment = c(ORCID = "0000-0001-6436-7942")))
 URL: https://github.com/andrewletten/rescomp, https://andrewletten.net/
 Description: Generate, simulate and visualise ODE models of consumer-resource 
     interactions. At its core, rescomp provides a resource competition 
