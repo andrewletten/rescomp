@@ -137,13 +137,13 @@ pars <- spec_rescomp(
         0.4, 0.1,
         0.05, 0.02
       ),
-      "p"
+      "env_state"
     ),
     ks = crmatrix(1),
     n = crmatrix(2)
   ),
   params = rescomp_param_list(
-    p = rescomp_param_square(period = 80)
+    env_state = rescomp_param_square(period = 80)
   ),
   ressupply = ressupply_constant(0),
   events = list(
