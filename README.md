@@ -38,15 +38,6 @@ single continuously supplied resource (e.g., in a chemostat).
 
 ``` r
 pars <- spec_rescomp()
-#> Model properties 
-#>  * 1 consumer(s) and 1 resource(s)
-#>  * Consumers have type 1 functional responses
-#>  * Resource supply is continuous (e.g. chemostat)
-#>  * Mortality is continuous
-#> 
-#> Simulation properties 
-#>  * Simulation time: 1000 time steps
-#>  * Init state: consumer(s) = [10], resource(s) = [1]
 ```
 
 `plot_funcresp()` plots the functional response for easy visualistion
@@ -68,7 +59,7 @@ m1 <- sim_rescomp(pars)
 Output dynamics can be visualised with `plot_rescomp()`.
 
 ``` r
-plot_rescomp(m1) 
+plot_rescomp(m1)
 ```
 
 ![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
@@ -102,31 +93,19 @@ vignettes.
 
 ``` r
 pars <- spec_rescomp(
-  spnum = 2, 
+  spnum = 2,
   resnum = 1,
-  funcresp = "type2",
-  mumatrix = matrix(c(0.7,0.05), 
-                    nrow = 2, 
-                    ncol = 1,
-                    byrow = TRUE),
-  kmatrix = matrix(c(2, 0.015), 
-                   nrow = 2, 
-                   ncol = 1, 
-                   byrow = TRUE),  
-  chemo = FALSE,
-  resspeed = 3,
-  resconc = 0.2,
+  funcresp = funcresp_monod(
+    mumax = crmatrix(0.7, 0.05),
+    ks = crmatrix(2, 0.015)
+  ),
+  rinit = 0.2,
+  ressupply = ressupply_logistic(
+    r = 3,
+    k = 0.2
+  ),
   totaltime = 2000
 )
-#> Model properties 
-#>  * 2 consumer(s) and 1 resource(s)
-#>  * Consumers have type 2 functional responses
-#>  * Resources grow logistically
-#>  * Mortality is continuous
-#> 
-#> Simulation properties 
-#>  * Simulation time: 2000 time steps
-#>  * Init state: consumer(s) = [10, 10], resource(s) = [0.2]
 ```
 
 ``` r
@@ -137,7 +116,7 @@ plot_funcresp(pars, maxx = 0.2)
 
 ``` r
 m2 <- sim_rescomp(pars)
-plot_rescomp(m2) 
+plot_rescomp(m2)
 ```
 
 ![](man/figures/README-unnamed-chunk-9-1.png)<!-- -->
@@ -146,39 +125,35 @@ plot_rescomp(m2)
 
 ``` r
 pars <- spec_rescomp(
-  spnum = 2, 
+  spnum = 2,
   resnum = 2,
-  funcresp = "type3",
-  timepars = TRUE,
-  timeparfreq = 40,
-  mumatrix = list(matrix(c(0.4,0.1,
-                           0.05, 0.02), 
-                    nrow = 2, 
-                    ncol = 2,
-                    byrow = TRUE),
-                  matrix(c(0.2, 0.1,
-                           0.5, 0.3), 
-                    nrow = 2, 
-                    ncol = 2,
-                    byrow = TRUE)),
-  resspeed = 0,
-  rinit = c(1, 1),
-  respulse = 1,
-  pulsefreq = 40,
+  funcresp = funcresp_hill(
+    mumax = rescomp_coefs_lerp(
+      crmatrix(
+        0.4, 0.1,
+        0.05, 0.02
+      ),
+      crmatrix(
+        0.2, 0.1,
+        0.5, 0.3
+      ),
+      "p"
+    ),
+    ks = crmatrix(1),
+    n = crmatrix(2)
+  ),
+  params = rescomp_param_list(
+    p = rescomp_param_square(period = 80, offset = 40)
+  ),
+  ressupply = ressupply_constant(0),
+  events = list(
+    event_schedule_periodic(
+      event_res_add(1),
+      period = 40
+    )
+  ),
   totaltime = 1000
 )
-#> Model properties 
-#>  * 2 consumer(s) and 2 resource(s)
-#>  * Consumers have type 3 functional responses
-#>  * Resources are substitutable
-#>  * Resource supply is pulsed only
-#>  * Mortality is continuous
-#>  * Time dependent parameters with instantaneous switching every 40 timesteps
-#> 
-#> Simulation properties 
-#>  * Simulation time: 1000 time steps
-#>  * Resources pulsing every 40 timesteps
-#>  * Init state: consumer(s) = [10, 10], resource(s) = [1, 1]
 ```
 
 ``` r
@@ -192,7 +167,7 @@ m3 <- sim_rescomp(pars)
 ```
 
 ``` r
-plot_rescomp(m3) 
+plot_rescomp(m3)
 ```
 
 ![](man/figures/README-unnamed-chunk-13-1.png)<!-- -->
