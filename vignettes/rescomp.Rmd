@@ -107,7 +107,7 @@ $$
 
 where $d$ represents the flux of resources into and out of the system;
 
-And/or the resources can be pulsed intermittently (e.g., in serial transfer - see examples below).
+And/or the resources can be pulsed intermittently (e.g., in serial transfer—see examples below).
 
 In the case of multiple resources, each resource is either treated as essential to consumer growth following Leibig's law of the minimum, in which case,
 
