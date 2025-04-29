@@ -235,9 +235,10 @@ get_funcresp.rescomp_funcresp_monod <- function(funcresp_obj, spnum, resources, 
 
 #' @export
 get_funcresp.rescomp_funcresp_hill <- function(funcresp_obj, spnum, resources, params) {
-  resources <- get_resources_matrix(spnum, resources)^get_coefs(funcresp_obj$n, params)
+  n <- get_coefs(funcresp_obj$n, params)
+  resources <- get_resources_matrix(spnum, resources)^n
   mumax <- get_coefs(funcresp_obj$mumax, params)
-  ks <- get_coefs(funcresp_obj$ks, params)
+  ks <- get_coefs(funcresp_obj$ks, params)^n
   return(mumax * resources / (resources + ks))
 }
 
