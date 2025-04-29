@@ -112,7 +112,7 @@ And/or the resources can be pulsed intermittently (e.g., in serial transfer—se
 In the case of multiple resources, each resource is either treated as essential to consumer growth following Leibig's law of the minimum, in which case,
 
 $$
-\mu_{i}(R_{1}, R_{2},...,R_{n}) = min(\mu_{i}(R_{1}), \mu_{i}(R_{2}),..., \mu_{i}(R_{n})) \,;
+\mu_{i}(R_{1}, R_{2},...,R_{n}) = \min(\mu_{i}(R_{1}), \mu_{i}(R_{2}),..., \mu_{i}(R_{n})) \,;
 $$
 
 or substitutable such that:
