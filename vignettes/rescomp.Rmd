@@ -78,7 +78,7 @@ plot_funcresp(spec_rescomp(
 iii) nonlinear type III (sigmoidal),
 
 $$
-\mu_{ij}(R_{j}) = \mu _{max_{ij}}\frac{R_{j}^2}{k_{ij}^2 + R_{j}^2} \,.
+\mu_{ij}(R_{j}) = \mu _{max_{ij}}\frac{R_{j}^n}{k_{ij}^n + R_{j}^n} \, , \qquad n > 1 \,.
 $$
 ```{r echo=FALSE, fig.width = 4, fig.height = 3}
 plot_funcresp(spec_rescomp(
