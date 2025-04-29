@@ -91,7 +91,7 @@ An alternative parameterisation to all three functional responses is to incorpor
 
 ## Resource equations
 
-The resource supply function, $\Psi_{j}(R_j)$, can also take several forms. Specifically, either the resources are biological and grow logistically,
+The resource supply function, $\Psi_{j}(R_j)$, can also take several forms. For instance, the resources can be biological and grow logistically,
 
 $$
 \Psi_{j} (R_{j}) = r_{j}R_{j}\left(1-\frac{R_{j}}{K_{j}}\right) \,,
@@ -99,7 +99,7 @@ $$
 
 where $r_j$ is the resource intrinsic rate of increase and $K_j$ is the resource carrying capacity;
 
-Or the resources are supplied to the systems at a fixed concentration and rate (as in a chemostat),
+Or the resources can be supplied to the systems at a fixed concentration and rate (as in a chemostat),
 
 $$
 \Psi_{j} (R_{j}) = d(S_{j} - R_{j}) \,,
@@ -107,7 +107,7 @@ $$
 
 where $d$ represents the flux of resources into and out of the system;
 
-Or the resources are pulsed intermittently (e.g., in serial transfer - see examples below).
+And/or the resources can be pulsed intermittently (e.g., in serial transfer - see examples below).
 
 In the case of multiple resources, each resource is either treated as essential to consumer growth following Leibig's law of the minimum, in which case,
 
