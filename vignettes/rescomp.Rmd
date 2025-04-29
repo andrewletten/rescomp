@@ -364,15 +364,11 @@ plot_rescomp(m1)
 
 ## Two type 2 consumers and one externally pulsed resource (serial transfer with pulsed mortality)
 
-Serial transfer in batch culture differs from the above scenario in that resource pulses are typically accompanied by large instantaneous changes in population density. For example, in a serial transfer experiment with bacteria, an experimenter might sample a fraction (e.g. 10 %) of the community every 24 hours and inoculate that fraction into fresh media. As such, the consumer population density immediately following a transfer event will be equal to: $(1-M)N_{i}$, where $M$ is instantaneous mortality fraction given by `mortpulse`.
+Serial transfer in batch culture differs from the above scenario in that resource pulses are typically accompanied by large instantaneous changes in population density. For example, in a serial transfer experiment with bacteria, an experimenter might sample a fraction (e.g. 10 %) of the community every 24 hours and inoculate that fraction into fresh medium. As such, the consumer population density immediately following a transfer event will be equal to: $(1-M)N_{i}$, where $M$ is instantaneous mortality fraction.
 
-Simulating serial transfer in batch culture is implemented by:
+Similarly, the resources/medium is fractionally sampled, such that immediately after a transfer event the resource concentration will be equal to: $(1-M)R_{j} + MS_{j}$, where $R$ is the resource concentration prior to transfer, and $S$ is the resource concentration in the fresh medium.
 
-1.  Using `batchtrans = TRUE` in `spec_rescomp()`.
-2.  Assigning a value from 0 to 1 for the argument `mortpulse`. This is the fraction of the consumer(s) population instantaneous 'killed' at set intervals. Note the transfer fraction = 1 - `mortpulse`.
-3.  Setting the serial transfer schedule with the `pulsefreq` argument (coincident with resource pulse intervals).
-
-Note that the effect of setting `batchtrans = TRUE` is to enforce fractional sampling of the resource/media in addition to the consumers. As such, immediately after a transfer event the resource concentration will be equal to: $(1-M)R_{j} + MS_{j}$, where $R$ is the resource concentration prior to transfer, and $S$ is the resource pulse size given by `respulse`. To inhibit this behaviour, i.e. to stop fractional sampling of the resource but maintain intermittent mortality use `batchtrans = FALSE` but still assign a non-zero value for `mortpulse`.
+The `event_batch_transfer()` function handles changes in both consumer and resource concentrations from a batch transfer event: `dilution` is the transfer fraction, $1-M$, and `resources` is the concentration of resources in the fresh medium, $S$. As for the previous example, we set the resource supply to zero, such that all resource input comes from the batch transfer events. In this case, we also set `mort` to zero, so that all consumer mortality is also provided by the batch transfer events.
 
 ```{r}
 pars <- spec_rescomp(
