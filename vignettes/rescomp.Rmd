@@ -170,6 +170,7 @@ pars <- spec_rescomp(
   resnum = 1,
   funcresp = funcresp_monod(mumax = crmatrix(0.12), ks = crmatrix(1)),
   ressupply = ressupply_logistic(r = 3, k = 2),
+  rinit = 2,
   totaltime = 500
 )
 ```
