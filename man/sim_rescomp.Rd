@@ -5,11 +5,22 @@
 \title{Simulate resource competition (a convenience wrapper for
 \code{deSolve::ode()})}
 \usage{
-sim_rescomp(pars, ...)
+sim_rescomp(pars, totaltime, cinit, rinit, ...)
 }
 \arguments{
 \item{pars}{S3 object of class \code{rescomp} returned by
 \code{rescomp::spec_rescomp()}.}
+
+\item{totaltime}{Numeric vector of length 1: the total simulation time.
+If provided, overrides the value in \code{pars}.}
+
+\item{cinit}{Numeric vector of length 1 or length \code{spnum} specifying
+initial consumer state values (densities).
+If provided, overrides the value in \code{pars}.}
+
+\item{rinit}{Numeric vector of length 1 or length \code{resnum} specifying
+initial resource state values (concentrations).
+If provided, overrides the value in \code{pars}.}
 
 \item{...}{Other arguments passed to \code{deSolve::ode()}}
 }
