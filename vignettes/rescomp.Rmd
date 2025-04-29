@@ -193,15 +193,14 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1)
 ```
 
-Note the total simulation time and initial state variables specified with `spec_rescomp()` can be overidden in `sim_recomp()` with the arguments `times` and `y`, respectively. This will nevertheless print a message to the console to check it is intentional. See `?time_vals()` for convenient specification of simulation time (and pulsing when used).
+Note that the total simulation time and initial state variables specified with `spec_rescomp()` can be overidden in `sim_recomp()` with the arguments `totaltime`, and `cinit`, and `rinit`, respectively. This will nevertheless print a message to the console to check it is intentional.
 
 ```{r}
-# TODO: Make the above discussed possible.
-# m1 <- sim_rescomp(pars, y = c(30000, 1), times = time_vals(200))
+m1 <- sim_rescomp(pars, totaltime = 200, cinit = 30000)
 ```
 
 ```{r, fig.width = 6, fig.height = 3}
-# plot_rescomp(m1)
+plot_rescomp(m1)
 ```
 
 ## Type 2 consumer on a continuously supplied resource
