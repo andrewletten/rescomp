@@ -130,12 +130,12 @@ pars <- spec_rescomp(
   funcresp = funcresp_hill(
     mumax = rescomp_coefs_lerp(
       crmatrix(
-        0.4, 0.1,
-        0.05, 0.02
-      ),
-      crmatrix(
         0.2, 0.1,
         0.5, 0.3
+      ),
+      crmatrix(
+        0.4, 0.1,
+        0.05, 0.02
       ),
       "p"
     ),
@@ -143,7 +143,7 @@ pars <- spec_rescomp(
     n = crmatrix(2)
   ),
   params = rescomp_param_list(
-    p = rescomp_param_square(period = 80, offset = 40)
+    p = rescomp_param_square(period = 80)
   ),
   ressupply = ressupply_constant(0),
   events = list(
