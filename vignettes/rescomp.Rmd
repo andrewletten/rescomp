@@ -364,7 +364,7 @@ plot_rescomp(m1)
 
 ## Two type 2 consumers and one externally pulsed resource (serial transfer with pulsed mortality)
 
-Serial transfer in batch culture differs from the above scenario in that resource pulses are typically accompanied by large instantaneous changes in population density. For example, in a serial transfer experiment with bacteria, an experimenter might sample a fraction (e.g. 10 %) of the community every 24 hours and inoculate that fraction intro fresh media. As such, the consumer population density immediately following a transfer event will be equal to: $(1-M)N_{i}$, where $M$ is instantaneous mortality fraction given by `mortpulse`.
+Serial transfer in batch culture differs from the above scenario in that resource pulses are typically accompanied by large instantaneous changes in population density. For example, in a serial transfer experiment with bacteria, an experimenter might sample a fraction (e.g. 10 %) of the community every 24 hours and inoculate that fraction into fresh media. As such, the consumer population density immediately following a transfer event will be equal to: $(1-M)N_{i}$, where $M$ is instantaneous mortality fraction given by `mortpulse`.
 
 Simulating serial transfer in batch culture is implemented by:
 
