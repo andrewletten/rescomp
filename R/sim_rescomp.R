@@ -36,6 +36,8 @@ sim_rescomp <- function(pars, totaltime, cinit, rinit, ...) {
     cli::cli_alert_info("Overwriting {.arg rinit} in {.arg pars}.")
   }
 
+  pars$event_schedule_df <- prepare_event_schedule_df(pars$events, pars$totaltime)
+
   times <- seq(0, pars$totaltime, by = 0.1) # TODO: Make step size customisable.
   y <- c(pars$cinit, pars$rinit)
 

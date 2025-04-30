@@ -76,7 +76,6 @@ spec_rescomp <- function(spnum = 1,
     ressupply = ressupply,
     params = params,
     events = events,
-    event_schedule_df = prepare_event_schedule_df(events, totaltime),
     totaltime = totaltime,
     cinit = cinit,
     rinit = rinit
