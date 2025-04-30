@@ -266,8 +266,8 @@ pars <- spec_rescomp(
     0.09, 0.04,
     0.05, 0.08
   )),
-  ressupply = ressupply_chemostat(dilution = 0.03, concentration = c(1, 1)),
-  mort = c(0.03, 0.03),
+  ressupply = ressupply_chemostat(dilution = 0.03, concentration = 1),
+  mort = 0.03,
   essential = FALSE,
   totaltime = 1000
 )
@@ -314,7 +314,7 @@ pars <- spec_rescomp(
     0.001, 0.005,
     0.005, 0.001
   ),
-  ressupply = ressupply_chemostat(dilution = 0.03, concentration = c(1, 1)),
+  ressupply = ressupply_chemostat(dilution = 0.03, concentration = 1),
   mort = 0.03,
   essential = TRUE
 )
@@ -379,7 +379,7 @@ pars <- spec_rescomp(
     ks = crmatrix(0.3, 0.2)
   ),
   ressupply = ressupply_constant(0),
-  mort = c(0, 0),
+  mort = 0,
   events = list(
     event_schedule_periodic(
       event_batch_transfer(dilution = 0.2, resources = 1),
@@ -436,7 +436,7 @@ pars <- spec_rescomp(
   ),
   ressupply = ressupply_chemostat(dilution = 0.03, concentration = 0.1),
   rinit = 0.1,
-  mort = c(0.03, 0.03),
+  mort = 0.03,
   totaltime = 2000
 )
 ```
@@ -472,8 +472,8 @@ pars <- spec_rescomp(
     0.7, 0.4, 0.2
   ),
   ressupply = ressupply_logistic(r = 10, k = 0.5),
-  rinit = c(0.5, 0.5, 0.5),
-  mort = c(0.015, 0.015, 0.015),
+  rinit = 0.5,
+  mort = 0.015,
   essential = TRUE,
   totaltime = 2000
 )
