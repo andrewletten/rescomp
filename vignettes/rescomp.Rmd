@@ -415,7 +415,7 @@ plot_rescomp(m1)
 
 ## Two type 2 consumers with time dependent consumption parameters and one continuously supplied resource
 
-Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented in with forcing functions. *rescomp* provides a convenient means of implementing forcing functions in the background. Two additional arguments are needed in calls to `spec_rescomp()`: `timepars` and `timeparfreq`. `timepars` should be set to `TRUE`; `timeparfreq` adjusts the frequency of switching between 'environmental states'.
+Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented with forcing functions. *rescomp* provides a convenient means of implementing forcing functions in the background. Two additional arguments are needed in calls to `spec_rescomp()`: `timepars` and `timeparfreq`. `timepars` should be set to `TRUE`; `timeparfreq` adjusts the frequency of switching between 'environmental states'.
 
 In addition, if `time_pars = TRUE`, the mumatrix argument in `spec_rescomp` expects a list containing two matrices, reflecting two different environmental states. At this stage `rescomp` only handles two states with three interpolation options: i) equal time allotted to each state (default); ii) linear (`tpinterp = "lin"`) interpolation between the two states; iii) sinusoidal (`tpinterp = "sine"`) interpolation between states.
 
