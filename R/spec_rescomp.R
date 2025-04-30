@@ -59,13 +59,13 @@ spec_rescomp <- function(spnum = 1,
   if (!missing(efficiency)) {
     efficiency <- propagate_crnum(efficiency, spnum, resnum)
   }
-  mort <- propagate_crnum(mort, spnum, resnum)
+  mort <- propagate_cnum(mort, spnum)
   ressupply <- propagate_crnum(ressupply, spnum, resnum)
   for (i in seq_along(events)) {
     events[[i]] <- propagate_crnum(events[[i]], spnum, resnum)
   }
-  cinit <- propagate_crnum(cinit, spnum, resnum)
-  rinit <- propagate_crnum(rinit, spnum, resnum)
+  cinit <- propagate_cnum(cinit, spnum)
+  rinit <- propagate_rnum(rinit, resnum)
 
   pars <- list(
     spnum = spnum,
