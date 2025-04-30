@@ -145,32 +145,33 @@ event_res_mult <- function(resources_mult) {
 #' @param species A vector of species concentrations.
 #' @param resources A vector of resource concentrations.
 #' @param params A list of time-dependent parameters.
+#' @param time The current simulation time.
 #'
 #' @returns A vector of state variables, species concentrations followed by resource concentrations.
 #' @export
 #'
 #' @examples
 #' # TODO
-apply_event <- function(event_obj, species, resources, params) {
+apply_event <- function(event_obj, species, resources, params, time) {
   UseMethod("apply_event")
 }
 
 #' @export
-apply_event.rescomp_event_sp_custom <- function(event_obj, species, resources, params) {
+apply_event.rescomp_event_sp_custom <- function(event_obj, species, resources, params, time) {
   new_species <- event_obj$func(species, params)
   check_coefs(new_species, length(species), "`func` of `rescomp_event_sp_custom`", "spnum")
   return(c(new_species, resources))
 }
 
 #' @export
-apply_event.rescomp_event_res_custom <- function(event_obj, species, resources, params) {
+apply_event.rescomp_event_res_custom <- function(event_obj, species, resources, params, time) {
   new_resources <- event_obj$func(resources, params)
   check_coefs(new_resources, length(resources), "`func` of `rescomp_event_sp_custom`", "resnum")
   return(c(species, new_resources))
 }
 
 #' @export
-apply_event.rescomp_event_batch_transfer <- function(event_obj, species, resources, params) {
+apply_event.rescomp_event_batch_transfer <- function(event_obj, species, resources, params, time) {
   dilution <- get_coefs(event_obj$dilution)
   incoming_resources <- get_coefs(event_obj$resources)
   species <- species * dilution
@@ -179,7 +180,7 @@ apply_event.rescomp_event_batch_transfer <- function(event_obj, species, resourc
 }
 
 #' @export
-apply_event.rescomp_event_sp_add <- function(event_obj, species, resources, params) {
+apply_event.rescomp_event_sp_add <- function(event_obj, species, resources, params, time) {
   species <- species + get_coefs(event_obj$species)
   if (event_obj$min_zero) {
     species[which(species < 0)] <- 0
@@ -188,7 +189,7 @@ apply_event.rescomp_event_sp_add <- function(event_obj, species, resources, para
 }
 
 #' @export
-apply_event.rescomp_event_res_add <- function(event_obj, species, resources, params) {
+apply_event.rescomp_event_res_add <- function(event_obj, species, resources, params, time) {
   resources <- resources + get_coefs(event_obj$resources)
   if (event_obj$min_zero) {
     resources[which(resources < 0)] <- 0
@@ -197,13 +198,13 @@ apply_event.rescomp_event_res_add <- function(event_obj, species, resources, par
 }
 
 #' @export
-apply_event.rescomp_event_sp_mult <- function(event_obj, species, resources, params) {
+apply_event.rescomp_event_sp_mult <- function(event_obj, species, resources, params, time) {
   species <- species * get_coefs(event_obj$species_mult)
   return(c(species, resources))
 }
 
 #' @export
-apply_event.rescomp_event_res_mult <- function(event_obj, species, resources, params) {
+apply_event.rescomp_event_res_mult <- function(event_obj, species, resources, params, time) {
   resources <- resources * get_coefs(event_obj$resources_mult)
   return(c(species, resources))
 }

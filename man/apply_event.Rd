@@ -4,7 +4,7 @@
 \alias{apply_event}
 \title{Applies a \code{rescomp_event} object to modify state variables}
 \usage{
-apply_event(event_obj, species, resources, params)
+apply_event(event_obj, species, resources, params, time)
 }
 \arguments{
 \item{event_obj}{An object of class \code{rescomp_event}.}
@@ -14,6 +14,8 @@ apply_event(event_obj, species, resources, params)
 \item{resources}{A vector of resource concentrations.}
 
 \item{params}{A list of time-dependent parameters.}
+
+\item{time}{The current simulation time.}
 }
 \value{
 A vector of state variables, species concentrations followed by resource concentrations.

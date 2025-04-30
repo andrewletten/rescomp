@@ -54,7 +54,7 @@ ode_event_func <- function(t, y, pars) {
 
   # TODO: Improve the below with a binary search for the correct times.
   for (event_index in pars$event_schedule_df$event_index[pars$event_schedule_df$time == t]) {
-    y <- apply_event(pars$events[[event_index]]$event_obj, y[1:pars$spnum], y[-(1:pars$spnum)], params)
+    y <- apply_event(pars$events[[event_index]]$event_obj, y[1:pars$spnum], y[-(1:pars$spnum)], params, t)
   }
   return(y)
 }
