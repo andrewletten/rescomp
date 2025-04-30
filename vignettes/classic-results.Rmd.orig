@@ -324,7 +324,7 @@ plot_rescomp(m10, resource = FALSE, logy = TRUE)
 
 Armstrong and McGehee was one of the first papers to show more than $n$ species can coexist on $n$ resources via endogenously generated cycles in the consumer and resource dynamics. This mechanism for coexistence is indeed commonly referred to as the "Armstrong–McGehee mechanism".
 
-Unlike the previous examples, Armstrong and McGehee paramterised a two consumer - one resource model using conversion efficiencies in the consumer equations rather than quotas in the resource equations. In `spec_rescomp()` this is implemented via the specification of an `effmatrix` rather than a `qmatrix`. The below code illustrates the model simulation presented by the authors in Figure 1 of their paper.
+Unlike the previous examples, Armstrong and McGehee parameterised a two consumer, one resource model using conversion efficiencies in the consumer equations rather than quotas in the resource equations. In `spec_rescomp()` this is implemented via the specification of an `effmatrix` rather than a `qmatrix`. The below code illustrates the model simulation presented by the authors in Figure 1 of their paper.
 
 ```{r}
 pars <- spec_rescomp(
