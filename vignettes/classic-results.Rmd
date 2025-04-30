@@ -106,7 +106,7 @@ plot_rescomp(m1, resources = FALSE)
 <p class="caption">plot of chunk HW1999-dynamics-1c</p>
 </div><p class="caption">Reproduces Fig 1c from Huisman and Weissing (1999).</p>
 
-Huisman and Weissing (1999) next showed that chaotic dynamics are common when each consumes has a relatively larger impact on the resource for which it is an intermediate competitor. For example in the model specification below, consumer 1 is an intermediate competitor for resource 4 ($k_{1,4} = 0.30$) but has a larger impact (resource quota) on resource 4 relative to the other four consumers ($Q_{1,4} = 0.05$,  $Q_{i\neq1,4} = 0.03$)
+Huisman and Weissing (1999) next showed that chaotic dynamics are common when each consumer has a relatively larger impact on the resource for which it is an intermediate competitor. For example in the model specification below, consumer 1 is an intermediate competitor for resource 4 ($k_{1,4} = 0.30$) but has a larger impact (resource quota) on resource 4 relative to the other four consumers ($Q_{1,4} = 0.05$,  $Q_{i\neq1,4} = 0.03$)
 
 
 ```r
@@ -335,7 +335,7 @@ plot_funcresp(pars, maxx = 0.0001)
 <div class="figure">
 <img src="classic-results-Grover1990-funcresp-4a-1.png" alt="plot of chunk Grover1990-funcresp-4a" width="70%" />
 <p class="caption">plot of chunk Grover1990-funcresp-4a</p>
-</div><p class="caption">Reproduces Fig 1 from Grover (1990). Resource concentration in $mu$mol per ml rather than  per L.</p>
+</div><p class="caption">Reproduces Fig 1 from Grover (1990). Resource concentration in μmol per ml rather than per L.</p>
 
 
 ```r
@@ -353,7 +353,7 @@ plot_rescomp(mcons, resources = FALSE, logy = TRUE)
 <p class="caption">plot of chunk Grover1990-dynamics-4a</p>
 </div><p class="caption">Reproduces Fig 4A from Grover (1990).</p>
 
-When the resource is pulsed with high frequency (whilst maintaining the same time averaged resource supply), the gleanerstill excludes the opportunist but at a slower rate.
+When the resource is pulsed with high frequency (whilst maintaining the same time averaged resource supply), the gleaner still excludes the opportunist but at a slower rate.
 
 
 ```r

@@ -92,7 +92,7 @@ m1 <- sim_rescomp(pars)
 plot_rescomp(m1, resources = FALSE)
 ```
 
-Huisman and Weissing (1999) next showed that chaotic dynamics are common when each consumes has a relatively larger impact on the resource for which it is an intermediate competitor. For example in the model specification below, consumer 1 is an intermediate competitor for resource 4 ($k_{1,4} = 0.30$) but has a larger impact (resource quota) on resource 4 relative to the other four consumers ($Q_{1,4} = 0.05$,  $Q_{i\neq1,4} = 0.03$)
+Huisman and Weissing (1999) next showed that chaotic dynamics are common when each consumer has a relatively larger impact on the resource for which it is an intermediate competitor. For example in the model specification below, consumer 1 is an intermediate competitor for resource 4 ($k_{1,4} = 0.30$) but has a larger impact (resource quota) on resource 4 relative to the other four consumers ($Q_{1,4} = 0.05$,  $Q_{i\neq1,4} = 0.03$)
 
 ```{r}
 pars <- spec_rescomp(
@@ -254,7 +254,7 @@ pars <- spec_rescomp(
 )
 ```
 
-```{r Grover1990-funcresp-4a, fig.width = 4, fig.height = 3, htmlcap = "Reproduces Fig 1 from Grover (1990). Resource concentration in $mu$mol per ml rather than  per L."}
+```{r Grover1990-funcresp-4a, fig.width = 4, fig.height = 3, htmlcap = "Reproduces Fig 1 from Grover (1990). Resource concentration in μmol per ml rather than per L."}
 plot_funcresp(pars, maxx = 0.0001)
 ```
 
@@ -267,7 +267,7 @@ mcons <- sim_rescomp(pars)
 plot_rescomp(mcons, resources = FALSE, logy = TRUE)
 ```
 
-When the resource is pulsed with high frequency (whilst maintaining the same time averaged resource supply), the gleanerstill excludes the opportunist but at a slower rate.
+When the resource is pulsed with high frequency (whilst maintaining the same time averaged resource supply), the gleaner still excludes the opportunist but at a slower rate.
 
 ```{r}
 period <- 1
