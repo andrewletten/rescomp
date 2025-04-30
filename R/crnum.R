@@ -1,4 +1,4 @@
-#' Check the dimensions of a vector/matrix match expected spnum and resnum.
+#' Check the dimensions of a vector/matrix match expected spnum and resnum
 #'
 #' @param vec A numeric vector, which is expected to be of length spnum/resnum, or of length 1, in which case it is recycled.
 #' @param mat A numeric matrix, which is expected to have spnum rows and resnum columns.
@@ -53,7 +53,7 @@ enforce_rnum <- function(vec, resnum, call = rlang::caller_env()) {
   }
 }
 
-#' Propagate `spnum` and `resnum` down from `spec_rescomp()` to objects passed to it.
+#' Propagate `spnum` and `resnum` down from `spec_rescomp()` to objects passed to it
 #'
 #' @param obj An object to be adjusted to the correct `spnum` and `resnum`.
 #' @param spnum,resnum Numeric vectors of length 1, to set the `spnum` and `resnum` of `obj`
