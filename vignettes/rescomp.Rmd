@@ -458,40 +458,34 @@ The two consumers coexist due species-specific environmental responses leading t
 ## Three type 1 consumers on three essential resources generating an intransitive loop (i.e. rock paper scissors dynamics).
 
 ```{r}
-# TODO: Update this for the functional version.
-# pars <- spec_rescomp(
-#   spnum = 3,
-#   resnum = 3,
-#   funcresp = "type1",
-#   mumatrix = matrix(c(0.11, 0.07,  0.045,
-#                       0.05, 0.11,  0.07,
-#                       0.07, 0.047, 0.1),
-#                     nrow = 3,
-#                     ncol = 3,
-#                     byrow = TRUE),
-#   qmatrix = matrix(c(0.2, 0.7, 0.4,
-#                      0.4, 0.2, 0.7,
-#                      0.7, 0.4, 0.2),
-#                    nrow = 3,
-#                    ncol = 3,
-#                    byrow = TRUE),
-#   essential = TRUE,
-#   chemo = FALSE,
-#   mort = 0.015,
-#   resspeed = 10,
-#   resconc = 0.5,
-#   totaltime = 2000
-# )
+pars <- spec_rescomp(
+  spnum = 3,
+  resnum = 3,
+  funcresp = funcresp_type1(crmatrix(
+    0.11, 0.07, 0.045,
+    0.05, 0.11, 0.07,
+    0.07, 0.047, 0.1
+  )),
+  quota = crmatrix(
+    0.2, 0.7, 0.4,
+    0.4, 0.2, 0.7,
+    0.7, 0.4, 0.2
+  ),
+  ressupply = ressupply_logistic(r = 10, k = 0.5),
+  rinit = c(0.5, 0.5, 0.5),
+  mort = c(0.015, 0.015, 0.015),
+  totaltime = 2000
+)
 ```
 
-```{r, fig.width = 6, fig.height = 3}
-# plot_funcresp(pars, maxx = max(pars$resconc))
+```{r, fig.width = 4, fig.height = 5}
+plot_funcresp(pars, maxx = max(pars$rinit))
 ```
 
 ```{r}
-# m1 <- sim_rescomp(pars)
+m1 <- sim_rescomp(pars)
 ```
 
 ```{r, fig.width = 6, fig.height = 3}
-# plot_rescomp(m1)
+plot_rescomp(m1)
 ```
