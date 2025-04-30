@@ -1,6 +1,6 @@
 Package: rescomp
 Title: Efficient Modelling of Resource Competition
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     c(person(given = c("Christopher", "R", "P"),
            family = "Brown",
