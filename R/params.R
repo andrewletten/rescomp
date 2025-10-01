@@ -62,7 +62,7 @@ rescomp_param_custom <- function(func, display_values = NULL) {
 #' @param period The period of the wave.
 #' @param min The minimum value of the parameter; the mean minus the amplitude.
 #' @param max The maximum value of the parameter; the mean plus the amplitude.
-#' @param offset The phase shift of the wave. For a sine or triangle wave the time at which its value is equal to the mean. For a square wave, the time at which it increases to the maximum value.
+#' @param offset The phase shift of the wave. For a sine or triangle wave the time at which its value is equal to the mean and increasing. For a square wave, the time at which it increases to the maximum value.
 #' @param display_values A numeric vector of values of the parameter to use in `plot_funcresp()`.
 #'
 #' @returns S3 object of class `rescomp_param`.
