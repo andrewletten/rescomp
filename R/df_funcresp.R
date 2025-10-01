@@ -128,7 +128,7 @@ df_mort <- function(pars, display_values, call = rlang::caller_env()) {
   morts <- data.frame(
     sp = rep(seq_len(pars$spnum), times = nrow(df)),
     mort = unlist(lapply(seq_len(nrow(df)), function(i) {
-      get_coefs_vector(pars$mort, as.list(df[i, -1, drop = FALSE]))
+      get_coefs_vector(pars$mort, as.list(df[i, , drop = FALSE]))
     }))
   )
 
