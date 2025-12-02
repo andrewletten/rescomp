@@ -15,7 +15,6 @@
 #' pars <- spec_rescomp()
 #' m1 <- sim_rescomp(pars)
 #' plot_rescomp(m1)
-#'
 plot_rescomp <- function(model,
                          consumers = TRUE,
                          resources = TRUE,
