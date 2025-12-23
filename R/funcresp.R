@@ -242,6 +242,7 @@ get_funcresp.rescomp_funcresp_hill <- function(funcresp_obj, spnum, resources, p
   return(mumax * resources / (resources + ks))
 }
 
+#' @export
 propagate_crnum.rescomp_funcresp_custom <- function(obj, spnum, resnum) {
   if (is.null(obj$spnum)) {
     obj$spnum <- spnum
@@ -252,17 +253,20 @@ propagate_crnum.rescomp_funcresp_custom <- function(obj, spnum, resnum) {
   return(obj)
 }
 
+#' @export
 propagate_crnum.rescomp_funcresp_type1 <- function(obj, spnum, resnum) {
   obj$a <- propagate_crnum(obj$a, spnum, resnum)
   return(obj)
 }
 
+#' @export
 propagate_crnum.rescomp_funcresp_type2 <- function(obj, spnum, resnum) {
   obj$a <- propagate_crnum(obj$a, spnum, resnum)
   obj$h <- propagate_crnum(obj$h, spnum, resnum)
   return(obj)
 }
 
+#' @export
 propagate_crnum.rescomp_funcresp_type3 <- function(obj, spnum, resnum) {
   obj$a <- propagate_crnum(obj$a, spnum, resnum)
   obj$h <- propagate_crnum(obj$h, spnum, resnum)
@@ -270,12 +274,14 @@ propagate_crnum.rescomp_funcresp_type3 <- function(obj, spnum, resnum) {
   return(obj)
 }
 
+#' @export
 propagate_crnum.rescomp_funcresp_monod <- function(obj, spnum, resnum) {
   obj$mumax <- propagate_crnum(obj$mumax, spnum, resnum)
   obj$ks <- propagate_crnum(obj$ks, spnum, resnum)
   return(obj)
 }
 
+#' @export
 propagate_crnum.rescomp_funcresp_hill <- function(obj, spnum, resnum) {
   obj$mumax <- propagate_crnum(obj$mumax, spnum, resnum)
   obj$ks <- propagate_crnum(obj$ks, spnum, resnum)

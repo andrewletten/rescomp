@@ -92,6 +92,7 @@ prepare_event_schedule_df <- function(event_schedule_list, totaltime) {
   return(dat)
 }
 
+#' @export
 propagate_crnum.rescomp_event_schedule <- function(obj, spnum, resnum) {
   obj$event_obj <- propagate_crnum(obj$event_obj, spnum, resnum)
   return(obj)

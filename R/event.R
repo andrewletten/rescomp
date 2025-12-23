@@ -209,6 +209,7 @@ apply_event.rescomp_event_res_mult <- function(event_obj, species, resources, pa
   return(c(species, resources))
 }
 
+#' @export
 propagate_crnum.rescomp_event_sp_custom <- function(obj, spnum, resnum) {
   if (is.null(obj$spnum)) {
     obj$spnum <- spnum
@@ -216,6 +217,7 @@ propagate_crnum.rescomp_event_sp_custom <- function(obj, spnum, resnum) {
   return(obj)
 }
 
+#' @export
 propagate_crnum.rescomp_event_res_custom <- function(obj, spnum, resnum) {
   if (is.null(obj$resnum)) {
     obj$resnum <- resnum
@@ -223,26 +225,31 @@ propagate_crnum.rescomp_event_res_custom <- function(obj, spnum, resnum) {
   return(obj)
 }
 
+#' @export
 propagate_crnum.rescomp_event_batch_transfer <- function(obj, spnum, resnum) {
   obj$resources <- propagate_rnum(obj$resources, resnum)
   return(obj)
 }
 
+#' @export
 propagate_crnum.rescomp_event_sp_add <- function(obj, spnum, resnum) {
   obj$species <- propagate_cnum(obj$species, spnum)
   return(obj)
 }
 
+#' @export
 propagate_crnum.rescomp_event_res_add <- function(obj, spnum, resnum) {
   obj$resources <- propagate_rnum(obj$resources, resnum)
   return(obj)
 }
 
+#' @export
 propagate_crnum.rescomp_event_sp_mult <- function(obj, spnum, resnum) {
   obj$species_mult <- propagate_cnum(obj$species, spnum)
   return(obj)
 }
 
+#' @export
 propagate_crnum.rescomp_event_res_mult <- function(obj, spnum, resnum) {
   obj$resources_mult <- propagate_rnum(obj$resources, resnum)
   return(obj)

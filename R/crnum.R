@@ -68,10 +68,12 @@ propagate_crnum <- function(obj, spnum, resnum) {
   UseMethod("propagate_crnum")
 }
 
+#' @export
 propagate_crnum.default <- function(obj, spnum, resnum) {
   return(obj)
 }
 
+#' @export
 propagate_crnum.matrix <- function(obj, spnum, resnum) {
   return(enforce_crnum(obj, spnum, resnum))
 }
@@ -82,14 +84,17 @@ propagate_cnum <- function(obj, spnum) {
   UseMethod("propagate_cnum")
 }
 
+#' @export
 propagate_cnum.default <- function(obj, spnum) {
   return(obj)
 }
 
+#' @export
 propagate_cnum.numeric <- function(obj, spnum) {
   return(enforce_cnum(obj, spnum))
 }
 
+#' @export
 propagate_cnum.integer <- function(obj, spnum) {
   return(enforce_cnum(obj, spnum))
 }
@@ -100,14 +105,17 @@ propagate_rnum <- function(obj, resnum) {
   UseMethod("propagate_rnum")
 }
 
+#' @export
 propagate_rnum.default <- function(obj, resnum) {
   return(obj)
 }
 
+#' @export
 propagate_rnum.numeric <- function(obj, resnum) {
   return(enforce_rnum(obj, resnum))
 }
 
+#' @export
 propagate_rnum.integer <- function(obj, resnum) {
   return(enforce_rnum(obj, resnum))
 }

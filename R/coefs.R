@@ -442,6 +442,7 @@ check_coefs_coordinate <- function(obj1, obj2, check_dims = NULL, arg1 = rlang::
   return(invisible(NULL))
 }
 
+#' @export
 propagate_crnum.rescomp_crmatrix <- function(obj, spnum, resnum) {
   obj$dim <- c(spnum, resnum)
   obj$matrix <- matrix(obj$raw, nrow = spnum, ncol = resnum, byrow = obj$byrow)
@@ -449,6 +450,7 @@ propagate_crnum.rescomp_crmatrix <- function(obj, spnum, resnum) {
   return(obj)
 }
 
+#' @export
 propagate_crnum.rescomp_coefs_lerp <- function(obj, spnum, resnum) {
   obj$coefs0 <- propagate_crnum(obj$coefs0, spnum, resnum)
   obj$coefs1 <- propagate_crnum(obj$coefs1, spnum, resnum)
