@@ -37,5 +37,4 @@ Plot consumer and resource dynamics from deSolve output
 pars <- spec_rescomp()
 m1 <- sim_rescomp(pars)
 plot_rescomp(m1)
-
 }
