@@ -38,16 +38,13 @@ plot_funcresp(pars)
 pars <- spec_rescomp(
   spnum = 2,
   resnum = 2,
-  funcresp = "type2",
-  mumatrix = list(matrix(
-    c(
+  funcresp = funcresp_monod(
+    mumax = crmatrix(
       0.7, 0.3,
       0.4, 0.5
     ),
-    nrow = 2,
-    ncol = 2,
-    byrow = TRUE
-  ))
+    ks = crmatrix(1)
+  )
 )
 plot_funcresp(pars)
 plot_funcresp(pars, madj = TRUE)
