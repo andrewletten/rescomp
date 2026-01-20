@@ -135,13 +135,13 @@
 <polyline points='32.72,129.34 35.46,129.34 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <text x='347.02' y='568.44' text-anchor='middle' style='font-size: 10.00px; font-family: sans;' textLength='22.22px' lengthAdjust='spacingAndGlyphs'>Time</text>
 <text transform='translate(12.36,293.08) rotate(-90)' text-anchor='middle' style='font-size: 10.00px; font-family: sans;' textLength='67.83px' lengthAdjust='spacingAndGlyphs'>Population size</text>
-<rect x='669.55' y='267.58' width='44.97' height='51.00' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='675.03' y='278.54' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<line x1='676.76' y1='287.18' x2='690.58' y2='287.18' style='stroke-width: 2.13; stroke: #E69F00; stroke-opacity: 0.90; stroke-linecap: butt;' />
-<rect x='675.03' y='295.82' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<line x1='676.76' y1='304.46' x2='690.58' y2='304.46' style='stroke-width: 2.13; stroke: #56B4E9; stroke-opacity: 0.90; stroke-linecap: butt;' />
-<text x='697.79' y='290.21' style='font-size: 8.80px; font-family: sans;' textLength='11.25px' lengthAdjust='spacingAndGlyphs'>N1</text>
-<text x='697.79' y='307.49' style='font-size: 8.80px; font-family: sans;' textLength='11.25px' lengthAdjust='spacingAndGlyphs'>Ra</text>
+<rect x='669.55' y='270.32' width='44.97' height='45.52' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='675.03' y='275.80' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<line x1='676.76' y1='284.44' x2='690.58' y2='284.44' style='stroke-width: 2.13; stroke: #E69F00; stroke-opacity: 0.90; stroke-linecap: butt;' />
+<rect x='675.03' y='293.08' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<line x1='676.76' y1='301.72' x2='690.58' y2='301.72' style='stroke-width: 2.13; stroke: #56B4E9; stroke-opacity: 0.90; stroke-linecap: butt;' />
+<text x='697.79' y='287.47' style='font-size: 8.80px; font-family: sans;' textLength='11.25px' lengthAdjust='spacingAndGlyphs'>N1</text>
+<text x='697.79' y='304.75' style='font-size: 8.80px; font-family: sans;' textLength='11.25px' lengthAdjust='spacingAndGlyphs'>Ra</text>
 <text x='35.46' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='141.64px' lengthAdjust='spacingAndGlyphs'>Default plot as expected</text>
 </g>
 </svg>
