@@ -37,7 +37,31 @@
 #' @export
 #'
 #' @examples
-#' # TODO
+#' m1 <- spec_rescomp()
+#' plot_rescomp(sim_rescomp(m1))
+#'
+#' m2 <- spec_rescomp(
+#'   spnum = 2,
+#'   resnum = 2,
+#'   funcresp = funcresp_type1(
+#'     a = crmatrix(
+#'       0.1, 0.2,
+#'       0.15, 0.15
+#'     )
+#'   )
+#' )
+#' plot_rescomp(sim_rescomp(m2))
+#'
+#' m3 <- spec_rescomp(
+#'   ressupply = ressupply_constant(0),
+#'   events = list(
+#'     event_schedule_periodic(
+#'       event_batch_transfer(dilution = 0.1, resources = 1),
+#'       period = 250
+#'     )
+#'   )
+#' )
+#' plot_rescomp(sim_rescomp(m3))
 spec_rescomp <- function(spnum = 1,
                          resnum = 1,
                          funcresp = funcresp_type1(crmatrix(0.1)),
