@@ -89,7 +89,7 @@ df_funcresp <- function(pars, maxx = 1, display_values, madj = FALSE, call = rla
       seq_len(pars$resnum)
     )
   ) |>
-    tidyr::pivot_longer(-sp, names_to = "res", names_transform = list(res = as.integer), values_to = "y")
+    tidyr::pivot_longer(-"sp", names_to = "res", names_transform = list(res = as.integer), values_to = "y")
 
   df <- cbind(
     df[rep(seq_len(nrow(df)), each = pars$spnum * pars$resnum), , drop = FALSE],
