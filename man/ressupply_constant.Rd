@@ -18,7 +18,8 @@ Produces an object suitable to pass as the \code{ressupply} to \code{spec_rescom
 \examples{
 ressupply <- ressupply_constant(c(0.2, 0.3))
 get_ressupply(ressupply, c(2, 10), list())
-get_ressupply(ressupply, c(5, 20), list()) # The same as above; constant supply doesn't depend on existing concentration.
+get_ressupply(ressupply, c(5, 20), list())
+# The above two give the same result; constant supply doesn't depend on existing concentration.
 
 ressupply <- ressupply_constant(rescomp_coefs_lerp(c(0.2, 0.3), c(0.4, 0.6), "extra_supply"))
 get_ressupply(ressupply, c(2, 10), list(extra_supply = 0.2))

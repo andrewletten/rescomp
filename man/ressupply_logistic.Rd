@@ -18,7 +18,10 @@ S3 object of class \code{rescomp_ressupply}.
 Produces an object suitable to pass as the \code{ressupply} to \code{spec_rescomp()}.
 }
 \examples{
-ressupply <- ressupply_logistic(r = rescomp_coefs_lerp(c(0.2, 0.3), c(0, 0), "growth_inhibition"), k = c(10, 20))
+ressupply <- ressupply_logistic(
+  r = rescomp_coefs_lerp(c(0.2, 0.3), c(0, 0), "growth_inhibition"),
+  k = c(10, 20)
+)
 get_ressupply(ressupply, c(2, 10), list(growth_inhibition = 0))
 get_ressupply(ressupply, c(20, 0), list(growth_inhibition = 0))
 get_ressupply(ressupply, c(2, 10), list(growth_inhibition = 0.8))

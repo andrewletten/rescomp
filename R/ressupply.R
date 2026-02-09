@@ -40,7 +40,8 @@ ressupply_custom <- function(func, resnum = NULL) {
 #' @examples
 #' ressupply <- ressupply_constant(c(0.2, 0.3))
 #' get_ressupply(ressupply, c(2, 10), list())
-#' get_ressupply(ressupply, c(5, 20), list()) # The same as above; constant supply doesn't depend on existing concentration.
+#' get_ressupply(ressupply, c(5, 20), list())
+#' # The above two give the same result; constant supply doesn't depend on existing concentration.
 #'
 #' ressupply <- ressupply_constant(rescomp_coefs_lerp(c(0.2, 0.3), c(0.4, 0.6), "extra_supply"))
 #' get_ressupply(ressupply, c(2, 10), list(extra_supply = 0.2))
@@ -63,7 +64,10 @@ ressupply_constant <- function(rate) {
 #' @export
 #'
 #' @examples
-#' ressupply <- ressupply_logistic(r = rescomp_coefs_lerp(c(0.2, 0.3), c(0, 0), "growth_inhibition"), k = c(10, 20))
+#' ressupply <- ressupply_logistic(
+#'   r = rescomp_coefs_lerp(c(0.2, 0.3), c(0, 0), "growth_inhibition"),
+#'   k = c(10, 20)
+#' )
 #' get_ressupply(ressupply, c(2, 10), list(growth_inhibition = 0))
 #' get_ressupply(ressupply, c(20, 0), list(growth_inhibition = 0))
 #' get_ressupply(ressupply, c(2, 10), list(growth_inhibition = 0.8))
@@ -87,7 +91,10 @@ ressupply_logistic <- function(r, k) {
 #' @export
 #'
 #' @examples
-#' ressupply <- ressupply_chemostat(dilution = 0.01, concentration = rescomp_coefs_lerp(c(0, 0, 0), c(2, 3, 4), "ressupply_scaling"))
+#' ressupply <- ressupply_chemostat(
+#'   dilution = 0.01,
+#'   concentration = rescomp_coefs_lerp(c(0, 0, 0), c(2, 3, 4), "ressupply_scaling")
+#' )
 #' get_ressupply(ressupply, c(2, 4, 10), list(ressupply_scaling = 0))
 #' get_ressupply(ressupply, c(3, 3, 3), list(ressupply_scaling = 1))
 ressupply_chemostat <- function(dilution, concentration) {

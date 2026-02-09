@@ -18,7 +18,10 @@ S3 object of class \code{rescomp_ressupply}.
 Produces an object suitable to pass as the \code{ressupply} to \code{spec_rescomp()}.
 }
 \examples{
-ressupply <- ressupply_chemostat(dilution = 0.01, concentration = rescomp_coefs_lerp(c(0, 0, 0), c(2, 3, 4), "ressupply_scaling"))
+ressupply <- ressupply_chemostat(
+  dilution = 0.01,
+  concentration = rescomp_coefs_lerp(c(0, 0, 0), c(2, 3, 4), "ressupply_scaling")
+)
 get_ressupply(ressupply, c(2, 4, 10), list(ressupply_scaling = 0))
 get_ressupply(ressupply, c(3, 3, 3), list(ressupply_scaling = 1))
 }
