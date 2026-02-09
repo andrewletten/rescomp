@@ -20,5 +20,13 @@ Thus, it is shorthand for \code{matrix(c(...), nrow = spnum, ncol = resnum, byro
 Inheritance only works when passed directly through \code{rescomp} functions; it will fail if used in the \code{func} provided to a function such as \code{funcresp_custom()}.
 }
 \examples{
-# TODO
+pars <- spec_rescomp(
+  spnum = 3, resnum = 2,
+  funcresp = funcresp_type1(crmatrix(
+    0.10, 0.10,
+    0.08, 0.12,
+    0.15, 0.05
+  ))
+)
+plot_rescomp(sim_rescomp(pars))
 }

@@ -60,7 +60,15 @@ rescomp_coefs_matrix_custom <- function(func, nrow, ncol) {
 #' @export
 #'
 #' @examples
-#' # TODO
+#' pars <- spec_rescomp(
+#'   spnum = 3, resnum = 2,
+#'   funcresp = funcresp_type1(crmatrix(
+#'     0.10, 0.10,
+#'     0.08, 0.12,
+#'     0.15, 0.05
+#'   ))
+#' )
+#' plot_rescomp(sim_rescomp(pars))
 crmatrix <- function(..., byrow = TRUE) {
   coefs <- list(matrix = matrix(nrow = 0, ncol = 0), dim = c(NA, NA), raw = c(...), byrow = byrow)
   class(coefs) <- c("rescomp_crmatrix", "rescomp_coefs_matrix", "rescomp_coefs")
