@@ -70,24 +70,24 @@ rescomp_param_custom <- function(func, display_values = NULL) {
 #'
 #' @examples
 #' # TODO
-rescomp_param_sine <- function(period = 1, min = 0, max = 1, offset = 0) {
-  param <- list(period = period, mean = (min + max) / 2, amplitude = (max - min) / 2, offset = offset, display_values = c(min, max))
+rescomp_param_sine <- function(period = 1, min = 0, max = 1, offset = 0, display_values = c(min, max)) {
+  param <- list(period = period, mean = (min + max) / 2, amplitude = (max - min) / 2, offset = offset, display_values = display_values)
   class(param) <- c("rescomp_param_sine", "rescomp_param")
   return(param)
 }
 
 #' @rdname rescomp_param_sine
 #' @export
-rescomp_param_triangle <- function(period = 1, min = 0, max = 1, offset = 0) {
-  param <- list(period = period, min = min, max = max, offset = offset, display_values = c(min, max))
+rescomp_param_triangle <- function(period = 1, min = 0, max = 1, offset = 0, display_values = c(min, max)) {
+  param <- list(period = period, min = min, max = max, offset = offset, display_values = display_values)
   class(param) <- c("rescomp_param_triangle", "rescomp_param")
   return(param)
 }
 
 #' @rdname rescomp_param_sine
 #' @export
-rescomp_param_square <- function(period = 1, min = 0, max = 1, offset = 0) {
-  param <- list(period = period, min = min, max = max, offset = offset, display_values = c(min, max))
+rescomp_param_square <- function(period = 1, min = 0, max = 1, offset = 0, display_values = c(min, max)) {
+  param <- list(period = period, min = min, max = max, offset = offset, display_values = display_values)
   class(param) <- c("rescomp_param_square", "rescomp_param")
   return(param)
 }

@@ -6,11 +6,29 @@
 \alias{rescomp_param_square}
 \title{Create a rescomp parameter using a sine/square/triangle wave}
 \usage{
-rescomp_param_sine(period = 1, min = 0, max = 1, offset = 0)
+rescomp_param_sine(
+  period = 1,
+  min = 0,
+  max = 1,
+  offset = 0,
+  display_values = c(min, max)
+)
 
-rescomp_param_triangle(period = 1, min = 0, max = 1, offset = 0)
+rescomp_param_triangle(
+  period = 1,
+  min = 0,
+  max = 1,
+  offset = 0,
+  display_values = c(min, max)
+)
 
-rescomp_param_square(period = 1, min = 0, max = 1, offset = 0)
+rescomp_param_square(
+  period = 1,
+  min = 0,
+  max = 1,
+  offset = 0,
+  display_values = c(min, max)
+)
 }
 \arguments{
 \item{period}{The period of the wave.}
