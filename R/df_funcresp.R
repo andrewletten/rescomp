@@ -82,7 +82,7 @@ df_funcresp <- function(pars, maxx = 1, display_values, madj = FALSE, call = rla
 
   ys <- cbind(
     data.frame(sp = rep(seq_len(pars$spnum), times = nrow(df))),
-    setNames(
+    stats::setNames(
       as.data.frame(do.call(rbind, lapply(seq_len(nrow(df)), function(i) {
         get_funcresp(pars$funcresp, pars$spnum, rep(df[i, 1, drop = TRUE], times = pars$resnum), as.list(df[i, -1, drop = FALSE]))
       }))),

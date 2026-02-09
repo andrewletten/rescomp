@@ -58,7 +58,7 @@ plot_funcresp <- function(pars, maxx = 1, display_values, madj = FALSE) {
     paste(names(df)[!names(df) %in% c("sp", "res", "x", "y")], collapse = "+"),
     "."
   )
-  facet_formula <- as.formula(paste0(resources_formula, "~", parameters_formula))
+  facet_formula <- stats::as.formula(paste0(resources_formula, "~", parameters_formula))
 
   p <- ggplot2::ggplot(df, aes(x = .data$x, y = .data$y)) +
     geom_line(aes(col = .data$sp), linewidth = 1, alpha = 0.8) +
