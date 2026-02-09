@@ -34,5 +34,9 @@ Simulate resource competition (a convenience wrapper for
 }
 \examples{
 pars <- spec_rescomp()
-sim_rescomp(pars = pars)
+results1 <- sim_rescomp(pars = pars)
+plot_rescomp(results1)
+
+results2 <- sim_rescomp(pars = pars, totaltime = 100, cinit = 1000)
+plot_rescomp(results2)
 }

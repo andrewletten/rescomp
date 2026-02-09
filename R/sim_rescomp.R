@@ -19,7 +19,11 @@
 #'
 #' @examples
 #' pars <- spec_rescomp()
-#' sim_rescomp(pars = pars)
+#' results1 <- sim_rescomp(pars = pars)
+#' plot_rescomp(results1)
+#'
+#' results2 <- sim_rescomp(pars = pars, totaltime = 100, cinit = 1000)
+#' plot_rescomp(results2)
 sim_rescomp <- function(pars, totaltime, cinit, rinit, ...) {
   # TODO: For parameters that override the values in `pars`, error-check them the same as spec_rescomp().
   # Write helper functions for error-checking that can be called both here and in spec_rescomp().
