@@ -14,7 +14,17 @@
 #' @export
 #'
 #' @examples
-#' # TODO
+#' pars <- spec_rescomp(
+#'   events = list(
+#'     event_schedule_fixed(
+#'       event = event_sp_custom(function(sp, params) {
+#'         sp * 2
+#'       }),
+#'       times = 500
+#'     )
+#'   )
+#' )
+#' plot_rescomp(sim_rescomp(pars))
 event_sp_custom <- function(func, spnum = NULL) {
   event <- list(func = func, spnum = spnum)
   class(event) <- c("rescomp_event_sp_custom", "rescomp_event")
@@ -36,8 +46,19 @@ event_sp_custom <- function(func, spnum = NULL) {
 #' @returns S3 object of class `rescomp_event`.
 #' @export
 #'
+#'
 #' @examples
-#' # TODO
+#' pars <- spec_rescomp(
+#'   events = list(
+#'     event_schedule_fixed(
+#'       event = event_res_custom(function(res, params) {
+#'         res * 2
+#'       }),
+#'       times = 500
+#'     )
+#'   )
+#' )
+#' plot_rescomp(sim_rescomp(pars))
 event_res_custom <- function(func, resnum = NULL) {
   event <- list(func = func, resnum = resnum)
   class(event) <- c("rescomp_event_res_custom", "rescomp_event")

@@ -22,5 +22,15 @@ If \code{resnum} is NULL, \code{spec_rescomp()} will attempt to infer it.
 This is fine if the result is used directly in an event schedule, but may fail if the result must be combined with other \code{rescomp_event}s first.
 }
 \examples{
-# TODO
+pars <- spec_rescomp(
+  events = list(
+    event_schedule_fixed(
+      event = event_res_custom(function(res, params) {
+        res * 2
+      }),
+      times = 500
+    )
+  )
+)
+plot_rescomp(sim_rescomp(pars))
 }
