@@ -168,7 +168,34 @@ If using <code>efficiency</code>, the functional responses are taken to give att
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># TODO</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu">spec_rescomp</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="fu"><a href="sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="spec_rescomp-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu">spec_rescomp</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  spnum <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  resnum <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  funcresp <span class="op">=</span> <span class="fu"><a href="funcresp_type1.html">funcresp_type1</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    a <span class="op">=</span> <span class="fu"><a href="crmatrix.html">crmatrix</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="fl">0.1</span>, <span class="fl">0.2</span>,</span></span>
+<span class="r-in"><span>      <span class="fl">0.15</span>, <span class="fl">0.15</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="fu"><a href="sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">m2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="spec_rescomp-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m3</span> <span class="op">&lt;-</span> <span class="fu">spec_rescomp</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  ressupply <span class="op">=</span> <span class="fu"><a href="ressupply_constant.html">ressupply_constant</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  events <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="event_schedule_periodic.html">event_schedule_periodic</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="event_batch_transfer.html">event_batch_transfer</a></span><span class="op">(</span>dilution <span class="op">=</span> <span class="fl">0.1</span>, resources <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      period <span class="op">=</span> <span class="fl">250</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="fu"><a href="sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">m3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="spec_rescomp-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
@@ -183,7 +210,7 @@ If using <code>efficiency</code>, the functional responses are taken to give att
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>

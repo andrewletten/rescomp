@@ -143,7 +143,7 @@ consumer/resource density (e.g. in batch transfer).</p>
 <p>where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">a_{ij}</annotation></semantics></math>
 is a resource consumption constant.</p>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-3-1.png" width="384"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="384"></p>
 <ol start="2" style="list-style-type: lower-roman">
 <li>nonlinear type II (aka Monod)</li>
 </ol>
@@ -158,13 +158,13 @@ is the half saturation constant for consumer
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
 on resource
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>.</p>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-4-1.png" width="384"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="384"></p>
 <ol start="3" style="list-style-type: lower-roman">
 <li>nonlinear type III (sigmoidal),</li>
 </ol>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>R</mi><mi>j</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>μ</mi><mrow><mi>m</mi><mi>a</mi><msub><mi>x</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow></msub><mfrac><msubsup><mi>R</mi><mi>j</mi><mi>n</mi></msubsup><mrow><msubsup><mi>k</mi><mrow><mi>i</mi><mi>j</mi></mrow><mi>n</mi></msubsup><mo>+</mo><msubsup><mi>R</mi><mi>j</mi><mi>n</mi></msubsup></mrow></mfrac><mspace width="0.167em"></mspace><mo>,</mo><mspace width="2.0em"></mspace><mi>n</mi><mo>&gt;</mo><mn>1</mn><mspace width="0.167em"></mspace><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \mu_{ij}(R_{j}) = \mu _{max_{ij}}\frac{R_{j}^n}{k_{ij}^n + R_{j}^n} \, , \qquad n &gt; 1 \,.
-</annotation></semantics></math><img src="rescomp_files/figure-html/unnamed-chunk-5-1.png" width="384"></p>
+</annotation></semantics></math><img src="rescomp_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="384"></p>
 <p>An alternative parameterisation to all three functional responses is
 to incorporate a consumption efficiency term,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">c_{ij}</annotation></semantics></math>.
@@ -282,7 +282,7 @@ Faceted by resources and time dependent parameterisations (when
 relevant).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-8-1.png" width="384"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="384"></p>
 <p>The model can then be simulated with <code><a href="../reference/sim_rescomp.html">sim_rescomp()</a></code>.
 <code><a href="../reference/sim_rescomp.html">sim_rescomp()</a></code> is a wrapper to <code><a href="https://rdrr.io/pkg/deSolve/man/ode.html" class="external-link">deSolve::ode()</a></code>
 that takes the output from <code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code> as its main
@@ -293,7 +293,7 @@ argument.</p>
 (both consumers and resources).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="576"></p>
 <p>Note that the total simulation time and initial state variables
 specified with <code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code> can be overidden in
 <code>sim_recomp()</code> with the arguments <code>totaltime</code>, and
@@ -306,7 +306,7 @@ intentional.</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Overwriting `cinit` in `pars`.</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level3">
 <h3 id="type-2-consumer-on-a-continuously-supplied-resource">Type 2 consumer on a continuously supplied resource<a class="anchor" aria-label="anchor" href="#type-2-consumer-on-a-continuously-supplied-resource"></a>
@@ -325,7 +325,7 @@ intentional.</p>
 <code class="sourceCode R"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-15-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level3">
 <h3 id="two-type-2-consumers-on-a-logistically-growing-resource">Two type 2 consumers on a logistically growing resource<a class="anchor" aria-label="anchor" href="#two-type-2-consumers-on-a-logistically-growing-resource"></a>
@@ -345,12 +345,12 @@ intentional.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-17-1.png" width="384"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="" width="384"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-19-1.png" class="r-plt" alt="" width="576"></p>
 <p>Owing to the trade-off in functional responses (gleaner-opportunist)
 and resource fluctuations generated by N2, the two consumers are able to
 coexist.</p>
@@ -374,12 +374,12 @@ chemostat<a class="anchor" aria-label="anchor" href="#two-type-1-consumers-and-t
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" alt="" width="576"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" alt="" width="576"></p>
 <p>Resource partitioning, where each consumer is a better competitor
 (lower R*) for a different resource, results in coexistence.</p>
 </div>
@@ -393,7 +393,7 @@ parameteristion to essential resources while keeping all else equal.</p>
 <span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-25-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-25-1.png" class="r-plt" alt="" width="576"></p>
 <p>There is no coexistence now because each species needs to have a
 larger impact on the resource that is most limiting its growth. For
 ‘consumer 1’ it is ‘resource b’, whereas for ‘consumer 2’ it is
@@ -419,7 +419,7 @@ quota matrix.</p>
 <code class="sourceCode R"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-28-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-28-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level3">
 <h3 id="two-type-2-consumers-and-one-externally-pulsed-resource-continuous-mortality">Two type 2 consumers and one externally pulsed resource (continuous
@@ -450,12 +450,12 @@ supply.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-30-1.png" width="384"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-30-1.png" class="r-plt" alt="" width="384"></p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-32-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-32-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level3">
 <h3 id="two-type-2-consumers-and-one-externally-pulsed-resource-serial-transfer-with-pulsed-mortality">Two type 2 consumers and one externally pulsed resource (serial
@@ -512,12 +512,12 @@ mortality is also provided by the batch transfer events.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-34-1.png" width="384"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-34-1.png" class="r-plt" alt="" width="384"></p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-36-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-36-1.png" class="r-plt" alt="" width="576"></p>
 <p>Note, to reproduce the dynamics of a single batch culture experiment
 (i.e. without serial transfer) as potentially measured via optical
 density in a plate reader (negligible or unobserved mortality), simply
@@ -527,7 +527,7 @@ set both <code>resspeed</code> and <code>mort</code> to zero.</p>
 <span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-38-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-38-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level3">
 <h3 id="two-type-2-consumers-with-time-dependent-consumption-parameters-and-one-continuously-supplied-resource">Two type 2 consumers with time dependent consumption parameters and
@@ -576,12 +576,12 @@ parameter.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">pars</span><span class="op">$</span><span class="va">rinit</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-40-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-40-1.png" class="r-plt" alt="" width="576"></p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-42-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-42-1.png" class="r-plt" alt="" width="576"></p>
 <p>The two consumers coexist due species-specific environmental
 responses leading to a temporal storage effect.</p>
 </div>
@@ -611,12 +611,12 @@ intransitive loop (i.e. rock paper scissors dynamics).<a class="anchor" aria-la
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">pars</span><span class="op">$</span><span class="va">rinit</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-44-1.png" width="384"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-44-1.png" class="r-plt" alt="" width="384"></p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="rescomp_files/figure-html/unnamed-chunk-46-1.png" width="576"></p>
+<p><img src="rescomp_files/figure-html/unnamed-chunk-46-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 </div>
   </div>
@@ -636,7 +636,7 @@ intransitive loop (i.e. rock paper scissors dynamics).<a class="anchor" aria-la
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer>

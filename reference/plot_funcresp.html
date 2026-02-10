@@ -111,18 +111,14 @@ Plots are likely to be nonsensical or incorrect if this assumption is violated.<
 <span class="r-in"><span><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  spnum <span class="op">=</span> <span class="fl">2</span>,</span></span>
 <span class="r-in"><span>  resnum <span class="op">=</span> <span class="fl">2</span>,</span></span>
-<span class="r-in"><span>  funcresp <span class="op">=</span> <span class="st">"type2"</span>,</span></span>
-<span class="r-in"><span>  mumatrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  funcresp <span class="op">=</span> <span class="fu"><a href="funcresp_monod.html">funcresp_monod</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    mumax <span class="op">=</span> <span class="fu"><a href="crmatrix.html">crmatrix</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>      <span class="fl">0.7</span>, <span class="fl">0.3</span>,</span></span>
 <span class="r-in"><span>      <span class="fl">0.4</span>, <span class="fl">0.5</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span>,</span></span>
-<span class="r-in"><span>    nrow <span class="op">=</span> <span class="fl">2</span>,</span></span>
-<span class="r-in"><span>    ncol <span class="op">=</span> <span class="fl">2</span>,</span></span>
-<span class="r-in"><span>    byrow <span class="op">=</span> <span class="cn">TRUE</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    ks <span class="op">=</span> <span class="fu"><a href="crmatrix.html">crmatrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in spec_rescomp(spnum = 2, resnum = 2, funcresp = "type2", mumatrix = list(matrix(c(0.7,     0.3, 0.4, 0.5), nrow = 2, ncol = 2, byrow = TRUE))):</span> unused argument (mumatrix = list(matrix(c(0.7, 0.3, 0.4, 0.5), nrow = 2, ncol = 2, byrow = TRUE)))</span>
 <span class="r-in"><span><span class="fu">plot_funcresp</span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_funcresp-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">plot_funcresp</span><span class="op">(</span><span class="va">pars</span>, madj <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -142,7 +138,7 @@ Plots are likely to be nonsensical or incorrect if this assumption is violated.<
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>

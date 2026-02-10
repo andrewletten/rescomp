@@ -89,7 +89,16 @@ Inheritance only works when passed directly through <code>rescomp</code> functio
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># TODO</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  spnum <span class="op">=</span> <span class="fl">3</span>, resnum <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  funcresp <span class="op">=</span> <span class="fu"><a href="funcresp_type1.html">funcresp_type1</a></span><span class="op">(</span><span class="fu">crmatrix</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fl">0.10</span>, <span class="fl">0.10</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">0.08</span>, <span class="fl">0.12</span>,</span></span>
+<span class="r-in"><span>    <span class="fl">0.15</span>, <span class="fl">0.05</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="fu"><a href="sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="crmatrix-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>
@@ -104,7 +113,7 @@ Inheritance only works when passed directly through <code>rescomp</code> functio
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>
