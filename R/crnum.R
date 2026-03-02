@@ -8,7 +8,11 @@
 #' @noRd
 #'
 #' @examples
-#' # TODO
+#' enforce_cnum(1:4, 4)
+#' enforce_rnum(1, 4)
+#' try(enforce_cnum(1:2, 4))
+#' enforce_crnum(matrix(1:12, nrow = 3, ncol = 4), 3, 4)
+#' try(enforce_crnum(matrix(1:12, nrow = 3, ncol = 4), 4, 3))
 enforce_crnum <- function(mat, spnum, resnum, call = rlang::caller_env()) {
   if (nrow(mat) != spnum || ncol(mat) != resnum) {
     cli::cli_abort(c(
