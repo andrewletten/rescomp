@@ -17,8 +17,8 @@ enforce_crnum <- function(mat, spnum, resnum, call = rlang::caller_env()) {
   if (nrow(mat) != spnum || ncol(mat) != resnum) {
     cli::cli_abort(c(
       "Matrix dimensions do not match spnum and resnum.",
-      "x" = "Matrix had {nrow(mat)} row{?s} and {ncol(mat)} columns{?s}.",
-      "i" = "Expected {spnum} (spnum) row{?s} and {resnum} (resnum) columns{?s}."
+      "x" = "Matrix had {nrow(mat)} row{?s} and {ncol(mat)} column{?s}.",
+      "i" = "Expected {spnum} (spnum) row{?s} and {resnum} (resnum) column{?s}."
     ), call = call)
   } else {
     return(mat)
