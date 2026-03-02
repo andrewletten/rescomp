@@ -67,7 +67,12 @@ enforce_rnum <- function(vec, resnum, call = rlang::caller_env()) {
 #' @noRd
 #'
 #' @examples
-#' # TODO
+#' propagate_cnum(0, 4)
+#' propagate_rnum(1, 5)
+#' try(propagate_cnum(1:2, 3))
+#' propagate_crnum(crmatrix(1), 3, 4)$matrix
+#' propagate_crnum(crmatrix(1:12), 3, 4)$matrix
+#' try(propagate_crnum(matrix(1:12, nrow = 4, ncol = 3), 3, 4))
 propagate_crnum <- function(obj, spnum, resnum) {
   UseMethod("propagate_crnum")
 }
