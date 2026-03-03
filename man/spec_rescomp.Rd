@@ -103,4 +103,17 @@ m3 <- spec_rescomp(
   )
 )
 plot_rescomp(sim_rescomp(m3))
+
+m4 <- spec_rescomp(
+  spnum = 2,
+  funcresp = funcresp_type1(
+    a = rescomp_coefs_lerp(
+      crmatrix(0.12, 0.08),
+      crmatrix(0.08, 0.12),
+      param_name = "temperature"
+    )
+  ),
+  params = list(temperature = rescomp_param_sine(period = 250))
+)
+plot_rescomp(sim_rescomp(m4))
 }
