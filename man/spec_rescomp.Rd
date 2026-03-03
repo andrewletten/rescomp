@@ -82,15 +82,16 @@ If using \code{efficiency}, the functional responses are taken to give attack ra
 m1 <- spec_rescomp()
 plot_rescomp(sim_rescomp(m1))
 
-# With two species and two resources.
+# With two species, two resources, and type 2 functional responses.
 m2 <- spec_rescomp(
   spnum = 2,
   resnum = 2,
-  funcresp = funcresp_type1(
+  funcresp = funcresp_type2(
     a = crmatrix(
       0.1, 0.2,
       0.15, 0.15
-    )
+    ),
+    h = crmatrix(1)
   )
 )
 plot_rescomp(sim_rescomp(m2))
