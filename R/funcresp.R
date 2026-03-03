@@ -93,7 +93,14 @@ funcresp_type1 <- function(a) {
 #' @export
 #'
 #' @examples
-#' # TODO
+#' m1 <- spec_rescomp(
+#'   spnum = 2,
+#'   funcresp = funcresp_type2(
+#'     a = crmatrix(0.4, 0.2),
+#'     h = crmatrix(3, 1)
+#'   )
+#' )
+#' plot_funcresp(m1, maxx = 3)
 funcresp_type2 <- function(a, h) {
   check_coefs_matrix(a)
   check_coefs_matrix(h)
@@ -116,7 +123,15 @@ funcresp_type2 <- function(a, h) {
 #' @export
 #'
 #' @examples
-#' # TODO
+#' m1 <- spec_rescomp(
+#'   spnum = 3,
+#'   funcresp = funcresp_type3(
+#'     a = crmatrix(0.5, 0.3, 0.2),
+#'     h = crmatrix(4, 2, 1),
+#'     k = crmatrix(2)
+#'   )
+#' )
+#' plot_funcresp(m1, maxx = 3)
 funcresp_type3 <- function(a, h, k) {
   check_coefs_matrix(a)
   check_coefs_matrix(h)
@@ -140,7 +155,14 @@ funcresp_type3 <- function(a, h, k) {
 #' @export
 #'
 #' @examples
-#' # TODO
+#' m1 <- spec_rescomp(
+#'   spnum = 2,
+#'   funcresp = funcresp_monod(
+#'     mumax = crmatrix(0.2, 0.4),
+#'     ks = crmatrix(0.2, 1)
+#'   )
+#' )
+#' plot_funcresp(m1, maxx = 3)
 funcresp_monod <- function(mumax, ks) {
   check_coefs_matrix(mumax)
   check_coefs_matrix(ks)
@@ -164,7 +186,15 @@ funcresp_monod <- function(mumax, ks) {
 #' @export
 #'
 #' @examples
-#' # TODO
+#' m1 <- spec_rescomp(
+#'   spnum = 3,
+#'   funcresp = funcresp_hill(
+#'     mumax = crmatrix(0.2, 0.4, 0.4),
+#'     ks = crmatrix(0.2, 1, 1),
+#'     n = crmatrix(1, 1, 2)
+#'   )
+#' )
+#' plot_funcresp(m1, maxx = 3)
 funcresp_hill <- function(mumax, ks, n) {
   check_coefs_matrix(mumax)
   check_coefs_matrix(ks)

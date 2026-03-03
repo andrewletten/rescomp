@@ -20,5 +20,12 @@ Creates a Holling type 2 functional response with attack rate \code{a} and handl
 mu_ij(R_j) = (a_ij * R_j) / (1 + a_ij * h_ij * R_j)
 }
 \examples{
-# TODO
+m1 <- spec_rescomp(
+  spnum = 2,
+  funcresp = funcresp_type2(
+    a = crmatrix(0.4, 0.2),
+    h = crmatrix(3, 1)
+  )
+)
+plot_funcresp(m1, maxx = 3)
 }

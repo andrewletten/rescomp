@@ -23,5 +23,13 @@ mu_ij(R_j) = mumax_ij * (R_j)^n_ij / (ks_ij + (R_j)^n_ij)
 This an alternative parameterisation of a type 3 functional response, typically used with quota rather than efficiency.
 }
 \examples{
-# TODO
+m1 <- spec_rescomp(
+  spnum = 3,
+  funcresp = funcresp_hill(
+    mumax = crmatrix(0.2, 0.4, 0.4),
+    ks = crmatrix(0.2, 1, 1),
+    n = crmatrix(1, 1, 2)
+  )
+)
+plot_funcresp(m1, maxx = 3)
 }

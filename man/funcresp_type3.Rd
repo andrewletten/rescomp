@@ -22,5 +22,13 @@ Creates a Holling type 3 functional response with attack rate \code{a}, handling
 mu_ij(R_j) = (a_ij * (R_j)^k_ij) / (1 + a_ij * h_ij * (R_j)^k_ij)
 }
 \examples{
-# TODO
+m1 <- spec_rescomp(
+  spnum = 3,
+  funcresp = funcresp_type3(
+    a = crmatrix(0.5, 0.3, 0.2),
+    h = crmatrix(4, 2, 1),
+    k = crmatrix(2)
+  )
+)
+plot_funcresp(m1, maxx = 3)
 }

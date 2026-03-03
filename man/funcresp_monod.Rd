@@ -21,5 +21,12 @@ mu_ij(R_j) = mumax_ij * R_j / (ks_ij + R_j)
 This an alternative parameterisation of a type 2 functional response, typically used with quota rather than efficiency.
 }
 \examples{
-# TODO
+m1 <- spec_rescomp(
+  spnum = 2,
+  funcresp = funcresp_monod(
+    mumax = crmatrix(0.2, 0.4),
+    ks = crmatrix(0.2, 1)
+  )
+)
+plot_funcresp(m1, maxx = 3)
 }
