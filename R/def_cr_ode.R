@@ -1,14 +1,11 @@
 #' Define consumer resource ODE function
 #'
-#' @param t Time to simulate over
-#' @param y Vector of initial states
-#' @param pars A list of model parameters
+#' @param t The current time of the simulation.
+#' @param y The vector of current estimates of consumers and resources in the simulation.
+#' @param pars S3 object of class `rescomp` containing model specification.
 #'
-#' @return Model formula to pass to `sim_rescomp()`
+#' @return List of length one, containing a vector of derivatives of `y` with respect to time.
 #' @export
-#'
-#' @examples
-#' # TODO
 def_cr_ode <- function(t, y, pars) {
   N <- y[1:pars$spnum]
   R <- y[-(1:pars$spnum)]

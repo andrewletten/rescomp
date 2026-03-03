@@ -7,18 +7,15 @@
 def_cr_ode(t, y, pars)
 }
 \arguments{
-\item{t}{Time to simulate over}
+\item{t}{The current time of the simulation.}
 
-\item{y}{Vector of initial states}
+\item{y}{The vector of current estimates of consumers and resources in the simulation.}
 
-\item{pars}{A list of model parameters}
+\item{pars}{S3 object of class \code{rescomp} containing model specification.}
 }
 \value{
-Model formula to pass to \code{sim_rescomp()}
+List of length one, containing a vector of derivatives of \code{y} with respect to time.
 }
 \description{
 Define consumer resource ODE function
-}
-\examples{
-# TODO
 }
