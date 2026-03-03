@@ -49,5 +49,14 @@ Produces an object suitable to include in a list of rescomp parameters, providin
 Triangle and square waves are phase-shifted to be similiar in shape to a sine wave with the same period and offset, such that the peaks and troughs occur in the same places.
 }
 \examples{
-# TODO
+sine <- rescomp_param_sine(period = 1)
+cosine <- rescomp_param_sine(period = 1, offset = -0.25)
+triangle <- rescomp_param_triangle(period = 1)
+square <- rescomp_param_square(period = 1)
+
+times <- seq(from = 0, to = 2, by = 0.01)
+plot(times, get_params(sine, times), type = "l", col = "black")
+lines(times, get_params(cosine, times), col = "blue")
+lines(times, get_params(triangle, times), col = "maroon3")
+lines(times, get_params(square, times), col = "orange")
 }

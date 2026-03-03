@@ -38,7 +38,16 @@ rescomp_param_custom <- function(func, display_values = NULL) {
 #' @export
 #'
 #' @examples
-#' # TODO
+#' sine <- rescomp_param_sine(period = 1)
+#' cosine <- rescomp_param_sine(period = 1, offset = -0.25)
+#' triangle <- rescomp_param_triangle(period = 1)
+#' square <- rescomp_param_square(period = 1)
+#'
+#' times <- seq(from = 0, to = 2, by = 0.01)
+#' plot(times, get_params(sine, times), type = "l", col = "black")
+#' lines(times, get_params(cosine, times), col = "blue")
+#' lines(times, get_params(triangle, times), col = "maroon3")
+#' lines(times, get_params(square, times), col = "orange")
 rescomp_param_sine <- function(period = 1, min = 0, max = 1, offset = 0, display_values = c(min, max)) {
   param <- list(period = period, mean = (min + max) / 2, amplitude = (max - min) / 2, offset = offset, display_values = display_values)
   class(param) <- c("rescomp_param_sine", "rescomp_param")
