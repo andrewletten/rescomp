@@ -26,7 +26,28 @@ get_resource_names <- function(indices) {
 #' @noRd
 #'
 #' @examples
-#' # TODO
+#' pars <- spec_rescomp(
+#'   spnum = 2,
+#'   funcresp = funcresp_type1(
+#'     a = rescomp_coefs_lerp(
+#'       crmatrix(0.12, 0.08),
+#'       crmatrix(0.08, 0.12),
+#'       param_name = "temperature"
+#'     )
+#'   ),
+#'   quota = rescomp_coefs_lerp(
+#'     crmatrix(0.0014),
+#'     crmatrix(0.0006),
+#'     param_name = "rot"
+#'   ),
+#'   params = list(
+#'     temperature = rescomp_param_sine(period = 250),
+#'     rot = rescomp_param_sine(period = 250, offset = -50)
+#'   )
+#' )
+#' process_display_values(pars)
+#' process_display_values(pars, display_values = list(temperature = c(0.0, 0.25, 0.5, 0.75, 1.0)))
+#' process_display_values(pars, display_values = list(temperature = 0.5, rot = 0.5))
 process_display_values <- function(pars, display_values, call = rlang::caller_env()) {
   param_display_values <- lapply(pars$params, get_display_values)
 
