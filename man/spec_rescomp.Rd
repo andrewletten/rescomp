@@ -78,9 +78,11 @@ If using \code{quota}, the functional responses are taken to give per capita gro
 If using \code{efficiency}, the functional responses are taken to give attack rates.
 }
 \examples{
+# Using default parameters.
 m1 <- spec_rescomp()
 plot_rescomp(sim_rescomp(m1))
 
+# With two species and two resources.
 m2 <- spec_rescomp(
   spnum = 2,
   resnum = 2,
@@ -93,6 +95,7 @@ m2 <- spec_rescomp(
 )
 plot_rescomp(sim_rescomp(m2))
 
+# With serial dilution (batch transfer) events.
 m3 <- spec_rescomp(
   ressupply = ressupply_constant(0),
   events = list(
@@ -104,6 +107,7 @@ m3 <- spec_rescomp(
 )
 plot_rescomp(sim_rescomp(m3))
 
+# Growth rates affected by seasonal temperature fluctuations.
 m4 <- spec_rescomp(
   spnum = 2,
   funcresp = funcresp_type1(
