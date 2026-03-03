@@ -47,7 +47,10 @@ funcresp_custom <- function(func, spnum = NULL, resnum = NULL) {
 #' m1 <- spec_rescomp(
 #'   spnum = 2, resnum = 2,
 #'   funcresp = funcresp_type1(
-#'     crmatrix(0.2, 0.3, 0.4, 0.2)
+#'     crmatrix(
+#'       0.2, 0.3,
+#'       0.4, 0.2
+#'     )
 #'   )
 #' )
 #' plot_funcresp(m1)
@@ -56,8 +59,14 @@ funcresp_custom <- function(func, spnum = NULL, resnum = NULL) {
 #'   spnum = 2, resnum = 2,
 #'   funcresp = funcresp_type1(
 #'     rescomp_coefs_lerp(
-#'       crmatrix(0.2, 0.3, 0.4, 0.2),
-#'       crmatrix(0.2, 0.3, 0.1, 0.1),
+#'       crmatrix(
+#'         0.2, 0.3,
+#'         0.4, 0.2
+#'       ),
+#'       crmatrix(
+#'         0.2, 0.3,
+#'         0.1, 0.1
+#'       ),
 #'       "antibiotic_concentration"
 #'     )
 #'   ),
