@@ -38,7 +38,21 @@
 #' )
 #' plot_funcresp(pars)
 #' plot_funcresp(pars, madj = TRUE)
-#' # TODO: An example with display_values.
+#' plot_funcresp(pars, maxx = 5)
+#'
+#' pars <- spec_rescomp(
+#'   spnum = 2,
+#'   funcresp = funcresp_type1(
+#'     a = rescomp_coefs_lerp(
+#'       crmatrix(0.12, 0.08),
+#'       crmatrix(0.08, 0.12),
+#'       param_name = "temperature"
+#'     )
+#'   ),
+#'   params = list(temperature = rescomp_param_sine(period = 250))
+#' )
+#' plot_funcresp(pars)
+#' plot_funcresp(pars, display_values = list(temperature = c(0.0, 0.25, 0.5, 0.75, 1.0)))
 plot_funcresp <- function(pars, maxx = 1, display_values, madj = FALSE) {
   cbbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
   resSet1 <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33", "#A65628")
