@@ -140,9 +140,6 @@ get_params.rescomp_param_triangle <- function(param_obj, t) {
 #'
 #' @returns A numeric vector of values of the parameter to use for plotting.
 #' @noRd
-#'
-#' @examples
-#' # TODO
 get_display_values <- function(param_obj) {
   UseMethod("get_display_values")
 }
