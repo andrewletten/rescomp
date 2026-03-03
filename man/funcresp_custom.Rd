@@ -25,11 +25,15 @@ This is fine if the result is passed directly to \code{spec_rescomp()}, but may 
 }
 \examples{
 # Type 1 functional response with fixed growth rates
-funcresp_custom(
-  function(resources, params) {
-    growth_rates <- c(0.2, 0.3)
-    outer(growth_rates, resources)
-  },
-  spnum = 2
+m1 <- spec_rescomp(
+  spnum = 2, resnum = 3,
+  funcresp_custom(
+    function(resources, params) {
+      growth_rates <- c(0.2, 0.3)
+      outer(growth_rates, resources)
+    },
+    spnum = 2
+  )
 )
+plot_funcresp(m1)
 }

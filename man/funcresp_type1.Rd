@@ -18,17 +18,24 @@ Creates a linear or type 1 functional response with attack rate \code{a}.
 mu_ij(R_j) = a_ij * R_j
 }
 \examples{
-funcresp1 <- funcresp_type1(
-  matrix(c(0.2, 0.4, 0.3, 0.2), nrow = 2)
-)
-get_funcresp(funcresp1, 2, c(10, 20), list())
-
-funcresp2 <- funcresp_type1(
-  rescomp_coefs_lerp(
-    matrix(c(0.2, 0.4, 0.3, 0.2), nrow = 2),
-    matrix(c(0.2, 0.1, 0.3, 0.1), nrow = 2),
-    "antibiotic_concentration"
+m1 <- spec_rescomp(
+  spnum = 2, resnum = 2,
+  funcresp = funcresp_type1(
+    crmatrix(0.2, 0.3, 0.4, 0.2)
   )
 )
-get_funcresp(funcresp2, 2, c(10, 20), list(antibiotic_concentration = 0.5))
+plot_funcresp(m1)
+
+m2 <- spec_rescomp(
+  spnum = 2, resnum = 2,
+  funcresp = funcresp_type1(
+    rescomp_coefs_lerp(
+      crmatrix(0.2, 0.3, 0.4, 0.2),
+      crmatrix(0.2, 0.3, 0.1, 0.1),
+      "antibiotic_concentration"
+    )
+  ),
+  params = list(antibiotic_concentration = rescomp_param_square())
+)
+plot_funcresp(m2, display_values = list(antibiotic_concentration = c(0, 0.5, 1)))
 }
