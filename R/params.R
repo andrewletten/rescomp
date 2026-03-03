@@ -112,24 +112,22 @@ get_params.rescomp_param_sine <- function(param_obj, t) {
 #' @export
 get_params.rescomp_param_square <- function(param_obj, t) {
   t_scaled <- (t - param_obj$offset) / param_obj$period
-  if (t_scaled %% 1 < 0.5) {
-    return(param_obj$max)
-  } else {
-    return(param_obj$min)
-  }
+  return(ifelse(
+    t_scaled %% 1 < 0.5,
+    param_obj$max,
+    param_obj$min
+  ))
 }
 
 #' @export
 get_params.rescomp_param_triangle <- function(param_obj, t) {
   t_scaled <- (t - param_obj$offset) / param_obj$period
   t_scaled <- (t_scaled + 0.25) %% 1
-  if (t_scaled < 0.5) {
-    # Rising segment
-    return(param_obj$min + (param_obj$max - param_obj$min) * t_scaled * 2)
-  } else {
-    # Falling segment
-    return(param_obj$max - (param_obj$max - param_obj$min) * (t_scaled - 0.5) * 2)
-  }
+  return(ifelse(
+    t_scaled < 0.5,
+    param_obj$min + (param_obj$max - param_obj$min) * t_scaled * 2, # Rising segment
+    param_obj$max - (param_obj$max - param_obj$min) * (t_scaled - 0.5) * 2 # Falling segment
+  ))
 }
 
 #' Get the display values for `plot_funcresp()` from a `rescomp_param` object
