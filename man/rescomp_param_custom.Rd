@@ -16,7 +16,7 @@ If not specified here, must be specified in \code{plot_funcresp()}.}
 S3 object of class \code{rescomp_param}.
 }
 \description{
-Produces an object suitable to include in a \code{rescomp_param_list}.
+Produces an object suitable to include in a list of rescomp parameters, providing time-dependence.
 }
 \examples{
 # Repeated pulsing and exponential decay

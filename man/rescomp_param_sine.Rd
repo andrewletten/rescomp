@@ -45,7 +45,7 @@ rescomp_param_square(
 S3 object of class \code{rescomp_param}.
 }
 \description{
-Produces an object suitable to include in a \code{rescomp_param_list}.
+Produces an object suitable to include in a list of rescomp parameters, providing time-dependence.
 Triangle and square waves are phase-shifted to be similiar in shape to a sine wave with the same period and offset, such that the peaks and troughs occur in the same places.
 }
 \examples{

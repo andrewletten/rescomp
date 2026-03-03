@@ -14,7 +14,7 @@ spec_rescomp(
   essential = FALSE,
   mort = 0.03,
   ressupply = ressupply_chemostat(0.03, 1),
-  params = rescomp_param_list(),
+  params = list(),
   events = list(),
   totaltime = 1000,
   cinit = 10,
@@ -46,8 +46,10 @@ specifying density independent mortality rates.}
 
 \item{ressupply}{An object of class \code{rescomp_ressupply} specifying the resource supply.}
 
-\item{params}{An object of class \code{rescomp_param_list} specifying a set of parameters which vary
-with time, on which other parameters of the model (e.g. funcresp, ressupply) may depend.}
+\item{params}{A list specifying a set of parameters which may vary with time,
+on which other parameters of the model (e.g. funcresp, ressupply) may depend.
+\code{rescomp_param} objects in the list are parsed to allow time dependence,
+while other objects are passed directly.}
 
 \item{events}{A list of objects of class \code{rescomp_event_schedule}, specifying events that
 instantaneously change consumer or resource densities.}

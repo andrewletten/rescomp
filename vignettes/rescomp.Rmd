@@ -417,7 +417,7 @@ plot_rescomp(m1)
 
 Using time dependent consumption parameters is appropriate for capturing basic consumer-environment interactions (e.g. differential responses to temperature, pH, antibiotics etc.). Time varying parameters can be implemented with forcing functions. *rescomp* provides a convenient means of implementing forcing functions.
 
-To do this, firstly, one or more time-dependent parameter must be defined, given in a `rescomp_param_list()` to the `params` argument of `spec_rescomp()`. The way in which the parameter changes over time may be defined using a variety of helper functions, such as `rescomp_param_sine()`, `rescomp_param_triangle()`, or `rescomp_param_square()` (different types of periodic variation). Secondly, some parameters of the model, such as the $\mu_{\text{max}}$ and $K_s$ of the functional response, must be made depedent upon the time-dependent parameters: this will most commonly be done using the `rescomp_coefs_lerp()` function, which linerarly interpolates the parameter values depending on the value of the time-dependent parameter.
+To do this, firstly, one or more time-dependent parameter must be defined, given in a list to the `params` argument of `spec_rescomp()`. The way in which the parameter changes over time may be defined using a variety of helper functions, such as `rescomp_param_sine()`, `rescomp_param_triangle()`, or `rescomp_param_square()` (different types of periodic variation). Secondly, some parameters of the model, such as the $\mu_{\text{max}}$ and $K_s$ of the functional response, must be made depedent upon the time-dependent parameters: this will most commonly be done using the `rescomp_coefs_lerp()` function, which linerarly interpolates the parameter values depending on the value of the time-dependent parameter.
 
 ```{r}
 pars <- spec_rescomp(
@@ -431,7 +431,7 @@ pars <- spec_rescomp(
     ),
     ks = crmatrix(0.1)
   ),
-  params = rescomp_param_list(
+  params = list(
     env_state = rescomp_param_square(period = 100)
   ),
   ressupply = ressupply_chemostat(dilution = 0.03, concentration = 0.1),

@@ -142,7 +142,7 @@ pars <- spec_rescomp(
     ks = crmatrix(1),
     n = crmatrix(2)
   ),
-  params = rescomp_param_list(
+  params = list(
     env_state = rescomp_param_square(period = 80)
   ),
   ressupply = ressupply_constant(0),

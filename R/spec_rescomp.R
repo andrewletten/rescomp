@@ -16,8 +16,10 @@
 #' @param mort Numeric vector or `rescomp_coefs_vector` of length `spnum`,
 #'     specifying density independent mortality rates.
 #' @param ressupply An object of class `rescomp_ressupply` specifying the resource supply.
-#' @param params An object of class `rescomp_param_list` specifying a set of parameters which vary
-#'     with time, on which other parameters of the model (e.g. funcresp, ressupply) may depend.
+#' @param params A list specifying a set of parameters which may vary with time,
+#'     on which other parameters of the model (e.g. funcresp, ressupply) may depend.
+#'     `rescomp_param` objects in the list are parsed to allow time dependence,
+#'     while other objects are passed directly.
 #' @param events A list of objects of class `rescomp_event_schedule`, specifying events that
 #'     instantaneously change consumer or resource densities.
 #' @param totaltime Numeric vector of length 1: the total simulation time.
@@ -70,7 +72,7 @@ spec_rescomp <- function(spnum = 1,
                          essential = FALSE,
                          mort = 0.03,
                          ressupply = ressupply_chemostat(0.03, 1),
-                         params = rescomp_param_list(),
+                         params = list(),
                          events = list(),
                          totaltime = 1000,
                          cinit = 10,
