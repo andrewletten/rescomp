@@ -16,5 +16,18 @@ S3 object of class \code{rescomp_event}.
 Produces an event object a pulse of multiplicatively increased/decreased resource populations, e.g. a density-independent disturbance which kills prey species.
 }
 \examples{
-# TODO
+m1 <- spec_rescomp(
+  spnum = 2, resnum = 2,
+  funcresp = funcresp_type1(crmatrix(
+    0.10, 0.08,
+    0.06, 0.12
+  )),
+  events = list(
+    event_schedule_periodic(
+      event_res_mult(c(0.5, 1.5)),
+      period = 250
+    )
+  )
+)
+plot_rescomp(sim_rescomp(m1))
 }

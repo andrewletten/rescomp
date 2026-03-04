@@ -79,7 +79,15 @@ event_res_custom <- function(func, resnum = NULL) {
 #' @export
 #'
 #' @examples
-#' # TODO
+#' m1 <- spec_rescomp(
+#'   events = list(
+#'     event_schedule_periodic(
+#'       event_batch_transfer(dilution = 0.1, resources = 1),
+#'       period = 250
+#'     )
+#'   )
+#' )
+#' plot_rescomp(sim_rescomp(m1))
 event_batch_transfer <- function(dilution, resources) {
   event <- list(dilution = dilution, resources = resources)
   class(event) <- c("rescomp_event_batch_transfer", "rescomp_event")
@@ -97,7 +105,20 @@ event_batch_transfer <- function(dilution, resources) {
 #' @export
 #'
 #' @examples
-#' # TODO
+#' m1 <- spec_rescomp(
+#'   spnum = 2, resnum = 2,
+#'   funcresp = funcresp_type1(crmatrix(
+#'     0.10, 0.08,
+#'     0.06, 0.12
+#'   )),
+#'   events = list(
+#'     event_schedule_periodic(
+#'       event_sp_add(c(-100, 100)),
+#'       period = 250
+#'     )
+#'   )
+#' )
+#' plot_rescomp(sim_rescomp(m1))
 event_sp_add <- function(species, min_zero = TRUE) {
   event <- list(species = species, min_zero = min_zero)
   class(event) <- c("rescomp_event_sp_add", "rescomp_event")
@@ -115,7 +136,20 @@ event_sp_add <- function(species, min_zero = TRUE) {
 #' @export
 #'
 #' @examples
-#' # TODO
+#' m1 <- spec_rescomp(
+#'   spnum = 2, resnum = 2,
+#'   funcresp = funcresp_type1(crmatrix(
+#'     0.10, 0.08,
+#'     0.06, 0.12
+#'   )),
+#'   events = list(
+#'     event_schedule_periodic(
+#'       event_res_add(c(-0.1, 0.1)),
+#'       period = 250
+#'     )
+#'   )
+#' )
+#' plot_rescomp(sim_rescomp(m1))
 event_res_add <- function(resources, min_zero = TRUE) {
   event <- list(resources = resources, min_zero = min_zero)
   class(event) <- c("rescomp_event_res_add", "rescomp_event")
@@ -132,7 +166,20 @@ event_res_add <- function(resources, min_zero = TRUE) {
 #' @export
 #'
 #' @examples
-#' # TODO
+#' m1 <- spec_rescomp(
+#'   spnum = 2, resnum = 2,
+#'   funcresp = funcresp_type1(crmatrix(
+#'     0.10, 0.08,
+#'     0.06, 0.12
+#'   )),
+#'   events = list(
+#'     event_schedule_periodic(
+#'       event_sp_mult(c(0.5, 1.5)),
+#'       period = 250
+#'     )
+#'   )
+#' )
+#' plot_rescomp(sim_rescomp(m1))
 event_sp_mult <- function(species_mult) {
   event <- list(species_mult = species_mult)
   class(event) <- c("rescomp_event_sp_mult", "rescomp_event")
@@ -149,7 +196,20 @@ event_sp_mult <- function(species_mult) {
 #' @export
 #'
 #' @examples
-#' # TODO
+#' m1 <- spec_rescomp(
+#'   spnum = 2, resnum = 2,
+#'   funcresp = funcresp_type1(crmatrix(
+#'     0.10, 0.08,
+#'     0.06, 0.12
+#'   )),
+#'   events = list(
+#'     event_schedule_periodic(
+#'       event_res_mult(c(0.5, 1.5)),
+#'       period = 250
+#'     )
+#'   )
+#' )
+#' plot_rescomp(sim_rescomp(m1))
 event_res_mult <- function(resources_mult) {
   event <- list(resources_mult = resources_mult)
   class(event) <- c("rescomp_event_res_mult", "rescomp_event")

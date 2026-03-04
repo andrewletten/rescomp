@@ -21,5 +21,13 @@ First, all existing species and resource concentrations are multiplied by \code{
 Then, the resource concentrations listed in \code{resources}, multiplied by 1 - \code{dilution}, are added.
 }
 \examples{
-# TODO
+m1 <- spec_rescomp(
+  events = list(
+    event_schedule_periodic(
+      event_batch_transfer(dilution = 0.1, resources = 1),
+      period = 250
+    )
+  )
+)
+plot_rescomp(sim_rescomp(m1))
 }

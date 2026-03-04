@@ -18,5 +18,18 @@ S3 object of class \code{rescomp_event}.
 Produces an event object representing a pulse of added/removed consumers, e.g. a species introduction.
 }
 \examples{
-# TODO
+m1 <- spec_rescomp(
+  spnum = 2, resnum = 2,
+  funcresp = funcresp_type1(crmatrix(
+    0.10, 0.08,
+    0.06, 0.12
+  )),
+  events = list(
+    event_schedule_periodic(
+      event_sp_add(c(-100, 100)),
+      period = 250
+    )
+  )
+)
+plot_rescomp(sim_rescomp(m1))
 }
