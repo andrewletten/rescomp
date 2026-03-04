@@ -27,5 +27,12 @@ Applies the instantaneous changes specified by a \code{rescomp_event} object to 
 This function is normally only for internal use, but is exported to aid users in debugging their created \code{rescomp_event} objects.
 }
 \examples{
-# TODO
+batch_transfer <- event_batch_transfer(dilution = 0.1, resources = c(1, 1))
+apply_event(
+  batch_transfer,
+  species = c(100, 200),
+  resources = c(0.5, 2),
+  params = list(),
+  time = 0 # Not used by batch transfer events.
+)
 }

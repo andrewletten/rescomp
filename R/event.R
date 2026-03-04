@@ -232,7 +232,14 @@ event_res_mult <- function(resources_mult) {
 #' @export
 #'
 #' @examples
-#' # TODO
+#' batch_transfer <- event_batch_transfer(dilution = 0.1, resources = c(1, 1))
+#' apply_event(
+#'   batch_transfer,
+#'   species = c(100, 200),
+#'   resources = c(0.5, 2),
+#'   params = list(),
+#'   time = 0 # Not used by batch transfer events.
+#' )
 apply_event <- function(event_obj, species, resources, params, time) {
   UseMethod("apply_event")
 }
