@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rescomp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -456,38 +456,43 @@ consumer equations rather than quotas in the resource equations. In
 an <code>effmatrix</code> rather than a <code>qmatrix</code>. The below
 code illustrates the model simulation presented by the authors in Figure
 1 of their paper.</p>
+<!-- TODO: Once rbind_funcresp() is implemented, re-implement the below without using funcresp_custom(). -->
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># TODO: Update this example to the latest version.</span></span>
-<span><span class="co"># pars &lt;- spec_rescomp(</span></span>
-<span><span class="co">#   spnum = 2,</span></span>
-<span><span class="co">#   resnum = 1,</span></span>
-<span><span class="co">#   funcresp = c("type2", "type1"),</span></span>
-<span><span class="co">#   mumatrix = matrix(c(0.5, 0.003),</span></span>
-<span><span class="co">#                     nrow = 2,</span></span>
-<span><span class="co">#                     ncol = 1,</span></span>
-<span><span class="co">#                     byrow = TRUE),</span></span>
-<span><span class="co">#   kmatrix = matrix(c(50, 1),</span></span>
-<span><span class="co">#                    nrow = 2,</span></span>
-<span><span class="co">#                    ncol = 1,</span></span>
-<span><span class="co">#                    byrow = TRUE),</span></span>
-<span><span class="co">#   effmatrix = matrix(c(0.3, 0.33),</span></span>
-<span><span class="co">#                    nrow = 2,</span></span>
-<span><span class="co">#                    ncol = 1,</span></span>
-<span><span class="co">#                    byrow = TRUE),</span></span>
-<span><span class="co">#   mort = c(0.1, 0.11),</span></span>
-<span><span class="co">#   chemo = FALSE,</span></span>
-<span><span class="co">#   resspeed = 0.1,</span></span>
-<span><span class="co">#   resconc = 300,</span></span>
-<span><span class="co">#   totaltime = 600,</span></span>
-<span><span class="co">#   cinit = c(1,0.01),</span></span>
-<span><span class="co">#   rinit = 100,</span></span>
-<span><span class="co">#   introseq = c(0,194)</span></span>
-<span><span class="co"># )</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span></span>
+<span>  spnum <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  resnum <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  funcresp <span class="op">=</span> <span class="fu"><a href="../reference/funcresp_custom.html">funcresp_custom</a></span><span class="op">(</span></span>
+<span>    <span class="kw">function</span><span class="op">(</span><span class="va">resources</span>, <span class="va">params</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>        <span class="fl">0.5</span> <span class="op">*</span> <span class="va">resources</span> <span class="op">/</span> <span class="op">(</span><span class="va">resources</span> <span class="op">+</span> <span class="fl">50</span><span class="op">)</span>, <span class="co"># First species is type II (Monod-parameterised), with mumax = 0.5 and ks = 50</span></span>
+<span>        <span class="va">resources</span> <span class="op">*</span> <span class="fl">0.003</span> <span class="co"># Second species is type I, with a = 0.003</span></span>
+<span>      <span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    spnum <span class="op">=</span> <span class="fl">2</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  efficiency <span class="op">=</span> <span class="fu"><a href="../reference/crmatrix.html">crmatrix</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.33</span><span class="op">)</span>,</span>
+<span>  mort <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.11</span><span class="op">)</span>,</span>
+<span>  ressupply <span class="op">=</span> <span class="fu"><a href="../reference/ressupply_logistic.html">ressupply_logistic</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fl">0.1</span>, k <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>,</span>
+<span>  totaltime <span class="op">=</span> <span class="fl">600</span>,</span>
+<span>  rinit <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  cinit <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  events <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="../reference/event_set_introseq.html">event_set_introseq</a></span><span class="op">(</span></span>
+<span>       concentrations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.01</span><span class="op">)</span>,</span>
+<span>       times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">194</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Because the two consumers were specified with slightly different
 density independent mortality rates, it is more informative to plot the
 functional responses using the <code>madj = TRUE</code> argument.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># plot_funcresp(pars, maxx = 200, madj = TRUE)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">200</span>, madj <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="classic-results-AM1980-funcresp-2-1.png" alt="plot of chunk AM1980-funcresp-2" width="70%"><p class="caption">
+plot of chunk AM1980-funcresp-2
+</p>
+</div>
 <p class="caption">
 Corresponds to Fig 2 from Armstrong and McGehee (1980).
 </p>
@@ -498,14 +503,24 @@ using the default option for <code>plot_funcresp</code> where the two
 different mortality rates are plotted alongside their functional
 responses.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># plot_funcresp(pars, maxx = 200)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="classic-results-AM1980-funcresp-2-unadjusted-mortality-1.png" alt="plot of chunk AM1980-funcresp-2-unadjusted-mortality" width="70%"><p class="caption">
+plot of chunk AM1980-funcresp-2-unadjusted-mortality
+</p>
+</div>
 <p>Simulations show that the species with the nonlinear functional
 response generates limit cycles upon which the species with the linear
 functional response is able to persist.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># m1 &lt;- sim_rescomp(pars)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_rescomp.html">sim_rescomp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># plot_rescomp(m1)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_rescomp.html">plot_rescomp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="classic-results-AM1980-dynamics-1-1.png" alt="plot of chunk AM1980-dynamics-1" width="70%"><p class="caption">
+plot of chunk AM1980-dynamics-1
+</p>
+</div>
 <p class="caption">
 Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states
 that the model was initated with R = 400, but here it is started with R

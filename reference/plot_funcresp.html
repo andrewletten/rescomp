@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rescomp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -123,7 +123,24 @@ Plots are likely to be nonsensical or incorrect if this assumption is violated.<
 <span class="r-plt img"><img src="plot_funcresp-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu">plot_funcresp</span><span class="op">(</span><span class="va">pars</span>, madj <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_funcresp-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># TODO: An example with display_values.</span></span></span>
+<span class="r-in"><span><span class="fu">plot_funcresp</span><span class="op">(</span><span class="va">pars</span>, maxx <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_funcresp-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  spnum <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  funcresp <span class="op">=</span> <span class="fu"><a href="funcresp_type1.html">funcresp_type1</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    a <span class="op">=</span> <span class="fu"><a href="rescomp_coefs_lerp.html">rescomp_coefs_lerp</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="crmatrix.html">crmatrix</a></span><span class="op">(</span><span class="fl">0.12</span>, <span class="fl">0.08</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="fu"><a href="crmatrix.html">crmatrix</a></span><span class="op">(</span><span class="fl">0.08</span>, <span class="fl">0.12</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      param_name <span class="op">=</span> <span class="st">"temperature"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>temperature <span class="op">=</span> <span class="fu"><a href="rescomp_param_sine.html">rescomp_param_sine</a></span><span class="op">(</span>period <span class="op">=</span> <span class="fl">250</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_funcresp</span><span class="op">(</span><span class="va">pars</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_funcresp-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">plot_funcresp</span><span class="op">(</span><span class="va">pars</span>, display_values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>temperature <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="fl">1.0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_funcresp-6.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

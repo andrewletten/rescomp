@@ -19,7 +19,7 @@ mu_ij(R_j) = a_ij * R_j"><!-- mathjax --><script src="https://cdnjs.cloudflare.c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rescomp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -85,25 +85,37 @@ mu_ij(R_j) = a_ij * R_j</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">funcresp1</span> <span class="op">&lt;-</span> <span class="fu">funcresp_type1</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="get_funcresp.html">get_funcresp</a></span><span class="op">(</span><span class="va">funcresp1</span>, <span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    2    6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    4    4</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">funcresp2</span> <span class="op">&lt;-</span> <span class="fu">funcresp_type1</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="rescomp_coefs_lerp.html">rescomp_coefs_lerp</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"antibiotic_concentration"</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  spnum <span class="op">=</span> <span class="fl">2</span>, resnum <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  funcresp <span class="op">=</span> <span class="fu">funcresp_type1</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="crmatrix.html">crmatrix</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="fl">0.2</span>, <span class="fl">0.3</span>,</span></span>
+<span class="r-in"><span>      <span class="fl">0.4</span>, <span class="fl">0.2</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="get_funcresp.html">get_funcresp</a></span><span class="op">(</span><span class="va">funcresp2</span>, <span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>antibiotic_concentration <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  2.0    6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  2.5    3</span>
+<span class="r-in"><span><span class="fu"><a href="plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="funcresp_type1-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="spec_rescomp.html">spec_rescomp</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  spnum <span class="op">=</span> <span class="fl">2</span>, resnum <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  funcresp <span class="op">=</span> <span class="fu">funcresp_type1</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="rescomp_coefs_lerp.html">rescomp_coefs_lerp</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="crmatrix.html">crmatrix</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="fl">0.2</span>, <span class="fl">0.3</span>,</span></span>
+<span class="r-in"><span>        <span class="fl">0.4</span>, <span class="fl">0.2</span></span></span>
+<span class="r-in"><span>      <span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="fu"><a href="crmatrix.html">crmatrix</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="fl">0.2</span>, <span class="fl">0.3</span>,</span></span>
+<span class="r-in"><span>        <span class="fl">0.1</span>, <span class="fl">0.1</span></span></span>
+<span class="r-in"><span>      <span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"antibiotic_concentration"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>antibiotic_concentration <span class="op">=</span> <span class="fu"><a href="rescomp_param_sine.html">rescomp_param_square</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="plot_funcresp.html">plot_funcresp</a></span><span class="op">(</span><span class="va">m2</span>, display_values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>antibiotic_concentration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="funcresp_type1-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

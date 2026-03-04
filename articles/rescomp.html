@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rescomp</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -539,10 +539,10 @@ responses to temperature, pH, antibiotics etc.). Time varying parameters
 can be implemented with forcing functions. <em>rescomp</em> provides a
 convenient means of implementing forcing functions.</p>
 <p>To do this, firstly, one or more time-dependent parameter must be
-defined, given in a <code><a href="../reference/rescomp_param_list.html">rescomp_param_list()</a></code> to the
-<code>params</code> argument of <code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code>. The way in
-which the parameter changes over time may be defined using a variety of
-helper functions, such as <code><a href="../reference/rescomp_param_sine.html">rescomp_param_sine()</a></code>,
+defined, given in a list to the <code>params</code> argument of
+<code><a href="../reference/spec_rescomp.html">spec_rescomp()</a></code>. The way in which the parameter changes over
+time may be defined using a variety of helper functions, such as
+<code><a href="../reference/rescomp_param_sine.html">rescomp_param_sine()</a></code>,
 <code><a href="../reference/rescomp_param_sine.html">rescomp_param_triangle()</a></code>, or
 <code><a href="../reference/rescomp_param_sine.html">rescomp_param_square()</a></code> (different types of periodic
 variation). Secondly, some parameters of the model, such as the
@@ -566,7 +566,7 @@ parameter.</p>
 <span>    <span class="op">)</span>,</span>
 <span>    ks <span class="op">=</span> <span class="fu"><a href="../reference/crmatrix.html">crmatrix</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  params <span class="op">=</span> <span class="fu"><a href="../reference/rescomp_param_list.html">rescomp_param_list</a></span><span class="op">(</span></span>
+<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    env_state <span class="op">=</span> <span class="fu"><a href="../reference/rescomp_param_sine.html">rescomp_param_square</a></span><span class="op">(</span>period <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  ressupply <span class="op">=</span> <span class="fu"><a href="../reference/ressupply_chemostat.html">ressupply_chemostat</a></span><span class="op">(</span>dilution <span class="op">=</span> <span class="fl">0.03</span>, concentration <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>,</span>
