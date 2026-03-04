@@ -73,7 +73,20 @@ event_schedule_periodic <- function(event_obj, period, start_time = period, prio
 #' @export
 #'
 #' @examples
-#' # TODO
+#' schedule1 <- event_schedule_periodic(
+#'   event_batch_transfer(dilution = 0.1, resources = 1),
+#'   period = 250
+#' )
+#' get_event_times(schedule1, 1000)
+#' get_event_times(schedule1, 999)
+#'
+#' schedule2 <- event_schedule_periodic(
+#'   event_batch_transfer(dilution = 0.1, resources = 1),
+#'   period = 250,
+#'   start_time = 125
+#' )
+#' get_event_times(schedule2, 1000)
+#' get_event_times(schedule2, 999)
 get_event_times <- function(event_schedule_obj, totaltime) {
   UseMethod("get_event_times")
 }
