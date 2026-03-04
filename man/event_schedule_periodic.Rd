@@ -22,5 +22,18 @@ S3 object of class \code{rescomp_event_schedule}.
 Produces an event schedule object suitable for passing in the \code{events} argument to \code{spec_rescomp()}.
 }
 \examples{
-# TODO
+m1 <- spec_rescomp(
+  events = list(
+    event_schedule_periodic(
+      event_batch_transfer(dilution = 0.1, resources = 1),
+      period = 250
+    ),
+    event_schedule_periodic(
+      event_batch_transfer(dilution = 0.5, resources = 1),
+      period = 250,
+      start_time = 125
+    )
+  )
+)
+plot_rescomp(sim_rescomp(m1))
 }
