@@ -15,7 +15,7 @@ get_event_times(event_schedule_obj, totaltime)
 A vector of times.
 }
 \description{
-This function is normally only for internal use, but is exported to aid users in debugging their created \code{rescomp_event} objects.
+This function is normally only for internal use, but is exported to aid users in debugging their created \code{rescomp_event_schedule} objects.
 }
 \examples{
 # TODO

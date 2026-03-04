@@ -64,7 +64,7 @@ event_schedule_periodic <- function(event_obj, period, start_time = period, prio
 
 #' Gets the list of times from a `rescomp_event_schedule` object
 #'
-#' This function is normally only for internal use, but is exported to aid users in debugging their created `rescomp_event` objects.
+#' This function is normally only for internal use, but is exported to aid users in debugging their created `rescomp_event_schedule` objects.
 #'
 #' @param event_schedule_obj An object of class `rescomp_event_schedule`.
 #' @param totaltime The total time which the simulation will run for.
