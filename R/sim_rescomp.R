@@ -48,7 +48,7 @@ sim_rescomp <- function(pars, totaltime, cinit, rinit, ...) {
   if (nrow(pars$event_schedule_df) > 0) {
     events <- list(
       func = ode_event_func,
-      time = pars$event_schedule_df$time
+      time = unique(pars$event_schedule_df$time)
     )
   } else {
     events <- list()
