@@ -6,9 +6,6 @@
 #'
 #' @returns S3 object of class `rescomp_event`.
 #' @noRd
-#'
-#' @examples
-#' # TODO
 event_introseq <- function(times, concentrations) {
   event <- list(times = times, concentrations = concentrations)
   class(event) <- c("rescomp_event_introseq", "rescomp_event")
