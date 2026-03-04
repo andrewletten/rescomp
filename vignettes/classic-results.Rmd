@@ -384,64 +384,75 @@ Armstrong and McGehee was one of the first papers to show more than $n$ species 
 
 Unlike the previous examples, Armstrong and McGehee parameterised a two consumer, one resource model using conversion efficiencies in the consumer equations rather than quotas in the resource equations. In `spec_rescomp()` this is implemented via the specification of an `effmatrix` rather than a `qmatrix`. The below code illustrates the model simulation presented by the authors in Figure 1 of their paper.
 
+<!-- TODO: Once rbind_funcresp() is implemented, re-implement the below without using funcresp_custom(). -->
 
 ``` r
-# TODO: Update this example to the latest version.
-# pars <- spec_rescomp(
-#   spnum = 2,
-#   resnum = 1,
-#   funcresp = c("type2", "type1"),
-#   mumatrix = matrix(c(0.5, 0.003),
-#                     nrow = 2,
-#                     ncol = 1,
-#                     byrow = TRUE),
-#   kmatrix = matrix(c(50, 1),
-#                    nrow = 2,
-#                    ncol = 1,
-#                    byrow = TRUE),
-#   effmatrix = matrix(c(0.3, 0.33),
-#                    nrow = 2,
-#                    ncol = 1,
-#                    byrow = TRUE),
-#   mort = c(0.1, 0.11),
-#   chemo = FALSE,
-#   resspeed = 0.1,
-#   resconc = 300,
-#   totaltime = 600,
-#   cinit = c(1,0.01),
-#   rinit = 100,
-#   introseq = c(0,194)
-# )
+pars <- spec_rescomp(
+  spnum = 2,
+  resnum = 1,
+  funcresp = funcresp_custom(
+    function(resources, params) {
+      return(matrix(c(
+        0.5 * resources / (resources + 50), # First species is type II (Monod-parameterised), with mumax = 0.5 and ks = 50
+        resources * 0.003 # Second species is type I, with a = 0.003
+      )))
+    },
+    spnum = 2
+  ),
+  efficiency = crmatrix(0.3, 0.33),
+  mort = c(0.1, 0.11),
+  ressupply = ressupply_logistic(r = 0.1, k = 300),
+  totaltime = 600,
+  rinit = 100,
+  cinit = 0,
+  events = list(
+    event_set_introseq(
+       concentrations = c(1, 0.01),
+       times = c(0, 194)
+    )
+  )
+)
 ```
 
 Because the two consumers were specified with slightly different density independent mortality rates, it is more informative to plot the functional responses using the `madj = TRUE` argument.
 
 
 ``` r
-# plot_funcresp(pars, maxx = 200, madj = TRUE)
+plot_funcresp(pars, maxx = 200, madj = TRUE)
 ```
 
-<p class="caption">Corresponds to Fig 2 from Armstrong and McGehee (1980).</p>
+<div class="figure">
+<img src="classic-results-AM1980-funcresp-2-1.png" alt="plot of chunk AM1980-funcresp-2" width="70%" />
+<p class="caption">plot of chunk AM1980-funcresp-2</p>
+</div><p class="caption">Corresponds to Fig 2 from Armstrong and McGehee (1980).</p>
 
 With the functional responses adjusted for species specific mortality rates it is clear that intersection of the functional responses lies above both species R*. As shown below, this is harder to interpret when using the default option for `plot_funcresp` where the two different mortality rates are plotted alongside their functional responses.
 
 
 ``` r
-# plot_funcresp(pars, maxx = 200)
+plot_funcresp(pars, maxx = 200)
 ```
+
+<div class="figure">
+<img src="classic-results-AM1980-funcresp-2-unadjusted-mortality-1.png" alt="plot of chunk AM1980-funcresp-2-unadjusted-mortality" width="70%" />
+<p class="caption">plot of chunk AM1980-funcresp-2-unadjusted-mortality</p>
+</div>
 
 Simulations show that the species with the nonlinear functional response generates limit cycles upon which the species with the linear functional response is able to persist.
 
 
 ``` r
-# m1 <- sim_rescomp(pars)
+m1 <- sim_rescomp(pars)
 ```
 
 
 ``` r
-# plot_rescomp(m1)
+plot_rescomp(m1)
 ```
 
-<p class="caption">Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide as close as possible correspondence to the original figure.</p>
+<div class="figure">
+<img src="classic-results-AM1980-dynamics-1-1.png" alt="plot of chunk AM1980-dynamics-1" width="70%" />
+<p class="caption">plot of chunk AM1980-dynamics-1</p>
+</div><p class="caption">Corresponds to Fig 1 from Armstrong and McGehee (1980). The paper states that the model was initated with R = 400, but here it is started with R = 100 to provide as close as possible correspondence to the original figure.</p>
 
 <!-- # Hastings et al,. 2018. Transient phenomena in ecology. Science, 361(6406). -->
